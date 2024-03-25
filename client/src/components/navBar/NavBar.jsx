@@ -2,6 +2,7 @@
 
 // HOOK'S
 import React from "react";
+import Link from "next/link";
 
 // LIBRARY
 
@@ -10,7 +11,7 @@ import React from "react";
 // JAVASCRIP
 
 // STYLESHEET'
-import "./nav-bar.css"
+import "./nav-bar.css";
 
 function NavBar() {
   return (
@@ -21,31 +22,31 @@ function NavBar() {
       <div className="conteiner-menu">
         <ul>
           <li>
-            <a href="/home">Home</a>
+            <Link href="/home">Home</Link>
           </li>
           <li>
-            <a href="/staff">Personal</a>
+            <Link href="/staff">Personal</Link>
           </li>
           <li>
-            <a href="/student">Estudiantes</a>
+            <Link href="/student">Estudiantes</Link>
           </li>
           <li>
-            <a href="/payments">Mensualidades</a>
+            <Link href="/payments">Mensualidades</Link>
           </li>
           <li>
-            <a href="/hours">Horarios</a>
+            <Link href="/hours">Horarios</Link>
           </li>
           <li>
-            <a href="/class">Clases</a>
+            <Link href="/class">Clases</Link>
           </li>
           <li>
-            <a href="/dances">Danzas</a>
+            <Link href="/dances">Danzas</Link>
           </li>
           <li>
             <a href="/">Salir</a>
           </li>
           <li>
-            <a href="">USUARIO</a>
+            <Link href="">USUARIO</Link>
           </li>
         </ul>
       </div>
