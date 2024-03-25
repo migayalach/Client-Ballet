@@ -14,8 +14,13 @@ import React from "react";
 
 function Staff() {
   return (
-    <div>staff</div>
-  )
+    <div>
+      <div>
+        <NavBar />
+      </div>
+      staff
+    </div>
+  );
 }
 
-export default Staff
+export default Staff;

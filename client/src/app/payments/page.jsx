@@ -14,8 +14,13 @@ import React from "react";
 
 function Payments() {
   return (
-    <div>Payments</div>
-  )
+    <div>
+      <div>
+        <NavBar />
+      </div>
+      Payments
+    </div>
+  );
 }
 
-export default Payments
+export default Payments;
