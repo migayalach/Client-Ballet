@@ -10,11 +10,17 @@ import React from "react";
 
 // JAVASCRIP
 
-// STYLESHEET'
+// STYLESHEET'S
+
 function Student() {
   return (
-    <div>Student</div>
-  )
+    <div>
+      <div>
+        <NavBar />
+      </div>
+      Student
+    </div>
+  );
 }
 
-export default Student
+export default Student;
