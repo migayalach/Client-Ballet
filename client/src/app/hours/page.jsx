@@ -14,8 +14,13 @@ import React from "react";
 
 function Hours() {
   return (
-    <div>Hours</div>
-  )
+    <div>
+      <div>
+        <NavBar />
+      </div>
+      Hours
+    </div>
+  );
 }
 
-export default Hours
+export default Hours;
