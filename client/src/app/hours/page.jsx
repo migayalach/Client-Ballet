@@ -1,8 +1,8 @@
 // COMPONET'S
+import Create from "@/components/create/Create";
 import NavBar from "@/components/navBar/NavBar";
-
+import ListData from "./ListData";
 // HOOK'S
-import React from "react";
 
 // LIBRARY
 
@@ -18,7 +18,8 @@ function Hours() {
       <div>
         <NavBar />
       </div>
-      Hours
+      <ListData />
+      <Create />
     </div>
   );
 }
