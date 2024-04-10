@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import State from "../state/State";
-import dayjs from "dayjs";
 import { createHours, editIdHours } from "@/redux/actions";
-import { Button, Form, TimePicker, Input } from "antd";
+import { Button, Form } from "antd";
 import { timeDifference } from "@/utils/calHours";
 import TotalHours from "../totalHours/TotalHours";
 import { getByIdHours } from "@/redux/actions";
@@ -37,7 +36,9 @@ const config = {
   // ],
 };
 
-const FormComponent = ({ idData, option, handleState }) => {
+const FormComponent = ({ idData, option, 
+  // handleState
+ }) => {
   const dispatch = useDispatch();
   const dataHours = useSelector((state) => state.root);
 
@@ -50,30 +51,28 @@ const FormComponent = ({ idData, option, handleState }) => {
     initicalStart = dataHours.data.startTime;
     initialEnd = dataHours.data.endTime;
     initialTotal = dataHours.data.totalTime;
+    initialState = dataHours.data.stateHours;
   }
 
   const [data, setData] = useState({
     startTime: initicalStart,
     endTime: initialEnd,
     totalTime: initialTotal,
-    state: initialState,
+    stateHours: initialState,
   });
 
-  const handleChange = (name, time, timeString) => {
+  const handleChange = (name, time, timeString, value) => {
     setData({
       ...data,
-      [name]: timeString,
+      [name]: name !== "stateHours" ? timeString : value,
     });
   };
 
   const onFinish = () => {
-    if (option == "edit") {
-      dispatch(editIdHours(data));
-    } else {
-      data.idHours = idData;
-      dispatch(createHours(data));
-    }
-    handleState();
+    option === "edit"
+      ? dispatch(editIdHours({ ...data, idHours: idData }))
+      : dispatch(createHours(data));
+    // handleState();
   };
 
   useEffect(() => {
@@ -87,7 +86,7 @@ const FormComponent = ({ idData, option, handleState }) => {
       data.startTime = dataHours.data.startTime;
       data.endTime = dataHours.data.endTime;
       data.totalTime = dataHours.data.totalTime;
-      data.state = dataHours.data.stateHours;
+      data.stateHours = dataHours.data.stateHours;
     }
   }, [dataHours]);
 
@@ -97,7 +96,7 @@ const FormComponent = ({ idData, option, handleState }) => {
         startTime: "00:00:00",
         endTime: "00:00:00",
         totalTime: "00:00:00",
-        state: false,
+        stateHours: false,
       });
   }, [option, dispatch]);
 
@@ -146,7 +145,7 @@ const FormComponent = ({ idData, option, handleState }) => {
           label="Estado de clase"
           valuePropName="checked"
         >
-          <State />
+          <State name="stateHours" stateHours={data.stateHours} handleChange={handleChange} />
         </Form.Item>
       )}
 
