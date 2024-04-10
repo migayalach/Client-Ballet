@@ -67,7 +67,7 @@ function List({ data }) {
                   {totalTime}
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  <State state={stateHours} />
+                  <State stateHours={stateHours} />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
                   <ButtonEdit idData={idHours} text="Editar" />
