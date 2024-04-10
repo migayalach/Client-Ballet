@@ -4,22 +4,15 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TimePicker } from "antd";
 dayjs.extend(customParseFormat);
 
-function TotalHours({ flag, hours, name, handleChange }) {
-  const [data, setData] = useState("00:00:00");
-
-  const onChange = (time, totalString) => {
-    setData(totalString);
-    handleChange(name, "", totalString);
+function TotalHours({ hours, name, handleChange }) {
+  const onChange = (time, timeString) => {
+    handleChange(name, time, timeString);
   };
 
-  useEffect(() => {
-    hours && setData(hours); 
-  }, [hours]);
-
-  if (flag === "total") {
-    return <TimePicker value={dayjs(data, "HH:mm:ss")} disabled />;
+  if (name === "total") {
+    return <TimePicker value={dayjs(hours, "HH:mm:ss")} disabled />;
   }
-  return <TimePicker value={dayjs(data, "HH:mm:ss")} onChange={onChange} />;
+  return <TimePicker value={dayjs(hours, "HH:mm:ss")} onChange={onChange} />;
 }
 
 export default TotalHours;
