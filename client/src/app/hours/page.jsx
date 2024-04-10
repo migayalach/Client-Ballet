@@ -1,5 +1,4 @@
 // COMPONET'S
-import Create from "@/components/create/Create";
 import NavBar from "@/components/navBar/NavBar";
 import ListData from "./ListData";
 // HOOK'S
@@ -19,7 +18,6 @@ function Hours() {
         <NavBar />
       </div>
       <ListData />
-      <Create />
     </div>
   );
 }

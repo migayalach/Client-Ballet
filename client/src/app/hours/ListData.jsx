@@ -1,6 +1,7 @@
 "use client";
 // COMPONET'S
 import List from "@/components/list/List";
+import FloatOption from "@/components/floatOption/FloatOption";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
@@ -21,10 +22,12 @@ function ListData() {
   useEffect(() => {
     dispatch(getHoursAll());
   }, []);
+  
   return (
     <div>
       <h3>Lista de horarios</h3>
       <List data={selectHours} />
+      <FloatOption />
     </div>
   );
 }

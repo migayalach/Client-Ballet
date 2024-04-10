@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 //REDUX
 import { deleteIdHours } from "@/redux/actions";
 import ButtonDelete from "../button/buttonDelete/ButtonDelete";
+import ButtonEdit from "../button/buttonEdit/ButtonEdit";
 
 // JAVASCRIP
 
@@ -69,7 +70,9 @@ function List({ data }) {
                   <State state={stateHours} />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  <ModalComponent idData={idHours} text="Editar" />
+                  {/* <ModalComponent idData={idHours} text="Eliminar"/>
+                   */}
+                  <ButtonEdit idData={idHours} text="Editar" />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
                   <ButtonDelete idData={idHours} text="Eliminar" />

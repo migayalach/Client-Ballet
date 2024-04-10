@@ -1,37 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { Modal } from "antd";
+// COMPONET'S
 import FormComponent from "@/components/form/FormComponent";
 
-function CreateModal({ flag, handleAdd }) {
+// HOOK'S
+import React, { useState, useEffect } from "react";
+import { Modal } from "antd";
+
+// LIBRARY
+
+//REDUX
+
+// JAVASCRIP
+
+// STYLESHEET'
+
+function EditModal({ idData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
     setIsModalOpen(false);
-    handleAdd(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    handleAdd(false);
   };
 
   useEffect(() => {
     setIsModalOpen(true);
-    handleAdd;
-  }, [flag]);
+  }, [idData]);
 
   return (
     <>
       <Modal
-        title="Crear nueva hora"
+        title="Editar informacion"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <FormComponent option="create" handleState={handleOk} />
+        <FormComponent idData={idData} option="edit" />
       </Modal>
     </>
   );
 }
 
-export default CreateModal;
+export default EditModal;

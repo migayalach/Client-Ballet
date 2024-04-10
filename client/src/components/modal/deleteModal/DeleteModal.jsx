@@ -1,7 +1,21 @@
+// COMPONET'S
+
+// HOOK'S
 import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
+import { useDispatch } from "react-redux";
+
+// LIBRARY
+
+//REDUX
+import { removeIdHours } from "@/redux/actions";
+
+// JAVASCRIP
+
+// STYLESHEET'
 
 function DeleteModal({ idData }) {
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -9,6 +23,7 @@ function DeleteModal({ idData }) {
   };
 
   const handleOk = () => {
+    dispatch(removeIdHours(idData));
     setIsModalOpen(false);
   };
 

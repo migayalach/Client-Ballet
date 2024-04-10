@@ -34,6 +34,6 @@ export const Slice = createSlice({
   },
 });
 
-export const { postHours, getAllHours, getIdHours, errorResponse } =
+export const { postHours, getAllHours, getIdHours, deleteIdHours, errorResponse } =
   Slice.actions;
 export default Slice.reducer;
