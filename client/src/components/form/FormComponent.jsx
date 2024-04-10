@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import State from "../state/State";
 import dayjs from "dayjs";
 import { createHours } from "@/redux/actions";
 import { Button, Form, TimePicker, Input } from "antd";
 import { timeDifference } from "@/utils/calHours";
+import TotalHours from "../totalHours/TotalHours";
+import { getByIdHours } from "@/redux/actions";
 
 const formItemLayout = {
   labelCol: {
@@ -26,21 +28,23 @@ const formItemLayout = {
 };
 
 const config = {
-  rules: [
-    {
-      type: "object",
-      required: true,
-      message: "Por favor seleccione una hora!",
-    },
-  ],
+  // rules: [
+  //   {
+  //     type: "object",
+  //     required: true,
+  //     message: "Por favor seleccione una hora!",
+  //   },
+  // ],
 };
 
-const FormComponent = () => {
+const FormComponent = ({ idData, option, handleState }) => {
   const dispatch = useDispatch();
+  const dataHours = useSelector((state) => state.root);
+  const [flag, setFlag] = useState(false);
   const [data, setData] = useState({
     startTime: "",
     endTime: "",
-    totalTime: "00:00",
+    totalTime: "",
   });
 
   const handleChange = (name, time, timeString) => {
@@ -52,17 +56,43 @@ const FormComponent = () => {
 
   const onFinish = () => {
     dispatch(createHours(data));
+    setData({
+      startTime: "",
+      endTime: "",
+      totalTime: "",
+    });
+    handleState();
   };
 
   useEffect(() => {
     handleChange("totalTime", "", timeDifference(data.startTime, data.endTime));
   }, [data.endTime, data.startTime]);
 
-  // console.log(data);
+  useEffect(() => {
+    if (idData) {
+      dispatch(getByIdHours(idData));
+    }
+  }, [idData]);
 
+  useEffect(() => {
+    if (dataHours.data) {
+      data.startTime = dataHours.data.startTime;
+      data.endTime = dataHours.data.endTime;
+      data.totalTime = dataHours.data.totalTime;
+      setFlag(true);
+    }
+  }, [dataHours]);
+
+  useEffect(() => {
+    data.startTime = "";
+    data.endTime = "";
+    data.totalTime = "";
+  }, [handleState]);
+
+  console.log(data);
   return (
     <Form
-      name="create_hours"
+      name=""
       {...formItemLayout}
       onFinish={onFinish}
       style={{
@@ -70,32 +100,27 @@ const FormComponent = () => {
       }}
     >
       <Form.Item name="time-start" label="Inicio de clase" {...config}>
-        <TimePicker
-          onChange={(time, timeString) =>
-            handleChange("startTime", time, timeString)
-          }
-        />
+        <TotalHours name="startTime" handleChange={handleChange} />
       </Form.Item>
+
       <Form.Item name="time-end" label="Finalización de clase" {...config}>
-        <TimePicker
-          onChange={(time, timeString) =>
-            handleChange("endTime", time, timeString)
-          }
-        />
+        <TotalHours name="endTime" handleChange={handleChange} />
       </Form.Item>
-      {/* TODO: Al poner una nueva hora no se muestra el valor salvo se elimine la
-      hora de inicio o fin */}
-      {data.totalTime && (
-        <Form.Item name="duration" label="Duración de clase" >
-          <TimePicker
-            defaultValue={dayjs(data.totalTime, "HH:mm:ss")}
-            disabled
-          />
+
+      <Form.Item name="duration" label="Duración de clase">
+        <TotalHours flag="total" hours={data.totalTime} />
+      </Form.Item>
+
+      {option === "edit" && (
+        <Form.Item
+          name="switch"
+          label="Estado de clase"
+          valuePropName="checked"
+        >
+          <State />
         </Form.Item>
       )}
-      <Form.Item name="switch" label="Estado de clase" valuePropName="checked">
-        <State />
-      </Form.Item>
+
       <Form.Item
         wrapperCol={{
           xs: {
