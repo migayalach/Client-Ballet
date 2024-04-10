@@ -28,12 +28,21 @@ export const Slice = createSlice({
     deleteIdHours: (state, action) => {
       state.hours = action.payload.results;
     },
+    updateHour: (state, action) => {
+      state.data = action.payload;
+    },
     errorResponse: (state, action) => {
       state.error = action.payload;
     },
   },
 });
 
-export const { postHours, getAllHours, getIdHours, deleteIdHours, errorResponse } =
-  Slice.actions;
+export const {
+  postHours,
+  getAllHours,
+  getIdHours,
+  deleteIdHours,
+  errorResponse,
+  updateHour,
+} = Slice.actions;
 export default Slice.reducer;
