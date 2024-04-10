@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState } from "react";
 import { Button, Flex } from "antd";
 import Text from "../../text/Text";
 import DeleteModal from "@/components/modal/deleteModal/DeleteModal";
