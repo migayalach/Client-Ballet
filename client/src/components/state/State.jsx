@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Switch } from "antd";
 
-function State({ state }) {
-  const [flag, setFlag] = useState(0);
-
-  const handleFlag = () => {
-    setFlag(!flag);
+function State({ stateHours, handleChange }) {
+  const handleFlag = (checked) => {
+    handleChange("stateHours", "", "", checked);
   };
 
-  useEffect(() => {
-    setFlag(state);
-  }, [state]);
-
-  return <Switch checked={flag} onChange={handleFlag} />;
+  return <Switch checked={stateHours} onChange={handleFlag} />;
 }
 
 export default State;

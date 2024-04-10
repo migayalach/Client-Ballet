@@ -67,11 +67,9 @@ function List({ data }) {
                   {totalTime}
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  <State state={stateHours} />
+                  <State stateHours={stateHours} />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  {/* <ModalComponent idData={idHours} text="Eliminar"/>
-                   */}
                   <ButtonEdit idData={idHours} text="Editar" />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>

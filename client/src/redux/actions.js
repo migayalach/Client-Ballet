@@ -3,8 +3,9 @@ import {
   postHours,
   getAllHours,
   getIdHours,
-  errorResponse,
   deleteIdHours,
+  updateHour,
+  errorResponse,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -47,6 +48,17 @@ export const getByIdHours = (idHours) => {
     try {
       const data = (await axios.get(`${URL}/hours/${idHours}`)).data;
       return dispatch(getIdHours(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const editIdHours = (info) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/hours`, info)).data;
+      return dispatch(updateHour(data));
     } catch (error) {
       return dispatch(errorResponse(error.message));
     }
