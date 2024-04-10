@@ -55,7 +55,6 @@ export const getByIdHours = (idHours) => {
 };
 
 export const editIdHours = (info) => {
-  console.log(info);
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/hours`, info)).data;
