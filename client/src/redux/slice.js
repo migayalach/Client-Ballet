@@ -31,6 +31,9 @@ export const Slice = createSlice({
     updateHour: (state, action) => {
       state.data = action.payload;
     },
+    clearData: (state, action) => {
+      state.data = null;
+    },
     errorResponse: (state, action) => {
       state.error = action.payload;
     },
@@ -42,7 +45,8 @@ export const {
   getAllHours,
   getIdHours,
   deleteIdHours,
-  errorResponse,
   updateHour,
+  clearData,
+  errorResponse,
 } = Slice.actions;
 export default Slice.reducer;
