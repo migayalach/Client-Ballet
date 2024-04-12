@@ -36,29 +36,15 @@ const config = {
   // ],
 };
 
-const FormComponent = ({ idData, option, 
-  // handleState
- }) => {
+const FormComponent = ({ idData, option, handleState }) => {
   const dispatch = useDispatch();
   const dataHours = useSelector((state) => state.root);
 
-  let initicalStart = "00:00:00",
-    initialEnd = "00:00:00",
-    initialTotal = "00:00:00",
-    initialState = false;
-
-  if (dataHours.data) {
-    initicalStart = dataHours.data.startTime;
-    initialEnd = dataHours.data.endTime;
-    initialTotal = dataHours.data.totalTime;
-    initialState = dataHours.data.stateHours;
-  }
-
   const [data, setData] = useState({
-    startTime: initicalStart,
-    endTime: initialEnd,
-    totalTime: initialTotal,
-    stateHours: initialState,
+    startTime: "00:00:00",
+    endTime: "00:00:00",
+    totalTime: "00:00:00",
+    stateHours: false,
   });
 
   const handleChange = (name, time, timeString, value) => {
@@ -71,8 +57,7 @@ const FormComponent = ({ idData, option,
   const onFinish = () => {
     option === "edit"
       ? dispatch(editIdHours({ ...data, idHours: idData }))
-      : dispatch(createHours(data));
-    // handleState();
+      : dispatch(createHours(data)) && handleState();
   };
 
   useEffect(() => {
@@ -82,23 +67,15 @@ const FormComponent = ({ idData, option,
   }, [idData]);
 
   useEffect(() => {
-    if (dataHours.data) {
-      data.startTime = dataHours.data.startTime;
-      data.endTime = dataHours.data.endTime;
-      data.totalTime = dataHours.data.totalTime;
-      data.stateHours = dataHours.data.stateHours;
-    }
-  }, [dataHours]);
-
-  useEffect(() => {
-    (option !== "edit") &
+    if (option === "edit" && dataHours.data) {
       setData({
-        startTime: "00:00:00",
-        endTime: "00:00:00",
-        totalTime: "00:00:00",
-        stateHours: false,
+        startTime: dataHours.data.startTime,
+        endTime: dataHours.data.endTime,
+        totalTime: dataHours.data.totalTime,
+        stateHours: dataHours.data.stateHours,
       });
-  }, [option, dispatch]);
+    }
+  }, [dataHours, option]);
 
   useEffect(() => {
     if (data.startTime !== "00:00:00" && data.endTime !== "00:00:00") {
@@ -145,7 +122,11 @@ const FormComponent = ({ idData, option,
           label="Estado de clase"
           valuePropName="checked"
         >
-          <State name="stateHours" stateHours={data.stateHours} handleChange={handleChange} />
+          <State
+            name="stateHours"
+            stateHours={data.stateHours}
+            handleChange={handleChange}
+          />
         </Form.Item>
       )}
 

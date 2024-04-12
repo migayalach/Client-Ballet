@@ -5,6 +5,7 @@ import {
   getIdHours,
   deleteIdHours,
   updateHour,
+  clearData,
   errorResponse,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
@@ -58,6 +59,7 @@ export const editIdHours = (info) => {
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/hours`, info)).data;
+      await dispatch(getHoursAll());
       return dispatch(updateHour(data));
     } catch (error) {
       return dispatch(errorResponse(error.message));
@@ -70,6 +72,16 @@ export const removeIdHours = (idHours) => {
     try {
       const data = (await axios.delete(`${URL}/hours/${idHours}`)).data;
       return dispatch(deleteIdHours(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const removeData = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(clearData());
     } catch (error) {
       return dispatch(errorResponse(error.message));
     }
