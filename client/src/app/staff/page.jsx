@@ -3,6 +3,7 @@ import NavBar from "@/components/navBar/NavBar";
 
 // HOOK'S
 import React from "react";
+import { Rate } from 'antd';
 
 // LIBRARY
 
@@ -18,7 +19,9 @@ function Staff() {
       <div>
         <NavBar />
       </div>
-      staff
+      <div>
+      <Rate allowHalf defaultValue={2.5} />
+      </div>
     </div>
   );
 }
