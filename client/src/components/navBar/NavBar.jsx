@@ -3,7 +3,7 @@
 // COMPONET'S
 
 // HOOK'S
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 // LIBRARY
@@ -27,32 +27,37 @@ import { Menu } from "antd";
 const items = [
   {
     label: <Link href="/home">Home</Link>,
-    key: "home",
+    key: "/home",
     icon: <HomeOutlined />,
   },
   {
     label: <Link href="/staff">Personal</Link>,
-    key: "personal",
+    key: "/personal",
     icon: <UsergroupDeleteOutlined />,
   },
   {
-    label: "Estudiantes",
-    key: "estudiantes",
+    label: <Link href="/student">Estudiantes</Link>,
+    key: "/estudiantes",
     icon: <IdcardOutlined />,
   },
   {
-    label: "Mensualidades",
-    key: "mensualidades",
+    label: <Link href="/payments">Mensualidades</Link>,
+    key: "/mensualidades",
     icon: <ExceptionOutlined />,
   },
   {
-    label: "Clases",
-    key: "clases",
+    label: <Link href="/hours">Horarios</Link>,
+    key: "/horarios",
+    icon: <ExceptionOutlined />,
+  },
+  {
+    label: <Link href="/class">Clases</Link>,
+    key: "/clases",
     icon: <AppstoreOutlined />,
   },
   {
-    label: "Danzas",
-    key: "danzas",
+    label: <Link href="/dances">Danzas</Link>,
+    key: "/danzas",
     icon: <ProductOutlined />,
   },
   {
@@ -81,11 +86,15 @@ const items = [
 ];
 
 function NavBar() {
-  const [current, setCurrent] = useState("home");
+  // const [current, setCurrent] = useState("/home");
   const onClick = ({ key }) => {
-    console.log(key);
-    setCurrent(key);
+    // console.log(key);
+    // setCurrent(key);
   };
+
+  useEffect(()=>{
+    // console.log(";D");
+  },[onClick])
 
   // return (
   //   <div className="conteiner-navbar">
@@ -132,7 +141,7 @@ function NavBar() {
       </div>
       <Menu
         onClick={onClick}
-        selectedKeys={[current]}
+        // selectedKeys={[current]}
         mode="horizontal"
         items={items}
       />
