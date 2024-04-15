@@ -34,6 +34,19 @@ export const Slice = createSlice({
     clearData: (state, action) => {
       state.data = null;
     },
+    getAllStaff: (state, action) => {
+      state.staff = action.payload.results;
+      state.info = action.payload.info;
+    },
+    getIdStaff: (state, action) => {
+      state.data = action.payload;
+    },
+    getAllExtension: (state, action) => {
+      state.extension = action.payload.results;
+    },
+    getAllLevel: (state, action) => {
+      state.level = action.payload.results;
+    },
     errorResponse: (state, action) => {
       state.error = action.payload;
     },
@@ -46,6 +59,10 @@ export const {
   getIdHours,
   deleteIdHours,
   updateHour,
+  getAllStaff,
+  getIdStaff,
+  getAllExtension,
+  getAllLevel,
   clearData,
   errorResponse,
 } = Slice.actions;
