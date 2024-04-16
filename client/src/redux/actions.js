@@ -5,6 +5,10 @@ import {
   getIdHours,
   deleteIdHours,
   updateHour,
+  getAllStaff,
+  getIdStaff,
+  getAllExtension,
+  getAllLevel,
   clearData,
   errorResponse,
 } from "./slice";
@@ -72,6 +76,50 @@ export const removeIdHours = (idHours) => {
     try {
       const data = (await axios.delete(`${URL}/hours/${idHours}`)).data;
       return dispatch(deleteIdHours(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const getStaffAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/staff`)).data;
+      return dispatch(getAllStaff(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const getByIdStaff = (idStaff) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/staff/${idStaff}`)).data;
+      return dispatch(getIdStaff(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const getExtensionAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/extension`)).data;
+      return dispatch(getAllExtension(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.message));
+    }
+  };
+};
+
+export const getLevelAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/level`)).data;
+      return dispatch(getAllLevel(data));
     } catch (error) {
       return dispatch(errorResponse(error.message));
     }
