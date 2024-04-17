@@ -1,17 +1,33 @@
+// COMPONET'S
+import SelectComponet from "@/components/select/SelectComponet";
+import Text from "@/components/text/Text";
+
+// HOOK'S
 import React, { useState, useEffect } from "react";
+
+// LIBRARY
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Select, Switch, Upload } from "antd";
-import { getExtensionAll, getLevelAll } from "@/redux/actions";
+import { Button, DatePicker, Form, Input, Switch, Upload } from "antd";
+import dayjs from "dayjs";
+
+//REDUX
+import { getExtensionAll, getLevelAll, createStaff } from "@/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import PhotoLoading from "@/components/photoLoading/PhotoLoading";
 
+// STYLESHEET'
+
+// JAVASCRIP
 const { TextArea } = Input;
-
 const normFile = (event) => {
   if (Array.isArray(event)) {
     return event;
   }
   return event?.fileList;
 };
+
+dayjs.extend(customParseFormat);
 
 function FormComponet() {
   const dispatch = useDispatch();
@@ -28,20 +44,66 @@ function FormComponet() {
     dateBirthStaff: "",
     carnetStaff: 0,
     photoStaff: "",
-    stateStaff: false,
+    stateStaff: true,
   });
 
   const handleChange = (event) => {
+    const key = !event.key ? [event.target.name] : event.title;
     setData({
       ...data,
-      [event.target.name]: event.target.value,
+      [key]: !event.key ? event.target.value : event.key,
     });
+  };
+
+  const handlePhoto = async (event) => {
+    const file = event.target.files[0];
+    // const file = event.originFileObj
+    // const file = event;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "photos");
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dqgcyonb9/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (response.ok) {
+        const { url } = await response.json();
+        setData({
+          ...data,
+          photoStaff: url,
+        });
+      } else {
+        console.error("Error al subir la imagen a Cloudinary");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+    }
+  };
+
+  const onChangeDate = (date, dateString) => {
+    setData({
+      ...data,
+      dateBirthStaff: dateString,
+    });
+  };
+
+  const onFinish = () => {
+    dispatch(createStaff(data));
   };
 
   useEffect(() => {
     dispatch(getExtensionAll());
     dispatch(getLevelAll());
   }, []);
+
+  // useEffect(() => {
+  // }, [onFinish]);
+
+  console.log(data);
 
   return (
     <>
@@ -56,36 +118,71 @@ function FormComponet() {
         style={{
           maxWidth: 600,
         }}
+        onFinish={onFinish}
       >
         <Form.Item label="Nombres">
-          <Input />
+          <Input
+            onChange={handleChange}
+            name="nameStaff"
+            placeholder="Alverto Reinaldo"
+          />
         </Form.Item>
+
         <Form.Item label="Apellidos">
-          <Input />
+          <Input
+            onChange={handleChange}
+            name="lastNameStaff"
+            placeholder="Del Rio"
+          />
         </Form.Item>
+
         <Form.Item label="Email">
-          <Input />
+          <Input
+            onChange={handleChange}
+            name="emailStaff"
+            placeholder="albert@gmail.com"
+          />
         </Form.Item>
+
         <Form.Item label="Carnet">
-          <Input />
+          <Input
+            onChange={handleChange}
+            name="carnetStaff"
+            placeholder="8569134"
+          />
         </Form.Item>
 
         <Form.Item label="Extension">
-          <Select>
-            <Select.Option value="demo">Demo</Select.Option>
-          </Select>
+          <SelectComponet
+            list={selectExtension}
+            handleChange={handleChange}
+            flag="Extension"
+          />
         </Form.Item>
+
         <Form.Item label="Nivel">
-          <Select>
-            <Select.Option value="demo">Demo</Select.Option>
-          </Select>
+          <SelectComponet
+            list={selectLevel}
+            handleChange={handleChange}
+            flag="Level"
+          />
         </Form.Item>
 
         <Form.Item label="Fecha de nacimiento">
-          <DatePicker />
+          <DatePicker
+            placeholder={"2019-09-03"}
+            name="dateBirthStaff"
+            onChange={onChangeDate}
+          />
         </Form.Item>
+
         <Form.Item label="Dirección">
-          <TextArea rows={4} />
+          <TextArea
+            rows={4}
+            onChange={handleChange}
+            name="addressStaff"
+            placeholder="Calle Siempre Viva N°666"
+          />
         </Form.Item>
 
         <Form.Item label="Estado" valuePropName="checked">
@@ -97,7 +194,7 @@ function FormComponet() {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          <Upload action="/upload.do" listType="picture-card">
+          {/* <Upload action="/upload.do" listType="picture-card">
             <button
               style={{
                 border: 0,
@@ -112,8 +209,14 @@ function FormComponet() {
                 }}
               />
             </button>
-          </Upload>
+          </Upload> */}
+          <input type="file" onChange={handlePhoto} />
+          {/* <PhotoLoading handle={handlePhoto} /> */}
         </Form.Item>
+
+        <Button type="primary" htmlType="submit">
+          <Text text="Crear" />
+        </Button>
       </Form>
     </>
   );
