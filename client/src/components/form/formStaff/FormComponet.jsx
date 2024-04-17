@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 //REDUX
 import { getExtensionAll, getLevelAll, createStaff } from "@/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import PhotoLoading from "@/components/photoLoading/PhotoLoading";
 
 // STYLESHEET'
 
@@ -56,6 +57,8 @@ function FormComponet() {
 
   const handlePhoto = async (event) => {
     const file = event.target.files[0];
+    // const file = event.originFileObj
+    // const file = event;
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "photos");
@@ -191,7 +194,24 @@ function FormComponet() {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
+          {/* <Upload action="/upload.do" listType="picture-card">
+            <button
+              style={{
+                border: 0,
+                background: "none",
+              }}
+              type="button"
+            >
+              <PlusOutlined />
+              <div
+                style={{
+                  marginTop: 8,
+                }}
+              />
+            </button>
+          </Upload> */}
           <input type="file" onChange={handlePhoto} />
+          {/* <PhotoLoading handle={handlePhoto} /> */}
         </Form.Item>
 
         <Button type="primary" htmlType="submit">
