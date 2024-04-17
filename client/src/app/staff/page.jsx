@@ -23,14 +23,14 @@ import { getStaffAll } from "@/redux/actions";
 
 function Staff() {
   const dispatch = useDispatch();
-  const selectStaff = useSelector((state) => state.root);
-  const selectInfo = useSelector((state) => state.root.info);
+  const selectStaff = useSelector((state) => state.root.staff);
+  const selectInfo = useSelector((state) => state.root);
 
   useEffect(() => {
     dispatch(getStaffAll());
   }, []);
 
-  if (!selectInfo) {
+  if (!selectStaff.length && !selectInfo) {
     return <div>Cargando...</div>;
   }
 
@@ -40,10 +40,10 @@ function Staff() {
         <NavBar />
       </div>
       <div>
-        <CardComponent staff={selectStaff.staff} />
+        <CardComponent staff={selectStaff} />
       </div>
       <div>
-        {selectInfo.pages && (
+        {selectInfo?.pages && (
           <PaginationComponet
             pages={selectInfo.pages}
             next={selectInfo.next}
@@ -54,7 +54,7 @@ function Staff() {
       <div>
         <FloatOption />
       </div>
-      <FormComponet />
+      {/* <FormComponet /> */}
     </div>
   );
 }
