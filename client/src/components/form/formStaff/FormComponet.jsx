@@ -54,6 +54,33 @@ function FormComponet() {
     });
   };
 
+  const handlePhoto = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "photos");
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dqgcyonb9/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (response.ok) {
+        const { url } = await response.json();
+        setData({
+          ...data,
+          photoStaff: url,
+        });
+      } else {
+        console.error("Error al subir la imagen a Cloudinary");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+    }
+  };
+
   const onChangeDate = (date, dateString) => {
     setData({
       ...data,
@@ -72,6 +99,8 @@ function FormComponet() {
 
   // useEffect(() => {
   // }, [onFinish]);
+
+  console.log(data);
 
   return (
     <>
@@ -162,22 +191,7 @@ function FormComponet() {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          <Upload action="/upload.do" listType="picture-card">
-            <button
-              style={{
-                border: 0,
-                background: "none",
-              }}
-              type="button"
-            >
-              <PlusOutlined />
-              <div
-                style={{
-                  marginTop: 8,
-                }}
-              />
-            </button>
-          </Upload>
+          <input type="file" onChange={handlePhoto} />
         </Form.Item>
 
         <Button type="primary" htmlType="submit">
