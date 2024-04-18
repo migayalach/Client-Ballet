@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
 import FormComponent from "@/components/form/FormComponent";
+import FormComponet from "@/components/form/formStaff/FormComponet";
 
-function CreateModal({ flag, handleAdd }) {
+function CreateModal({ flag, handleAdd, render }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -28,7 +29,11 @@ function CreateModal({ flag, handleAdd }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <FormComponent option="create" handleState={handleOk} />
+        {render === "STAFF" ? (
+          <FormComponet option="create" handleState={handleOk} />
+        ) : (
+          <FormComponent option="create" handleState={handleOk} />
+        )}
       </Modal>
     </>
   );

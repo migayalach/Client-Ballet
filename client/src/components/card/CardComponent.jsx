@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Card } from "antd";
 const { Meta } = Card;
 import { getByIdStaff } from "@/redux/actions";
+import ButtonEdit from "../modal/editModal/EditModal";
 
 function CardComponent({ staff }) {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function CardComponent({ staff }) {
                 description={`Carnet: ${carnetStaff}`}
               />
             </Card>
+            <ButtonEdit idData={idStaff} text="editar" render="STAFF" />
           </div>
         )
       )}

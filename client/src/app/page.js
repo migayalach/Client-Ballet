@@ -1,94 +1,353 @@
-import Image from "next/image";
-import styles from "../stylesheet/page.module.css";
+import "../stylesheet/page.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
+    <main>
+      <nav>
+        <div className="nav__logo">
+          <a href="#">
+            <img src="../assets/logo.png" alt="logo" />
           </a>
         </div>
-      </div>
+        <ul className="nav__links">
+          <li className="link">
+            <a href="#">Home</a>
+          </li>
+          <li className="link">
+            <a href="#">Program</a>
+          </li>
+          <li className="link">
+            <a href="#">Service</a>
+          </li>
+          <li className="link">
+            <a href="#">About</a>
+          </li>
+          <li className="link">
+            <a href="#">Community</a>
+          </li>
+        </ul>
+        <button className="btn">Join Now</button>
+      </nav>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
+      <header className="section__container header__container">
+        <div className="header__content">
+          <span className="bg__blur"></span>
+          <span className="bg__blur header__blur"></span>
+          <h4>BEST FITNESS IN THE TOWN</h4>
+          <h1>
+            <span>MAKE</span> YOUR BODY SHAPE
+          </h1>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Unleash your potential and embark on a journey towards a stronger,
+            fitter, and more confident you. Sign up for 'Make Your Body Shape'
+            now and witness the incredible transformation your body is capable
+            of!
           </p>
-        </a>
+          <button className="btn">Get Started</button>
+        </div>
+        <div className="header__image">
+          <img className="../assets/header.png" alt="header" />
+        </div>
+      </header>
+
+      <section className="section__container explore__container">
+        <div className="explore__header">
+          <h2 className="section__header">EXPLORE OUR PROGRAM</h2>
+          <div className="explore__nav">
+            <span>
+              <i className="ri-arrow-left-line"></i>
+            </span>
+            <span>
+              <i className="ri-arrow-right-line"></i>
+            </span>
+          </div>
+        </div>
+        <div className="explore__grid">
+          <div className="explore__card">
+            <span>
+              <i className="ri-boxing-fill"></i>
+            </span>
+            <h4>Strength</h4>
+            <p>
+              Embrace the essence of strength as we delve into its various
+              dimensions physical, mental, and emotional.
+            </p>
+            <a href="#">
+              Join Now <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+          <div class="explore__card">
+            <span>
+              <i class="ri-heart-pulse-fill"></i>
+            </span>
+            <h4>Physical Fitness</h4>
+            <p>
+              It encompasses a range of activities that improve health,
+              strength, flexibility, and overall well-being.
+            </p>
+            <a href="#">
+              Join Now <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+          <div class="explore__card">
+            <span>
+              <i class="ri-run-line"></i>
+            </span>
+            <h4>Fat Lose</h4>
+            <p>
+              Through a combination of workout routines and expert guidance,
+              we'll empower you to reach your goals.
+            </p>
+            <a href="#">
+              Join Now <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+          <div class="explore__card">
+            <span>
+              <i class="ri-shopping-basket-fill"></i>
+            </span>
+            <h4>Weight Gain</h4>
+            <p>
+              Designed for individuals, our program offers an effective approach
+              to gaining weight in a sustainable manner.
+            </p>
+            <a href="#">
+              Join Now <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section__container class__container">
+        <div class="class__image">
+          <span class="bg__blur"></span>
+          <img src="../assets/class-1.jpg" alt="class" class="class__img-1" />
+          <img src="../assets/class-2.jpg" alt="class" class="class__img-2" />
+        </div>
+        <div class="class__content">
+          <h2 class="section__header">THE CLASS YOU WILL GET HERE</h2>
+          <p>
+            Led by our team of expert and motivational instructors, "The Class
+            You Will Get Here" is a high-energy, results-driven session that
+            combines a perfect blend of cardio, strength training, and
+            functional exercises. Each class is carefully curated to keep you
+            engaged and challenged, ensuring you never hit a plateau in your
+            fitness endeavors.
+          </p>
+          <button class="btn">Book A Class</button>
+        </div>
+      </section>
+
+      <section class="section__container join__container">
+        <h2 class="section__header">WHY JOIN US ?</h2>
+        <p class="section__subheader">
+          Our diverse membership base creates a friendly and supportive
+          atmosphere, where you can make friends and stay motivated.
+        </p>
+        <div class="join__image">
+          <img src="../assets/join.jpg" alt="Join" />
+          <div class="join__grid">
+            <div class="join__card">
+              <span>
+                <i class="ri-user-star-fill"></i>
+              </span>
+              <div class="join__card__content">
+                <h4>Personal Trainer</h4>
+                <p>Unlock your potential with our expert Personal Trainers.</p>
+              </div>
+            </div>
+            <div class="join__card">
+              <span>
+                <i class="ri-vidicon-fill"></i>
+              </span>
+              <div class="join__card__content">
+                <h4>Practice Sessions</h4>
+                <p>Elevate your fitness with practice sessions.</p>
+              </div>
+            </div>
+            <div class="join__card">
+              <span>
+                <i class="ri-building-line"></i>
+              </span>
+              <div class="join__card__content">
+                <h4>Good Management</h4>
+                <p>Supportive management, for your fitness success.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section__container price__container">
+        <h2 class="section__header">OUR PRICING PLAN</h2>
+        <p class="section__subheader">
+          Our pricing plan comes with various membership tiers, each tailored to
+          cater to different preferences and fitness aspirations.
+        </p>
+        <div class="price__grid">
+          <div class="price__card">
+            <div class="price__card__content">
+              <h4>Basic Plan</h4>
+              <h3>$16</h3>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                Smart workout plan
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                At home workouts
+              </p>
+            </div>
+            <button class="btn price__btn">Join Now</button>
+          </div>
+          <div class="price__card">
+            <div class="price__card__content">
+              <h4>Weekly Plan</h4>
+              <h3>$25</h3>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                PRO Gyms
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                Smart workout plan
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                At home workouts
+              </p>
+            </div>
+            <button class="btn price__btn">Join Now</button>
+          </div>
+          <div class="price__card">
+            <div class="price__card__content">
+              <h4>Monthly Plan</h4>
+              <h3>$45</h3>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                ELITE Gyms & Classes
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                PRO Gyms
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                Smart workout plan
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                At home workouts
+              </p>
+              <p>
+                <i class="ri-checkbox-circle-line"></i>
+                Personal Training
+              </p>
+            </div>
+            <button class="btn price__btn">Join Now</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="review">
+        <div class="section__container review__container">
+          <span>
+            <i class="ri-double-quotes-r"></i>
+          </span>
+          <div class="review__content">
+            <h4>MEMBER REVIEW</h4>
+            <p>
+              What truly sets this gym apart is their expert team of trainers.
+              The trainers are knowledgeable, approachable, and genuinely
+              invested in helping members achieve their fitness goals. They take
+              the time to understand individual needs and create personalized
+              workout plans, ensuring maximum results and safety.
+            </p>
+            <div class="review__rating">
+              <span>
+                <i class="ri-star-fill"></i>
+              </span>
+              <span>
+                <i class="ri-star-fill"></i>
+              </span>
+              <span>
+                <i class="ri-star-fill"></i>
+              </span>
+              <span>
+                <i class="ri-star-fill"></i>
+              </span>
+              <span>
+                <i class="ri-star-half-fill"></i>
+              </span>
+            </div>
+            <div class="review__footer">
+              <div class="review__member">
+                <img src="../assets/member.jpg" alt="member" />
+                <div class="review__member__details">
+                  <h4>Jane Cooper</h4>
+                  <p>Software Developer</p>
+                </div>
+              </div>
+              <div class="review__nav">
+                <span>
+                  <i class="ri-arrow-left-line"></i>
+                </span>
+                <span>
+                  <i class="ri-arrow-right-line"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="section__container footer__container">
+        <span class="bg__blur"></span>
+        <span class="bg__blur footer__blur"></span>
+        <div class="footer__col">
+          <div class="footer__logo">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <p>
+            Take the first step towards a healthier, stronger you with our
+            unbeatable pricing plans. Let's sweat, achieve, and conquer
+            together!
+          </p>
+          <div class="footer__socials">
+            <a href="#">
+              <i class="ri-facebook-fill"></i>
+            </a>
+            <a href="#">
+              <i class="ri-instagram-line"></i>
+            </a>
+            <a href="#">
+              <i class="ri-twitter-fill"></i>
+            </a>
+          </div>
+        </div>
+        <div className="footer__col">
+          <h4>Company</h4>
+          <a href="#">Business</a>
+          <a href="#">Franchise</a>
+          <a href="#">Partnership</a>
+          <a href="#">Network</a>
+        </div>
+        <div className="footer__col">
+          <h4>About Us</h4>
+          <a href="#">Blogs</a>
+          <a href="#">Security</a>
+          <a href="#">Careers</a>
+        </div>
+        <div className="footer__col">
+          <h4>Contact</h4>
+          <a href="#">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">BMI Calculator</a>
+        </div>
+      </footer>
+      <div className="footer__bar">
+        Copyright © 2023 Web Design Mastery. All rights reserved.
       </div>
     </main>
   );

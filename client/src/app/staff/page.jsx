@@ -52,9 +52,8 @@ function Staff() {
         )}
       </div>
       <div>
-        <FloatOption />
+        <FloatOption render="STAFF"/>
       </div>
-      {/* <FormComponet /> */}
     </div>
   );
 }

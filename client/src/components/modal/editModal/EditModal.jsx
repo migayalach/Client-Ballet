@@ -11,12 +11,13 @@ import { Modal, Button } from "antd";
 
 //REDUX
 import { removeData } from "@/redux/actions";
+import FormComponet from "@/components/form/formStaff/FormComponet";
 
 // JAVASCRIP
 
 // STYLESHEET'
 
-function EditModal({ idData, text }) {
+function EditModal({ idData, text, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,7 +47,11 @@ function EditModal({ idData, text }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <FormComponent idData={idData} option="edit" />
+        {render === "STAFF" ? (
+          <FormComponet idData={idData} option="edit" />
+        ) : (
+          <FormComponent idData={idData} option="edit" />
+        )}
       </Modal>
     </>
   );

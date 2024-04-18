@@ -6,7 +6,7 @@ import { FloatButton } from "antd";
 import FormComponent from "../form/FormComponent";
 import CreateModal from "../modal/createModal/CreateModal";
 
-function FloatOption() {
+function FloatOption({ render }) {
   const [flagAdd, setFlagAdd] = useState(false);
   const [flagInfo, setFlagInfo] = useState(false);
 
@@ -38,7 +38,9 @@ function FloatOption() {
         onClick={() => handleInfo()}
       />
       {flagInfo && <InfoModal flag={true} handleInfo={handleInfo} />}
-      {flagAdd && <CreateModal flag={true} handleAdd={handleAdd} />}
+      {flagAdd && (
+        <CreateModal flag={true} handleAdd={handleAdd} render={render} />
+      )}
     </>
   );
 }

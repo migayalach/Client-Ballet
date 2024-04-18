@@ -12,7 +12,12 @@ import { Button, DatePicker, Form, Input, Switch, Upload } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import { getExtensionAll, getLevelAll, createStaff } from "@/redux/actions";
+import {
+  getExtensionAll,
+  getLevelAll,
+  createStaff,
+  createHours,
+} from "@/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import PhotoLoading from "@/components/photoLoading/PhotoLoading";
 
@@ -29,10 +34,11 @@ const normFile = (event) => {
 
 dayjs.extend(customParseFormat);
 
-function FormComponet() {
+function FormComponet({ idData, option, handleState }) {
   const dispatch = useDispatch();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
+  const selectIdStaff = useSelector(({ root }) => root?.data);
 
   const [data, setData] = useState({
     idLevel: 0,
@@ -42,7 +48,7 @@ function FormComponet() {
     emailStaff: "",
     addressStaff: "",
     dateBirthStaff: "",
-    carnetStaff: 0,
+    carnetStaff: "",
     photoStaff: "",
     stateStaff: true,
   });
@@ -100,8 +106,24 @@ function FormComponet() {
     dispatch(getLevelAll());
   }, []);
 
-  // useEffect(() => {
-  // }, [onFinish]);
+  useEffect(() => {
+    if (option === "edit" && selectIdStaff) {
+      setData({
+        idLevel: selectIdStaff.idLevel,
+        idExtension: selectIdStaff.idExtension,
+        nameStaff: selectIdStaff.nameStaff,
+        lastNameStaff: selectIdStaff.lastNameStaff,
+        emailStaff: selectIdStaff.emailStaff,
+        addressStaff: selectIdStaff.addressStaff,
+        // dateBirthStaff: dayjs(selectIdStaff.dateBirthStaff).format(
+        //   "YYYY-MM-DD"
+        // ),
+        dateBirthStaff: selectIdStaff.dateBirthStaff,
+        carnetStaff: selectIdStaff.carnetStaff,
+        stateStaff: selectIdStaff.stateStaff,
+      });
+    }
+  }, [selectIdStaff, option]);
 
   console.log(data);
 
@@ -125,6 +147,7 @@ function FormComponet() {
             onChange={handleChange}
             name="nameStaff"
             placeholder="Alverto Reinaldo"
+            value={data.nameStaff}
           />
         </Form.Item>
 
@@ -133,6 +156,7 @@ function FormComponet() {
             onChange={handleChange}
             name="lastNameStaff"
             placeholder="Del Rio"
+            value={data.lastNameStaff}
           />
         </Form.Item>
 
@@ -141,6 +165,7 @@ function FormComponet() {
             onChange={handleChange}
             name="emailStaff"
             placeholder="albert@gmail.com"
+            value={data.emailStaff}
           />
         </Form.Item>
 
@@ -149,6 +174,7 @@ function FormComponet() {
             onChange={handleChange}
             name="carnetStaff"
             placeholder="8569134"
+            value={data.carnetStaff}
           />
         </Form.Item>
 
@@ -173,7 +199,10 @@ function FormComponet() {
             placeholder={"2019-09-03"}
             name="dateBirthStaff"
             onChange={onChangeDate}
+            // value={(data.dateBirthStaff)}
+            // defaultValue={(data.dateBirthStaff)}
           />
+          
         </Form.Item>
 
         <Form.Item label="Dirección">
@@ -182,12 +211,15 @@ function FormComponet() {
             onChange={handleChange}
             name="addressStaff"
             placeholder="Calle Siempre Viva N°666"
+            value={data.addressStaff}
           />
         </Form.Item>
 
-        <Form.Item label="Estado" valuePropName="checked">
-          <Switch />
-        </Form.Item>
+        {option === "edit" && (
+          <Form.Item label="Estado" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+        )}
 
         <Form.Item
           label="Foto"
