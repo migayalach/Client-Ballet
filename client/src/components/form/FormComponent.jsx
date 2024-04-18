@@ -93,7 +93,7 @@ const FormComponent = ({ idData, option, handleState }) => {
       {...formItemLayout}
       onFinish={onFinish}
       style={{
-        maxWidth: 600,
+        maxWidth: 650,
       }}
     >
       <Form.Item name="time-start" label="Inicio de clase" {...config}>
