@@ -13,6 +13,7 @@ import { getPageHours } from "@/redux/actions";
 // JAVASCRIP
 
 // STYLESHEET'
+import "./pagination.css";
 
 function PaginationComponet({ pages, prev, next }) {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ function PaginationComponet({ pages, prev, next }) {
   };
 
   return (
-    <Pagination current={current} onChange={onChange} total={pages * 10} />
+    <div className="container-pagination">
+      <Pagination current={current} onChange={onChange} total={pages * 10} />
+    </div>
   );
 }
 

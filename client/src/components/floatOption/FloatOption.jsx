@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import ModalComponent from "../modal/ModalComponent";
-import InfoModal from "../modal/infoModal/InfoModal";
+// import ModalComponent from "../modal/ModalComponent";
+// import InfoModal from "../modal/infoModal/InfoModal";
 import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
-import FormComponent from "../form/FormComponent";
-import CreateModal from "../modal/createModal/CreateModal";
+// import FormComponent from "../form/FormComponent";
+// import CreateModal from "../modal/createModal/CreateModal";
 
 function FloatOption({ render }) {
   const [flagAdd, setFlagAdd] = useState(false);
@@ -19,7 +19,7 @@ function FloatOption({ render }) {
   };
 
   return (
-    <>
+    <div className="conteiner">
       <FloatButton
         icon={<FileAddOutlined />}
         type="primary"
@@ -37,11 +37,14 @@ function FloatOption({ render }) {
         }}
         onClick={() => handleInfo()}
       />
+      {/* <>
+
       {flagInfo && <InfoModal flag={true} handleInfo={handleInfo} />}
       {flagAdd && (
         <CreateModal flag={true} handleAdd={handleAdd} render={render} />
       )}
-    </>
+</> */}
+    </div>
   );
 }
 

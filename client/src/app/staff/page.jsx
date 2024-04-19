@@ -2,11 +2,11 @@
 
 // COMPONET'S
 import CardComponent from "@/components/card/CardComponent";
-import NavBar from "@/components/navBar/NavBar";
+// import NavBar from "@/components/navBar/NavBar";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 
-import FormComponet from "@/components/form/formStaff/FormComponet";
+// import FormComponet from "@/components/form/formStaff/FormComponet";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ import { getStaffAll } from "@/redux/actions";
 function Staff() {
   const dispatch = useDispatch();
   const selectStaff = useSelector((state) => state.root.staff);
-  const selectInfo = useSelector((state) => state.root);
+  const selectInfo = useSelector((state) => state.root.info);
 
   useEffect(() => {
     dispatch(getStaffAll());
@@ -34,16 +34,18 @@ function Staff() {
     return <div>Cargando...</div>;
   }
 
+  console.log(selectInfo);
+
   return (
-    <div>
-      <div>
+    <div className="conteiner-staff">
+      {/* <div>
         <NavBar />
-      </div>
+      </div>*/}
       <div>
         <CardComponent staff={selectStaff} />
       </div>
       <div>
-        {selectInfo?.pages && (
+        {selectInfo && (
           <PaginationComponet
             pages={selectInfo.pages}
             next={selectInfo.next}
