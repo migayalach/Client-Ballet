@@ -8,6 +8,7 @@ import {
   getAllStaff,
   getIdStaff,
   postStaff,
+  putStaff,
   getAllExtension,
   getAllLevel,
   clearData,
@@ -110,6 +111,18 @@ export const createStaff = (infoData) => {
     try {
       const data = (await axios.post(`${URL}/staff`, infoData)).data;
       return dispatch(postStaff(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editStaff = (infoData) => {
+  console.log(infoData);
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/staff`, infoData)).data;
+      return dispatch(putStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
