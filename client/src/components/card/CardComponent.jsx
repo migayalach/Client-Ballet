@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { Card } from "antd";
 const { Meta } = Card;
-import { getByIdStaff } from "@/redux/actions";
-// import ButtonEdit from "../modal/editModal/EditModal";
+import ButtonEdit from "../modal/editModal/EditModal";
 import "./card-component.css";
 
 function CardComponent({ staff }) {
-  const dispatch = useDispatch();
-
-  const handleInfo = (idStaff) => {
-    dispatch(getByIdStaff(idStaff));
-  };
-
-  console.log(":DDDD");
-
   return (
     <div className="container">
       {staff.map(
@@ -22,13 +12,15 @@ function CardComponent({ staff }) {
           { idStaff, nameStaff, lastNameStaff, carnetStaff, photoStaff },
           index
         ) => (
-          <div key={index} onClick={() => handleInfo(idStaff)}>
+          <div key={index}>
             <Card
               hoverable
               style={{
                 width: 240,
               }}
-              cover={<img alt="example" src={photoStaff} className="image-photo"/>}
+              cover={
+                <img alt="example" src={photoStaff} className="image-photo" />
+              }
               className="card"
             >
               <Meta
@@ -37,7 +29,7 @@ function CardComponent({ staff }) {
                 className="card-data"
               />
             </Card>
-            {/* <ButtonEdit idData={idStaff} text="editar" render="STAFF" /> */}
+            <ButtonEdit idData={idStaff} text="editar" render="STAFF" />
           </div>
         )
       )}

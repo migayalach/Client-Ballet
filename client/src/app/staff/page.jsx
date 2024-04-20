@@ -34,7 +34,7 @@ function Staff() {
     return <div>Cargando...</div>;
   }
 
-  console.log(selectInfo);
+  // console.log(selectInfo);
 
   return (
     <div className="conteiner-staff">
