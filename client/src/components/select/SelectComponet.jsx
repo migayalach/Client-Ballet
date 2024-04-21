@@ -24,18 +24,32 @@ function SelectComponet({ list, handleChange, flag, value }) {
     label: value,
   };
 
-  return (
-    <Select
-      labelInValue
-      placeholder={"Elije " + flag}
-      style={{
-        width: 140,
-      }}
-      onChange={handleChange}
-      options={xxx(list, flag)}
-      value={abc}
-    />
-  );
+  if (!value) {
+    return (
+      <Select
+        labelInValue
+        placeholder={"Elije " + flag}
+        style={{
+          width: 140,
+        }}
+        onChange={handleChange}
+        options={xxx(list, flag)}
+      />
+    );
+  } else {
+    return (
+      <Select
+        labelInValue
+        placeholder={"Elije " + flag}
+        style={{
+          width: 140,
+        }}
+        onChange={handleChange}
+        options={xxx(list, flag)}
+        value={value && abc}
+      />
+    );
+  }
 }
 
 export default SelectComponet;

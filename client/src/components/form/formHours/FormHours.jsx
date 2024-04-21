@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import State from "../state/State";
+import State from "../../state/State";
 import { createHours, editIdHours } from "@/redux/actions";
 import { Button, Form } from "antd";
 import { timeDifference } from "@/utils/calHours";
-import TotalHours from "../totalHours/TotalHours";
+import TotalHours from "../../totalHours/TotalHours";
 import { getByIdHours } from "@/redux/actions";
 
 const formItemLayout = {
@@ -36,7 +36,7 @@ const config = {
   // ],
 };
 
-const FormComponent = ({ idData, option, handleState }) => {
+const FormHours = ({ idData, option, handleState }) => {
   const dispatch = useDispatch();
   const dataHours = useSelector((state) => state.root);
 
@@ -150,4 +150,4 @@ const FormComponent = ({ idData, option, handleState }) => {
   );
 };
 
-export default FormComponent;
+export default FormHours;

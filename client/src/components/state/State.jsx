@@ -2,11 +2,11 @@ import React from "react";
 import { Switch } from "antd";
 
 function State({ stateHours, handleChange }) {
-  const handleFlag = (checked) => {
-    handleChange("stateHours", "", "", checked);
-  };
+  // const handleFlag = (checked) => {
+  //   handleChange("stateHours", "", "", checked);
+  // };
 
-  return <Switch checked={stateHours} onChange={handleFlag} />;
+  return <Switch checked={stateHours} onChange={handleChange} />;
 }
 
 export default State;

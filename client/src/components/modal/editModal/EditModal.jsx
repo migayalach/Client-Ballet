@@ -1,9 +1,9 @@
 // COMPONET'S
-import FormComponent from "@/components/form/FormComponent";
+import FormHours from "@/components/form/formHours/FormHours";
 import Text from "@/components/text/Text";
 
 // HOOK'S
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, Button } from "antd";
 
@@ -11,7 +11,7 @@ import { Modal, Button } from "antd";
 
 //REDUX
 import { removeData } from "@/redux/actions";
-import FormComponet from "@/components/form/formStaff/FormComponet";
+import FormStaff from "@/components/form/formStaff/FormStaff";
 
 // JAVASCRIP
 
@@ -48,9 +48,9 @@ function EditModal({ idData, text, render }) {
         onCancel={handleCancel}
       >
         {render === "STAFF" ? (
-          <FormComponet idData={idData} option="edit" />
+          <FormStaff idData={idData} option="edit" />
         ) : (
-          <FormComponent idData={idData} option="edit" />
+          <FormHours idData={idData} option="edit" />
         )}
       </Modal>
     </>

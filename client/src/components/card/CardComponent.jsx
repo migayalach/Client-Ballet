@@ -2,7 +2,9 @@ import React from "react";
 import { Card } from "antd";
 const { Meta } = Card;
 import ButtonEdit from "../modal/editModal/EditModal";
+
 import "./card-component.css";
+import ButtonDelete from "../button/buttonDelete/ButtonDelete";
 
 function CardComponent({ staff }) {
   return (
@@ -30,6 +32,7 @@ function CardComponent({ staff }) {
               />
             </Card>
             <ButtonEdit idData={idStaff} text="editar" render="STAFF" />
+            <ButtonDelete idData={idStaff} text="eliminar" render="STAFF"/>
           </div>
         )
       )}
