@@ -4,11 +4,11 @@ import Text from "@/components/text/Text";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Switch, Upload } from "antd";
+import { Button, Form } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
@@ -20,13 +20,15 @@ import {
   getByIdStaff,
   editStaff,
 } from "@/redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import PhotoLoading from "@/components/photoLoading/PhotoLoading";
+import InputComponent from "@/components/inputComponent/InputComponent";
+import DateComponent from "@/components/date/DateComponent";
+import AreaText from "@/components/areaText/AreaText";
+import State from "@/components/state/State";
 
 // STYLESHEET'
 
 // JAVASCRIP
-const { TextArea } = Input;
+
 const normFile = (event) => {
   if (Array.isArray(event)) {
     return event;
@@ -98,6 +100,13 @@ function FormComponet({ idData, option, handleState }) {
     });
   };
 
+  const onChangeState = (boolean) => {
+    setData({
+      ...data,
+      stateStaff: boolean,
+    });
+  };
+
   const onFinish = () => {
     if (option === "edit") {
       dispatch(editStaff({ ...data, idStaff: idData }));
@@ -131,6 +140,8 @@ function FormComponet({ idData, option, handleState }) {
     }
   }, [option, selectIdStaff]);
 
+  console.log(data);
+
   return (
     <>
       <Form
@@ -147,38 +158,38 @@ function FormComponet({ idData, option, handleState }) {
         onFinish={onFinish}
       >
         <Form.Item label="Nombres">
-          <Input
+          <InputComponent
             onChange={handleChange}
             name="nameStaff"
             placeholder="Alverto Reinaldo"
-            value={data.nameStaff}
+            data={data.nameStaff}
           />
         </Form.Item>
 
         <Form.Item label="Apellidos">
-          <Input
+          <InputComponent
             onChange={handleChange}
             name="lastNameStaff"
             placeholder="Del Rio"
-            value={data.lastNameStaff}
+            data={data.lastNameStaff}
           />
         </Form.Item>
 
         <Form.Item label="Email">
-          <Input
+          <InputComponent
             onChange={handleChange}
             name="emailStaff"
             placeholder="albert@gmail.com"
-            value={data.emailStaff}
+            data={data.emailStaff}
           />
         </Form.Item>
 
         <Form.Item label="Carnet">
-          <Input
+          <InputComponent
             onChange={handleChange}
             name="carnetStaff"
             placeholder="8569134"
-            value={data.carnetStaff}
+            data={data.carnetStaff}
           />
         </Form.Item>
 
@@ -187,7 +198,7 @@ function FormComponet({ idData, option, handleState }) {
             list={selectExtension}
             handleChange={handleChange}
             flag="Extension"
-            value={selectIdStaff?.department}
+            value={option === "edit" ? selectIdStaff?.department : ""}
           />
         </Form.Item>
 
@@ -196,32 +207,25 @@ function FormComponet({ idData, option, handleState }) {
             list={selectLevel}
             handleChange={handleChange}
             flag="Level"
-            value={selectIdStaff?.nameLevel}
+            value={option === "edit" ? selectIdStaff?.nameLevel : ""}
           />
         </Form.Item>
 
         <Form.Item label="Fecha de nacimiento">
-          <DatePicker
-            placeholder={"2019-09-03"}
-            name="dateBirthStaff"
+          <DateComponent
             onChange={onChangeDate}
-            value={option === "edit" && dayjs(data?.dateBirthStaff)}
+            date={option === "edit" ? data?.dateBirthStaff : ""}
           />
         </Form.Item>
 
         <Form.Item label="Dirección">
-          <TextArea
-            rows={4}
-            onChange={handleChange}
-            name="addressStaff"
-            placeholder="Calle Siempre Viva N°666"
-            value={data.addressStaff}
-          />
+          <AreaText onChange={handleChange} value={data.addressStaff} />
         </Form.Item>
 
         {option === "edit" && (
           <Form.Item label="Estado" valuePropName="checked">
-            <Switch />
+            {/* <Switch /> */}
+            <State stateHours={data.stateStaff} handleChange={onChangeState} />
           </Form.Item>
         )}
 
