@@ -7,7 +7,7 @@ import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 
 // HOOK'S
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
