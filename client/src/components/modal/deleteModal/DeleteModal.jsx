@@ -8,13 +8,13 @@ import { useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { removeIdHours } from "@/redux/actions";
+import { removeIdHours, removeStaff } from "@/redux/actions";
 
 // JAVASCRIP
 
 // STYLESHEET'
 
-function DeleteModal({ idData }) {
+function DeleteModal({ idData, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,12 +23,22 @@ function DeleteModal({ idData }) {
   };
 
   const handleOk = () => {
-    dispatch(removeIdHours(idData));
+    if (render === "STAFF") {
+      dispatch(removeStaff(idData));
+    }
+    // dispatch(removeIdHours(idData));
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const optionMessage = (option) => {
+    switch (option) {
+      case "STAFF":
+        return `este usuario`;
+    }
   };
 
   useEffect(() => {
@@ -43,7 +53,8 @@ function DeleteModal({ idData }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>¿Esta seguro que desea eliminar esta hora?</p>
+        {/* <p>`¿Esta seguro que desea eliminar esta hora?`</p> */}
+        <p>{`¿Esta seguro que desea eliminar ${optionMessage(render)}?`}</p>
       </Modal>
     </>
   );
