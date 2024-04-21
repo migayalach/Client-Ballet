@@ -47,6 +47,9 @@ export const Slice = createSlice({
     putStaff: (state, action) => {
       state.data = action.payload;
     },
+    deleteStaff: (state, action) => {
+      state.staff = action.payload.results;
+    },
     getAllExtension: (state, action) => {
       state.extension = action.payload.results;
     },
@@ -69,6 +72,7 @@ export const {
   getIdStaff,
   postStaff,
   putStaff,
+  deleteStaff,
   getAllExtension,
   getAllLevel,
   clearData,
