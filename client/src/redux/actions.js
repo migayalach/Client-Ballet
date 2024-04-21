@@ -122,6 +122,7 @@ export const editStaff = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/staff`, infoData)).data;
+      await dispatch(getStaffAll());
       return dispatch(putStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
