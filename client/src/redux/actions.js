@@ -9,6 +9,7 @@ import {
   getIdStaff,
   postStaff,
   putStaff,
+  deleteStaff,
   getAllExtension,
   getAllLevel,
   clearData,
@@ -118,11 +119,21 @@ export const createStaff = (infoData) => {
 };
 
 export const editStaff = (infoData) => {
-  console.log(infoData);
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/staff`, infoData)).data;
       return dispatch(putStaff(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeStaff = (idStaff) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.delete(`${URL}/staff/${idStaff}`)).data;
+      return dispatch(deleteStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
