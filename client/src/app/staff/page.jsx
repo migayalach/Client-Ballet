@@ -6,8 +6,6 @@ import CardComponent from "@/components/card/CardComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 
-// import FormComponet from "@/components/form/formStaff/FormComponet";
-
 // HOOK'S
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,8 +31,6 @@ function Staff() {
   if (!selectStaff.length && !selectInfo) {
     return <div>Cargando...</div>;
   }
-
-  // console.log(selectInfo);
 
   return (
     <div className="conteiner-staff">
