@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import FormComponent from "../form/FormComponent";
+import FormComponent from "../form/formHours/FormHours";
 import Text from "../text/Text";
 
 function ModalComponent({ idData, text }) {
