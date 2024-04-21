@@ -16,7 +16,6 @@ import {
   getExtensionAll,
   getLevelAll,
   createStaff,
-  createHours,
   getByIdStaff,
   editStaff,
 } from "@/redux/actions";
@@ -112,6 +111,19 @@ function FormComponet({ idData, option, handleState }) {
       dispatch(editStaff({ ...data, idStaff: idData }));
     } else {
       dispatch(createStaff(data));
+      setData({
+        idLevel: 0,
+        idExtension: 0,
+        nameStaff: "",
+        lastNameStaff: "",
+        emailStaff: "",
+        addressStaff: "",
+        dateBirthStaff: "",
+        carnetStaff: "",
+        photoStaff: "",
+        stateStaff: true,
+      });
+      handleState();
     }
   };
 
@@ -139,8 +151,6 @@ function FormComponet({ idData, option, handleState }) {
       });
     }
   }, [option, selectIdStaff]);
-
-  console.log(data);
 
   return (
     <>
@@ -234,24 +244,7 @@ function FormComponet({ idData, option, handleState }) {
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
-          {/* <Upload action="/upload.do" listType="picture-card">
-            <button
-              style={{
-                border: 0,
-                background: "none",
-              }}
-              type="button"
-            >
-              <PlusOutlined />
-              <div
-                style={{
-                  marginTop: 8,
-                }}
-              />
-            </button>
-          </Upload> */}
           <input type="file" onChange={handlePhoto} />
-          {/* <PhotoLoading handle={handlePhoto} /> */}
         </Form.Item>
 
         <Button type="primary" htmlType="submit">
