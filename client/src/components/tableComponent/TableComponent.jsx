@@ -22,7 +22,9 @@ const columns = [
   {
     title: "Editar",
     key: "action",
-    render: () => <ButtonEdit />,
+    render: (data) => (
+      <ButtonEdit idData={data.idTypeClass} text="Editar" render="TYPE-CLASS" />
+    ),
   },
   {
     title: "Eliminar",
