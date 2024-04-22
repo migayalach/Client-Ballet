@@ -3,10 +3,10 @@ import { Button, Flex } from "antd";
 import Text from "../../text/Text";
 import EditModal from "@/components/modal/editModal/EditModal";
 
-function ButtonEdit({ idData, text }) {
+function ButtonEdit({ idData, text, render }) {
   return (
     <Flex wrap="wrap" gap="small">
-      <EditModal idData={idData} text={text} />
+      <EditModal idData={idData} text={text} render={render} />
     </Flex>
   );
 }

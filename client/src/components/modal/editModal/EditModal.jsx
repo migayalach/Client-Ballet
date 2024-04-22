@@ -12,6 +12,7 @@ import { Modal, Button } from "antd";
 //REDUX
 import { removeData } from "@/redux/actions";
 import FormStaff from "@/components/form/formStaff/FormStaff";
+import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 
 // JAVASCRIP
 
@@ -47,10 +48,10 @@ function EditModal({ idData, text, render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {render === "STAFF" ? (
-          <FormStaff idData={idData} option="edit" />
-        ) : (
-          <FormHours idData={idData} option="edit" />
+        {render === "STAFF" && <FormStaff idData={idData} option="edit" />}
+        {render === "HOURS" && <FormHours idData={idData} option="edit" />}
+        {render === "TYPE-CLASS" && (
+          <FormTypeClass idData={idData} option="edit" />
         )}
       </Modal>
     </>

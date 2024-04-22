@@ -70,10 +70,14 @@ function List({ data }) {
                   <State stateHours={stateHours} />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  <ButtonEdit idData={idHours} text="Editar" />
+                  <ButtonEdit idData={idHours} text="Editar" render="HOURS" />
                 </td>
                 <td style={{ border: "1px solid white", padding: "8px" }}>
-                  <ButtonDelete idData={idHours} text="Eliminar" />
+                  <ButtonDelete
+                    idData={idHours}
+                    text="Eliminar"
+                    render="HOURS"
+                  />
                 </td>
               </tr>
             )

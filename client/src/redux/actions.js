@@ -12,6 +12,11 @@ import {
   deleteStaff,
   getAllExtension,
   getAllLevel,
+  postTypeClass,
+  getAllTypeClass,
+  getIdTypeClass,
+  putTypeClass,
+  deleteTypeClass,
   clearData,
   errorResponse,
 } from "./slice";
@@ -157,6 +162,62 @@ export const getLevelAll = () => {
     try {
       const data = (await axios.get(`${URL}/level`)).data;
       return dispatch(getAllLevel(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const createTypeClass = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/typeClass`, infoData)).data;
+      return dispatch(postTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getTypeClassAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/typeClass`)).data;
+      return dispatch(getAllTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getByIdTypeHour = (idTypeClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/typeClass/${idTypeClass}`)).data;
+      return dispatch(getIdTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editTypeHour = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/typeClass`, infoData)).data;
+      await dispatch(getTypeClassAll());
+      return dispatch(putTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeTypeClass = (idTypeClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.delete(`${URL}/typeClass/${idTypeClass}`)).data;
+      return dispatch(deleteTypeClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

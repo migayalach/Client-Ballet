@@ -54,6 +54,13 @@ const FormHours = ({ idData, option, handleState }) => {
     });
   };
 
+  const handleChangeState = (boolean) => {
+    setData({
+      ...data,
+      stateHours: boolean,
+    });
+  };
+
   const onFinish = () => {
     option === "edit"
       ? dispatch(editIdHours({ ...data, idHours: idData }))
@@ -122,11 +129,7 @@ const FormHours = ({ idData, option, handleState }) => {
           label="Estado de clase"
           valuePropName="checked"
         >
-          <State
-            name="stateHours"
-            stateHours={data.stateHours}
-            handleChange={handleChange}
-          />
+          <State stateHours={data.stateHours} handleChange={handleChangeState} />
         </Form.Item>
       )}
 

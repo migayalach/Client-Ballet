@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { removeIdHours, removeStaff } from "@/redux/actions";
+import { removeIdHours, removeStaff, removeTypeClass } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -23,10 +23,16 @@ function DeleteModal({ idData, render }) {
   };
 
   const handleOk = () => {
-    if (render === "STAFF") {
-      dispatch(removeStaff(idData));
+    switch (render) {
+      case "STAFF":
+        return dispatch(removeStaff(idData));
+      case "HOURS":
+        return dispatch(removeIdHours(idData));
+      case "TYPE-CLASS":
+        return dispatch(removeTypeClass(idData));
+      default:
+        break;
     }
-    // dispatch(removeIdHours(idData));
     setIsModalOpen(false);
   };
 
@@ -38,6 +44,10 @@ function DeleteModal({ idData, render }) {
     switch (option) {
       case "STAFF":
         return `este usuario`;
+      case "HOURS":
+        return `esta hora`;
+      case "TYPE-CLASS":
+        return `este tipo de clase`;
     }
   };
 
@@ -53,7 +63,6 @@ function DeleteModal({ idData, render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {/* <p>`¿Esta seguro que desea eliminar esta hora?`</p> */}
         <p>{`¿Esta seguro que desea eliminar ${optionMessage(render)}?`}</p>
       </Modal>
     </>

@@ -229,16 +229,20 @@ function FormStaff({ idData, option, handleState }) {
         </Form.Item>
 
         <Form.Item label="Dirección">
-          <AreaText onChange={handleChange} value={data.addressStaff} />
+          <AreaText
+            name="addressStaff"
+            placeholder="Calle siempre viva N°666"
+            onChange={handleChange}
+            value={data.addressStaff}
+          />
         </Form.Item>
 
         {option === "edit" && (
           <Form.Item label="Estado" valuePropName="checked">
-            {/* <Switch /> */}
             <State stateHours={data.stateStaff} handleChange={onChangeState} />
           </Form.Item>
         )}
-        
+
         {option === "create" && (
           <Form.Item
             label="Foto"
