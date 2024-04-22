@@ -15,6 +15,7 @@ export const Slice = createSlice({
     error: null,
   },
   reducers: {
+    // *HOURS
     postHours: (state, action) => {
       state.hours = action.payload.results;
     },
@@ -31,9 +32,8 @@ export const Slice = createSlice({
     updateHour: (state, action) => {
       state.data = action.payload;
     },
-    clearData: (state, action) => {
-      state.data = null;
-    },
+
+    // *STAFF
     getAllStaff: (state, action) => {
       state.staff = action.payload.results;
       state.info = action.payload.info;
@@ -50,11 +50,37 @@ export const Slice = createSlice({
     deleteStaff: (state, action) => {
       state.staff = action.payload.results;
     },
+
+    //*EXTENSION
     getAllExtension: (state, action) => {
       state.extension = action.payload.results;
     },
+
+    //*LEVEL
     getAllLevel: (state, action) => {
       state.level = action.payload.results;
+    },
+
+    //*TYPE CLASS
+    postTypeClass: (state, action) => {
+      state.typeClass = action.payload.results;
+    },
+    getAllTypeClass: (state, action) => {
+      state.typeClass = action.payload.results;
+      state.info = action.payload.info;
+    },
+    getIdTypeClass: (state, action) => {
+      state.data = action.payload;
+    },
+    putTypeClass: (state, action) => {
+      state.data = action.payload;
+    },
+    deleteTypeClass: (state, action) => {
+      state.typeClass = action.payload.results;
+    },
+
+    clearData: (state, action) => {
+      state.data = null;
     },
     errorResponse: (state, action) => {
       state.error = action.payload;
@@ -75,6 +101,11 @@ export const {
   deleteStaff,
   getAllExtension,
   getAllLevel,
+  postTypeClass,
+  getAllTypeClass,
+  getIdTypeClass,
+  putTypeClass,
+  deleteTypeClass,
   clearData,
   errorResponse,
 } = Slice.actions;
