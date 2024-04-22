@@ -11,7 +11,11 @@ import InputComponent from "@/components/inputComponent/InputComponent";
 import AreaText from "@/components/areaText/AreaText";
 
 //REDUX
-import { createTypeClass } from "@/redux/actions";
+import {
+  createTypeClass,
+  getByIdTypeHour,
+  editTypeHour,
+} from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -19,6 +23,7 @@ import { createTypeClass } from "@/redux/actions";
 
 function FormTypeClass({ idData, option, handleState }) {
   const dispatch = useDispatch();
+  const selectTypeHour = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
     nameClass: "",
     description: "",
@@ -32,13 +37,30 @@ function FormTypeClass({ idData, option, handleState }) {
   };
 
   const onFinish = () => {
-    dispatch(createTypeClass(data));
-    setData({
-      nameClass: "",
-      description: "",
-    });
-    handleState();
+    if (option === "edit") {
+      dispatch(editTypeHour({ ...data, idTypeClass: idData }));
+    } else {
+      dispatch(createTypeClass(data));
+      setData({
+        nameClass: "",
+        description: "",
+      });
+      handleState();
+    }
   };
+
+  useEffect(() => {
+    idData && dispatch(getByIdTypeHour(idData));
+  }, [idData]);
+
+  useEffect(() => {
+    if (option === "edit" && selectTypeHour) {
+      setData({
+        nameClass: selectTypeHour.nameClass,
+        description: selectTypeHour.description,
+      });
+    }
+  }, [option, selectTypeHour]);
 
   return (
     <>
