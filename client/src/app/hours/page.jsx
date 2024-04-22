@@ -33,7 +33,7 @@ function Hours() {
         <List data={selectHours} />
       </div>
       <div>
-        <FloatOption />
+        <FloatOption render="HOURS" />
       </div>
     </div>
   );
