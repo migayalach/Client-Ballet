@@ -47,11 +47,8 @@ function EditModal({ idData, text, render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {render === "STAFF" ? (
-          <FormStaff idData={idData} option="edit" />
-        ) : (
-          <FormHours idData={idData} option="edit" />
-        )}
+        {render === "STAFF" && <FormStaff idData={idData} option="edit" />}
+        {render === "HOURS" && <FormHours idData={idData} option="edit" />}
       </Modal>
     </>
   );
