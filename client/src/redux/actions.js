@@ -190,6 +190,29 @@ export const getTypeClassAll = () => {
   };
 };
 
+export const getByIdTypeHour = (idTypeClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/typeClass/${idTypeClass}`)).data;
+      return dispatch(getIdTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editTypeHour = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/typeClass`, infoData)).data;
+      await dispatch(getTypeClassAll());
+      return dispatch(putTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 export const removeTypeClass = (idTypeClass) => {
   return async function (dispatch) {
     try {
