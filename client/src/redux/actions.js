@@ -17,6 +17,11 @@ import {
   getIdTypeClass,
   putTypeClass,
   deleteTypeClass,
+  postClass,
+  getAllClass,
+  getIdClass,
+  putClass,
+  deleteClass,
   clearData,
   errorResponse,
 } from "./slice";
@@ -218,6 +223,62 @@ export const removeTypeClass = (idTypeClass) => {
     try {
       const data = (await axios.delete(`${URL}/typeClass/${idTypeClass}`)).data;
       return dispatch(deleteTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getClassAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/class`)).data;
+      return dispatch(getAllClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const createClass = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/class`, infoData)).data;
+      return dispatch(postClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getByIdClass = (idClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/class/${idClass}`)).data;
+      return dispatch(getIdClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editClass = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/class`, infoData)).data;
+      await dispatch(getClassAll());
+      return dispatch(putClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeClass = (idClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.delete(`${URL}/class/${idClass}`)).data;
+      return dispatch(deleteClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
