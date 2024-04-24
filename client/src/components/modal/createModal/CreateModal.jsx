@@ -3,6 +3,7 @@ import { Modal } from "antd";
 import FormHours from "@/components/form/formHours/FormHours";
 import FormStaff from "@/components/form/formStaff/FormStaff";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
+import FormClass from "@/components/form/formClass/FormClass";
 
 function CreateModal({ flag, handleAdd, render }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,6 +39,9 @@ function CreateModal({ flag, handleAdd, render }) {
         )}
         {render === "TYPE-CLASS" && (
           <FormTypeClass option="create" handleState={handleOk} />
+        )}
+        {render === "CLASS" && (
+          <FormClass option="create" handleState={handleOk} />
         )}
       </Modal>
     </>
