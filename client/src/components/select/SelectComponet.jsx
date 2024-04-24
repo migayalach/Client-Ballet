@@ -2,24 +2,50 @@ import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
 
-const xxx = (list, flag) => {
-  const aux =
-    flag === "Level"
-      ? list.map(({ idLevel, nameLevel }) => ({
-          value: idLevel,
-          label: nameLevel,
-          title: `id${flag}`,
-        }))
-      : list.map(({ idExtension, department }) => ({
-          value: idExtension,
-          label: department,
-          title: `id${flag}`,
-        }));
-  return aux;
+const optionList = (list, flag) => {
+  switch (flag) {
+    case "Level":
+      return list.map(({ idLevel, nameLevel }) => ({
+        value: idLevel,
+        label: nameLevel,
+        title: `id${flag}`,
+      }));
+
+    case "Extension":
+      return list.map(({ idExtension, department }) => ({
+        value: idExtension,
+        label: department,
+        title: `id${flag}`,
+      }));
+
+    case "Staff":
+      return list.map(({ idStaff, nameStaff, lastNameStaff }) => ({
+        value: idStaff,
+        label: `${nameStaff} ${lastNameStaff}`,
+        title: `id${flag}`,
+      }));
+
+    case "TypeClass":
+      return list.map(({ idTypeClass, nameClass }) => ({
+        value: idTypeClass,
+        label: nameClass,
+        title: `id${flag}`,
+      }));
+
+    case "Hours":
+      return list.map(({ idHours, totalTime, stateHours }) => ({
+        value: idHours,
+        label: `${totalTime} - ${stateHours ? "Habilitado" : "Deshabilitado"}`,
+        title: `id${flag}`,
+      }));
+
+    default:
+      break;
+  }
 };
 
 function SelectComponet({ list, handleChange, flag, value }) {
-  const abc = {
+  const initialObj = {
     value: 0,
     label: value,
   };
@@ -30,10 +56,10 @@ function SelectComponet({ list, handleChange, flag, value }) {
         labelInValue
         placeholder={"Elije " + flag}
         style={{
-          width: 140,
+          width: 200,
         }}
         onChange={handleChange}
-        options={xxx(list, flag)}
+        options={optionList(list, flag)}
       />
     );
   } else {
@@ -42,11 +68,11 @@ function SelectComponet({ list, handleChange, flag, value }) {
         labelInValue
         placeholder={"Elije " + flag}
         style={{
-          width: 140,
+          width: 200,
         }}
         onChange={handleChange}
-        options={xxx(list, flag)}
-        value={value && abc}
+        options={optionList(list, flag)}
+        value={value && initialObj}
       />
     );
   }
