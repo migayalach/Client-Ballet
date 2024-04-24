@@ -7,6 +7,7 @@ export const Slice = createSlice({
     extension: [],
     hours: [],
     typeClass: [],
+    classes: [],
     staff: [],
     student: [],
     info: null,
@@ -79,6 +80,24 @@ export const Slice = createSlice({
       state.typeClass = action.payload.results;
     },
 
+    //*CLASS
+    postClass: (state, action) => {
+      state.classes = action.payload.results;
+    },
+    getAllClass: (state, action) => {
+      state.classes = action.payload.results;
+      state.info = action.payload.info;
+    },
+    getIdClass: (state, action) => {
+      state.data = action.payload;
+    },
+    putClass: (state, action) => {
+      state.data = action.payload;
+    },
+    deleteClass: (state, action) => {
+      state.classes = action.payload.results;
+    },
+
     clearData: (state, action) => {
       state.data = null;
     },
@@ -106,6 +125,11 @@ export const {
   getIdTypeClass,
   putTypeClass,
   deleteTypeClass,
+  postClass,
+  getAllClass,
+  getIdClass,
+  putClass,
+  deleteClass,
   clearData,
   errorResponse,
 } = Slice.actions;
