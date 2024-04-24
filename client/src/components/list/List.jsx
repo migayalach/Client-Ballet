@@ -1,5 +1,4 @@
 // COMPONET'S
-import ModalComponent from "../modal/ModalComponent";
 import DeleteModal from "../modal/deleteModal/DeleteModal";
 import State from "../state/State";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
