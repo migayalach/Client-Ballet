@@ -13,6 +13,7 @@ import { Modal, Button } from "antd";
 import { removeData } from "@/redux/actions";
 import FormStaff from "@/components/form/formStaff/FormStaff";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
+import FormClass from "@/components/form/formClass/FormClass";
 
 // JAVASCRIP
 
@@ -53,6 +54,7 @@ function EditModal({ idData, text, render }) {
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}
+        {render === "CLASS" && <FormClass idData={idData} option="edit" />}
       </Modal>
     </>
   );

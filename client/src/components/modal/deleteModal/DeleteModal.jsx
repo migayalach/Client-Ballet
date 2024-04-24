@@ -8,7 +8,12 @@ import { useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { removeIdHours, removeStaff, removeTypeClass } from "@/redux/actions";
+import {
+  removeIdHours,
+  removeStaff,
+  removeTypeClass,
+  removeClass,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -30,6 +35,8 @@ function DeleteModal({ idData, render }) {
         return dispatch(removeIdHours(idData));
       case "TYPE-CLASS":
         return dispatch(removeTypeClass(idData));
+      case "CLASS":
+        return dispatch(removeClass(idData));
       default:
         break;
     }
@@ -48,6 +55,8 @@ function DeleteModal({ idData, render }) {
         return `esta hora`;
       case "TYPE-CLASS":
         return `este tipo de clase`;
+      case "CLASS":
+        return `esta clase`;
     }
   };
 

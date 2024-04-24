@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import ModalComponent from "../modal/ModalComponent";
 // import InfoModal from "../modal/infoModal/InfoModal";
 import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
-// import FormComponent from "../form/FormComponent";
 import CreateModal from "../modal/createModal/CreateModal";
 
 function FloatOption({ render }) {
