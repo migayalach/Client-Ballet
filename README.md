@@ -1,4 +1,3 @@
-# Client-Ballet
 ```
 └── 📁clientBallet
     └── .gitignore
@@ -18,6 +17,9 @@
             └── vercel.svg
         └── 📁src
             └── 📁app
+                └── 📁class
+                    └── class.css
+                    └── page.jsx
                 └── 📁hours
                     └── hours.css
                     └── page.jsx
@@ -27,6 +29,9 @@
                 └── 📁staff
                     └── page.jsx
                     └── staff.css
+                └── 📁student
+                    └── page.jsx
+                    └── student.css
                 └── 📁typeClass
                     └── page.jsx
                     └── type-class.css
@@ -49,18 +54,23 @@
                     └── FloatOption.jsx
                     └── float-option.css
                 └── 📁form
+                    └── 📁formClass
+                        └── FormClass.jsx
                     └── 📁formHours
                         └── FormHours.jsx
                     └── 📁formStaff
                         └── FormStaff.jsx
+                    └── 📁formStudent
+                        └── FormStudent.jsx
                     └── 📁formTypeClass
                         └── FormTypeClass.jsx
+                └── 📁imageCloudinary
+                    └── ImageCloudinary.jsx
                 └── 📁inputComponent
                     └── InputComponent.jsx
                 └── 📁list
                     └── List.jsx
                 └── 📁modal
-                    └── ModalComponent.jsx
                     └── 📁createModal
                         └── CreateModal.jsx
                     └── 📁deleteModal
