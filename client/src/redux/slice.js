@@ -98,6 +98,24 @@ export const Slice = createSlice({
       state.classes = action.payload.results;
     },
 
+    //*STUDENT
+    postStudent: (state, action) => {
+      state.student = action.payload.results;
+    },
+    getAllStudent: (state, action) => {
+      state.student = action.payload.results;
+      state.info = action.payload.info;
+    },
+    getIdStudent: (state, action) => {
+      state.data = action.payload;
+    },
+    putStudent: (state, action) => {
+      state.data = action.payload;
+    },
+    deleteStudent: (state, action) => {
+      state.student = action.payload.results;
+    },
+
     clearData: (state, action) => {
       state.data = null;
     },
@@ -130,6 +148,11 @@ export const {
   getIdClass,
   putClass,
   deleteClass,
+  postStudent,
+  getAllStudent,
+  getIdStudent,
+  putStudent,
+  deleteStudent,
   clearData,
   errorResponse,
 } = Slice.actions;
