@@ -1,6 +1,10 @@
 // COMPONET'S
 import SelectComponet from "@/components/select/SelectComponet";
 import Text from "@/components/text/Text";
+import InputComponent from "@/components/inputComponent/InputComponent";
+import DateComponent from "@/components/date/DateComponent";
+import AreaText from "@/components/areaText/AreaText";
+import State from "@/components/state/State";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -19,10 +23,7 @@ import {
   getByIdStaff,
   editStaff,
 } from "@/redux/actions";
-import InputComponent from "@/components/inputComponent/InputComponent";
-import DateComponent from "@/components/date/DateComponent";
-import AreaText from "@/components/areaText/AreaText";
-import State from "@/components/state/State";
+
 
 // STYLESHEET'
 
