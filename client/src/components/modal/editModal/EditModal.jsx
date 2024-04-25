@@ -14,6 +14,7 @@ import { removeData } from "@/redux/actions";
 import FormStaff from "@/components/form/formStaff/FormStaff";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
+import FormStudent from "@/components/form/formStudent/FormStudent";
 
 // JAVASCRIP
 
@@ -55,6 +56,7 @@ function EditModal({ idData, text, render }) {
           <FormTypeClass idData={idData} option="edit" />
         )}
         {render === "CLASS" && <FormClass idData={idData} option="edit" />}
+        {render === "STUDENT" && <FormStudent idData={idData} option="edit" />}
       </Modal>
     </>
   );
