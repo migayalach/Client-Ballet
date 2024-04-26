@@ -45,37 +45,17 @@ const optionList = (list, flag) => {
 };
 
 function SelectComponet({ list, handleChange, flag, value }) {
-  const initialObj = {
-    value: 0,
-    label: value,
-  };
-
-  if (!value) {
-    return (
-      <Select
-        labelInValue
-        placeholder={"Elije " + flag}
-        style={{
-          width: 200,
-        }}
-        onChange={handleChange}
-        options={optionList(list, flag)}
-      />
-    );
-  } else {
-    return (
-      <Select
-        labelInValue
-        placeholder={"Elije " + flag}
-        style={{
-          width: 200,
-        }}
-        onChange={handleChange}
-        options={optionList(list, flag)}
-        value={value && initialObj}
-      />
-    );
-  }
+  return (
+    <Select
+      labelInValue
+      placeholder={value ? value : "Elije " + flag}
+      style={{
+        width: 200,
+      }}
+      onChange={handleChange}
+      options={optionList(list, flag)}
+    />
+  );
 }
 
 export default SelectComponet;
