@@ -129,6 +129,51 @@ const classMap = (data) => {
   );
 };
 
+const columsHours = [
+  { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+  { title: "Inicio", dataIndex: "startTime", key: "startTime" },
+  { title: "Final", dataIndex: "endTime", key: "endTime" },
+  { title: "Duracion", dataIndex: "totalTime", key: "totalTime" },
+  {
+    title: "Estado",
+    dataIndex: "stateHours",
+    key: "stateHours",
+    render: (stateHours) => {
+      let color = stateHours ? "green" : "volcano";
+      let text = stateHours ? "Habilidato" : "Deshabilitado";
+      return <Tag color={color}>{text}</Tag>;
+    },
+  },
+  {
+    title: "Editar",
+    key: "action",
+    render: (data) => (
+      <ButtonEdit idData={data.idHours} text="Editar" render="HOURS" />
+    ),
+  },
+  {
+    title: "Eliminar",
+    key: "action",
+    render: (data) => (
+      <ButtonDelete idData={data.idHours} text="Eliminar" render="HOURS" />
+    ),
+  },
+];
+
+const hoursMap = (data) => {
+  return data?.map(
+    ({ idHours, startTime, endTime, totalTime, stateHours }, index) => ({
+      key: index,
+      numberItem: index + 1,
+      idHours,
+      startTime,
+      endTime,
+      totalTime,
+      stateHours,
+    })
+  );
+};
+
 function TableComponent({ data, render }) {
   return (
     <div>
@@ -143,6 +188,13 @@ function TableComponent({ data, render }) {
         <Table
           columns={columsClass}
           dataSource={classMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "HOURS" && (
+        <Table
+          columns={columsHours}
+          dataSource={hoursMap(data)}
           pagination={false}
         />
       )}
