@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { Modal, Button } from "antd";
 
 // LIBRARY
+import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
 import { removeData } from "@/redux/actions";
@@ -41,7 +42,7 @@ function EditModal({ idData, text, render }) {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        <Text text={text} />
+        <EditOutlined key="edit" />
       </Button>
 
       <Modal
