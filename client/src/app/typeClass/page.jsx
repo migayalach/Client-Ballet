@@ -3,7 +3,7 @@
 import TableComponent from "@/components/tableComponent/TableComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
-// import NavBar from "@/components/navBar/NavBar";
+import NavBar from "@/components/navBar/NavBar";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -34,7 +34,9 @@ function TypeClass() {
 
   return (
     <div>
-      <div>{/* <NavBar /> */}MENU</div>
+      <div>
+        <NavBar />
+      </div>
       <div>
         <h1>Tipos de clase</h1>
         <TableComponent data={selectTypeClass} render="TYPE-CLASS" />
