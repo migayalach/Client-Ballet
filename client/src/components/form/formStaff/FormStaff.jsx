@@ -23,18 +23,11 @@ import {
   getByIdStaff,
   editStaff,
 } from "@/redux/actions";
-
+import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
 
 // JAVASCRIP
-
-const normFile = (event) => {
-  if (Array.isArray(event)) {
-    return event;
-  }
-  return event?.fileList;
-};
 
 dayjs.extend(customParseFormat);
 
@@ -64,33 +57,11 @@ function FormStaff({ idData, option, handleState }) {
     });
   };
 
-  const handlePhoto = async (event) => {
-    const file = event.target.files[0];
-    // const file = event.originFileObj
-    // const file = event;
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "photos");
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dqgcyonb9/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      if (response.ok) {
-        const { url } = await response.json();
-        setData({
-          ...data,
-          photoStaff: url,
-        });
-      } else {
-        console.error("Error al subir la imagen a Cloudinary");
-      }
-    } catch (error) {
-      console.error("Error de red:", error);
-    }
+  const handleURLChange = (URL) => {
+    setData({
+      ...data,
+      photoStaff: URL,
+    });
   };
 
   const onChangeDate = (date, dateString) => {
@@ -245,12 +216,8 @@ function FormStaff({ idData, option, handleState }) {
         )}
 
         {option === "create" && (
-          <Form.Item
-            label="Foto"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-          >
-            <input type="file" onChange={handlePhoto} />
+          <Form.Item label="Foto de perfil">
+            <ImageCloudinary onChange={handleURLChange} />
           </Form.Item>
         )}
 
