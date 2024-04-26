@@ -1,7 +1,7 @@
 "use client";
 
 // COMPONET'S
-// import NavBar from "@/components/navBar/NavBar";
+import NavBar from "@/components/navBar/NavBar";
 import CardComponent from "@/components/card/CardComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
@@ -35,11 +35,11 @@ function Student() {
   return (
     <div>
       <div>
-        {/* <NavBar /> */}
+        <NavBar />
         <h1>MENU</h1>
       </div>
       <div>
-        <CardComponent student={selectStudent}/>
+        <CardComponent student={selectStudent} />
       </div>
       <div>
         {selectInfo && (
