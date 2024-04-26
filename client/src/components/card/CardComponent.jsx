@@ -1,7 +1,13 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Avatar } from "antd";
 const { Meta } = Card;
 import ButtonEdit from "../modal/editModal/EditModal";
+
+import {
+  EditOutlined,
+  ContactsOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 
 import "./card-component.css";
 import ButtonDelete from "../button/buttonDelete/ButtonDelete";
@@ -23,6 +29,15 @@ function CardComponent({ staff, student }) {
               cover={
                 <img alt="example" src={photoStaff} className="image-photo" />
               }
+              actions={[
+                <ContactsOutlined key="setting" />,
+                <ButtonEdit idData={idStaff} text="editar" render="STAFF" />,
+                <ButtonDelete
+                  idData={idStaff}
+                  text="eliminar"
+                  render="STAFF"
+                />,
+              ]}
               className="card"
             >
               <Meta
@@ -31,8 +46,6 @@ function CardComponent({ staff, student }) {
                 className="card-data"
               />
             </Card>
-            <ButtonEdit idData={idStaff} text="editar" render="STAFF" />
-            <ButtonDelete idData={idStaff} text="eliminar" render="STAFF" />
           </div>
         )
       )}
@@ -58,6 +71,19 @@ function CardComponent({ staff, student }) {
               cover={
                 <img alt="example" src={photoStudent} className="image-photo" />
               }
+              actions={[
+                <ContactsOutlined key="setting" />,
+                <ButtonEdit
+                  idData={idStudent}
+                  text="editar"
+                  render="STUDENT"
+                />,
+                <ButtonDelete
+                  idData={idStudent}
+                  text="eliminar"
+                  render="STUDENT"
+                />,
+              ]}
               className="card"
             >
               <Meta
@@ -66,8 +92,6 @@ function CardComponent({ staff, student }) {
                 className="card-data"
               />
             </Card>
-            <ButtonEdit idData={idStudent} text="editar" render="STUDENT" />
-            <ButtonDelete idData={idStudent} text="eliminar" render="STUDENT" />
           </div>
         )
       )}
