@@ -2,7 +2,7 @@
 
 // COMPONET'S
 import CardComponent from "@/components/card/CardComponent";
-// import NavBar from "@/components/navBar/NavBar";
+import NavBar from "@/components/navBar/NavBar";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 
@@ -34,9 +34,9 @@ function Staff() {
 
   return (
     <div className="conteiner-staff">
-      {/* <div>
+      <div>
         <NavBar />
-      </div>*/}
+      </div>
       <div>
         <CardComponent staff={selectStaff} />
       </div>
@@ -50,7 +50,7 @@ function Staff() {
         )}
       </div>
       <div>
-        <FloatOption render="STAFF"/>
+        <FloatOption render="STAFF" />
       </div>
     </div>
   );
