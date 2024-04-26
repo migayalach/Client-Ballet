@@ -1,8 +1,7 @@
 "use client";
 
 // COMPONET'S
-
-// import NavBar from "@/components/navBar/NavBar";
+import NavBar from "@/components/navBar/NavBar";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
@@ -34,7 +33,9 @@ function page() {
 
   return (
     <div>
-      <div>{/* <NavBar /> */}MENU</div>
+      <div>
+        <NavBar />
+      </div>
       <div>
         <h3>Clases</h3>
         <TableComponent data={selectClass} render="CLASS" />
