@@ -1,16 +1,16 @@
-.conteiner-navbar {
+.container-navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.conteiner-menu ul {
+.container-menu ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.conteiner-menu ul li {
+.container-menu ul li {
   display: inline;
   margin-right: 10px;
 }
