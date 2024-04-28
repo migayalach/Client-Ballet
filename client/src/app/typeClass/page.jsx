@@ -35,9 +35,6 @@ function TypeClass() {
   return (
     <div>
       <div>
-        <NavBar />
-      </div>
-      <div>
         <h1>Tipos de clase</h1>
         <TableComponent data={selectTypeClass} render="TYPE-CLASS" />
       </div>
