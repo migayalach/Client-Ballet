@@ -35,9 +35,6 @@ function Hours() {
   return (
     <div>
       <div>
-        <NavBar />
-      </div>
-      <div>
         <h3>Lista de horarios</h3>
         <TableComponent data={selectHours} render="HOURS" />
       </div>
