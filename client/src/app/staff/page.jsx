@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 //REDUX
 import { getStaffAll } from "@/redux/actions";
+import InfoStaff from "./[idStaff]/page";
 
 // JAVASCRIP
 
@@ -35,9 +36,6 @@ function Staff() {
   return (
     <div className="conteiner-staff">
       <div>
-        <NavBar />
-      </div>
-      <div>
         <CardComponent staff={selectStaff} />
       </div>
       <div>
@@ -52,6 +50,7 @@ function Staff() {
       <div>
         <FloatOption render="STAFF" />
       </div>
+      {/* <InfoStaff/> */}
     </div>
   );
 }

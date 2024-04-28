@@ -27,6 +27,7 @@ import {
   getIdStudent,
   putStudent,
   deleteStudent,
+  loginUser,
   clearData,
   errorResponse,
 } from "./slice";
@@ -291,7 +292,6 @@ export const removeClass = (idClass) => {
 };
 
 export const createStudent = (infoData) => {
-  console.log(infoData);
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/student`, infoData)).data;
@@ -330,6 +330,17 @@ export const editStudent = (infoData) => {
       const data = (await axios.put(`${URL}/student`, infoData)).data;
       await dispatch(getStudentAll());
       return dispatch(putStudent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const userLogin = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/login`, infoData)).data;
+      return dispatch(loginUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

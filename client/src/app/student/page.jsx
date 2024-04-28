@@ -35,10 +35,6 @@ function Student() {
   return (
     <div>
       <div>
-        <NavBar />
-        <h1>MENU</h1>
-      </div>
-      <div>
         <CardComponent student={selectStudent} />
       </div>
       <div>

@@ -34,9 +34,6 @@ function page() {
   return (
     <div>
       <div>
-        <NavBar />
-      </div>
-      <div>
         <h3>Clases</h3>
         <TableComponent data={selectClass} render="CLASS" />
       </div>
