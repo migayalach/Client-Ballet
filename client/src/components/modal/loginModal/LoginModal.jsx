@@ -1,0 +1,36 @@
+import React, { useState, useEffect } from "react";
+import { Button, Modal } from "antd";
+import FormLogin from "@/components/form/formLogin/FormLogin";
+
+function LoginModal() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <Button type="link" onClick={showModal}>
+        Login
+      </Button>
+
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <FormLogin />
+      </Modal>
+    </>
+  );
+}
+
+export default LoginModal;
