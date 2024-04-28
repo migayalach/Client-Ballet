@@ -1,9 +1,10 @@
+import FormLogin from "@/components/form/formLogin/FormLogin";
 import "../stylesheet/page.css";
 
 export default function Home() {
   return (
     <div className="container">
-      <nav>
+      {/* <nav>
         <div className="nav_logo">
           <a href="#">
             <img src="#" alt="logo" />
@@ -28,12 +29,13 @@ export default function Home() {
           </li>
         </ul>
         <button className="btn-login">Login</button>
-      </nav>
+      </nav> */}
+
 
       <div className="container-body">
         <h1>Boddy</h1>
       </div>
-      
+
       <div>
         <h1>Footer</h1>
       </div>
