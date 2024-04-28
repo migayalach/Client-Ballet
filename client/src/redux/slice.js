@@ -116,6 +116,11 @@ export const Slice = createSlice({
       state.student = action.payload.results;
     },
 
+    //!LOGIN
+    loginUser: (state, action) => {
+      state.access = action.payload;
+    },
+
     clearData: (state, action) => {
       state.data = null;
     },
@@ -153,6 +158,7 @@ export const {
   getIdStudent,
   putStudent,
   deleteStudent,
+  loginUser,
   clearData,
   errorResponse,
 } = Slice.actions;
