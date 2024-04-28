@@ -1,16 +1,12 @@
 import React from "react";
-import { Card, Avatar } from "antd";
+import Link from "next/link";
+import { Card } from "antd";
 const { Meta } = Card;
 import ButtonEdit from "../modal/editModal/EditModal";
-
-import {
-  EditOutlined,
-  ContactsOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
-
+import { ContactsOutlined } from "@ant-design/icons";
 import "./card-component.css";
 import ButtonDelete from "../button/buttonDelete/ButtonDelete";
+import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
 
 function CardComponent({ staff, student }) {
   return (
@@ -30,7 +26,9 @@ function CardComponent({ staff, student }) {
                 <img alt="example" src={photoStaff} className="image-photo" />
               }
               actions={[
-                <ContactsOutlined key="setting" />,
+                <Link href={`/staff/${idStaff}`}>
+                  <ButtonRenderId />
+                </Link>,
                 <ButtonEdit idData={idStaff} text="editar" render="STAFF" />,
                 <ButtonDelete
                   idData={idStaff}
