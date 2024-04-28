@@ -3,8 +3,9 @@
 // COMPONET'S
 
 // HOOK'S
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 // LIBRARY
 
@@ -14,87 +15,207 @@ import Link from "next/link";
 
 // STYLESHEET'
 import "./nav-bar.css";
-import {
-  HomeOutlined,
-  UsergroupDeleteOutlined,
-  IdcardOutlined,
-  ExceptionOutlined,
-  AppstoreOutlined,
-  ProductOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { Menu } from "antd";
-const items = [
-  {
-    label: <Link href="/home">Home</Link>,
-    key: "/home",
-    icon: <HomeOutlined />,
-  },
-  {
-    label: <Link href="/staff">Personal</Link>,
-    key: "/personal",
-    icon: <UsergroupDeleteOutlined />,
-  },
-  {
-    label: <Link href="/student">Estudiantes</Link>,
-    key: "/estudiantes",
-    icon: <IdcardOutlined />,
-  },
-  {
-    label: <Link href="/payments">Mensualidades</Link>,
-    key: "/mensualidades",
-    icon: <ExceptionOutlined />,
-  },
-  {
-    label: <Link href="/hours">Horarios</Link>,
-    key: "/horarios",
-    icon: <ExceptionOutlined />,
-  },
-  {
-    label: <Link href="/class">Clases</Link>,
-    key: "/clases",
-    icon: <AppstoreOutlined />,
-  },
-  {
-    label: <Link href="/dances">Danzas</Link>,
-    key: "/danzas",
-    icon: <ProductOutlined />,
-  },
-  {
-    label: "Usuario",
-    key: "usuario",
-    icon: <UserOutlined />,
-    children: [
-      {
-        type: "group",
-        label: "Opciones de usuario",
-        children: [
-          {
-            label: "Editar Usuario",
-            key: "usuarioInfo",
-            path: "/user",
-          },
-          {
-            label: "Salir",
-            key: "salir",
-            path: "/salir",
-          },
-        ],
-      },
-    ],
-  },
-];
+import LoginModal from "../modal/loginModal/LoginModal";
 
 function NavBar() {
-  // const [current, setCurrent] = useState("/home");
-  const onClick = ({ key }) => {
-    // console.log(key);
-    // setCurrent(key);
-  };
+  const selectAccess = useSelector(({ root }) => root?.access);
 
-  useEffect(()=>{
-    // console.log(";D");
-  },[onClick])
+  return (
+    <div className="container-navbar">
+      <div>
+        <h3>LOGO</h3>
+      </div>
+      <div className="container-menu">
+        <ul>
+          <li>
+            <Link href="/" passHref>
+              Home
+            </Link>
+          </li>
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="/staff" passHref>
+                Personal
+              </Link>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="/student" passHref>
+                Estudiantes
+              </Link>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="/payments" passHref>
+                Mensualidades
+              </Link>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="/hours" passHref>
+                Horarios
+              </Link>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="/class" passHref>
+                Clases
+              </Link>
+            </li>
+          )}
+          {selectAccess?.access && (
+            <li>
+              <Link href="/dances" passHref>
+                Danzas
+              </Link>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <a href="/">Salir</a>
+            </li>
+          )}
+
+          {selectAccess?.access && (
+            <li>
+              <Link href="" passHref>
+                USUARIO
+              </Link>
+            </li>
+          )}
+
+          {!selectAccess && (
+            <li>
+              <LoginModal />
+            </li>
+          )}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default NavBar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// "use client";
+
+// // COMPONET'S
+
+// // HOOK'S
+// import React, { useState, useEffect } from "react";
+// import Link from "next/link";
+
+// // LIBRARY
+
+// //REDUX
+
+// // JAVASCRIP
+
+// // STYLESHEET'
+// import "./nav-bar.css";
+// import {
+//   HomeOutlined,
+//   UsergroupDeleteOutlined,
+//   IdcardOutlined,
+//   ExceptionOutlined,
+//   AppstoreOutlined,
+//   ProductOutlined,
+//   UserOutlined,
+// } from "@ant-design/icons";
+// import { Menu } from "antd";
+// const items = [
+//   {
+//     label: <Link href="/home">Home</Link>,
+//     key: "/home",
+//     icon: <HomeOutlined />,
+//   },
+//   {
+//     label: <Link href="/staff">Personal</Link>,
+//     key: "/personal",
+//     icon: <UsergroupDeleteOutlined />,
+//   },
+//   {
+//     label: <Link href="/student">Estudiantes</Link>,
+//     key: "/estudiantes",
+//     icon: <IdcardOutlined />,
+//   },
+//   {
+//     label: <Link href="/payments">Mensualidades</Link>,
+//     key: "/mensualidades",
+//     icon: <ExceptionOutlined />,
+//   },
+//   {
+//     label: <Link href="/hours">Horarios</Link>,
+//     key: "/horarios",
+//     icon: <ExceptionOutlined />,
+//   },
+//   {
+//     label: <Link href="/class">Clases</Link>,
+//     key: "/clases",
+//     icon: <AppstoreOutlined />,
+//   },
+//   {
+//     label: <Link href="/dances">Danzas</Link>,
+//     key: "/danzas",
+//     icon: <ProductOutlined />,
+//   },
+//   {
+//     label: "Usuario",
+//     key: "usuario",
+//     icon: <UserOutlined />,
+//     children: [
+//       {
+//         type: "group",
+//         label: "Opciones de usuario",
+//         children: [
+//           {
+//             label: "Editar Usuario",
+//             key: "usuarioInfo",
+//             path: "/user",
+//           },
+//           {
+//             label: "Salir",
+//             key: "salir",
+//             path: "/salir",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];
+
+// function NavBar() {
+//   // const [current, setCurrent] = useState("/home");
+//   const onClick = ({ key }) => {
+//     // console.log(key);
+//     // setCurrent(key);
+//   };
+
+//   useEffect(()=>{
+//     // console.log(";D");
+//   },[onClick])
 
   // return (
   //   <div className="conteiner-navbar">
@@ -134,19 +255,19 @@ function NavBar() {
   //     </div>
   //   </div>
   // );
-  return (
-    <div className="conteiner-navbar">
-      <div>
-        <h3>LOGO</h3>
-      </div>
-      <Menu
-        onClick={onClick}
-        // selectedKeys={[current]}
-        mode="horizontal"
-        items={items}
-      />
-    </div>
-  );
-}
+//   return (
+//     <div className="conteiner-navbar">
+//       <div>
+//         <h3>LOGO</h3>
+//       </div>
+//       <Menu
+//         onClick={onClick}
+//         // selectedKeys={[current]}
+//         mode="horizontal"
+//         items={items}
+//       />
+//     </div>
+//   );
+// }
 
-export default NavBar;
+// export default NavBar;
