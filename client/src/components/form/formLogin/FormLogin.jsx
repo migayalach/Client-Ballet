@@ -7,7 +7,7 @@ import { userLogin } from "@/redux/actions";
 function FormLogin() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
-    user: "",
+    email: "",
     password: "",
   });
 
@@ -47,7 +47,7 @@ function FormLogin() {
     >
       <Form.Item
         label="Usuario"
-        name="user"
+        name="email"
         rules={[
           {
             required: true,
@@ -55,7 +55,7 @@ function FormLogin() {
           },
         ]}
       >
-        <Input name="user" onChange={handleInfo} />
+        <Input name="email" onChange={handleInfo} />
       </Form.Item>
 
       <Form.Item
@@ -92,6 +92,7 @@ function FormLogin() {
           Acceder
         </Button>
       </Form.Item>
+      
     </Form>
   );
 }
