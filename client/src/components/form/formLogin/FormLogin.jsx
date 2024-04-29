@@ -3,23 +3,27 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Form, Input } from "antd";
 import { userLogin } from "@/redux/actions";
+import { useAuth } from "@/context/authContext";
 
 function FormLogin() {
   const dispatch = useDispatch();
-  const [data, setData] = useState({
+  const { login } = useAuth();
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
   const handleInfo = (event) => {
-    setData({
-      ...data,
+    setUser({
+      ...user,
       [event.target.name]: event.target.value,
     });
   };
 
-  const onFinish = () => {
-    dispatch(userLogin(data));
+  const onFinish = async () => {
+    dispatch(userLogin(user));
+    // const x = await login(user.email, user.password);
+    // console.log(x);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -92,7 +96,6 @@ function FormLogin() {
           Acceder
         </Button>
       </Form.Item>
-      
     </Form>
   );
 }
