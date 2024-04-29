@@ -22,7 +22,7 @@ function LoginModal() {
       </Button>
 
       <Modal
-        title="Basic Modal"
+        title="Iniciar sesión"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
