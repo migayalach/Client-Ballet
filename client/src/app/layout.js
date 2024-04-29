@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "../stylesheet/globals.css";
 import Providers from "@/redux/provider";
 import NavBar from "@/components/navBar/NavBar";
+import { AuthProvider } from "@/context/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,12 +14,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={inter.className}>
-          <NavBar />
-          {children}
-        </body>
-      </Providers>
+      <AuthProvider>
+        <Providers>
+          <body className={inter.className}>
+            <NavBar />
+            {children}
+          </body>
+        </Providers>
+      </AuthProvider>
     </html>
   );
 }

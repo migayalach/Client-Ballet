@@ -1,4 +1,3 @@
-import FormLogin from "@/components/form/formLogin/FormLogin";
 import "../stylesheet/page.css";
 
 export default function Home() {
@@ -7,7 +6,6 @@ export default function Home() {
       <div className="container-body">
         <h1>Boddy</h1>
       </div>
-
       <div>
         <h1>Footer</h1>
       </div>

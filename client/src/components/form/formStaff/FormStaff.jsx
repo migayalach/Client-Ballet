@@ -28,14 +28,17 @@ import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 // STYLESHEET'
 
 // JAVASCRIP
+import { useAuth } from "@/context/authContext";
 
 dayjs.extend(customParseFormat);
 
 function FormStaff({ idData, option, handleState }) {
   const dispatch = useDispatch();
+  const { signUp } = useAuth();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
   const selectIdStaff = useSelector(({ root }) => root?.data);
+  const [error, setError] = useState("");
   const [data, setData] = useState({
     idLevel: 0,
     idExtension: 0,
@@ -78,10 +81,22 @@ function FormStaff({ idData, option, handleState }) {
     });
   };
 
-  const onFinish = () => {
+  // //TODO FALTA ASYNC AWAIT MAS MANEJADOR DE ERRORES Y event.preventDefault()
+  // const handleFirebase = async (email, email) => {
+  //   try {
+  //     await signUp(email, email);
+  //     setError("");
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
+
+  const onFinish = async () => {
     if (option === "edit") {
       dispatch(editStaff({ ...data, idStaff: idData }));
     } else {
+      // await handleFirebase(data.emailStaff, data.emailStaff);
+      await signUp(data.emailStaff, data.emailStaff);
       dispatch(createStaff(data));
       setData({
         idLevel: 0,
