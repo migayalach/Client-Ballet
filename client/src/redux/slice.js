@@ -12,7 +12,7 @@ export const Slice = createSlice({
     student: [],
     info: null,
     data: null,
-    access: null,
+    access: {},
     error: null,
   },
   reducers: {
