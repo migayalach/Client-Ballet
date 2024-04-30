@@ -9,7 +9,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBAtWk-iTpPt12sRN2z4nQ52Mix6R2HByk",
+  //apiKey: "AIzaSyBAtWk-iTpPt12sRN2z4nQ52Mix6R2HByk",
   authDomain: "ballet-42240.firebaseapp.com",
   projectId: "ballet-42240",
   storageBucket: "ballet-42240.appspot.com",
