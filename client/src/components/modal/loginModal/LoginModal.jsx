@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "antd";
 import FormLogin from "@/components/form/formLogin/FormLogin";
-import { useAuth } from "@/context/authContext";
+// import { useAuth } from "@/context/authContext";
 
 function LoginModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { loginWithGoogle } = useAuth();
+  // const { loginWithGoogle } = useAuth();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,7 +34,7 @@ function LoginModal() {
         onCancel={handleCancel}
       >
         <FormLogin />
-        <Button onClick={handleGoogle}>Google</Button>
+        {/* <Button onClick={handleGoogle}>Google</Button> */}
       </Modal>
     </>
   );
