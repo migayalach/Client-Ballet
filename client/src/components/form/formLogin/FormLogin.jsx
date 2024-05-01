@@ -7,7 +7,7 @@ import { useAuth } from "@/context/authContext";
 
 function FormLogin() {
   const dispatch = useDispatch();
-  const { login } = useAuth();
+  const { loginWithGoogle } = useAuth();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -20,10 +20,12 @@ function FormLogin() {
     });
   };
 
-  const onFinish = async () => {
+  const onFinish = () => {
     dispatch(userLogin(user));
-    // const x = await login(user.email, user.password);
-    // console.log(x);
+  };
+
+  const handleGoogle = async () => {
+    // const data = await login(user.email, user.password);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -95,6 +97,7 @@ function FormLogin() {
         <Button type="primary" htmlType="submit">
           Acceder
         </Button>
+        <Button onClick={handleGoogle}>Google</Button>
       </Form.Item>
     </Form>
   );
