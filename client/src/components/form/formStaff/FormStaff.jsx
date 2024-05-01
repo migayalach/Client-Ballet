@@ -81,23 +81,13 @@ function FormStaff({ idData, option, handleState }) {
     });
   };
 
-  // //TODO FALTA ASYNC AWAIT MAS MANEJADOR DE ERRORES Y event.preventDefault()
-  // const handleFirebase = async (email, email) => {
-  //   try {
-  //     await signUp(email, email);
-  //     setError("");
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
-
   const onFinish = async () => {
     if (option === "edit") {
       dispatch(editStaff({ ...data, idStaff: idData }));
     } else {
       // await handleFirebase(data.emailStaff, data.emailStaff);
-      await signUp(data.emailStaff, data.emailStaff);
       dispatch(createStaff(data));
+      await signUp(data.emailStaff, data.emailStaff);
       setData({
         idLevel: 0,
         idExtension: 0,
