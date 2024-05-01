@@ -24,11 +24,6 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //TODO PONER LOS DATOS DE REDUX
-  // const user = {
-  //   login: true,
-  // };
-
   const signUp = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
@@ -51,9 +46,15 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    // <authContext.Provider value={{ user }}>{children}</authContext.Provider>
     <authContext.Provider
-      value={{ signUp, login, user, logout, loading, loginWithGoogle }}
+      value={{
+        signUp,
+        login,
+        user,
+        logout,
+        loading,
+        loginWithGoogle,
+      }}
     >
       {children}
     </authContext.Provider>
