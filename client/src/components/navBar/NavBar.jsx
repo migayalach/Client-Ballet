@@ -19,13 +19,13 @@ import { Menu } from "antd";
 //REDUX
 
 // JAVASCRIP
-import { useAuth } from "@/context/authContext";
+// import { useAuth } from "@/context/authContext";
 
 // STYLESHEET'
 import "./nav-bar.css";
 
 function NavBar() {
-  const { logout, user, loading } = useAuth();
+  // const { logout, user, loading } = useAuth();
   const [current, setCurrent] = useState("home");
   const selectAccess = useSelector(({ root }) => root?.access);
   const handleLogout = async () => await logout();
@@ -78,13 +78,9 @@ function NavBar() {
       ],
     },
     {
-      label:
-      // selectAccess?.access && 
-      "Usuario",
+      label: selectAccess?.access && "Usuario",
       key: "SubMenu",
-      icon: 
-      // selectAccess?.access && 
-      <SettingOutlined />,
+      icon: selectAccess?.access && <SettingOutlined />,
       children: [
         {
           type: "group",
@@ -121,12 +117,16 @@ function NavBar() {
     setCurrent(e.key);
   };
 
-  if(loading) return <h1>Loaging</h1>
+  // if (loading) return <h1>Loaging</h1>;
 
+  // console.log(user);
   return (
     <div className="container-navbar">
       <div>
-        <Link href="/">Logo{user?.email}</Link>
+        <Link href="/">
+          Logo
+          {/* {user?.email} */}
+        </Link>
       </div>
       <div className="container-menu">
         <Menu
