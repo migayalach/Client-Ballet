@@ -33,7 +33,7 @@ function FormClass({ idData, option, handleState }) {
   const selectTypeClass = useSelector(({ root }) => root?.typeClass);
 
   const [data, setData] = useState({
-    idStaff: 0,
+    idUser: 0,
     idHours: 0,
     idTypeClass: 0,
     parallel: "",
@@ -57,12 +57,11 @@ function FormClass({ idData, option, handleState }) {
 
   const onFinish = () => {
     if (option === "edit") {
-      console.log(data);
       dispatch(editClass({ ...data, idClass: idData }));
     } else {
       dispatch(createClass(data));
       setData({
-        idStaff: 0,
+        idUser: 0,
         idHours: 0,
         idTypeClass: 0,
         parallel: "",
@@ -85,7 +84,7 @@ function FormClass({ idData, option, handleState }) {
   useEffect(() => {
     if (option === "edit" && selectClass) {
       setData({
-        idStaff: selectClass.idStaff,
+        idUser: selectClass.idUser,
         idHours: selectClass.idHours,
         idTypeClass: selectClass.idTypeClass,
         parallel: selectClass.parallel,
@@ -113,10 +112,10 @@ function FormClass({ idData, option, handleState }) {
           <SelectComponet
             list={selectStaff}
             handleChange={handleChange}
-            flag="Staff"
+            flag="User"
             value={
               option === "edit"
-                ? `${selectClass?.nameStaff} ${selectClass?.lastNameStaff}`
+                ? `${selectClass?.nameUser} ${selectClass?.lastNameUser}`
                 : ""
             }
           />
