@@ -2,6 +2,8 @@ import React from "react";
 import { Table, Tag } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
+import Link from "next/link";
+import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
 
 const columns = [
   {
@@ -63,8 +65,8 @@ const columsClass = [
   },
   {
     title: "Carnet",
-    dataIndex: "carnetStaff",
-    key: "carnetStaff",
+    dataIndex: "carnetUser",
+    key: "carnetUser",
   },
   {
     title: "Extension",
@@ -83,6 +85,11 @@ const columsClass = [
     },
   },
   { title: "Duración", dataIndex: "totalTime", key: "totalTime" },
+  {
+    title: "Inscribir",
+    key: "inscribir",
+    render: (data) => <Link href={`/class/${data.idClass}`}>+</Link>,
+  },
   {
     title: "Editar",
     key: "action",
@@ -105,9 +112,9 @@ const classMap = (data) => {
       {
         idClass,
         nameClass,
-        nameStaff,
-        lastNameStaff,
-        carnetStaff,
+        nameUser,
+        lastNameUser,
+        carnetUser,
         department,
         parallel,
         stateClass,
@@ -119,8 +126,8 @@ const classMap = (data) => {
       idClass,
       numberItem: index + 1,
       nameClass,
-      teacher: `${nameStaff} ${lastNameStaff}`,
-      carnetStaff,
+      teacher: `${nameUser} ${lastNameUser}`,
+      carnetUser,
       department,
       parallel,
       stateClass,
