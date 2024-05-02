@@ -37,7 +37,7 @@ function NavBar() {
       icon: <MailOutlined />,
     },
     {
-      label: selectAccess?.access && <Link href="/staff">Personal</Link>,
+      label: selectAccess?.access && <Link href="/user">Personal</Link>,
       key: "staff",
       icon: selectAccess?.access && <MailOutlined />,
     },
