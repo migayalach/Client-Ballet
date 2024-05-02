@@ -18,10 +18,10 @@ const optionList = (list, flag) => {
         title: `id${flag}`,
       }));
 
-    case "Staff":
-      return list.map(({ idStaff, nameStaff, lastNameStaff }) => ({
-        value: idStaff,
-        label: `${nameStaff} ${lastNameStaff}`,
+    case "User":
+      return list.map(({ idUser, nameUser, lastNameUser }) => ({
+        value: idUser,
+        label: `${nameUser} ${lastNameUser}`,
         title: `id${flag}`,
       }));
 
