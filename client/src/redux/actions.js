@@ -104,7 +104,7 @@ export const removeIdHours = (idHours) => {
 export const getStaffAll = () => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/staff`)).data;
+      const data = (await axios.get(`${URL}/user`)).data;
       return dispatch(getAllStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -115,7 +115,7 @@ export const getStaffAll = () => {
 export const getByIdStaff = (idStaff) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/staff/${idStaff}`)).data;
+      const data = (await axios.get(`${URL}/user/${idStaff}`)).data;
       return dispatch(getIdStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -126,7 +126,7 @@ export const getByIdStaff = (idStaff) => {
 export const createStaff = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.post(`${URL}/staff`, infoData)).data;
+      const data = (await axios.post(`${URL}/user`, infoData)).data;
       return dispatch(postStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -137,7 +137,7 @@ export const createStaff = (infoData) => {
 export const editStaff = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.put(`${URL}/staff`, infoData)).data;
+      const data = (await axios.put(`${URL}/user`, infoData)).data;
       await dispatch(getStaffAll());
       return dispatch(putStaff(data));
     } catch (error) {
@@ -149,7 +149,7 @@ export const editStaff = (infoData) => {
 export const removeStaff = (idStaff) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.delete(`${URL}/staff/${idStaff}`)).data;
+      const data = (await axios.delete(`${URL}/user/${idStaff}`)).data;
       return dispatch(deleteStaff(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));

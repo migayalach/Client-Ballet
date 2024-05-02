@@ -12,10 +12,7 @@ function CardComponent({ staff, student }) {
   return (
     <div className="container">
       {staff?.map(
-        (
-          { idStaff, nameStaff, lastNameStaff, carnetStaff, photoStaff },
-          index
-        ) => (
+        ({ idUser, nameUser, lastNameUser, carnetUser, photoUser }, index) => (
           <div key={index}>
             <Card
               hoverable
@@ -23,70 +20,20 @@ function CardComponent({ staff, student }) {
                 width: 240,
               }}
               cover={
-                <img alt="example" src={photoStaff} className="image-photo" />
+                <img alt="example" src={photoUser} className="image-photo" />
               }
               actions={[
-                <Link href={`/staff/${idStaff}`}>
+                <Link href={`/user/${idUser}`}>
                   <ButtonRenderId />
                 </Link>,
-                <ButtonEdit idData={idStaff} text="editar" render="STAFF" />,
-                <ButtonDelete
-                  idData={idStaff}
-                  text="eliminar"
-                  render="STAFF"
-                />,
+                <ButtonEdit idData={idUser} text="editar" render="STAFF" />,
+                <ButtonDelete idData={idUser} text="eliminar" render="STAFF" />,
               ]}
               className="card"
             >
               <Meta
-                title={`${nameStaff} ${lastNameStaff}`}
-                description={`Carnet: ${carnetStaff}`}
-                className="card-data"
-              />
-            </Card>
-          </div>
-        )
-      )}
-      {student?.map(
-        (
-          {
-            idStudent,
-            nameStudent,
-            lastNameStudent,
-            carnetStudent,
-            codeStudent,
-            photoStudent,
-            stateStudent,
-          },
-          index
-        ) => (
-          <div key={index}>
-            <Card
-              hoverable
-              style={{
-                width: 240,
-              }}
-              cover={
-                <img alt="example" src={photoStudent} className="image-photo" />
-              }
-              actions={[
-                <ContactsOutlined key="setting" />,
-                <ButtonEdit
-                  idData={idStudent}
-                  text="editar"
-                  render="STUDENT"
-                />,
-                <ButtonDelete
-                  idData={idStudent}
-                  text="eliminar"
-                  render="STUDENT"
-                />,
-              ]}
-              className="card"
-            >
-              <Meta
-                title={`${nameStudent} ${lastNameStudent}`}
-                description={`Carnet: ${carnetStudent}`}
+                title={`${nameUser} ${lastNameUser}`}
+                description={`Carnet: ${carnetUser}`}
                 className="card-data"
               />
             </Card>

@@ -10,13 +10,13 @@ function InfoStaff({ params }) {
   const selectUser = useSelector(({ root }) => root?.data);
 
   useEffect(() => {
-    params.idStaff && dispatch(getByIdStaff(params.idStaff));
+    params.idUser && dispatch(getByIdStaff(params.idUser));
   }, [params]);
 
   return (
     <div className="conteiner-data">
       <div>
-        <h1>{selectUser?.nameStaff}</h1>
+        <h1>{selectUser?.nameUser}</h1>
       </div>
       <div>
         <CollapseData render="staff"/>

@@ -42,14 +42,14 @@ function FormStaff({ idData, option, handleState }) {
   const [data, setData] = useState({
     idLevel: 0,
     idExtension: 0,
-    nameStaff: "",
-    lastNameStaff: "",
-    emailStaff: "",
-    addressStaff: "",
-    dateBirthStaff: "",
-    carnetStaff: "",
-    photoStaff: "",
-    stateStaff: true,
+    nameUser: "",
+    lastNameUser: "",
+    emailUser: "",
+    addressUser: "",
+    dateBirthUser: "",
+    carnetUser: "",
+    photoUser: "",
+    stateUser: true,
   });
 
   const handleChange = (event) => {
@@ -63,42 +63,42 @@ function FormStaff({ idData, option, handleState }) {
   const handleURLChange = (URL) => {
     setData({
       ...data,
-      photoStaff: URL,
+      photoUser: URL,
     });
   };
 
   const onChangeDate = (date, dateString) => {
     setData({
       ...data,
-      dateBirthStaff: dateString,
+      dateBirthUser: dateString,
     });
   };
 
   const onChangeState = (boolean) => {
     setData({
       ...data,
-      stateStaff: boolean,
+      stateUser: boolean,
     });
   };
 
   const onFinish = async () => {
     if (option === "edit") {
-      dispatch(editStaff({ ...data, idStaff: idData }));
+      dispatch(editStaff({ ...data, idUser: idData }));
     } else {
       // await handleFirebase(data.emailStaff, data.emailStaff);
       dispatch(createStaff(data));
-      await signUp(data.emailStaff, data.emailStaff);
+      await signUp(data.emailUser, data.emailUser);
       setData({
         idLevel: 0,
         idExtension: 0,
-        nameStaff: "",
-        lastNameStaff: "",
-        emailStaff: "",
-        addressStaff: "",
-        dateBirthStaff: "",
-        carnetStaff: "",
-        photoStaff: "",
-        stateStaff: true,
+        nameUser: "",
+        lastNameUser: "",
+        emailUser: "",
+        addressUser: "",
+        dateBirthUser: "",
+        carnetUser: "",
+        photoUser: "",
+        stateUser: true,
       });
       handleState();
     }
@@ -118,13 +118,13 @@ function FormStaff({ idData, option, handleState }) {
       setData({
         idLevel: selectIdStaff.idLevel,
         idExtension: selectIdStaff.idExtension,
-        nameStaff: selectIdStaff.nameStaff,
-        lastNameStaff: selectIdStaff.lastNameStaff,
-        emailStaff: selectIdStaff.emailStaff,
-        addressStaff: selectIdStaff.addressStaff,
-        dateBirthStaff: selectIdStaff?.dateBirthStaff.substring(0, 10),
-        carnetStaff: selectIdStaff.carnetStaff,
-        stateStaff: selectIdStaff.stateStaff,
+        nameUser: selectIdStaff.nameUser,
+        lastNameUser: selectIdStaff.lastNameUser,
+        emailUser: selectIdStaff.emailUser,
+        addressUser: selectIdStaff.addressUser,
+        dateBirthUser: selectIdStaff?.dateBirthUser.substring(0, 10),
+        carnetUser: selectIdStaff.carnetUser,
+        stateUser: selectIdStaff.stateUser,
       });
     }
   }, [option, selectIdStaff]);
@@ -147,36 +147,36 @@ function FormStaff({ idData, option, handleState }) {
         <Form.Item label="Nombres">
           <InputComponent
             onChange={handleChange}
-            name="nameStaff"
+            name="nameUser"
             placeholder="Alverto Reinaldo"
-            data={data.nameStaff}
+            data={data.nameUser}
           />
         </Form.Item>
 
         <Form.Item label="Apellidos">
           <InputComponent
             onChange={handleChange}
-            name="lastNameStaff"
+            name="lastNameUser"
             placeholder="Del Rio"
-            data={data.lastNameStaff}
+            data={data.lastNameUser}
           />
         </Form.Item>
 
         <Form.Item label="Email">
           <InputComponent
             onChange={handleChange}
-            name="emailStaff"
+            name="emailUser"
             placeholder="albert@gmail.com"
-            data={data.emailStaff}
+            data={data.emailUser}
           />
         </Form.Item>
 
         <Form.Item label="Carnet">
           <InputComponent
             onChange={handleChange}
-            name="carnetStaff"
+            name="carnetUser"
             placeholder="8569134"
-            data={data.carnetStaff}
+            data={data.carnetUser}
           />
         </Form.Item>
 
@@ -201,22 +201,22 @@ function FormStaff({ idData, option, handleState }) {
         <Form.Item label="Fecha de nacimiento">
           <DateComponent
             onChange={onChangeDate}
-            date={option === "edit" ? data?.dateBirthStaff : ""}
+            date={option === "edit" ? data?.dateBirthUser : ""}
           />
         </Form.Item>
 
         <Form.Item label="Dirección">
           <AreaText
-            name="addressStaff"
+            name="addressUser"
             placeholder="Calle siempre viva N°666"
             onChange={handleChange}
-            value={data.addressStaff}
+            value={data.addressUser}
           />
         </Form.Item>
 
         {option === "edit" && (
           <Form.Item label="Estado" valuePropName="checked">
-            <State stateHours={data.stateStaff} handleChange={onChangeState} />
+            <State stateHours={data.stateUser} handleChange={onChangeState} />
           </Form.Item>
         )}
 

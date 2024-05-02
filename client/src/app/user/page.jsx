@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 //REDUX
 import { getStaffAll } from "@/redux/actions";
-import InfoStaff from "./[idStaff]/page";
 
 // JAVASCRIP
 
