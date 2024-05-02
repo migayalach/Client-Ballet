@@ -10,9 +10,7 @@ import FloatOption from "@/components/floatOption/FloatOption";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// LIBRARY
 
-//REDUX
 import { getStudentAll } from "@/redux/actions";
 
 // JAVASCRIP
@@ -21,20 +19,21 @@ import { getStudentAll } from "@/redux/actions";
 
 function Student() {
   const dispatch = useDispatch();
-  const selectStudent = useSelector((state) => state.root.student);
-  const selectInfo = useSelector((state) => state.root.info);
+  // const selectStudent = useSelector((state) => state.root.student);
+  // const selectInfo = useSelector((state) => state.root.info);
 
-  useEffect(() => {
-    dispatch(getStudentAll());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getStudentAll());
+  // }, []);
 
-  if (!selectStudent.length && !selectInfo) {
-    return <div>Cargando...</div>;
-  }
+  // if (!selectStudent.length && !selectInfo) {
+  //   return <div>Cargando...</div>;
+  // }
 
   return (
     <div>
-      <div>
+    <h1>ESTUDIANTES</h1>
+      {/* <div>
         <CardComponent student={selectStudent} />
       </div>
       <div>
@@ -48,7 +47,7 @@ function Student() {
       </div>
       <div>
         <FloatOption render="STUDENT" />
-      </div>
+      </div> */}
     </div>
   );
 }
