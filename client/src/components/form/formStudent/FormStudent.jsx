@@ -11,9 +11,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import { Button, Form } from "antd";
-import dayjs from "dayjs";
 
 //REDUX
 import {
@@ -21,28 +19,19 @@ import {
   createStudent,
   editStudent,
   getByIdStudent,
+  getStaffAll,
 } from "@/redux/actions";
-import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
 
 // JAVASCRIP
-dayjs.extend(customParseFormat);
 
 function FormStudent({ idData, option, handleState }) {
   const dispatch = useDispatch();
-  const selectExtension = useSelector(({ root }) => root?.extension);
-  const selectIdStudent = useSelector(({ root }) => root?.data);
-
+  const selectUser = useSelector(({ root }) => root?.student);
   const [data, setData] = useState({
-    idExtension: 0,
-    nameStudent: "",
-    lastNameStudent: "",
-    emailStudent: "",
-    carnetStudent: "",
-    addressStudent: "",
-    dateBirthStudent: "",
-    photoStudent: "",
+    idClass: 0,
+    idUser: 0,
     stateStudent: true,
   });
 
@@ -54,13 +43,6 @@ function FormStudent({ idData, option, handleState }) {
     });
   };
 
-  const onChangeDate = (date, dateString) => {
-    setData({
-      ...data,
-      dateBirthStudent: dateString,
-    });
-  };
-
   const onChangeState = (boolean) => {
     setData({
       ...data,
@@ -68,55 +50,23 @@ function FormStudent({ idData, option, handleState }) {
     });
   };
 
-  const handleURLChange = (URL) => {
-    setData({
-      ...data,
-      photoStudent: URL,
-    });
-  };
-
   const onFinish = () => {
     if (option === "edit") {
-      dispatch(editStudent({ ...data, idStudent: idData }));
+      // dispatch(editStudent({ ...data, idStudent: idData }));
     } else {
       dispatch(createStudent(data));
       setData({
-        idExtension: 0,
-        nameStudent: "",
-        lastNameStudent: "",
-        emailStudent: "",
-        carnetStudent: "",
-        addressStudent: "",
-        dateBirthStudent: "",
-        photoStudent: "",
-        stateStudent: true,
+        idClass: 0,
+        idUser: 0,
+        stateStudent: false,
       });
       handleState();
     }
   };
 
   useEffect(() => {
-    dispatch(getExtensionAll());
+    dispatch(getStaffAll());
   }, []);
-
-  useEffect(() => {
-    idData && dispatch(getByIdStudent(idData));
-  }, [idData]);
-
-  useEffect(() => {
-    if (option === "edit" && selectIdStudent) {
-      setData({
-        idExtension: selectIdStudent.idExtension,
-        nameStudent: selectIdStudent.nameStudent,
-        lastNameStudent: selectIdStudent.lastNameStudent,
-        emailStudent: selectIdStudent.emailStudent,
-        addressStudent: selectIdStudent.addressStudent,
-        dateBirthStudent: selectIdStudent?.dateBirthStudent.substring(0, 10),
-        carnetStudent: selectIdStudent.carnetStudent,
-        stateStudent: selectIdStudent.stateStudent,
-      });
-    }
-  }, [option, selectIdStudent]);
 
   return (
     <Form
@@ -132,76 +82,18 @@ function FormStudent({ idData, option, handleState }) {
       }}
       onFinish={onFinish}
     >
-      <Form.Item label="Nombres">
-        <InputComponent
-          onChange={handleChange}
-          name="nameStudent"
-          placeholder="Alverto Reinaldo"
-          data={data.nameStudent}
-        />
-      </Form.Item>
-
-      <Form.Item label="Apellidos">
-        <InputComponent
-          onChange={handleChange}
-          name="lastNameStudent"
-          placeholder="Del Rio"
-          data={data.lastNameStudent}
-        />
-      </Form.Item>
-
-      <Form.Item label="Email">
-        <InputComponent
-          onChange={handleChange}
-          name="emailStudent"
-          placeholder="albert@gmail.com"
-          data={data.emailStudent}
-        />
-      </Form.Item>
-
-      <Form.Item label="Carnet">
-        <InputComponent
-          onChange={handleChange}
-          name="carnetStudent"
-          placeholder="8569134"
-          data={data.carnetStudent}
-        />
-      </Form.Item>
-
-      <Form.Item label="Extension">
-        <SelectComponet
+      <Form.Item label="Elija una usuario">
+        {/* <SelectComponet
           list={selectExtension}
           handleChange={handleChange}
           flag="Extension"
           value={option === "edit" ? selectIdStudent?.department : ""}
-        />
-      </Form.Item>
-
-      <Form.Item label="Dirección">
-        <AreaText
-          name="addressStudent"
-          placeholder="Calle siempre viva N°666"
-          onChange={handleChange}
-          value={data.addressStudent}
-        />
-      </Form.Item>
-
-      <Form.Item label="Fecha de nacimiento">
-        <DateComponent
-          onChange={onChangeDate}
-          date={option === "edit" ? data?.dateBirthStudent : ""}
-        />
+        /> */}
       </Form.Item>
 
       {option === "edit" && (
         <Form.Item label="Estado">
           <State stateHours={data.stateStudent} handleChange={onChangeState} />
-        </Form.Item>
-      )}
-
-      {option === "create" && (
-        <Form.Item label="Foto de perfil">
-          <ImageCloudinary onChange={handleURLChange} />
         </Form.Item>
       )}
 
