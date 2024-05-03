@@ -1,4 +1,6 @@
 // COMPONET'S
+import InputComponent from "@/components/inputComponent/InputComponent";
+import SelectComponet from "@/components/select/SelectComponet";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -6,17 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
 import { Button, Form } from "antd";
-import InputComponent from "@/components/inputComponent/InputComponent";
-import SelectComponet from "@/components/select/SelectComponet";
 
 //REDUX
 import {
-  getStaffAll,
   getHoursAll,
+  getUserAll,
   getTypeClassAll,
   createClass,
   getByIdClass,
-  editClass,
 } from "@/redux/actions";
 import Text from "@/components/text/Text";
 import State from "@/components/state/State";
@@ -27,11 +26,10 @@ import State from "@/components/state/State";
 
 function FormClass({ idData, option, handleState }) {
   const dispatch = useDispatch();
-  const selectClass = useSelector(({ root }) => root?.data);
-  const selectStaff = useSelector(({ root }) => root?.staff);
+  const selectUser = useSelector(({ root }) => root?.user);
   const selectHour = useSelector(({ root }) => root?.hours);
   const selectTypeClass = useSelector(({ root }) => root?.typeClass);
-
+  const selectClass = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
     idUser: 0,
     idHours: 0,
@@ -57,7 +55,6 @@ function FormClass({ idData, option, handleState }) {
 
   const onFinish = () => {
     if (option === "edit") {
-      dispatch(editClass({ ...data, idClass: idData }));
     } else {
       dispatch(createClass(data));
       setData({
@@ -67,31 +64,29 @@ function FormClass({ idData, option, handleState }) {
         parallel: "",
         stateClass: true,
       });
-      handleState();
     }
+    handleState();
   };
 
   useEffect(() => {
-    dispatch(getStaffAll());
-    dispatch(getHoursAll());
-    dispatch(getTypeClassAll());
-  }, []);
-
-  useEffect(() => {
-    idData && dispatch(getByIdClass(idData));
-  }, [idData]);
-
-  useEffect(() => {
-    if (option === "edit" && selectClass) {
+    if (option === "edit") {
+      console.log("llege");
+      dispatch(getByIdClass(idData));
       setData({
-        idUser: selectClass.idUser,
-        idHours: selectClass.idHours,
-        idTypeClass: selectClass.idTypeClass,
-        parallel: selectClass.parallel,
-        stateClass: selectClass.stateClass,
+        idUser: selectClass?.idUser,
+        idHours: selectClass?.idHours,
+        idTypeClass: selectClass?.idTypeClass,
+        parallel: selectClass?.parallel,
+        stateClass: selectClass?.stateClass,
       });
     }
-  }, [option, selectClass]);
+  }, [option, idData]);
+
+  useEffect(() => {
+    dispatch(getHoursAll());
+    dispatch(getUserAll());
+    dispatch(getTypeClassAll());
+  }, []);
 
   return (
     <div>
@@ -110,7 +105,7 @@ function FormClass({ idData, option, handleState }) {
       >
         <Form.Item label="Profesor">
           <SelectComponet
-            list={selectStaff}
+            list={selectUser}
             handleChange={handleChange}
             flag="User"
             value={
@@ -150,13 +145,16 @@ function FormClass({ idData, option, handleState }) {
             onChange={handleChange}
             name="parallel"
             placeholder="5TO-B"
-            data={data.parallel}
+            data={selectClass?.parallel}
           />
         </Form.Item>
 
         {option === "edit" && (
           <Form.Item label="Estado de clase">
-            <State stateHours={data?.stateClass} handleChange={onChangeState} />
+            <State
+              stateHours={selectClass?.stateClass}
+              handleChange={onChangeState}
+            />
           </Form.Item>
         )}
 
