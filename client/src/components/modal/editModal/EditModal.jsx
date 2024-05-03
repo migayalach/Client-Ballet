@@ -12,10 +12,9 @@ import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
 import { removeData } from "@/redux/actions";
-import FormStaff from "@/components/form/formStaff/FormStaff";
+import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
-import FormStudent from "@/components/form/formStudent/FormStudent";
 
 // JAVASCRIP
 
@@ -51,13 +50,12 @@ function EditModal({ idData, text, render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {render === "STAFF" && <FormStaff idData={idData} option="edit" />}
+        {render === "USER" && <FormUser idData={idData} option="edit" />}
         {render === "HOURS" && <FormHours idData={idData} option="edit" />}
+        {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}
-        {render === "CLASS" && <FormClass idData={idData} option="edit" />}
-        {render === "STUDENT" && <FormStudent idData={idData} option="edit" />}
       </Modal>
     </>
   );

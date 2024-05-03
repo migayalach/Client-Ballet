@@ -19,9 +19,9 @@ import dayjs from "dayjs";
 import {
   getExtensionAll,
   getLevelAll,
-  createStaff,
-  getByIdStaff,
-  editStaff,
+  createUser,
+  getByIdUser,
+  editUser,
 } from "@/redux/actions";
 import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
@@ -32,12 +32,12 @@ import { useAuth } from "@/context/authContext";
 
 dayjs.extend(customParseFormat);
 
-function FormStaff({ idData, option, handleState }) {
+function FormUser({ idData, option, handleState }) {
   const dispatch = useDispatch();
   const { signUp } = useAuth();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
-  const selectIdStaff = useSelector(({ root }) => root?.data);
+  const selectIdUser = useSelector(({ root }) => root?.data);
   const [error, setError] = useState("");
   const [data, setData] = useState({
     idLevel: 0,
@@ -83,11 +83,11 @@ function FormStaff({ idData, option, handleState }) {
 
   const onFinish = async () => {
     if (option === "edit") {
-      dispatch(editStaff({ ...data, idUser: idData }));
+      dispatch(editUser({ ...data, idUser: idData }));
     } else {
       // await handleFirebase(data.emailStaff, data.emailStaff);
-      dispatch(createStaff(data));
-      await signUp(data.emailUser, data.emailUser);
+      dispatch(createUser(data));
+      // await signUp(data.emailUser, data.emailUser);
       setData({
         idLevel: 0,
         idExtension: 0,
@@ -110,24 +110,24 @@ function FormStaff({ idData, option, handleState }) {
   }, []);
 
   useEffect(() => {
-    idData && dispatch(getByIdStaff(idData));
+    idData && dispatch(getByIdUser(idData));
   }, [idData]);
 
   useEffect(() => {
-    if (option === "edit" && selectIdStaff) {
+    if (option === "edit" && selectIdUser) {
       setData({
-        idLevel: selectIdStaff.idLevel,
-        idExtension: selectIdStaff.idExtension,
-        nameUser: selectIdStaff.nameUser,
-        lastNameUser: selectIdStaff.lastNameUser,
-        emailUser: selectIdStaff.emailUser,
-        addressUser: selectIdStaff.addressUser,
-        dateBirthUser: selectIdStaff?.dateBirthUser.substring(0, 10),
-        carnetUser: selectIdStaff.carnetUser,
-        stateUser: selectIdStaff.stateUser,
+        idLevel: selectIdUser.idLevel,
+        idExtension: selectIdUser.idExtension,
+        nameUser: selectIdUser.nameUser,
+        lastNameUser: selectIdUser.lastNameUser,
+        emailUser: selectIdUser.emailUser,
+        addressUser: selectIdUser.addressUser,
+        dateBirthUser: selectIdUser?.dateBirthUser.substring(0, 10),
+        carnetUser: selectIdUser.carnetUser,
+        stateUser: selectIdUser.stateUser,
       });
     }
-  }, [option, selectIdStaff]);
+  }, [option, selectIdUser]);
 
   return (
     <>
@@ -185,7 +185,7 @@ function FormStaff({ idData, option, handleState }) {
             list={selectExtension}
             handleChange={handleChange}
             flag="Extension"
-            value={option === "edit" ? selectIdStaff?.department : ""}
+            value={option === "edit" ? selectIdUser?.department : ""}
           />
         </Form.Item>
 
@@ -194,7 +194,7 @@ function FormStaff({ idData, option, handleState }) {
             list={selectLevel}
             handleChange={handleChange}
             flag="Level"
-            value={option === "edit" ? selectIdStaff?.nameLevel : ""}
+            value={option === "edit" ? selectIdUser?.nameLevel : ""}
           />
         </Form.Item>
 
@@ -234,4 +234,4 @@ function FormStaff({ idData, option, handleState }) {
   );
 }
 
-export default FormStaff;
+export default FormUser;

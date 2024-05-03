@@ -5,11 +5,11 @@ import {
   getIdHours,
   deleteIdHours,
   updateHour,
-  getAllStaff,
-  getIdStaff,
-  postStaff,
-  putStaff,
-  deleteStaff,
+  getAllUser,
+  getIdUser,
+  postUser,
+  putUser,
+  deleteUser,
   getAllExtension,
   getAllLevel,
   postTypeClass,
@@ -22,11 +22,7 @@ import {
   getIdClass,
   putClass,
   deleteClass,
-  postStudent,
-  getAllStudent,
-  getIdStudent,
-  putStudent,
-  deleteStudent,
+  getIdClassStudent,
   loginUser,
   clearData,
   errorResponse,
@@ -101,56 +97,56 @@ export const removeIdHours = (idHours) => {
   };
 };
 
-export const getStaffAll = () => {
+export const getUserAll = () => {
   return async function (dispatch) {
     try {
       const data = (await axios.get(`${URL}/user`)).data;
-      return dispatch(getAllStaff(data));
+      return dispatch(getAllUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
 
-export const getByIdStaff = (idStaff) => {
+export const getByIdUser = (idUser) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/user/${idStaff}`)).data;
-      return dispatch(getIdStaff(data));
+      const data = (await axios.get(`${URL}/user/${idUser}`)).data;
+      return dispatch(getIdUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
 
-export const createStaff = (infoData) => {
+export const createUser = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/user`, infoData)).data;
-      return dispatch(postStaff(data));
+      return dispatch(postUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
 
-export const editStaff = (infoData) => {
+export const editUser = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/user`, infoData)).data;
-      await dispatch(getStaffAll());
-      return dispatch(putStaff(data));
+      await dispatch(getUserAll());
+      return dispatch(putUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
 
-export const removeStaff = (idStaff) => {
+export const removeUser = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.delete(`${URL}/user/${idStaff}`)).data;
-      return dispatch(deleteStaff(data));
+      const data = (await axios.delete(`${URL}/user/${infoData}`)).data;
+      return dispatch(deleteUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -291,45 +287,11 @@ export const removeClass = (idClass) => {
   };
 };
 
-export const createStudent = (infoData) => {
+export const getIdAllClassStudent = (idClass) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.post(`${URL}/student`, infoData)).data;
-      return dispatch(postStudent(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const getStudentAll = () => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/student`)).data;
-      return dispatch(getAllStudent(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const getByIdStudent = (idStudent) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/student/${idStudent}`)).data;
-      return dispatch(getIdStudent(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const editStudent = (infoData) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.put(`${URL}/student`, infoData)).data;
-      await dispatch(getStudentAll());
-      return dispatch(putStudent(data));
+      const data = (await axios.get(`${URL}/classStudent/${idClass}`)).data;
+      return dispatch(getIdClassStudent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -341,17 +303,6 @@ export const userLogin = (infoData) => {
     try {
       const data = (await axios.post(`${URL}/login`, infoData)).data;
       return dispatch(loginUser(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const removeStudent = (idStudent) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.delete(`${URL}/student/${idStudent}`)).data;
-      return dispatch(deleteStudent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

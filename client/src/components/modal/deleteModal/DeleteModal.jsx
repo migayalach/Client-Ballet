@@ -10,10 +10,9 @@ import { useDispatch } from "react-redux";
 //REDUX
 import {
   removeIdHours,
-  removeStaff,
+  removeUser,
   removeTypeClass,
   removeClass,
-  removeStudent,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -30,16 +29,14 @@ function DeleteModal({ idData, render }) {
 
   const handleOk = () => {
     switch (render) {
-      case "STAFF":
-        return dispatch(removeStaff(idData));
+      case "USER":
+        return dispatch(removeUser(idData));
       case "HOURS":
         return dispatch(removeIdHours(idData));
       case "TYPE-CLASS":
         return dispatch(removeTypeClass(idData));
       case "CLASS":
         return dispatch(removeClass(idData));
-      case "STUDENT":
-        return dispatch(removeStudent(idData));
       default:
         break;
     }
@@ -52,7 +49,7 @@ function DeleteModal({ idData, render }) {
 
   const optionMessage = (option) => {
     switch (option) {
-      case "STAFF":
+      case "USER":
         return `este usuario`;
       case "HOURS":
         return `esta hora`;
@@ -60,8 +57,6 @@ function DeleteModal({ idData, render }) {
         return `este tipo de clase`;
       case "CLASS":
         return `esta clase`;
-      case "STUDENT":
-        return `este alumno`;
     }
   };
 
