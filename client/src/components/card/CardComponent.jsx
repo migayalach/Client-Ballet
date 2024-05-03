@@ -8,10 +8,10 @@ import "./card-component.css";
 import ButtonDelete from "../button/buttonDelete/ButtonDelete";
 import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
 
-function CardComponent({ staff, student }) {
+function CardComponent({ user }) {
   return (
     <div className="container">
-      {staff?.map(
+      {user?.map(
         ({ idUser, nameUser, lastNameUser, carnetUser, photoUser }, index) => (
           <div key={index}>
             <Card
@@ -26,8 +26,8 @@ function CardComponent({ staff, student }) {
                 <Link href={`/user/${idUser}`}>
                   <ButtonRenderId />
                 </Link>,
-                <ButtonEdit idData={idUser} text="editar" render="STAFF" />,
-                <ButtonDelete idData={idUser} text="eliminar" render="STAFF" />,
+                <ButtonEdit idData={idUser} text="editar" render="USER" />,
+                <ButtonDelete idData={idUser} text="eliminar" render="USER" />,
               ]}
               className="card"
             >
