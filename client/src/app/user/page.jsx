@@ -13,29 +13,29 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getStaffAll } from "@/redux/actions";
+import { getUserAll } from "@/redux/actions";
 
 // JAVASCRIP
 
 // STYLESHEET'
 
-function Staff() {
+function User() {
   const dispatch = useDispatch();
-  const selectStaff = useSelector((state) => state.root.staff);
+  const selectUser = useSelector((state) => state.root.user);
   const selectInfo = useSelector((state) => state.root.info);
 
   useEffect(() => {
-    dispatch(getStaffAll());
+    dispatch(getUserAll());
   }, []);
 
-  if (!selectStaff.length && !selectInfo) {
+  if (!selectUser.length && !selectInfo) {
     return <div>Cargando...</div>;
   }
 
   return (
-    <div className="conteiner-staff">
+    <div className="conteiner-user">
       <div>
-        <CardComponent staff={selectStaff} />
+        <CardComponent user={selectUser} />
       </div>
       <div>
         {selectInfo && (
@@ -47,11 +47,11 @@ function Staff() {
         )}
       </div>
       <div>
-        <FloatOption render="STAFF" />
+        <FloatOption render="USER" />
       </div>
       {/* <InfoStaff/> */}
     </div>
   );
 }
 
-export default Staff;
+export default User;
