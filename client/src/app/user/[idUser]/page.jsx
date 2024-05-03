@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getByIdStaff } from "@/redux/actions";
+import { getByIdUser } from "@/redux/actions";
 import CollapseData from "@/components/collapseData/CollapseData";
 import "./info-staff.css";
 
-function InfoStaff({ params }) {
+function InfoUser({ params }) {
   const dispatch = useDispatch();
   const selectUser = useSelector(({ root }) => root?.data);
 
   useEffect(() => {
-    params.idUser && dispatch(getByIdStaff(params.idUser));
+    params.idUser && dispatch(getByIdUser(params.idUser));
   }, [params]);
 
   return (
@@ -19,10 +19,10 @@ function InfoStaff({ params }) {
         <h1>{selectUser?.nameUser}</h1>
       </div>
       <div>
-        <CollapseData render="staff"/>
+        <CollapseData render="user"/>
       </div>
     </div>
   );
 }
 
-export default InfoStaff;
+export default InfoUser;
