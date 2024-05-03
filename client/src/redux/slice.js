@@ -8,7 +8,7 @@ export const Slice = createSlice({
     hours: [],
     typeClass: [],
     classes: [],
-    staff: [],
+    user: [],
     student: [],
     info: null,
     data: null,
@@ -34,22 +34,22 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
 
-    // *STAFF
-    getAllStaff: (state, action) => {
-      state.staff = action.payload.results;
+    // *USER
+    getAllUser: (state, action) => {
+      state.user = action.payload.results;
       state.info = action.payload.info;
     },
-    getIdStaff: (state, action) => {
+    getIdUser: (state, action) => {
       state.data = action.payload;
     },
-    postStaff: (state, action) => {
-      state.staff = action.payload.results;
+    postUser: (state, action) => {
+      state.user = action.payload.results;
     },
-    putStaff: (state, action) => {
+    putUser: (state, action) => {
       state.data = action.payload;
     },
-    deleteStaff: (state, action) => {
-      state.staff = action.payload.results;
+    deleteUser: (state, action) => {
+      state.user = action.payload.results;
     },
 
     //*EXTENSION
@@ -98,21 +98,7 @@ export const Slice = createSlice({
       state.classes = action.payload.results;
     },
 
-    //*STUDENT
-    postStudent: (state, action) => {
-      state.student = action.payload.results;
-    },
-    getAllStudent: (state, action) => {
-      state.student = action.payload.results;
-      state.info = action.payload.info;
-    },
-    getIdStudent: (state, action) => {
-      state.data = action.payload;
-    },
-    putStudent: (state, action) => {
-      state.data = action.payload;
-    },
-    deleteStudent: (state, action) => {
+    getIdClassStudent: (state, action) => {
       state.student = action.payload.results;
     },
 
@@ -136,11 +122,11 @@ export const {
   getIdHours,
   deleteIdHours,
   updateHour,
-  getAllStaff,
-  getIdStaff,
-  postStaff,
-  putStaff,
-  deleteStaff,
+  getAllUser,
+  getIdUser,
+  postUser,
+  putUser,
+  deleteUser,
   getAllExtension,
   getAllLevel,
   postTypeClass,
@@ -158,6 +144,7 @@ export const {
   getIdStudent,
   putStudent,
   deleteStudent,
+  getIdClassStudent,
   loginUser,
   clearData,
   errorResponse,
