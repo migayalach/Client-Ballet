@@ -14,7 +14,7 @@ function ButtonDelete({ idData, text, render }) {
   return (
     <Flex wrap="wrap" gap="small">
       <Button type="primary" onClick={handleChange} danger>
-        <DeleteOutlined key="ellipsis"></DeleteOutlined>
+        <DeleteOutlined key="ellipsis" />
         {flag && <DeleteModal idData={idData} render={render} />}
       </Button>
     </Flex>
