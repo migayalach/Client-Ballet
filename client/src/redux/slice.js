@@ -13,6 +13,8 @@ export const Slice = createSlice({
     info: null,
     data: null,
     access: {},
+    state: "",
+    aux: {},
     error: null,
   },
   reducers: {
@@ -43,13 +45,19 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
     postUser: (state, action) => {
-      state.user = action.payload.results;
+      state.aux = action.payload.userData;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
     putUser: (state, action) => {
       state.data = action.payload;
     },
     deleteUser: (state, action) => {
-      state.user = action.payload.results;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
+      // state.user = action.payload.results;
+      // state.aux = action.payload.info;
+      // state.cache = action.payload.results
     },
 
     //*EXTENSION
@@ -110,6 +118,10 @@ export const Slice = createSlice({
     clearData: (state, action) => {
       state.data = null;
     },
+    clearAux: (state, action) => {
+      state.aux = {};
+      state.state = "";
+    },
     errorResponse: (state, action) => {
       state.error = action.payload;
     },
@@ -147,6 +159,7 @@ export const {
   getIdClassStudent,
   loginUser,
   clearData,
+  clearAux,
   errorResponse,
 } = Slice.actions;
 export default Slice.reducer;
