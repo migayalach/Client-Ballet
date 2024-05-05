@@ -25,6 +25,7 @@ import {
   getIdClassStudent,
   loginUser,
   clearData,
+  clearAux,
   errorResponse,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
@@ -101,6 +102,17 @@ export const getUserAll = () => {
   return async function (dispatch) {
     try {
       const data = (await axios.get(`${URL}/user`)).data;
+      return dispatch(getAllUser(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getPageUser = (page) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/user?page=${page}`)).data;
       return dispatch(getAllUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -313,6 +325,16 @@ export const removeData = () => {
   return function (dispatch) {
     try {
       return dispatch(clearData());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeAux = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(clearAux());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
