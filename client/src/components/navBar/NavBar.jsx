@@ -41,11 +41,11 @@ function NavBar() {
       key: "staff",
       icon: selectAccess?.access && <MailOutlined />,
     },
-    {
-      label: selectAccess?.access && <Link href="/student">Estudiantes</Link>,
-      key: "student",
-      icon: selectAccess?.access && <MailOutlined />,
-    },
+    // {
+    //   label: selectAccess?.access && <Link href="/student">Estudiantes</Link>,
+    //   key: "student",
+    //   icon: selectAccess?.access && <MailOutlined />,
+    // },
     {
       label: selectAccess?.access && "Danzas",
       key: "SubMenuDances",
