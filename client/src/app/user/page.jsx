@@ -5,6 +5,7 @@ import CardComponent from "@/components/card/CardComponent";
 import NavBar from "@/components/navBar/NavBar";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
+import Filters from "@/components/filters/Filters";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -35,17 +36,12 @@ function User() {
   return (
     <div className="conteiner-user">
       <div>
-        <CardComponent user={selectUser} />
+        <Filters />
       </div>
       <div>
-        {selectInfo && (
-          <PaginationComponet
-            pages={selectInfo.pages}
-            next={selectInfo.next}
-            prev={selectInfo.prev}
-          />
-        )}
+        <CardComponent user={selectUser} />
       </div>
+      <div>{selectInfo && <PaginationComponet pages={selectInfo.pages} />}</div>
       <div>
         <FloatOption render="USER" />
       </div>
