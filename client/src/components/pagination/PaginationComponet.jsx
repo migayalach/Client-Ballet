@@ -1,32 +1,54 @@
 // COMPONET'S
 
 // HOOK'S
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
 
 //REDUX
-import { getPageHours } from "@/redux/actions";
+import { getPageHours, getPageUser, removeAux } from "@/redux/actions";
 
 // JAVASCRIP
 
 // STYLESHEET'
 import "./pagination.css";
 
-function PaginationComponet({ pages, prev, next }) {
+function PaginationComponet({ pages }) {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
+  const selectAux = useSelector(({ root }) => root?.aux);
+  const selectInfo = useSelector(({ root }) => root?.info);
+  const selectState = useSelector(({ root }) => root?.state);
+
+  const setTIme = () =>
+    setTimeout(() => {
+      dispatch(removeAux());
+    }, 500);
 
   const onChange = (page) => {
-    dispatch(getPageHours(page));
+    dispatch(getPageUser(page));
     setCurrent(page);
   };
 
+  useEffect(() => {
+    if (Object.keys(selectAux).length && selectState === "create") {
+      const number = selectInfo.pages * 20;
+      if (selectInfo.count <= number) {
+        dispatch(getPageUser(selectInfo.pages));
+        setCurrent(selectInfo.pages);
+        setTIme();
+      }
+    } else if (selectState === "delete") {
+      dispatch(getPageUser(current));
+      setTIme();
+    }
+  }, [selectAux, selectState]);
+
   return (
     <div className="container-pagination">
-      <Pagination current={current} onChange={onChange} total={pages * 10} />
+      <Pagination onChange={onChange} total={pages * 10} current={current} />
     </div>
   );
 }

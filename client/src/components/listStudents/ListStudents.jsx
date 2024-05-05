@@ -39,16 +39,10 @@ function ListStudents({ idClass }) {
             actions={[
               <a key="list-loadmore-more">estado{item.idUser}</a>,
               <a key="list-loadmore-edit">calificaciones</a>,
-              <a key="list-loadmore-more">asistencia</a>,
-              <a key="list-loadmore-more">mensualidades</a>,
             ]}
           >
             <List.Item.Meta
-              avatar={
-                <Avatar
-                  src={`${item.photoUser}`}
-                />
-              }
+              avatar={<Avatar src={`${item.photoUser}`} />}
               title={<a href="https://ant.design">{item.title}</a>}
               description="Ant Design, a design language for background applications, is refined by Ant UED Team"
             />
