@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 
-function InfoModal({ flag, handleInfo }) {
+function InfoModal({ flag, handleInfo, render }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -13,7 +13,27 @@ function InfoModal({ flag, handleInfo }) {
     setIsModalOpen(false);
     handleInfo(false);
   };
-  
+
+  const messageTitle = (render) => {
+    switch (render) {
+      case "USER":
+        return "Información administrar usuarios";
+
+      default:
+        break;
+    }
+  };
+
+  const messageInformation = (render) => {
+    switch (render) {
+      case "USER":
+        return <p>HOlis soy usuario</p>;
+
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     setIsModalOpen(true);
     handleInfo;
@@ -22,14 +42,12 @@ function InfoModal({ flag, handleInfo }) {
   return (
     <>
       <Modal
-        title="Basic Modal"
+        title={messageTitle(render)}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {messageInformation(render)}
       </Modal>
     </>
   );
