@@ -4,8 +4,9 @@ import FormHours from "@/components/form/formHours/FormHours";
 import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
+import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
 
-function CreateModal({ flag, handleAdd, render }) {
+function CreateModal({ flag, handleAdd, render, idClass }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -42,6 +43,13 @@ function CreateModal({ flag, handleAdd, render }) {
         )}
         {render === "CLASS" && (
           <FormClass option="create" handleState={handleOk} />
+        )}
+        {render === "CLASS-STUDENT" && (
+          <FormClassStudent
+            option="create"
+            handleState={handleOk}
+            idClass={idClass}
+          />
         )}
       </Modal>
     </>
