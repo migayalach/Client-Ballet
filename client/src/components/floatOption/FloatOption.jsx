@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-// import InfoModal from "../modal/infoModal/InfoModal";
+import InfoModal from "../modal/infoModal/InfoModal";
 import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import CreateModal from "../modal/createModal/CreateModal";
 
-function FloatOption({ render }) {
+function FloatOption({ render, idClass }) {
   const [flagAdd, setFlagAdd] = useState(false);
   const [flagInfo, setFlagInfo] = useState(false);
 
@@ -35,9 +35,16 @@ function FloatOption({ render }) {
         }}
         onClick={() => handleInfo()}
       />
-      {flagInfo && <InfoModal flag={true} handleInfo={handleInfo} />}
+      {flagInfo && (
+        <InfoModal flag={true} handleInfo={handleInfo} render={render} />
+      )}
       {flagAdd && (
-        <CreateModal flag={true} handleAdd={handleAdd} render={render} />
+        <CreateModal
+          flag={true}
+          handleAdd={handleAdd}
+          render={render}
+          idClass={idClass}
+        />
       )}
     </div>
   );

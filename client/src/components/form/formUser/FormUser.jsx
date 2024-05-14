@@ -220,11 +220,9 @@ function FormUser({ idData, option, handleState }) {
           </Form.Item>
         )}
 
-        {option === "create" && (
-          <Form.Item label="Foto de perfil">
-            <ImageCloudinary onChange={handleURLChange} />
-          </Form.Item>
-        )}
+        <Form.Item label="Foto de perfil">
+          <ImageCloudinary onChange={handleURLChange} />
+        </Form.Item>
 
         <Button type="primary" htmlType="submit">
           <Text text="Crear" />

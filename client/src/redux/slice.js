@@ -15,6 +15,7 @@ export const Slice = createSlice({
     access: {},
     state: "",
     aux: {},
+    filter: [],
     error: null,
   },
   reducers: {
@@ -55,9 +56,6 @@ export const Slice = createSlice({
     deleteUser: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
-      // state.user = action.payload.results;
-      // state.aux = action.payload.info;
-      // state.cache = action.payload.results
     },
 
     //*EXTENSION
@@ -110,6 +108,21 @@ export const Slice = createSlice({
       state.student = action.payload.results;
     },
 
+    postClassStudent: (state, action) => {
+      state.student = action.payload.results;
+    },
+
+    //*FILTER
+    getFilter: (state, action) => {
+      state.filter = action.payload.results;
+      state.info = action.payload.info;
+      state.user = [];
+    },
+
+    clearFilter: (state, action) => {
+      state.filter = [];
+    },
+
     //!LOGIN
     loginUser: (state, action) => {
       state.access = action.payload;
@@ -124,6 +137,12 @@ export const Slice = createSlice({
     },
     errorResponse: (state, action) => {
       state.error = action.payload;
+    },
+    dataResults: (state, action) => {
+      state.aux = {
+        elements: action.payload.results.length,
+        page: action.payload.info.pages,
+      };
     },
   },
 });
@@ -157,9 +176,13 @@ export const {
   putStudent,
   deleteStudent,
   getIdClassStudent,
+  postClassStudent,
   loginUser,
+  getFilter,
+  clearFilter,
   clearData,
   clearAux,
   errorResponse,
+  dataResults,
 } = Slice.actions;
 export default Slice.reducer;

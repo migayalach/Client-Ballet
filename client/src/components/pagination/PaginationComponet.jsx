@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getPageHours, getPageUser, removeAux } from "@/redux/actions";
+import { getPageUser, removeAux, filter } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -21,6 +21,8 @@ function PaginationComponet({ pages }) {
   const selectAux = useSelector(({ root }) => root?.aux);
   const selectInfo = useSelector(({ root }) => root?.info);
   const selectState = useSelector(({ root }) => root?.state);
+  const selectUser = useSelector(({ root }) => root?.user);
+  const selectFilter = useSelector(({ root }) => root?.filter);
 
   const setTIme = () =>
     setTimeout(() => {
@@ -28,8 +30,18 @@ function PaginationComponet({ pages }) {
     }, 500);
 
   const onChange = (page) => {
-    dispatch(getPageUser(page));
-    setCurrent(page);
+    if (!selectFilter.length) {
+      dispatch(getPageUser(page));
+      setCurrent(page);
+    }
+    if (filter.length) {
+      if (page < current) {
+        dispatch(filter(selectInfo.prev, "filter"));
+      } else {
+        dispatch(filter(selectInfo.next, "filter"));
+      }
+      setCurrent(page);
+    }
   };
 
   useEffect(() => {
@@ -41,7 +53,13 @@ function PaginationComponet({ pages }) {
         setTIme();
       }
     } else if (selectState === "delete") {
-      dispatch(getPageUser(current));
+      const lengthUser = selectUser.length;
+      if (lengthUser - 1 > 0 && lengthUser - 1 <= 20) {
+        dispatch(getPageUser(current));
+      } else {
+        dispatch(getPageUser(selectInfo.pages));
+        setCurrent(current - 1);
+      }
       setTIme();
     }
   }, [selectAux, selectState]);

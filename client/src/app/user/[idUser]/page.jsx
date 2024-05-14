@@ -17,9 +17,12 @@ function InfoUser({ params }) {
     <div className="conteiner-data">
       <div>
         <h1>{selectUser?.nameUser}</h1>
+        <h1>{selectUser?.nameLevel}</h1>
+        <h1>{selectUser?.carnetUser}</h1>
+        <h1>{selectUser?.department}</h1>
       </div>
       <div>
-        <CollapseData render="user"/>
+        <CollapseData render="user" />
       </div>
     </div>
   );

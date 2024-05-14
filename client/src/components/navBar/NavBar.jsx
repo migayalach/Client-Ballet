@@ -37,19 +37,25 @@ function NavBar() {
       icon: <MailOutlined />,
     },
     {
-      label: selectAccess?.access && <Link href="/user">Personal</Link>,
+      label: (
+        // selectAccess?.access &&
+        <Link href="/user">Usuarios</Link>
+      ),
       key: "staff",
-      icon: selectAccess?.access && <MailOutlined />,
+      icon: (
+        // selectAccess?.access &&
+        <MailOutlined />
+      ),
     },
-    // {
-    //   label: selectAccess?.access && <Link href="/student">Estudiantes</Link>,
-    //   key: "student",
-    //   icon: selectAccess?.access && <MailOutlined />,
-    // },
     {
-      label: selectAccess?.access && "Danzas",
+      label:
+        // selectAccess?.access &&
+        "Danzas",
       key: "SubMenuDances",
-      icon: selectAccess?.access && <SettingOutlined />,
+      icon: (
+        // selectAccess?.access &&
+        <SettingOutlined />
+      ),
       children: [
         {
           type: "group",
@@ -78,9 +84,14 @@ function NavBar() {
       ],
     },
     {
-      label: selectAccess?.access && "Usuario",
+      label:
+        // selectAccess?.access &&
+        "Usuario",
       key: "SubMenu",
-      icon: selectAccess?.access && <SettingOutlined />,
+      icon: (
+        // selectAccess?.access &&
+        <SettingOutlined />
+      ),
       children: [
         {
           type: "group",
