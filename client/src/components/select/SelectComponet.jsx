@@ -39,6 +39,20 @@ const optionList = (list, flag) => {
         title: `id${flag}`,
       }));
 
+    case "Order":
+      return [
+        { value: " ", label: " ", title: "order" },
+        { value: "ASC", label: "ASC", title: "order" },
+        { value: "DESC", label: "DESC", title: "order" },
+      ];
+
+    case "Type":
+      return [
+        { value: " ", label: " ", title: "nameOrLastName" },
+        { value: "nameUser", label: "Nombre", title: "nameOrLastName" },
+        { value: "lastNameUser", label: "Apellido", title: "nameOrLastName" },
+      ];
+
     default:
       break;
   }
@@ -49,11 +63,11 @@ function SelectComponet({ list, handleChange, flag, value }) {
     <Select
       labelInValue
       placeholder={value ? value : "Elije " + flag}
+      onChange={handleChange}
+      options={optionList(list, flag)}
       style={{
         width: 200,
       }}
-      onChange={handleChange}
-      options={optionList(list, flag)}
     />
   );
 }
