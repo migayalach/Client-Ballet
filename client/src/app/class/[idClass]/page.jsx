@@ -14,32 +14,15 @@ import ListStudents from "@/components/listStudents/ListStudents";
 // import { getByIdClass } from "@/redux/actions";
 
 function ClassParams({ params }) {
-  // const dispatch = useDispatch();
-  // const selectClass = useSelector(({ root }) => root?.data);
-
-  // useEffect(() => {
-  //   dispatch(getByIdClass(params.idClass));
-  // }, [params]);
-
   return (
     <div>
       <h1>ESTUDIANTES</h1>
       <h2>{params.idClass}</h2>
-      <ListStudents idClass={params.idClass}/>
-      {/* <div>
-        <CardComponent student={selectStudent} />
+      <div>
+        <ListStudents idClass={params.idClass} />
       </div>
       <div>
-        {selectInfo && (
-          <PaginationComponet
-            pages={selectInfo.pages}
-            next={selectInfo.next}
-            prev={selectInfo.prev}
-          />
-        )}
-      </div>*/}
-      <div>
-        <FloatOption render="STUDENT" />
+        <FloatOption render="CLASS-STUDENT" idClass={params.idClass} />
       </div>
     </div>
   );
