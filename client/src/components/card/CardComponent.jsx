@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Card } from "antd";
 const { Meta } = Card;
 import ButtonEdit from "../modal/editModal/EditModal";
-import { ContactsOutlined } from "@ant-design/icons";
 import "./card-component.css";
 import ButtonDelete from "../button/buttonDelete/ButtonDelete";
 import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
