@@ -3,7 +3,7 @@ import FormHours from "@/components/form/formHours/FormHours";
 import Text from "@/components/text/Text";
 
 // HOOK'S
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, Button } from "antd";
 
@@ -11,7 +11,6 @@ import { Modal, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
-import { removeData } from "@/redux/actions";
 import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
@@ -20,7 +19,7 @@ import FormClass from "@/components/form/formClass/FormClass";
 
 // STYLESHEET'
 
-function EditModal({ idData, text, render }) {
+function EditModal({ dataUser, text, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,12 +29,12 @@ function EditModal({ idData, text, render }) {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    dispatch(removeData());
+    // dispatch(removeData());
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    dispatch(removeData());
+    // dispatch(removeData());
   };
 
   return (
@@ -50,12 +49,12 @@ function EditModal({ idData, text, render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {render === "USER" && <FormUser idData={idData} option="edit" />}
-        {render === "HOURS" && <FormHours idData={idData} option="edit" />}
+        {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
+        {/* {render === "HOURS" && <FormHours idData={idData} option="edit" />}
         {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
-        )}
+        )} */}
       </Modal>
     </>
   );
