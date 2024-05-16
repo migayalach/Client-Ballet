@@ -16,13 +16,7 @@ import { Button, Form } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import {
-  getExtensionAll,
-  getLevelAll,
-  createUser,
-  getByIdUser,
-  editUser,
-} from "@/redux/actions";
+import { createUser, editUser } from "@/redux/actions";
 import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
@@ -32,13 +26,10 @@ import { useAuth } from "@/context/authContext";
 
 dayjs.extend(customParseFormat);
 
-function FormUser({ idData, option, handleState }) {
+function FormUser({ dataUser, option, handleState }) {
   const dispatch = useDispatch();
-  const { signUp } = useAuth();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
-  const selectIdUser = useSelector(({ root }) => root?.data);
-  const [error, setError] = useState("");
   const [data, setData] = useState({
     idLevel: 0,
     idExtension: 0,
@@ -83,11 +74,9 @@ function FormUser({ idData, option, handleState }) {
 
   const onFinish = async () => {
     if (option === "edit") {
-      dispatch(editUser({ ...data, idUser: idData }));
+      dispatch(editUser({ ...data, idUser: dataUser.idUser }));
     } else {
-      // await handleFirebase(data.emailStaff, data.emailStaff);
       dispatch(createUser(data));
-      // await signUp(data.emailUser, data.emailUser);
       setData({
         idLevel: 0,
         idExtension: 0,
@@ -105,29 +94,24 @@ function FormUser({ idData, option, handleState }) {
   };
 
   useEffect(() => {
-    dispatch(getExtensionAll());
-    dispatch(getLevelAll());
-  }, []);
-
-  useEffect(() => {
-    idData && dispatch(getByIdUser(idData));
-  }, [idData]);
-
-  useEffect(() => {
-    if (option === "edit" && selectIdUser) {
+    if (option === "edit") {
       setData({
-        idLevel: selectIdUser.idLevel,
-        idExtension: selectIdUser.idExtension,
-        nameUser: selectIdUser.nameUser,
-        lastNameUser: selectIdUser.lastNameUser,
-        emailUser: selectIdUser.emailUser,
-        addressUser: selectIdUser.addressUser,
-        dateBirthUser: selectIdUser?.dateBirthUser.substring(0, 10),
-        carnetUser: selectIdUser.carnetUser,
-        stateUser: selectIdUser.stateUser,
+        idLevel: dataUser.idLevel,
+        idExtension: dataUser.idExtension,
+        nameUser: dataUser.nameUser,
+        lastNameUser: dataUser.lastNameUser,
+        emailUser: dataUser.emailUser,
+        addressUser: dataUser.addressUser,
+        dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
+        carnetUser: dataUser.carnetUser,
+        stateUser: dataUser.stateUser,
       });
     }
-  }, [option, selectIdUser]);
+  }, [option]);
+
+  // if (!selectIdUser) {
+  //   return <div>Cargando...</div>;
+  // }
 
   return (
     <>
@@ -185,7 +169,7 @@ function FormUser({ idData, option, handleState }) {
             list={selectExtension}
             handleChange={handleChange}
             flag="Extension"
-            value={option === "edit" ? selectIdUser?.department : ""}
+            value={option === "edit" ? dataUser?.idExtension : ""}
           />
         </Form.Item>
 
@@ -194,7 +178,7 @@ function FormUser({ idData, option, handleState }) {
             list={selectLevel}
             handleChange={handleChange}
             flag="Level"
-            value={option === "edit" ? selectIdUser?.nameLevel : ""}
+            value={option === "edit" ? dataUser?.idExtension : ""}
           />
         </Form.Item>
 
@@ -219,10 +203,12 @@ function FormUser({ idData, option, handleState }) {
             <State stateHours={data.stateUser} handleChange={onChangeState} />
           </Form.Item>
         )}
-
-        <Form.Item label="Foto de perfil">
-          <ImageCloudinary onChange={handleURLChange} />
-        </Form.Item>
+        
+        {option === "create" && (
+          <Form.Item label="Foto de perfil">
+            <ImageCloudinary onChange={handleURLChange} />
+          </Form.Item>
+        )}
 
         <Button type="primary" htmlType="submit">
           <Text text="Crear" />

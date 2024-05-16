@@ -1,7 +1,6 @@
 "use client";
 
 // COMPONET'S
-import CardComponent from "@/components/card/CardComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Filters from "@/components/filters/Filters";
@@ -14,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 //REDUX
 import { getUserAll } from "@/redux/actions";
+import Cards from "@/components/cards/Cards";
 
 // JAVASCRIP
 
@@ -41,7 +41,7 @@ function User() {
         <Filters />
       </div>
       <div>
-        <CardComponent user={selectUser.length ? selectUser : selectFilter} />
+        <Cards user={selectUser.length ? selectUser : selectFilter} />
       </div>
       <div>{selectInfo && <PaginationComponet pages={selectInfo.pages} />}</div>
       <div>

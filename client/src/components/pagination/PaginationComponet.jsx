@@ -30,11 +30,15 @@ function PaginationComponet({ pages }) {
     }, 500);
 
   const onChange = (page) => {
+    if (selectUser.length) {
+      dispatch(getPageUser(page));
+      setCurrent(page);
+    }
     if (!selectFilter.length) {
       dispatch(getPageUser(page));
       setCurrent(page);
     }
-    if (filter.length) {
+    if (filter.length > 0) {
       if (page < current) {
         dispatch(filter(selectInfo.prev, "filter"));
       } else {

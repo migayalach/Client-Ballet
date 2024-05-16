@@ -54,12 +54,12 @@ const optionList = (list, flag) => {
       ];
 
     default:
-      break;
+      return [];
   }
 };
 
 function SelectComponet({ list, handleChange, flag, value }) {
-  return (
+  return !value ? (
     <Select
       labelInValue
       placeholder={value ? value : "Elije " + flag}
@@ -68,6 +68,17 @@ function SelectComponet({ list, handleChange, flag, value }) {
       style={{
         width: 200,
       }}
+    />
+  ) : (
+    <Select
+      labelInValue
+      placeholder={value ? value : "Elije " + flag}
+      onChange={handleChange}
+      options={optionList(list, flag)}
+      style={{
+        width: 200,
+      }}
+      defaultValue={value && value}
     />
   );
 }

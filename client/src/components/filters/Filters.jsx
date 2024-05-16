@@ -9,7 +9,7 @@ import {
   getExtensionAll,
   filter,
   filterClear,
-  getUserAll
+  getUserAll,
 } from "@/redux/actions";
 import Text from "@/components/text/Text";
 
