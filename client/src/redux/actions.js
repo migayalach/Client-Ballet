@@ -320,6 +320,17 @@ export const removeClass = (idClass) => {
   };
 };
 
+export const getPageClass = (page) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/class?page=${page}`)).data;
+      return dispatch(getAllClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 export const getIdAllClassStudent = (idClass) => {
   return async function (dispatch) {
     try {
