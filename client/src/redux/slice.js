@@ -16,6 +16,7 @@ export const Slice = createSlice({
     state: "",
     aux: {},
     filter: [],
+    URL: "",
     error: null,
   },
   reducers: {
@@ -50,9 +51,11 @@ export const Slice = createSlice({
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
-    putUser: (state, action) => {
-      state.data = action.payload;
-    },
+    // TODO SIN USO
+    // putUser: (state, action) => {
+    //   state.data = action.payload;
+    // },
+
     deleteUser: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
@@ -70,7 +73,9 @@ export const Slice = createSlice({
 
     //*TYPE CLASS
     postTypeClass: (state, action) => {
-      state.typeClass = action.payload.results;
+      state.aux = action.payload.typeClassData;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
     getAllTypeClass: (state, action) => {
       state.typeClass = action.payload.results;
@@ -79,11 +84,13 @@ export const Slice = createSlice({
     getIdTypeClass: (state, action) => {
       state.data = action.payload;
     },
-    putTypeClass: (state, action) => {
-      state.data = action.payload;
-    },
+    // TODO SIN USO
+    // putTypeClass: (state, action) => {
+    //   state.data = action.payload;
+    // },
     deleteTypeClass: (state, action) => {
-      state.typeClass = action.payload.results;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
 
     //*CLASS
@@ -121,6 +128,11 @@ export const Slice = createSlice({
 
     clearFilter: (state, action) => {
       state.filter = [];
+      state.state = "";
+    },
+
+    flagState: (state, action) => {
+      state.state = action.payload;
     },
 
     //!LOGIN
@@ -144,6 +156,9 @@ export const Slice = createSlice({
         page: action.payload.info.pages,
       };
     },
+    URLFilter: (state, action) => {
+      state.URL = action.payload;
+    },
   },
 });
 
@@ -165,6 +180,7 @@ export const {
   getIdTypeClass,
   putTypeClass,
   deleteTypeClass,
+  getTypeClassPage,
   postClass,
   getAllClass,
   getIdClass,
@@ -179,10 +195,12 @@ export const {
   postClassStudent,
   loginUser,
   getFilter,
+  flagState,
   clearFilter,
   clearData,
   clearAux,
   errorResponse,
   dataResults,
+  URLFilter,
 } = Slice.actions;
 export default Slice.reducer;
