@@ -300,9 +300,8 @@ export const getByIdClass = (idClass) => {
 export const editClass = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.put(`${URL}/class`, infoData)).data;
-      await dispatch(getClassAll());
-      return dispatch(putClass(data));
+      await axios.put(`${URL}/class`, infoData);
+      return dispatch(flagState("edit"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
