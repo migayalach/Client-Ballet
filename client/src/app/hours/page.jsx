@@ -28,7 +28,7 @@ function Hours() {
     dispatch(getHoursAll());
   }, []);
 
-  if (!selectHours.length && !selectInfo) {
+  if (!selectHours?.length && !selectInfo) {
     return <div>Cargando...</div>;
   }
 
@@ -40,11 +40,7 @@ function Hours() {
       </div>
       <div>
         {selectInfo && (
-          <PaginationComponet
-            pages={selectInfo.pages}
-            next={selectInfo.next}
-            prev={selectInfo.prev}
-          />
+          <PaginationComponet pages={selectInfo.pages} navegation="HOURS" />
         )}
       </div>
       <div>
