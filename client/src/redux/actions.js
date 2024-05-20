@@ -26,15 +26,19 @@ import {
   postClassStudent,
   loginUser,
   getFilter,
+  flagState,
   clearFilter,
   clearData,
   clearAux,
   errorResponse,
   dataResults,
+  URLFilter,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
 // ACCIONES A EJECUTARSE
+
+//!HOURS
 export const createHours = (infoData) => {
   return async function (dispatch) {
     try {
@@ -102,6 +106,7 @@ export const removeIdHours = (idHours) => {
   };
 };
 
+//!USER
 export const getUserAll = () => {
   return async function (dispatch) {
     try {
@@ -149,9 +154,8 @@ export const createUser = (infoData) => {
 export const editUser = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.put(`${URL}/user`, infoData)).data;
-      await dispatch(getUserAll());
-      return dispatch(putUser(data));
+      await axios.put(`${URL}/user`, infoData);
+      return dispatch(flagState("edit"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -169,6 +173,7 @@ export const removeUser = (infoData) => {
   };
 };
 
+//!EXTENSION
 export const getExtensionAll = () => {
   return async function (dispatch) {
     try {
@@ -180,6 +185,7 @@ export const getExtensionAll = () => {
   };
 };
 
+//!LEVEL
 export const getLevelAll = () => {
   return async function (dispatch) {
     try {
@@ -191,6 +197,7 @@ export const getLevelAll = () => {
   };
 };
 
+//!TYPE-CLASS
 export const createTypeClass = (infoData) => {
   return async function (dispatch) {
     try {
@@ -227,9 +234,8 @@ export const getByIdTypeHour = (idTypeClass) => {
 export const editTypeHour = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.put(`${URL}/typeClass`, infoData)).data;
-      await dispatch(getTypeClassAll());
-      return dispatch(putTypeClass(data));
+      await axios.put(`${URL}/typeClass`, infoData);
+      return dispatch(flagState("edit"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -247,6 +253,18 @@ export const removeTypeClass = (idTypeClass) => {
   };
 };
 
+export const getPageTypeClass = (page) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/typeClass?page=${page}`)).data;
+      return dispatch(getAllTypeClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!CLASS
 export const getClassAll = () => {
   return async function (dispatch) {
     try {
@@ -336,13 +354,10 @@ export const userLogin = (infoData) => {
   };
 };
 
-export const filter = (infoData, filter) => {
+export const filter = (infoData) => {
   return async function (dispatch) {
     try {
-      const data =
-        filter === "filter"
-          ? (await axios.get(`${infoData}`)).data
-          : (await axios.get(`${URL}/filter?${infoData}`)).data;
+      const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
       return dispatch(getFilter(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -385,6 +400,26 @@ export const currentPage = (route, page) => {
     try {
       const data = (await axios.get(`${URL}/${route}?page=${page}`)).data;
       return dispatch(dataResults(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const stateFlag = (flag) => {
+  return function (dispatch) {
+    try {
+      return dispatch(flagState(flag));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterURL = (URL) => {
+  return function (dispatch) {
+    try {
+      return dispatch(URLFilter(URL));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
