@@ -43,7 +43,7 @@ const columns = [
 ];
 
 const dataMap = (data) => {
-  return data.map(({ idTypeClass, nameClass, description }, index) => ({
+  return data?.map(({ idTypeClass, nameClass, description }, index) => ({
     key: index,
     idTypeClass,
     numberItem: index + 1,

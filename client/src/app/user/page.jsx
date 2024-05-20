@@ -21,8 +21,8 @@ import Cards from "@/components/cards/Cards";
 
 function User() {
   const dispatch = useDispatch();
-  const selectUser = useSelector((state) => state.root.user);
-  const selectInfo = useSelector((state) => state.root.info);
+  const selectUser = useSelector((state) => state.root?.user);
+  const selectInfo = useSelector((state) => state.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
@@ -43,7 +43,11 @@ function User() {
       <div>
         <Cards user={selectUser.length ? selectUser : selectFilter} />
       </div>
-      <div>{selectInfo && <PaginationComponet pages={selectInfo.pages} />}</div>
+      <div>
+        {selectInfo && (
+          <PaginationComponet pages={selectInfo.pages} navegation="USER" />
+        )}
+      </div>
       <div>
         <FloatOption render="USER" />
       </div>

@@ -10,6 +10,8 @@ import {
   filter,
   filterClear,
   getUserAll,
+  stateFlag,
+  filterURL,
 } from "@/redux/actions";
 import Text from "@/components/text/Text";
 
@@ -26,11 +28,14 @@ function Filters() {
     stateUser: false,
   });
 
+  const [form] = Form.useForm();
+
   const handleChange = (event) => {
-    const key = !event.key ? [event.target.name] : event.title;
+    const key = event.key ? event.title : event.target.name;
+    const value = event.key ? event.key : event.target.value;
     setData({
       ...data,
-      [key]: !event.key ? event.target.value : event.key,
+      [key]: value,
     });
   };
 
@@ -57,21 +62,37 @@ function Filters() {
     }
     search += `stateUser=${data.stateUser}&`;
     dispatch(filter(`${search}page=1`));
+    dispatch(filterURL(`${search}page=`));
+    dispatch(stateFlag("filter"));
   };
 
   const onClickClearData = () => {
-    dispatch(filterClear());
-    dispatch(getUserAll());
+    dispatch(stateFlag("clear"));
+    setTimeout(() => {
+      dispatch(filterClear());
+      dispatch(getUserAll());
+      //TODO  Resetea los campos del formulario - ANTDESING
+      form.resetFields();
+      setData({
+        order: "",
+        nameOrLastName: "",
+        idLevel: 0,
+        idExtension: 0,
+        stateUser: false,
+      });
+      dispatch(filterURL(""));
+    }, 10);
   };
 
   useEffect(() => {
     dispatch(getLevelAll());
     dispatch(getExtensionAll());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       <Form
+        form={form}
         labelCol={{
           span: 8,
         }}

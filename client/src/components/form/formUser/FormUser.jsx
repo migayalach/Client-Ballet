@@ -109,10 +109,6 @@ function FormUser({ dataUser, option, handleState }) {
     }
   }, [option]);
 
-  // if (!selectIdUser) {
-  //   return <div>Cargando...</div>;
-  // }
-
   return (
     <>
       <Form
@@ -203,7 +199,7 @@ function FormUser({ dataUser, option, handleState }) {
             <State stateHours={data.stateUser} handleChange={onChangeState} />
           </Form.Item>
         )}
-        
+
         {option === "create" && (
           <Form.Item label="Foto de perfil">
             <ImageCloudinary onChange={handleURLChange} />
