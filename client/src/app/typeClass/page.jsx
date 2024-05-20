@@ -3,7 +3,6 @@
 import TableComponent from "@/components/tableComponent/TableComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
-import NavBar from "@/components/navBar/NavBar";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -28,7 +27,7 @@ function TypeClass() {
     dispatch(getTypeClassAll());
   }, []);
 
-  if (!selectTypeClass.length && !selectInfo) {
+  if (!selectTypeClass?.length && !selectInfo) {
     return <div>Cargando...</div>;
   }
 
@@ -42,8 +41,7 @@ function TypeClass() {
         {selectInfo && (
           <PaginationComponet
             pages={selectInfo.pages}
-            next={selectInfo.next}
-            prev={selectInfo.prev}
+            navegation="TYPE-CLASS"
           />
         )}
       </div>
