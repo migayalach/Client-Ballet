@@ -98,7 +98,9 @@ export const Slice = createSlice({
 
     //*CLASS
     postClass: (state, action) => {
-      state.classes = action.payload.results;
+      state.aux = action.payload.classData;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
     getAllClass: (state, action) => {
       state.classes = action.payload.results;
@@ -111,7 +113,8 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
     deleteClass: (state, action) => {
-      state.classes = action.payload.results;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
 
     getIdClassStudent: (state, action) => {

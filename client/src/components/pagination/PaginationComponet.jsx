@@ -15,6 +15,7 @@ import {
   stateFlag,
   getPageTypeClass,
   getPageHours,
+  getPageClass,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -33,6 +34,7 @@ function PaginationComponet({ pages, navegation }) {
   const selectFilter = useSelector(({ root }) => root?.filter);
   const selectFilterURL = useSelector(({ root }) => root?.URL);
   const selectHours = useSelector(({ root }) => root?.hours);
+  const selectClass = useSelector(({ root }) => root?.classes);
 
   const optionEffect = (option) => {
     switch (option) {
@@ -112,6 +114,27 @@ function PaginationComponet({ pages, navegation }) {
         break;
 
       case "CLASS":
+        if (Object.keys(selectClass).length && selectState === "create") {
+          const number = selectInfo.pages * 20;
+          if (selectInfo.count <= number) {
+            dispatch(getPageClass(selectInfo.pages));
+            setCurrent(selectInfo.pages);
+            setTIme();
+          }
+        } else if (selectState === "delete") {
+          const lengtClass = selectClass.length;
+          if (lengtClass - 1 > 0 && lengtClass - 1 <= 20) {
+            dispatch(getPageClass(current));
+            dispatch(stateFlag(""));
+          } else {
+            dispatch(getPageClass(selectInfo.pages));
+            dispatch(stateFlag(""));
+            setCurrent(current - 1);
+          }
+        } else if (selectState === "edit") {
+          dispatch(getPageClass(current));
+          dispatch(stateFlag(""));
+        }
         break;
 
       default:
@@ -126,7 +149,7 @@ function PaginationComponet({ pages, navegation }) {
 
   const onChange = (page) => {
     if (navegation === "USER") {
-      // TODO NAVEGACION NORMAL SIN FILTROS
+      // TODO NAVEGACION NORMAL SIN FILTROS - USER
       if (selectUser.length && !selectFilter.length) {
         dispatch(getPageUser(page));
         setCurrent(page);
@@ -142,6 +165,16 @@ function PaginationComponet({ pages, navegation }) {
     } else if (navegation === "HOURS") {
       dispatch(getPageHours(page));
       setCurrent(page);
+    } else if (navegation === "CLASS") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
+      if (selectClass.length && !selectFilter.length) {
+        dispatch(getPageClass(page));
+        setCurrent(page);
+      } // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
+      if (selectClass.length && !selectFilter.length) {
+        dispatch(getPageClass(page));
+        setCurrent(page);
+      }
     }
   };
 

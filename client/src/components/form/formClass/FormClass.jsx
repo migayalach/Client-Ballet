@@ -70,7 +70,6 @@ function FormClass({ idData, option, handleState }) {
 
   useEffect(() => {
     if (option === "edit") {
-      console.log("llege");
       dispatch(getByIdClass(idData));
       setData({
         idUser: selectClass?.idUser,
