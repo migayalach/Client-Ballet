@@ -22,7 +22,9 @@ export const Slice = createSlice({
   reducers: {
     // *HOURS
     postHours: (state, action) => {
-      state.hours = action.payload.results;
+      state.aux = action.payload.hoursData;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
     getAllHours: (state, action) => {
       state.hours = action.payload.results;
@@ -32,10 +34,11 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
     deleteIdHours: (state, action) => {
-      state.hours = action.payload.results;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
     },
     updateHour: (state, action) => {
-      state.data = action.payload;
+      // state.data = action.payload;
     },
 
     // *USER
