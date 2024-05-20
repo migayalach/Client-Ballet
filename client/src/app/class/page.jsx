@@ -39,11 +39,7 @@ function page() {
       </div>
       <div>
         {selectInfo && (
-          <PaginationComponet
-            pages={selectInfo.pages}
-            next={selectInfo.next}
-            prev={selectInfo.prev}
-          />
+          <PaginationComponet pages={selectInfo.pages} navegation="CLASS" />
         )}
       </div>
       <div>
