@@ -35,7 +35,6 @@ function DeleteModal({ idData, render }) {
       case "TYPE-CLASS":
         return dispatch(removeTypeClass(idData));
       case "CLASS":
-        return;
         return dispatch(removeClass(idData));
       default:
         break;
