@@ -14,6 +14,7 @@ import {
   filter,
   stateFlag,
   getPageTypeClass,
+  getPageHours,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -31,6 +32,7 @@ function PaginationComponet({ pages, navegation }) {
   const selectTypeClass = useSelector(({ root }) => root?.typeClass);
   const selectFilter = useSelector(({ root }) => root?.filter);
   const selectFilterURL = useSelector(({ root }) => root?.URL);
+  const selectHours = useSelector(({ root }) => root?.hours);
 
   const optionEffect = (option) => {
     switch (option) {
@@ -85,6 +87,33 @@ function PaginationComponet({ pages, navegation }) {
         }
         break;
 
+      case "HOURS":
+        if (Object.keys(selectAux).length && selectState === "create") {
+          const number = selectInfo.pages * 20;
+          if (selectInfo.count <= number) {
+            dispatch(getPageHours(selectInfo.pages));
+            setCurrent(selectInfo.pages);
+            setTIme();
+          }
+        } else if (selectState === "edit") {
+          dispatch(getPageHours(current));
+          dispatch(stateFlag(""));
+        } else if (selectState === "delete") {
+          const lengtHours = selectHours.length;
+          if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
+            dispatch(getPageHours(current));
+            dispatch(stateFlag(""));
+          } else {
+            dispatch(getPageHours(selectInfo.pages));
+            dispatch(stateFlag(""));
+            setCurrent(current - 1);
+          }
+        }
+        break;
+
+      case "CLASS":
+        break;
+
       default:
         break;
     }
@@ -109,6 +138,9 @@ function PaginationComponet({ pages, navegation }) {
       }
     } else if (navegation === "TYPE-CLASS") {
       dispatch(getPageTypeClass(page));
+      setCurrent(page);
+    } else if (navegation === "HOURS") {
+      dispatch(getPageHours(page));
       setCurrent(page);
     }
   };

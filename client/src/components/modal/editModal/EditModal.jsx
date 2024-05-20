@@ -51,8 +51,8 @@ function EditModal({ idData, dataUser, text, render }) {
         onCancel={handleCancel}
       >
         {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
-        {/* {render === "HOURS" && <FormHours idData={idData} option="edit" />}
-        {render === "CLASS" && <FormClass idData={idData} option="edit" />}*/}
+        {render === "HOURS" && <FormHours idData={idData} option="edit" />}
+        {/*{render === "CLASS" && <FormClass idData={idData} option="edit" />}*/}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}

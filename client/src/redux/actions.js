@@ -86,9 +86,8 @@ export const getByIdHours = (idHours) => {
 export const editIdHours = (info) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.put(`${URL}/hours`, info)).data;
-      await dispatch(getHoursAll());
-      return dispatch(updateHour(data));
+      await axios.put(`${URL}/hours`, info);
+      return dispatch(flagState("edit"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

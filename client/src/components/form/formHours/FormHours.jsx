@@ -1,45 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import State from "../../state/State";
-import { createHours, editIdHours } from "@/redux/actions";
 import { Button, Form } from "antd";
+import { createHours, editIdHours, getByIdHours } from "@/redux/actions";
 import { timeDifference } from "@/utils/calHours";
 import TotalHours from "../../totalHours/TotalHours";
-import { getByIdHours } from "@/redux/actions";
+import State from "../../state/State";
 
 const formItemLayout = {
   labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
+    xs: { span: 24 },
+    sm: { span: 8 },
   },
   wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
+    xs: { span: 24 },
+    sm: { span: 16 },
   },
-};
-
-const config = {
-  // rules: [
-  //   {
-  //     type: "object",
-  //     required: true,
-  //     message: "Por favor seleccione una hora!",
-  //   },
-  // ],
 };
 
 const FormHours = ({ idData, option, handleState }) => {
   const dispatch = useDispatch();
-  const dataHours = useSelector((state) => state.root);
-
+  const dataHours = useSelector((state) => state.root.data);
   const [data, setData] = useState({
     startTime: "00:00:00",
     endTime: "00:00:00",
@@ -47,63 +27,70 @@ const FormHours = ({ idData, option, handleState }) => {
     stateHours: false,
   });
 
-  const handleChange = (name, time, timeString, value) => {
-    setData({
-      ...data,
-      [name]: name !== "stateHours" ? timeString : value,
-    });
-  };
-
-  const handleChangeState = (boolean) => {
-    setData({
-      ...data,
-      stateHours: boolean,
-    });
-  };
-
-  const onFinish = () => {
-    option === "edit"
-      ? dispatch(editIdHours({ ...data, idHours: idData }))
-      : dispatch(createHours(data)) && handleState();
-  };
-
   useEffect(() => {
     if (idData) {
       dispatch(getByIdHours(idData));
     }
-  }, [idData]);
+  }, [idData, dispatch]);
 
   useEffect(() => {
-    if (option === "edit" && dataHours.data) {
+    if (option === "edit" && dataHours) {
       setData({
-        startTime: dataHours.data.startTime,
-        endTime: dataHours.data.endTime,
-        totalTime: dataHours.data.totalTime,
-        stateHours: dataHours.data.stateHours,
+        startTime: dataHours.startTime,
+        endTime: dataHours.endTime,
+        totalTime: dataHours.totalTime,
+        stateHours: dataHours.stateHours,
       });
     }
   }, [dataHours, option]);
 
   useEffect(() => {
     if (data.startTime !== "00:00:00" && data.endTime !== "00:00:00") {
-      handleChange(
-        "totalTime",
-        "",
-        timeDifference(data.startTime, data.endTime)
-      );
+      const totalTime = timeDifference(data.startTime, data.endTime);
+      setData((prevData) => ({
+        ...prevData,
+        totalTime,
+      }));
     }
   }, [data.endTime, data.startTime]);
+
+  const handleChange = (name, time, timeString, value) => {
+    setData((prevData) => ({
+      ...prevData,
+      [name]: name !== "stateHours" ? timeString : value,
+    }));
+  };
+
+  const handleChangeState = (boolean) => {
+    setData((prevData) => ({
+      ...prevData,
+      stateHours: boolean,
+    }));
+  };
+
+  const onFinish = () => {
+    if (option === "edit") {
+      dispatch(editIdHours({ ...data, idHours: idData }));
+    } else {
+      dispatch(createHours(data));
+      setData({
+        startTime: "00:00:00",
+        endTime: "00:00:00",
+        totalTime: "00:00:00",
+        stateHours: false,
+      });
+      handleState();
+    }
+  };
 
   return (
     <Form
       name=""
       {...formItemLayout}
       onFinish={onFinish}
-      style={{
-        maxWidth: 650,
-      }}
+      style={{ maxWidth: 650 }}
     >
-      <Form.Item name="time-start" label="Inicio de clase" {...config}>
+      <Form.Item name="time-start" label="Inicio de clase">
         <TotalHours
           name="startTime"
           hours={data.startTime}
@@ -111,7 +98,7 @@ const FormHours = ({ idData, option, handleState }) => {
         />
       </Form.Item>
 
-      <Form.Item name="time-end" label="Finalización de clase" {...config}>
+      <Form.Item name="time-end" label="Finalización de clase">
         <TotalHours
           name="endTime"
           hours={data.endTime}
@@ -124,25 +111,18 @@ const FormHours = ({ idData, option, handleState }) => {
       </Form.Item>
 
       {option === "edit" && (
-        <Form.Item
-          name="switch"
-          label="Estado de clase"
-          valuePropName="checked"
-        >
-          <State stateHours={data.stateHours} handleChange={handleChangeState} />
+        <Form.Item name="switch" label="Estado de clase" valuePropName="checked">
+          <State
+            stateHours={data.stateHours}
+            handleChange={handleChangeState}
+          />
         </Form.Item>
       )}
 
       <Form.Item
         wrapperCol={{
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
+          xs: { span: 24, offset: 0 },
+          sm: { span: 16, offset: 8 },
         }}
       >
         <Button type="primary" htmlType="submit">
