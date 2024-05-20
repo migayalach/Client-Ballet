@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Card } from "antd";
 const { Meta } = Card;
@@ -33,6 +33,34 @@ function CardComponent({
     photoUser,
     stateUser,
   });
+
+  useEffect(() => {
+    setDataUser({
+      idUser,
+      idLevel,
+      idExtension,
+      nameUser,
+      lastNameUser,
+      emailUser,
+      addressUser,
+      dateBirthUser,
+      carnetUser,
+      photoUser,
+      stateUser,
+    });
+  }, [
+    idUser,
+    idLevel,
+    idExtension,
+    nameUser,
+    lastNameUser,
+    emailUser,
+    addressUser,
+    dateBirthUser,
+    carnetUser,
+    photoUser,
+    stateUser,
+  ]);
 
   return (
     <div>
