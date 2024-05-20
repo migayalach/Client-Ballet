@@ -52,7 +52,7 @@ function EditModal({ idData, dataUser, text, render }) {
       >
         {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
         {render === "HOURS" && <FormHours idData={idData} option="edit" />}
-        {/*{render === "CLASS" && <FormClass idData={idData} option="edit" />}*/}
+        {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}
