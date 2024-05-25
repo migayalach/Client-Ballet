@@ -130,6 +130,8 @@ export const Slice = createSlice({
       state.filter = action.payload.results;
       state.info = action.payload.info;
       state.user = [];
+      state.typeClass = [];
+      state.hours = [];
     },
 
     clearFilter: (state, action) => {
