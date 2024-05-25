@@ -2,16 +2,13 @@
 
 // COMPONET'S
 import LoginModal from "../modal/loginModal/LoginModal";
+import EditModal from "../modal/editModal/EditModal";
 
 // HOOK'S
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { MailOutlined, SettingOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 
 // LIBRARY
@@ -19,17 +16,15 @@ import { Menu } from "antd";
 //REDUX
 
 // JAVASCRIP
-// import { useAuth } from "@/context/authContext";
 
 // STYLESHEET'
 import "./nav-bar.css";
 
 function NavBar() {
-  // const { logout, user, loading } = useAuth();
   const [current, setCurrent] = useState("home");
+  const [data, setData] = useState({});
   const selectAccess = useSelector(({ root }) => root?.access);
   const handleLogout = async () => await logout();
-
   const items = [
     {
       label: <Link href="/">Home</Link>,
@@ -37,25 +32,14 @@ function NavBar() {
       icon: <MailOutlined />,
     },
     {
-      label: (
-        // selectAccess?.access &&
-        <Link href="/user">Usuarios</Link>
-      ),
+      label: selectAccess?.access && <Link href="/user">Usuarios</Link>,
       key: "staff",
-      icon: (
-        // selectAccess?.access &&
-        <MailOutlined />
-      ),
+      icon: selectAccess?.access && <MailOutlined />,
     },
     {
-      label:
-        // selectAccess?.access &&
-        "Danzas",
+      label: selectAccess?.access && "Danzas",
       key: "SubMenuDances",
-      icon: (
-        // selectAccess?.access &&
-        <SettingOutlined />
-      ),
+      icon: selectAccess?.access && <SettingOutlined />,
       children: [
         {
           type: "group",
@@ -84,22 +68,19 @@ function NavBar() {
       ],
     },
     {
-      label:
-        // selectAccess?.access &&
-        "Usuario",
+      label: selectAccess?.access && "Usuario",
       key: "SubMenu",
-      icon: (
-        // selectAccess?.access &&
-        <SettingOutlined />
-      ),
+      icon: selectAccess?.access && <SettingOutlined />,
       children: [
         {
           type: "group",
           label: "Opciones",
           children: [
             {
-              label: "Perfil",
-              key: "setting:1",
+              label: (
+                <EditModal dataUser={selectAccess?.dataUser} render="PROFILE" />
+              ),
+              key: "editProfile",
             },
             {
               label: "Informacion",
@@ -128,16 +109,15 @@ function NavBar() {
     setCurrent(e.key);
   };
 
-  // if (loading) return <h1>Loaging</h1>;
+  useEffect(() => {
+    const levelUser = selectAccess?.level;
+    // console.log(levelUser);
+  }, [selectAccess]);
 
-  // console.log(user);
   return (
     <div className="container-navbar">
       <div>
-        <Link href="/">
-          Logo
-          {/* {user?.email} */}
-        </Link>
+        <Link href="/">Logo</Link>
       </div>
       <div className="container-menu">
         <Menu
