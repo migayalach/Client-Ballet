@@ -14,7 +14,7 @@ import { Modal, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
-import { removeData } from "@/redux/actions";
+import { removeData, stateFlag } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -26,16 +26,19 @@ function EditModal({ idData, dataUser, text, render }) {
 
   const showModal = () => {
     setIsModalOpen(true);
+    render === "PROFILE" && dispatch(stateFlag("editProfile"));
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
     dispatch(removeData());
+    dispatch(stateFlag(""));
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
     dispatch(removeData());
+    dispatch(stateFlag(""));
   };
 
   return (
@@ -51,6 +54,9 @@ function EditModal({ idData, dataUser, text, render }) {
         onCancel={handleCancel}
       >
         {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
+        {render === "PROFILE" && (
+          <FormUser dataUser={dataUser} option="editProfile" />
+        )}
         {render === "HOURS" && <FormHours idData={idData} option="edit" />}
         {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
