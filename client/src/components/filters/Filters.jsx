@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "antd";
+import { Form, Button } from "antd";
 import SelectComponet from "../select/SelectComponet";
 import State from "../state/State";
-import { Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getLevelAll,
@@ -47,7 +46,7 @@ function Filters() {
   };
 
   const onFinish = () => {
-    let search = "";
+    let search = "search=user&";
     if (data.order.trim()) {
       search += `order=${data.order}&`;
     }
