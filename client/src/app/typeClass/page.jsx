@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
 import { getTypeClassAll } from "@/redux/actions";
+import TypeClassFilter from "@/components/filters/typeClassFilter/TypeClassFilter";
 
 // JAVASCRIP
 
@@ -22,9 +23,12 @@ function TypeClass() {
 
   const selectTypeClass = useSelector((state) => state.root.typeClass);
   const selectInfo = useSelector((state) => state.root.info);
+  const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
-    dispatch(getTypeClassAll());
+    if (!selectFilter.length) {
+      dispatch(getTypeClassAll());
+    }
   }, []);
 
   if (!selectTypeClass?.length && !selectInfo) {
@@ -34,8 +38,14 @@ function TypeClass() {
   return (
     <div>
       <div>
+        <TypeClassFilter />
+      </div>
+      <div>
         <h1>Tipos de clase</h1>
-        <TableComponent data={selectTypeClass} render="TYPE-CLASS" />
+        <TableComponent
+          data={selectTypeClass.length ? selectTypeClass : selectFilter}
+          render="TYPE-CLASS"
+        />
       </div>
       <div>
         {selectInfo && (

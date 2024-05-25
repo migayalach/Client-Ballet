@@ -12,17 +12,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { Button, Form } from "antd";
+import { Button, Form, Input } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import { createUser, editUser } from "@/redux/actions";
+import {
+  createUser,
+  editUser,
+  getExtensionAll,
+  stateFlag,
+} from "@/redux/actions";
 import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
 
 // JAVASCRIP
-import { useAuth } from "@/context/authContext";
+import ProfileAvatar from "@/components/avatar/ProfileAvatar";
 
 dayjs.extend(customParseFormat);
 
@@ -73,7 +78,7 @@ function FormUser({ dataUser, option, handleState }) {
   };
 
   const onFinish = async () => {
-    if (option === "edit") {
+    if (option === "edit" || option === "editProfile") {
       dispatch(editUser({ ...data, idUser: dataUser.idUser }));
     } else {
       dispatch(createUser(data));
@@ -83,6 +88,7 @@ function FormUser({ dataUser, option, handleState }) {
         nameUser: "",
         lastNameUser: "",
         emailUser: "",
+        passwordUser: "",
         addressUser: "",
         dateBirthUser: "",
         carnetUser: "",
@@ -106,11 +112,27 @@ function FormUser({ dataUser, option, handleState }) {
         carnetUser: dataUser.carnetUser,
         stateUser: dataUser.stateUser,
       });
+    } else if (option === "editProfile") {
+      setData({
+        idLevel: dataUser.idLevel,
+        idExtension: dataUser.idExtension,
+        nameUser: dataUser.nameUser,
+        lastNameUser: dataUser.lastNameUser,
+        emailUser: dataUser.emailUser,
+        addressUser: dataUser.addressUser,
+        dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
+        carnetUser: dataUser.carnetUser,
+        stateUser: dataUser.stateUser,
+        photoUser: dataUser.photoUser,
+      });
+      dispatch(getExtensionAll());
     }
   }, [option]);
 
   return (
     <>
+      {option === "editProfile" && <ProfileAvatar img={data.photoUser} />}
+
       <Form
         labelCol={{
           span: 8,
@@ -151,6 +173,16 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
+        {option === "editProfile" && (
+          <Form.Item label="Password">
+            <Input.Password
+              onChange={handleChange}
+              name="passwordUser"
+              placeholder="hola-123"
+            />
+          </Form.Item>
+        )}
+
         <Form.Item label="Carnet">
           <InputComponent
             onChange={handleChange}
@@ -165,23 +197,33 @@ function FormUser({ dataUser, option, handleState }) {
             list={selectExtension}
             handleChange={handleChange}
             flag="Extension"
-            value={option === "edit" ? dataUser?.idExtension : ""}
+            value={
+              option === "edit" || option === "editProfile"
+                ? dataUser?.idExtension
+                : ""
+            }
           />
         </Form.Item>
 
-        <Form.Item label="Nivel">
-          <SelectComponet
-            list={selectLevel}
-            handleChange={handleChange}
-            flag="Level"
-            value={option === "edit" ? dataUser?.idExtension : ""}
-          />
-        </Form.Item>
+        {option === "edit" && (
+          <Form.Item label="Nivel">
+            <SelectComponet
+              list={selectLevel}
+              handleChange={handleChange}
+              flag="Level"
+              value={option === "edit" ? dataUser?.idExtension : ""}
+            />
+          </Form.Item>
+        )}
 
         <Form.Item label="Fecha de nacimiento">
           <DateComponent
             onChange={onChangeDate}
-            date={option === "edit" ? data?.dateBirthUser : ""}
+            date={
+              option === "edit" || option === "editProfile"
+                ? data?.dateBirthUser
+                : ""
+            }
           />
         </Form.Item>
 

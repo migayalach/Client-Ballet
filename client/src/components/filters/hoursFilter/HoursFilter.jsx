@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "antd";
-import SelectComponet from "../select/SelectComponet";
-import State from "../state/State";
+import SelectComponet from "../../select/SelectComponet";
 import { useSelector, useDispatch } from "react-redux";
+import Text from "@/components/text/Text";
 import {
-  getLevelAll,
-  getExtensionAll,
   filter,
   filterClear,
-  getUserAll,
   stateFlag,
   filterURL,
+  getHoursAll,
 } from "@/redux/actions";
-import Text from "@/components/text/Text";
+import Check from "@/components/checkBox/Check";
+import State from "@/components/state/State";
 
-function Filters() {
+function HoursFilter() {
   const dispatch = useDispatch();
-  const selectLevel = useSelector(({ root }) => root?.level);
-  const selectExtension = useSelector(({ root }) => root?.extension);
-
   const [data, setData] = useState({
     order: "",
-    nameOrLastName: "",
-    idLevel: 0,
-    idExtension: 0,
-    stateUser: false,
+    totalHours: false,
+    stateCheck: false,
+    stateHours: false,
   });
 
   const [form] = Form.useForm();
@@ -38,28 +33,28 @@ function Filters() {
     });
   };
 
+  const onChangeCheckBox = (event) => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const onChangeState = (boolean) => {
     setData({
       ...data,
-      stateUser: boolean,
+      stateHours: boolean,
     });
   };
 
   const onFinish = () => {
-    let search = "search=user&";
+    let search = "search=hours&";
     if (data.order.trim()) {
       search += `order=${data.order}&`;
     }
-    if (data.nameOrLastName.trim()) {
-      search += `nameOrLastName=${data.nameOrLastName}&`;
+    if (data.stateOrTime.trim()) {
+      search += `stateOrTime=${data.stateOrTime}&`;
     }
-    if (data.idLevel > 0) {
-      search += `idLevel=${data.idLevel}&`;
-    }
-    if (data.idExtension > 0) {
-      search += `idExtension=${data.idExtension}&`;
-    }
-    search += `stateUser=${data.stateUser}&`;
     dispatch(filter(`${search}page=1`));
     dispatch(filterURL(`${search}page=`));
     dispatch(stateFlag("filter"));
@@ -69,24 +64,17 @@ function Filters() {
     dispatch(stateFlag("clear"));
     setTimeout(() => {
       dispatch(filterClear());
-      dispatch(getUserAll());
+      dispatch(getHoursAll());
       //TODO  Resetea los campos del formulario - ANTDESING
       form.resetFields();
       setData({
         order: "",
-        nameOrLastName: "",
-        idLevel: 0,
-        idExtension: 0,
-        stateUser: false,
       });
       dispatch(filterURL(""));
     }, 10);
   };
 
-  useEffect(() => {
-    dispatch(getLevelAll());
-    dispatch(getExtensionAll());
-  }, [dispatch]);
+  console.log(data);
 
   return (
     <>
@@ -110,27 +98,30 @@ function Filters() {
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="Por" name="nameOrLastName">
-          <SelectComponet handleChange={handleChange} flag="Type" />
+        <Form.Item label="Duracion" name="checkDuration">
+          <Check
+            checkState={data.totalHours}
+            handleChange={onChangeCheckBox}
+            name="totalHours"
+            disabled={data.stateCheck ? true : false}
+          />
         </Form.Item>
 
-        <Form.Item label="Niveles" name="level">
-          <SelectComponet
-            list={selectLevel}
-            handleChange={handleChange}
-            flag="Level"
+        <Form.Item label="Estado" name="checkState">
+          <Check
+            checkState={data.stateCheck}
+            handleChange={onChangeCheckBox}
+            name="stateCheck"
+            disabled={data.totalHours ? true : false}
           />
         </Form.Item>
-        <Form.Item label="Carnet" name="extension">
-          <SelectComponet
-            list={selectExtension}
-            handleChange={handleChange}
-            flag="Extension"
-          />
-        </Form.Item>
-        <Form.Item label="Estado" name="state">
-          <State stateHours={data.stateUser} handleChange={onChangeState} />
-        </Form.Item>
+
+        {data.stateCheck && (
+          <Form.Item label="State" name="stateHours">
+            <State stateHours={data.stateHours} handleChange={onChangeState} />
+          </Form.Item>
+        )}
+
         <Button type="primary" htmlType="submit">
           <Text text="Buscar" />
         </Button>
@@ -142,4 +133,4 @@ function Filters() {
   );
 }
 
-export default Filters;
+export default HoursFilter;

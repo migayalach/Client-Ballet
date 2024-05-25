@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 //REDUX
 import { getHoursAll } from "@/redux/actions";
 import TableComponent from "@/components/tableComponent/TableComponent";
+import HoursFilter from "@/components/filters/hoursFilter/HoursFilter";
 
 // JAVASCRIP
 
@@ -23,9 +24,12 @@ function Hours() {
   const dispatch = useDispatch();
   const selectHours = useSelector((state) => state.root.hours);
   const selectInfo = useSelector((state) => state.root.info);
+  const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
-    dispatch(getHoursAll());
+    if (!selectFilter.length) {
+      dispatch(getHoursAll());
+    }
   }, []);
 
   if (!selectHours?.length && !selectInfo) {
@@ -35,8 +39,14 @@ function Hours() {
   return (
     <div>
       <div>
+        <HoursFilter />
+      </div>
+      <div>
         <h3>Lista de horarios</h3>
-        <TableComponent data={selectHours} render="HOURS" />
+        <TableComponent
+          data={selectHours.length ? selectHours : selectFilter}
+          render="HOURS"
+        />
       </div>
       <div>
         {selectInfo && (

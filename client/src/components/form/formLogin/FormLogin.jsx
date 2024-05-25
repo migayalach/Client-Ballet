@@ -7,7 +7,6 @@ import { useAuth } from "@/context/authContext";
 
 function FormLogin() {
   const dispatch = useDispatch();
-  const { loginWithGoogle } = useAuth();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -25,7 +24,6 @@ function FormLogin() {
   };
 
   const handleGoogle = async () => {
-    // const data = await login(user.email, user.password);
   };
 
   const onFinishFailed = (errorInfo) => {
