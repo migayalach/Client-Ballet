@@ -60,24 +60,34 @@ function PaginationComponet({ pages, navegation }) {
           }
           setTIme();
         } else if (selectState === "edit") {
-          dispatch(getPageUser(current));
+          if (selectFilter.length > 0 && !selectUser.length) {
+            dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            dispatch(getPageUser(current));
+          }
           dispatch(stateFlag(""));
         }
         break;
 
       case "TYPE-CLASS":
         if (selectState === "edit") {
-          dispatch(getPageTypeClass(current));
+          if (selectFilter.length > 0 && !selectTypeClass.length) {
+            dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            dispatch(getPageTypeClass(current));
+          }
           dispatch(stateFlag(""));
         } else if (selectState === "delete") {
-          const lengtTypeClass = selectTypeClass.length;
-          if (lengtTypeClass - 1 > 0 && lengtTypeClass - 1 <= 20) {
-            dispatch(getPageTypeClass(current));
-            dispatch(stateFlag(""));
+          if (selectFilterURL !== "") {
+            dispatch(filter(`${selectFilterURL}${current}`));
           } else {
-            dispatch(getPageTypeClass(selectInfo.pages));
-            dispatch(stateFlag(""));
-            setCurrent(current - 1);
+            const lengtTypeClass = selectTypeClass.length;
+            if (lengtTypeClass - 1 > 0 && lengtTypeClass - 1 <= 20) {
+              dispatch(getPageTypeClass(current));
+            } else {
+              dispatch(getPageTypeClass(selectInfo.pages));
+              setCurrent(current - 1);
+            }
           }
         } else if (Object.keys(selectAux).length && selectState === "create") {
           const number = selectInfo.pages * 20;
@@ -98,7 +108,11 @@ function PaginationComponet({ pages, navegation }) {
             setTIme();
           }
         } else if (selectState === "edit") {
-          dispatch(getPageHours(current));
+          if (selectFilter.length > 0 && !selectClass.length) {
+            dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            dispatch(getPageHours(current));
+          }
           dispatch(stateFlag(""));
         } else if (selectState === "delete") {
           const lengtHours = selectHours.length;
@@ -160,8 +174,16 @@ function PaginationComponet({ pages, navegation }) {
         setCurrent(page);
       }
     } else if (navegation === "TYPE-CLASS") {
-      dispatch(getPageTypeClass(page));
-      setCurrent(page);
+      // TODO NAVEGACION NORMAL SIN FILTROS - USER
+      if (selectTypeClass.length && !selectFilter.length) {
+        dispatch(getPageTypeClass(page));
+        setCurrent(page);
+      }
+      // TODO NAVEGACION CON FILTROS
+      if (selectFilterURL.length > 0) {
+        dispatch(filter(`${selectFilterURL}${page}`));
+        setCurrent(page);
+      }
     } else if (navegation === "HOURS") {
       dispatch(getPageHours(page));
       setCurrent(page);
