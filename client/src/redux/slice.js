@@ -38,7 +38,7 @@ export const Slice = createSlice({
       state.state = action.payload.state;
     },
     updateHour: (state, action) => {
-      // state.data = action.payload;
+      // state.data = null;
     },
 
     // *USER
