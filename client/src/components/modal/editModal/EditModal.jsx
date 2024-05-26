@@ -7,7 +7,7 @@ import FormClass from "@/components/form/formClass/FormClass";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button } from "antd";
 
 // LIBRARY
@@ -23,7 +23,8 @@ import { removeData, stateFlag } from "@/redux/actions";
 function EditModal({ idData, dataUser, text, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const selectState = useSelector(({ root }) => root?.state);
+  const selectFilter = useSelector(({ root }) => root?.filter);
   const showModal = () => {
     setIsModalOpen(true);
     render === "PROFILE" && dispatch(stateFlag("editProfile"));
@@ -40,6 +41,13 @@ function EditModal({ idData, dataUser, text, render }) {
     dispatch(removeData());
     dispatch(stateFlag(""));
   };
+
+  useEffect(() => {
+    if (render === "HOURS" && selectState === "edit" && selectFilter.length) {
+      setIsModalOpen(false);
+      dispatch(removeData());
+    }
+  }, [selectState]);
 
   return (
     <>

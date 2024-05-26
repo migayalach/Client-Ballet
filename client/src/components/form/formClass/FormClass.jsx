@@ -24,7 +24,7 @@ import State from "@/components/state/State";
 
 // JAVASCRIP
 
-function FormClass({ idData, option, handleState }) {
+function FormClass({ idData, option }) {
   const dispatch = useDispatch();
   const selectUser = useSelector(({ root }) => root?.user);
   const selectHour = useSelector(({ root }) => root?.hours);
@@ -65,7 +65,6 @@ function FormClass({ idData, option, handleState }) {
         stateClass: true,
       });
     }
-    handleState();
   };
 
   useEffect(() => {

@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
 import { getClassAll } from "@/redux/actions";
+import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
 // JAVASCRIP
 
@@ -22,9 +23,12 @@ function page() {
   const dispatch = useDispatch();
   const selectClass = useSelector(({ root }) => root?.classes);
   const selectInfo = useSelector((state) => state.root?.info);
+  const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
-    dispatch(getClassAll());
+    if (!selectFilter.length) {
+      dispatch(getClassAll());
+    }
   }, []);
 
   if (!selectClass && !selectInfo) {
@@ -33,6 +37,9 @@ function page() {
 
   return (
     <div>
+      <div>
+        <ClassFilter />
+      </div>
       <div>
         <h3>Clases</h3>
         <TableComponent data={selectClass} render="CLASS" />
