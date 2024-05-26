@@ -185,18 +185,25 @@ function PaginationComponet({ pages, navegation }) {
         setCurrent(page);
       }
     } else if (navegation === "HOURS") {
-      dispatch(getPageHours(page));
-      setCurrent(page);
+      if (selectHours.length && !selectFilter.length) {
+        dispatch(getPageHours(page));
+        setCurrent(page);
+      }
+      if (selectFilterURL.length > 0) {
+        dispatch(filter(`${selectFilterURL}${page}`));
+        setCurrent(page);
+      }
     } else if (navegation === "CLASS") {
       // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
       if (selectClass.length && !selectFilter.length) {
         dispatch(getPageClass(page));
         setCurrent(page);
-      } // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
-      if (selectClass.length && !selectFilter.length) {
-        dispatch(getPageClass(page));
-        setCurrent(page);
       }
+      // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
+      // if (selectClass.length && !selectFilter.length) {
+      //   dispatch(getPageClass(page));
+      //   setCurrent(page);
+      // }
     }
   };
 
