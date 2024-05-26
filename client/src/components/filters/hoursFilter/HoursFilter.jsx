@@ -17,7 +17,7 @@ function HoursFilter() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     order: "",
-    totalHours: false,
+    totalTime: false,
     stateCheck: false,
     stateHours: false,
   });
@@ -52,8 +52,10 @@ function HoursFilter() {
     if (data.order.trim()) {
       search += `order=${data.order}&`;
     }
-    if (data.stateOrTime.trim()) {
-      search += `stateOrTime=${data.stateOrTime}&`;
+    if (data.totalTime && !data.stateCheck) {
+      search += `totalTime=${data.totalTime}&`;
+    } else if (data.stateCheck && !data.totalTime) {
+      search += `stateHours=${data.stateHours}&`;
     }
     dispatch(filter(`${search}page=1`));
     dispatch(filterURL(`${search}page=`));
@@ -73,8 +75,6 @@ function HoursFilter() {
       dispatch(filterURL(""));
     }, 10);
   };
-
-  console.log(data);
 
   return (
     <>
@@ -100,9 +100,9 @@ function HoursFilter() {
 
         <Form.Item label="Duracion" name="checkDuration">
           <Check
-            checkState={data.totalHours}
+            checkState={data.totalTime}
             handleChange={onChangeCheckBox}
-            name="totalHours"
+            name="totalTime"
             disabled={data.stateCheck ? true : false}
           />
         </Form.Item>
@@ -112,7 +112,7 @@ function HoursFilter() {
             checkState={data.stateCheck}
             handleChange={onChangeCheckBox}
             name="stateCheck"
-            disabled={data.totalHours ? true : false}
+            disabled={data.totalTime ? true : false}
           />
         </Form.Item>
 
