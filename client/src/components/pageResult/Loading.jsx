@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import { Result } from "antd";
 
 function Loading() {
   return (
-    <div>Loading</div>
-  )
+    <>
+      <Result status="404" title="404" subTitle="Cargando." />
+      <img
+        src="https://res.cloudinary.com/dqgcyonb9/image/upload/v1716768885/Ballet/nb3efcckb7infy3ebust.gif"
+        alt="Reloj de arena"
+        height="120px"
+      />
+    </>
+  );
 }
 
-export default Loading
+export default Loading;
