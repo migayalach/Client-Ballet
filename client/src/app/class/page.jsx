@@ -1,10 +1,10 @@
 "use client";
 
 // COMPONET'S
-import NavBar from "@/components/navBar/NavBar";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
+import Loading from "@/components/pageResult/Loading";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -32,7 +32,11 @@ function page() {
   }, []);
 
   if (!selectClass && !selectInfo) {
-    return <div>Cargando...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -42,7 +46,10 @@ function page() {
       </div>
       <div>
         <h3>Clases</h3>
-        <TableComponent data={selectClass} render="CLASS" />
+        <TableComponent
+          data={selectClass.length ? selectClass : selectFilter}
+          render="CLASS"
+        />
       </div>
       <div>
         {selectInfo && (
