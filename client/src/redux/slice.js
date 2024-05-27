@@ -129,9 +129,10 @@ export const Slice = createSlice({
     getFilter: (state, action) => {
       state.filter = action.payload.results;
       state.info = action.payload.info;
-      state.user = [];
-      state.typeClass = [];
-      state.hours = [];
+    },
+
+    setFilterState: (state, action) => {
+      state[action.payload] = [];
     },
 
     clearFilter: (state, action) => {
@@ -203,6 +204,7 @@ export const {
   postClassStudent,
   loginUser,
   getFilter,
+  setFilterState,
   flagState,
   clearFilter,
   clearData,

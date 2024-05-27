@@ -60,7 +60,7 @@ function Filters() {
       search += `idExtension=${data.idExtension}&`;
     }
     search += `stateUser=${data.stateUser}&`;
-    dispatch(filter(`${search}page=1`));
+    dispatch(filter(`${search}page=1`, "user"));
     dispatch(filterURL(`${search}page=`));
     dispatch(stateFlag("filter"));
   };

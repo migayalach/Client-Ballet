@@ -3,7 +3,8 @@
 // COMPONET'S
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
-import Filters from "@/components/filters/Filters";
+import UserFilter from "@/components/filters/userFilter/UserFilter";
+import Loading from "@/components/pageResult/Loading";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -32,13 +33,17 @@ function User() {
   }, []);
 
   if (!selectUser.length && !selectInfo) {
-    return <div>Cargando...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
     <div className="conteiner-user">
       <div>
-        <Filters />
+        <UserFilter />
       </div>
       <div>
         <Cards user={selectUser.length ? selectUser : selectFilter} />

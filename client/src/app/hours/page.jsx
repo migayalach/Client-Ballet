@@ -1,9 +1,9 @@
 "use client";
 
 // COMPONET'S
-import NavBar from "@/components/navBar/NavBar";
 import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
+import Loading from "@/components/pageResult/Loading";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -33,7 +33,11 @@ function Hours() {
   }, []);
 
   if (!selectHours?.length && !selectInfo) {
-    return <div>Cargando...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (

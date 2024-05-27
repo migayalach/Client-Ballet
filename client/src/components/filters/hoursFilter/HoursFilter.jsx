@@ -57,7 +57,7 @@ function HoursFilter() {
     } else if (data.stateCheck && !data.totalTime) {
       search += `stateHours=${data.stateHours}&`;
     }
-    dispatch(filter(`${search}page=1`));
+    dispatch(filter(`${search}page=1`, "hours"));
     dispatch(filterURL(`${search}page=`));
     dispatch(stateFlag("filter"));
   };

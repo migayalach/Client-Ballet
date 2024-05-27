@@ -3,6 +3,7 @@
 import TableComponent from "@/components/tableComponent/TableComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
+import Loading from "@/components/pageResult/Loading";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -32,7 +33,11 @@ function TypeClass() {
   }, []);
 
   if (!selectTypeClass?.length && !selectInfo) {
-    return <div>Cargando...</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (

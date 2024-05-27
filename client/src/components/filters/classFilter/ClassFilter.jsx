@@ -15,7 +15,7 @@ import {
   filterURL,
 } from "@/redux/actions";
 
-function ClassFilter() {
+function UserFilter() {
   const dispatch = useDispatch();
   const selectExtension = useSelector(({ root }) => root?.extension);
   const selectUser = useSelector(({ root }) => root?.user);
@@ -60,7 +60,7 @@ function ClassFilter() {
       search += `idTypeClass=${data.idTypeClass}&`;
     }
     search += `stateClass=${data.stateClass}&`;
-    dispatch(filter(`${search}page=1`));
+    dispatch(filter(`${search}page=1`, "classes"));
     dispatch(filterURL(`${search}page=`));
     dispatch(stateFlag("filter"));
   };
@@ -150,4 +150,4 @@ function ClassFilter() {
   );
 }
 
-export default ClassFilter;
+export default UserFilter;

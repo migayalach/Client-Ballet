@@ -26,6 +26,7 @@ import {
   postClassStudent,
   loginUser,
   getFilter,
+  setFilterState,
   flagState,
   clearFilter,
   clearData,
@@ -363,10 +364,11 @@ export const userLogin = (infoData) => {
   };
 };
 
-export const filter = (infoData) => {
+export const filter = (infoData, valueState) => {
   return async function (dispatch) {
     try {
       const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
+      dispatch(setFilterState(valueState));
       return dispatch(getFilter(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));

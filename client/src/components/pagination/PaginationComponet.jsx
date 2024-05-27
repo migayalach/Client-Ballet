@@ -199,11 +199,11 @@ function PaginationComponet({ pages, navegation }) {
         dispatch(getPageClass(page));
         setCurrent(page);
       }
-      // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
-      // if (selectClass.length && !selectFilter.length) {
-      //   dispatch(getPageClass(page));
-      //   setCurrent(page);
-      // }
+      // TODO NAVEGACION NORMAL CON FILTROS - CLASS
+      if (selectFilter.length > 0) {
+        dispatch(filter(`${selectFilterURL}${page}`));
+        setCurrent(page);
+      }
     }
   };
 
