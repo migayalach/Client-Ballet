@@ -33,7 +33,7 @@ function TypeClassFilter() {
     if (data.order.trim()) {
       search += `order=${data.order}&`;
     }
-    dispatch(filter(`${search}page=1`));
+    dispatch(filter(`${search}page=1`, "typeClass"));
     dispatch(filterURL(`${search}page=`));
     dispatch(stateFlag("filter"));
   };
