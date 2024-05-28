@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "antd";
-import SelectComponet from "../select/SelectComponet";
-import State from "../state/State";
+import SelectComponet from "@/components/select/SelectComponet";
+import State from "@/components/state/State";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getLevelAll,
