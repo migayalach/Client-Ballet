@@ -14,6 +14,7 @@ import {
   stateFlag,
   filterURL,
 } from "@/redux/actions";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 function UserFilter() {
   const dispatch = useDispatch();
@@ -112,11 +113,12 @@ function UserFilter() {
         </Form.Item>
 
         <Form.Item label="Profesor" name="teacher">
-          <SelectComponet
+          {/* <SelectComponet
             list={selectUser}
             handleChange={handleChange}
             flag="User"
-          />
+          /> */}
+          <ModalSelect render="TEACHER-ALL" />
         </Form.Item>
 
         <Form.Item label="Extension" name="extension">
@@ -128,11 +130,12 @@ function UserFilter() {
         </Form.Item>
 
         <Form.Item label="Tipo de clase" name="typeClass">
-          <SelectComponet
+          {/* <SelectComponet
             list={selectTypeClass}
             handleChange={handleChange}
             flag="TypeClass"
-          />
+          /> */}
+          <ModalSelect render="TYPE-CLASS-ALL" />
         </Form.Item>
 
         <Form.Item label="Estado" name="state">
