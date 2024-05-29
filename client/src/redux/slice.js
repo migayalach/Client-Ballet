@@ -16,6 +16,7 @@ export const Slice = createSlice({
     state: "",
     aux: {},
     filter: [],
+    filterAll: [],
     URL: "",
     error: null,
   },
@@ -131,6 +132,14 @@ export const Slice = createSlice({
       state.info = action.payload.info;
     },
 
+    getFilterAll: (state, action) => {
+      state.filterAll = action.payload;
+    },
+
+    setFilterAll: (state, action) => {
+      state.filterAll = [];
+    },
+
     setFilterState: (state, action) => {
       state[action.payload] = [];
     },
@@ -204,6 +213,8 @@ export const {
   postClassStudent,
   loginUser,
   getFilter,
+  getFilterAll,
+  setFilterAll,
   setFilterState,
   flagState,
   clearFilter,
