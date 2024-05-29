@@ -1,89 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, List, Skeleton } from "antd";
-import TableComponent from "../tableComponent/TableComponent";
-const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+import { useSelector } from "react-redux";
+import { Avatar, List, message } from "antd";
+import VirtualList from "rc-virtual-list";
+
+const ContainerHeight = 400;
 
 function ListData() {
-  const [initLoading, setInitLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const selectFilterAll = useSelector(({ root }) => root?.filterAll);
   const [data, setData] = useState([]);
-  const [list, setList] = useState([]);
 
   useEffect(() => {
-    fetch(fakeDataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        setInitLoading(false);
-        setData(res.results);
-        setList(res.results);
-      });
-  }, []);
+    if (selectFilterAll) {
+      setData(selectFilterAll);
+    }
+  }, [selectFilterAll]);
 
-  const onLoadMore = () => {
-    setLoading(true);
-    setList(
-      data.concat(
-        [...new Array(count)].map(() => ({
-          loading: true,
-          name: {},
-          picture: {},
-        }))
-      )
-    );
-    fetch(fakeDataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        const newData = data.concat(res.results);
-        setData(newData);
-        setList(newData);
-        setLoading(false);
-        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event("resize"));
-      });
+  const onScroll = (e) => {
+    console.log(e);
+    // Refer to: https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#problems_and_solutions
+    // if (
+    //   Math.abs(
+    //     e.currentTarget.scrollHeight -
+    //       e.currentTarget.scrollTop -
+    //       ContainerHeight
+    //   ) <= 1
+    // ) {
+    //   appendData();
+    // }
   };
 
-  const loadMore =
-    !initLoading && !loading ? (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: 12,
-          height: 32,
-          lineHeight: "32px",
-        }}
-      >
-        <Button onClick={onLoadMore}>Cargar mas...</Button>
-      </div>
-    ) : null;
-
   return (
-    // <List
-    //   className="demo-loadmore-list"
-    //   loading={initLoading}
-    //   itemLayout="horizontal"
-    //   loadMore={loadMore}
-    //   dataSource={list}
-    //   renderItem={(item) => (
-    //     <List.Item
-    //       actions={[
-    //         <a key="list-loadmore-edit">Seleccionar</a>,
-    //       ]}
-    //     >
-    //       <Skeleton avatar title={false} loading={item.loading} active>
-    //         <List.Item.Meta
-    //           avatar={<Avatar src={item.picture.large} />}
-    //           title={<a href="https://ant.design">{item.name?.last}</a>}
-    //           description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-    //         />
-    //         <div>content</div>
-    //       </Skeleton>
-    //     </List.Item>
-    //   )}
-    // />
-    <TableComponent data="{}" render="filter" />
+    <List>
+      <VirtualList
+        data={data}
+        height={ContainerHeight}
+        itemHeight={47}
+        itemKey="idUser"
+        onScroll={onScroll}
+      >
+        {(item) => (
+          <List.Item key={item.idUser}>
+            <List.Item.Meta
+              avatar={<Avatar src={item.photoUser} />}
+              title={
+                <a href="#">
+                  {item.nameUser} {item.lastNameUser}
+                </a>
+              }
+              description={`${item.carnetUser} ${item.department}`}
+            />
+            <div>SELECT</div>
+          </List.Item>
+        )}
+      </VirtualList>
+    </List>
   );
 }
 
