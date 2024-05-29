@@ -26,6 +26,8 @@ import {
   postClassStudent,
   loginUser,
   getFilter,
+  getFilterAll,
+  setFilterAll,
   setFilterState,
   flagState,
   clearFilter,
@@ -370,6 +372,27 @@ export const filter = (infoData, valueState) => {
       const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
       dispatch(setFilterState(valueState));
       return dispatch(getFilter(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterAll = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
+      return dispatch(getFilterAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const clearFilterAll = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(setFilterAll());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
