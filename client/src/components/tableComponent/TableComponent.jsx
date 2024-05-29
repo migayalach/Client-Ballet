@@ -4,7 +4,7 @@ import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
 import Link from "next/link";
 import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
-import {EyeOutlined} from "@ant-design/icons"
+import { EyeOutlined } from "@ant-design/icons";
 
 const columns = [
   {
@@ -89,7 +89,11 @@ const columsClass = [
   {
     title: "Ver",
     key: "view",
-    render: (data) => <Link href={`/class/${data.idClass}`}><EyeOutlined /></Link>,
+    render: (data) => (
+      <Link href={`/class/${data.idClass}`}>
+        <EyeOutlined />
+      </Link>
+    ),
   },
   {
     title: "Editar",
