@@ -112,6 +112,7 @@ function FormClass({ idData, option }) {
                 : ""
             }
           />
+         
         </Form.Item>
 
         <Form.Item label="Tipo de danza">
