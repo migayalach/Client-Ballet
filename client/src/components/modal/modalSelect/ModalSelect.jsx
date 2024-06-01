@@ -4,28 +4,41 @@ import ListData from "@/components/listData/ListData";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAll, clearFilterAll } from "@/redux/actions";
 
-function ModalSelect({ render }) {
+function ModalSelect({ render, handleSelect }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [flagRender, setFlagRender] = useState("");
+
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
     setIsModalOpen(false);
     dispatch(clearFilterAll());
+    setFlagRender("");
   };
   const handleCancel = () => {
     setIsModalOpen(false);
     dispatch(clearFilterAll());
+    setFlagRender("");
+  };
+
+  const x = (idData, name, flag) => {
+    dispatch(clearFilterAll());
+    setFlagRender("");
+    setIsModalOpen(false);
+    handleSelect(idData, name, flag)
   };
 
   useEffect(() => {
     if (isModalOpen) {
       if (render === "TEACHER-ALL") {
         dispatch(filterAll("all=teacher"));
+        setFlagRender("TEACHER");
       }
       if (render === "TYPE-CLASS-ALL") {
-        dispatch(filterAll("all=class"));
+        dispatch(filterAll("all=typeClass"));
+        setFlagRender("TYPE-CLASS-ALL");
       }
     }
   }, [isModalOpen]);
@@ -41,7 +54,7 @@ function ModalSelect({ render }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <ListData />
+        <ListData flagRender={flagRender} modal={x} />
       </Modal>
     </>
   );
