@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Button } from "antd";
+import { Form, Button, Input } from "antd";
 import SelectComponet from "@/components/select/SelectComponet";
 import Text from "@/components/text/Text";
 import State from "@/components/state/State";
@@ -15,12 +15,11 @@ import {
   filterURL,
 } from "@/redux/actions";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
+import InputComponent from "@/components/inputComponent/InputComponent";
 
 function UserFilter() {
   const dispatch = useDispatch();
   const selectExtension = useSelector(({ root }) => root?.extension);
-  const selectUser = useSelector(({ root }) => root?.user);
-  const selectTypeClass = useSelector(({ root }) => root?.typeClass);
   const [form] = Form.useForm();
   const [data, setData] = useState({
     order: "",
@@ -28,6 +27,10 @@ function UserFilter() {
     idExtension: 0,
     idTypeClass: 0,
     stateClass: false,
+  });
+  const [nameData, setNameData] = useState({
+    user: "",
+    typeClass: "",
   });
 
   const handleChange = (event) => {
@@ -37,6 +40,16 @@ function UserFilter() {
       ...data,
       [key]: value,
     });
+  };
+
+  const handleSelect = (idData, name, flag) => {
+    if (flag === "typeClass") {
+      setData({ ...data, idTypeClass: idData });
+      setNameData({ ...nameData, typeClass: name });
+    } else if (flag === "USER") {
+      setData({ ...data, idUser: idData });
+      setNameData({ ...nameData, user: name });
+    }
   };
 
   const onChangeState = (boolean) => {
@@ -68,6 +81,10 @@ function UserFilter() {
 
   const onClickClearData = () => {
     dispatch(stateFlag("clear"));
+    setNameData({
+      typeClass: "",
+      user: "",
+    });
     setTimeout(() => {
       dispatch(filterClear());
       dispatch(getClassAll());
@@ -113,12 +130,13 @@ function UserFilter() {
         </Form.Item>
 
         <Form.Item label="Profesor" name="teacher">
-          {/* <SelectComponet
-            list={selectUser}
-            handleChange={handleChange}
-            flag="User"
-          /> */}
-          <ModalSelect render="TEACHER-ALL" />
+          <div>
+            <ModalSelect render="TEACHER-ALL" handleSelect={handleSelect} />
+            <InputComponent
+              placeholder="Selecciona un profesor"
+              data={nameData.user}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item label="Extension" name="extension">
@@ -130,12 +148,13 @@ function UserFilter() {
         </Form.Item>
 
         <Form.Item label="Tipo de clase" name="typeClass">
-          {/* <SelectComponet
-            list={selectTypeClass}
-            handleChange={handleChange}
-            flag="TypeClass"
-          /> */}
-          <ModalSelect render="TYPE-CLASS-ALL" />
+          <div>
+            <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
+            <InputComponent
+              placeholder="Selecciona un tipo de clase"
+              data={nameData.typeClass}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item label="Estado" name="state">
