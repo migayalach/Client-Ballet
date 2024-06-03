@@ -14,7 +14,7 @@ import { Modal, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
-import { removeData, stateFlag } from "@/redux/actions";
+import { removeData, stateFlag, getByIdClass } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -25,6 +25,7 @@ function EditModal({ idData, dataUser, text, render }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
   const selectFilter = useSelector(({ root }) => root?.filter);
+
   const showModal = () => {
     setIsModalOpen(true);
     render === "PROFILE" && dispatch(stateFlag("editProfile"));
@@ -48,6 +49,15 @@ function EditModal({ idData, dataUser, text, render }) {
       dispatch(removeData());
     }
   }, [selectState]);
+
+  useEffect(() => {
+    if (render === "CLASS" && isModalOpen) {
+      dispatch(getByIdClass(idData));
+    }
+    return () => {
+      // console.log("bye");
+    };
+  }, [isModalOpen]);
 
   return (
     <>
