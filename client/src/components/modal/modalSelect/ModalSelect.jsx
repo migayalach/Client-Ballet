@@ -27,7 +27,7 @@ function ModalSelect({ render, handleSelect }) {
     dispatch(clearFilterAll());
     setFlagRender("");
     setIsModalOpen(false);
-    handleSelect(idData, name, flag)
+    handleSelect(idData, name, flag);
   };
 
   useEffect(() => {
@@ -39,6 +39,10 @@ function ModalSelect({ render, handleSelect }) {
       if (render === "TYPE-CLASS-ALL") {
         dispatch(filterAll("all=typeClass"));
         setFlagRender("TYPE-CLASS-ALL");
+      }
+      if (render === "HOURS-ALL") {
+        dispatch(filterAll("all=hours"));
+        setFlagRender("HOURS-ALL");
       }
     }
   }, [isModalOpen]);

@@ -108,7 +108,7 @@ function PaginationComponet({ pages, navegation }) {
             setTIme();
           }
         } else if (selectState === "edit") {
-          if (selectFilter.length > 0 && !selectClass.length) {
+          if (selectFilter.length > 0 && !selectHours.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
             dispatch(getPageHours(current));
@@ -146,7 +146,11 @@ function PaginationComponet({ pages, navegation }) {
             setCurrent(current - 1);
           }
         } else if (selectState === "edit") {
-          dispatch(getPageClass(current));
+          if (selectFilter.length > 0 && !selectClass.length) {
+            dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            dispatch(getPageClass(current));
+          }
           dispatch(stateFlag(""));
         }
         break;

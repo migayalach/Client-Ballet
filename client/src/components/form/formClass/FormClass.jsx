@@ -10,25 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "antd";
 
 //REDUX
-import {
-  getHoursAll,
-  getUserAll,
-  getTypeClassAll,
-  createClass,
-  getByIdClass,
-} from "@/redux/actions";
+import { createClass, getByIdClass, editClass } from "@/redux/actions";
 import Text from "@/components/text/Text";
 import State from "@/components/state/State";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // STYLESHEET'
 
 // JAVASCRIP
 
-function FormClass({ idData, option }) {
+function FormClass({ idData, option, handleState }) {
   const dispatch = useDispatch();
-  const selectUser = useSelector(({ root }) => root?.user);
-  const selectHour = useSelector(({ root }) => root?.hours);
-  const selectTypeClass = useSelector(({ root }) => root?.typeClass);
   const selectClass = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
     idUser: 0,
@@ -37,6 +29,11 @@ function FormClass({ idData, option }) {
     parallel: "",
     stateClass: true,
   });
+  const [nameData, setNameData] = useState({
+    user: "",
+    typeClass: "",
+    hours: "",
+  });
 
   const handleChange = (event) => {
     const key = !event.key ? [event.target.name] : event.title;
@@ -44,6 +41,19 @@ function FormClass({ idData, option }) {
       ...data,
       [key]: !event.key ? event.target.value : event.key,
     });
+  };
+
+  const handleSelect = (idData, name, flag) => {
+    if (flag === "TYPE-CLASS") {
+      setData({ ...data, idTypeClass: idData });
+      setNameData({ ...nameData, typeClass: name });
+    } else if (flag === "USER") {
+      setData({ ...data, idUser: idData });
+      setNameData({ ...nameData, user: name });
+    } else if (flag === "HOURS") {
+      setData({ ...data, idHours: idData });
+      setNameData({ ...nameData, hours: name });
+    }
   };
 
   const onChangeState = (boolean) => {
@@ -55,6 +65,7 @@ function FormClass({ idData, option }) {
 
   const onFinish = () => {
     if (option === "edit") {
+      dispatch(editClass({ ...data, idClass: selectClass.idClass }));
     } else {
       dispatch(createClass(data));
       setData({
@@ -64,12 +75,12 @@ function FormClass({ idData, option }) {
         parallel: "",
         stateClass: true,
       });
+      handleState();
     }
   };
 
   useEffect(() => {
-    if (option === "edit") {
-      dispatch(getByIdClass(idData));
+    if (selectClass !== null) {
       setData({
         idUser: selectClass?.idUser,
         idHours: selectClass?.idHours,
@@ -77,14 +88,16 @@ function FormClass({ idData, option }) {
         parallel: selectClass?.parallel,
         stateClass: selectClass?.stateClass,
       });
+      setNameData({
+        hours: selectClass?.totalTime,
+        typeClass: selectClass?.nameClass,
+        user:
+          selectClass?.nameUser && selectClass?.lastNameUser
+            ? `${selectClass?.nameUser} ${selectClass?.lastNameUser}`
+            : "",
+      });
     }
-  }, [option, idData]);
-
-  useEffect(() => {
-    dispatch(getHoursAll());
-    dispatch(getUserAll());
-    dispatch(getTypeClassAll());
-  }, []);
+  }, [selectClass]);
 
   return (
     <div>
@@ -102,41 +115,33 @@ function FormClass({ idData, option }) {
         onFinish={onFinish}
       >
         <Form.Item label="Profesor">
-          <SelectComponet
-            list={selectUser}
-            handleChange={handleChange}
-            flag="User"
-            value={
-              option === "edit"
-                ? `${selectClass?.nameUser} ${selectClass?.lastNameUser}`
-                : ""
-            }
-          />
-         
+          <div>
+            <InputComponent
+              placeholder="Selecciona un profesor"
+              data={nameData.user}
+            />
+            <ModalSelect render="TEACHER-ALL" handleSelect={handleSelect} />
+          </div>
         </Form.Item>
 
         <Form.Item label="Tipo de danza">
-          <SelectComponet
-            list={selectTypeClass}
-            handleChange={handleChange}
-            flag="TypeClass"
-            value={option === "edit" ? selectClass?.nameClass : ""}
-          />
+          <div>
+            <InputComponent
+              placeholder="Selecciona un tipo de clase"
+              data={nameData.typeClass}
+            />
+            <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
+          </div>
         </Form.Item>
 
         <Form.Item label="Horario">
-          <SelectComponet
-            list={selectHour}
-            handleChange={handleChange}
-            flag="Hours"
-            value={
-              option === "edit"
-                ? `${selectClass?.totalTime} hrs - ${
-                    selectClass?.stateHours ? "Habilitado" : "Deshabilitado"
-                  }`
-                : ""
-            }
-          />
+          <div>
+            <InputComponent
+              placeholder="Selecciona un horario"
+              data={nameData.hours}
+            />
+            <ModalSelect render="HOURS-ALL" handleSelect={handleSelect} />
+          </div>
         </Form.Item>
 
         <Form.Item label="Paralelo">
@@ -144,19 +149,15 @@ function FormClass({ idData, option }) {
             onChange={handleChange}
             name="parallel"
             placeholder="5TO-B"
-            data={selectClass?.parallel}
+            data={data?.parallel}
           />
         </Form.Item>
 
         {option === "edit" && (
           <Form.Item label="Estado de clase">
-            <State
-              stateHours={selectClass?.stateClass}
-              handleChange={onChangeState}
-            />
+            <State stateHours={data?.stateClass} handleChange={onChangeState} />
           </Form.Item>
         )}
-
         <Button type="primary" htmlType="submit">
           <Text text="Crear" />
         </Button>
