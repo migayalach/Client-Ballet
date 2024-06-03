@@ -1,15 +1,22 @@
 import React, { useEffect } from "react";
-import { Table, Tag, Avatar } from "antd";
+import { Table, Tag, Avatar, Button } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
 import Link from "next/link";
 import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import ProfileAvatar from "../avatar/ProfileAvatar";
+import { useDispatch } from "react-redux";
+import { getByIdClass } from "@/redux/actions";
 
 function TableComponent({ data, render, modal }) {
+  const dispatch = useDispatch();
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
+  };
+
+  const dispatchIdEdit = (idData) => {
+    dispatch(getByIdClass(idData));
   };
 
   const columns = [
@@ -109,7 +116,10 @@ function TableComponent({ data, render, modal }) {
       title: "Editar",
       key: "action",
       render: (data) => (
-        <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
+        // <div onClick={() => dispatchIdEdit(data.idClass)}>
+          <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
+        // </div>
+        // <Button onClick={() => dispatchIdEdit(data.idClass)}>Editar</Button>
       ),
     },
     {
@@ -250,7 +260,9 @@ function TableComponent({ data, render, modal }) {
       title: "Seleccionar",
       key: "action",
       render: ({ idTypeClass, nameClass }) => (
-        <a onClick={() => select(idTypeClass, nameClass, "typeClass")}>HOLIS</a>
+        <a onClick={() => select(idTypeClass, nameClass, "TYPE-CLASS")}>
+          HOLIS
+        </a>
       ),
     },
   ];
@@ -261,6 +273,31 @@ function TableComponent({ data, render, modal }) {
       numberItem: index + 1,
       idTypeClass,
       nameClass,
+    }));
+  };
+
+  const hoursAll = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Inicio", dataIndex: "startTime", key: "startTime" },
+    { title: "Finalizacion", dataIndex: "endTime", key: "endTime" },
+    { title: "Total tiempo", dataIndex: "totalTime", key: "totalTime" },
+    {
+      title: "Seleccionar",
+      key: "action",
+      render: ({ idHours, totalTime }) => (
+        <a onClick={() => select(idHours, totalTime, "HOURS")}>HOLIS</a>
+      ),
+    },
+  ];
+
+  const hoursAllMap = (data) => {
+    return data?.map(({ idHours, startTime, endTime, totalTime }, index) => ({
+      key: index,
+      numberItem: index + 1,
+      idHours,
+      startTime,
+      endTime,
+      totalTime,
     }));
   };
 
@@ -298,6 +335,13 @@ function TableComponent({ data, render, modal }) {
         <Table
           columns={columnsTypeAllClass}
           dataSource={typeClassAllMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "HOURS-ALL" && (
+        <Table
+          columns={hoursAll}
+          dataSource={hoursAllMap(data)}
           pagination={false}
         />
       )}
