@@ -36,6 +36,7 @@ import {
   errorResponse,
   dataResults,
   URLFilter,
+  postParamsQualification,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -316,6 +317,19 @@ export const removeClass = (idClass) => {
     try {
       const data = (await axios.delete(`${URL}/class/${idClass}`)).data;
       return dispatch(deleteClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!QUALIFICATION
+export const createParamsQualification = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/qualification`, infoData)).data;
+      // return dispatch(postParamsQualification(data));
+      return data;
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
