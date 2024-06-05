@@ -8,6 +8,7 @@ function InputComponent({ onChange, name, placeholder, data }) {
       name={name}
       placeholder={placeholder}
       value={data}
+      type={name === "calification" ? "number" : "string"}
     />
   );
 }
