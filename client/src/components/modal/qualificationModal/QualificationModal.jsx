@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
-import FormQualification from "@/components/form/formQualification/formQualification/FormQualification";
+import FormQualification from "@/components/form/formQualification/FormQualification";
 
 function QualificationModal({ flag, handleQualification }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
