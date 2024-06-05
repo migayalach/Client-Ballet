@@ -4,12 +4,17 @@ import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
 import Link from "next/link";
 import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
-import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import ProfileAvatar from "../avatar/ProfileAvatar";
 import { useDispatch } from "react-redux";
 import { getByIdClass } from "@/redux/actions";
 
-function TableComponent({ data, render, modal }) {
+function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
   const dispatch = useDispatch();
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
@@ -117,7 +122,7 @@ function TableComponent({ data, render, modal }) {
       key: "action",
       render: (data) => (
         // <div onClick={() => dispatchIdEdit(data.idClass)}>
-          <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
+        <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
         // </div>
         // <Button onClick={() => dispatchIdEdit(data.idClass)}>Editar</Button>
       ),
@@ -301,6 +306,38 @@ function TableComponent({ data, render, modal }) {
     }));
   };
 
+  const paramsCalification = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Parametro", dataIndex: "item", key: "item" },
+    { title: "Puntos", dataIndex: "calification", key: "calification" },
+    { title: "Detalle", dataIndex: "description", key: "description" },
+    {
+      title: "Editar",
+      key: "action",
+      render: (data) => (
+        <EditOutlined onClick={() => handleUpdate(data.uuid)} />
+      ),
+    },
+    {
+      title: "Eliminar",
+      key: "action",
+      render: (data) => (
+        <DeleteOutlined onClick={() => handleDelete(data.uuid)} />
+      ),
+    },
+  ];
+
+  const paramsCalificationMap = (data) => {
+    return data?.map(({ uuid, item, calification, description }, index) => ({
+      key: index,
+      numberItem: index + 1,
+      uuid,
+      item,
+      calification,
+      description,
+    }));
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -342,6 +379,13 @@ function TableComponent({ data, render, modal }) {
         <Table
           columns={hoursAll}
           dataSource={hoursAllMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "FORM-PARAM-CALIFICATION" && (
+        <Table
+          columns={paramsCalification}
+          dataSource={paramsCalificationMap(data)}
           pagination={false}
         />
       )}

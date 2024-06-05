@@ -126,6 +126,12 @@ export const Slice = createSlice({
       state.student = action.payload.results;
     },
 
+    //*QUALIFICATION
+
+    postParamsQualification: (state, action) => {
+      
+    },
+
     //*FILTER
     getFilter: (state, action) => {
       state.filter = action.payload.results;
