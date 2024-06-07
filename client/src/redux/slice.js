@@ -10,6 +10,8 @@ export const Slice = createSlice({
     classes: [],
     user: [],
     student: [],
+    params: [],
+    qualification: [],
     info: null,
     data: null,
     access: {},
@@ -27,17 +29,21 @@ export const Slice = createSlice({
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
+
     getAllHours: (state, action) => {
       state.hours = action.payload.results;
       state.info = action.payload.info;
     },
+
     getIdHours: (state, action) => {
       state.data = action.payload;
     },
+
     deleteIdHours: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
+
     updateHour: (state, action) => {
       // state.data = null;
     },
@@ -47,14 +53,17 @@ export const Slice = createSlice({
       state.user = action.payload.results;
       state.info = action.payload.info;
     },
+
     getIdUser: (state, action) => {
       state.data = action.payload;
     },
+
     postUser: (state, action) => {
       state.aux = action.payload.userData;
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
+
     // TODO SIN USO
     // putUser: (state, action) => {
     //   state.data = action.payload;
@@ -81,17 +90,21 @@ export const Slice = createSlice({
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
+
     getAllTypeClass: (state, action) => {
       state.typeClass = action.payload.results;
       state.info = action.payload.info;
     },
+
     getIdTypeClass: (state, action) => {
       state.data = action.payload;
     },
+
     // TODO SIN USO
     // putTypeClass: (state, action) => {
     //   state.data = action.payload;
     // },
+
     deleteTypeClass: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
@@ -103,21 +116,26 @@ export const Slice = createSlice({
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
+
     getAllClass: (state, action) => {
       state.classes = action.payload.results;
       state.info = action.payload.info;
     },
+
     getIdClass: (state, action) => {
       state.data = action.payload;
     },
+
     putClass: (state, action) => {
       state.data = action.payload;
     },
+
     deleteClass: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
     },
 
+    //*CLASS STUDENT
     getIdClassStudent: (state, action) => {
       state.student = action.payload.results;
     },
@@ -127,9 +145,8 @@ export const Slice = createSlice({
     },
 
     //*QUALIFICATION
-
     postParamsQualification: (state, action) => {
-      
+      state.qualification = action.payload.results;
     },
 
     //*FILTER
@@ -229,5 +246,6 @@ export const {
   errorResponse,
   dataResults,
   URLFilter,
+  postParamsQualification,
 } = Slice.actions;
 export default Slice.reducer;
