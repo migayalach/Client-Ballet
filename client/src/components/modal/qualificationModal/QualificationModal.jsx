@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
 import FormQualification from "@/components/form/formQualification/FormQualification";
 
-function QualificationModal({ flag, handleQualification }) {
+function QualificationModal({ idClass, flag, handleQualification }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -31,7 +31,7 @@ function QualificationModal({ flag, handleQualification }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <FormQualification />
+        <FormQualification idClass={idClass} />
       </Modal>
     </div>
   );
