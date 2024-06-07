@@ -5,25 +5,41 @@ import Text from "@/components/text/Text";
 import { Button, Form } from "antd";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import AreaText from "@/components/areaText/AreaText";
+import DateComponent from "@/components/date/DateComponent";
+import { createParamsQualification } from "@/redux/actions";
+import { useDispatch } from "react-redux";
 
-function FormQualification() {
+function FormQualification({ idClass }) {
+  const dispatch = useDispatch();
   const [list, setList] = useState([]);
-  const [title, setTitle] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [update, setUpdate] = useState(false);
+
+  const [head, setHead] = useState({
+    title: "",
+    dateTest: "",
+  });
+
   const [data, setData] = useState({
     uuid: "",
     item: "",
     calification: 0,
     description: "",
   });
-  const [flag, setFlag] = useState(false);
-  const [update, setUpdate] = useState(false);
 
   const handleChange = (event) => {
-    if (event.target.name === "title") {
-      setTitle(event.target.value);
-    } else {
-      setData({ ...data, [event.target.name]: event.target.value });
-    }
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const onChangeHeadTitle = (event) => {
+    setHead({ ...head, [event.target.name]: event.target.value });
+  };
+
+  const handleHeadDate = (date, dateString) => {
+    setHead({
+      ...head,
+      dateTest: dateString,
+    });
   };
 
   const handleUpdate = (idItem) => {
@@ -55,7 +71,12 @@ function FormQualification() {
   };
 
   const handleSubmitCalification = () => {
-    alert("holis");
+    dispatch(createParamsQualification({ idClass, ...head, params: list }));
+    setHead({
+      title: "",
+      dateTest: "",
+    });
+    setList([]);
   };
 
   useEffect(() => {
@@ -68,22 +89,12 @@ function FormQualification() {
           description: "",
         });
         setFlag(false);
-      }, 400);
+      }, 200);
     }
   }, [flag]);
 
   return (
     <div>
-      <div>
-        <Text text="Titulo" />
-        <InputComponent
-          onChange={handleChange}
-          name="title"
-          placeholder="Primer parcial"
-          data={title}
-        />
-      </div>
-
       <div>
         <Form
           labelCol={{
@@ -98,6 +109,19 @@ function FormQualification() {
           }}
           onFinish={onFinish}
         >
+          <Form.Item label="Titulo">
+            <InputComponent
+              onChange={onChangeHeadTitle}
+              name="title"
+              placeholder="Primer parcial"
+              data={head.title}
+            />
+          </Form.Item>
+
+          <Form.Item label="Fecha">
+            <DateComponent onChange={handleHeadDate} date={head.dateTest} />
+          </Form.Item>
+
           <Form.Item label="Parametro">
             <InputComponent
               onChange={handleChange}
@@ -141,7 +165,7 @@ function FormQualification() {
       </div>
 
       <Button type="primary" onClick={handleSubmitCalification}>
-        <Text text="Calificar" />
+        <Text text="Crear" />
       </Button>
     </div>
   );
