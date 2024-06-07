@@ -327,9 +327,8 @@ export const removeClass = (idClass) => {
 export const createParamsQualification = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.post(`${URL}/qualification`, infoData)).data;
-      // return dispatch(postParamsQualification(data));
-      return data;
+      const data = (await axios.post(`${URL}/params`, infoData)).data;
+      return dispatch(postParamsQualification(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
