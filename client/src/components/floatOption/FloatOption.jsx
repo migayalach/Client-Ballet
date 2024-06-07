@@ -65,6 +65,7 @@ function FloatOption({ render, idClass }) {
 
       {flagQualification && (
         <QualificationModal
+          idClass={idClass}
           flag={true}
           handleQualification={handleQualification}
         />
