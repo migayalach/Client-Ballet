@@ -149,6 +149,11 @@ export const Slice = createSlice({
       state.qualification = action.payload.results;
     },
 
+    getParamsQualificationAll: (state, action) => {
+      state.qualification = action.payload.results;
+      state.info = action.payload.info;
+    },
+
     //*FILTER
     getFilter: (state, action) => {
       state.filter = action.payload.results;
@@ -247,5 +252,6 @@ export const {
   dataResults,
   URLFilter,
   postParamsQualification,
+  getParamsQualificationAll,
 } = Slice.actions;
 export default Slice.reducer;
