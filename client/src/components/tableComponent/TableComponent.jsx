@@ -9,6 +9,7 @@ import {
   SearchOutlined,
   DeleteOutlined,
   EditOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import ProfileAvatar from "../avatar/ProfileAvatar";
 import { useDispatch } from "react-redux";
@@ -338,6 +339,42 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     }));
   };
 
+  const qualificationParamsAll = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Fecha", dataIndex: "dateTest", key: "dateTest" },
+    { title: "Curso", dataIndex: "parallel", key: "parallel" },
+    { title: "Profesor", dataIndex: "teacher", key: "teacher" },
+    { title: "Titulo", dataIndex: "title", key: "title" },
+    { title: "Calificar" },
+    { title: "Ver" },
+    { title: "Imprimir", key: "action", render: () => <DownloadOutlined /> },
+    { title: "Eliminar" },
+  ];
+
+  const qualificationParamasAllMap = (data) => {
+    return data?.map(
+      (
+        {
+          idParams,
+          idClass,
+          parallel,
+          nameUser,
+          lastNameUser,
+          dateTest,
+          title,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        dateTest: dateTest.substring(0, 10),
+        parallel,
+        teacher: `${nameUser} ${lastNameUser}`,
+        title,
+      })
+    );
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -386,6 +423,13 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
         <Table
           columns={paramsCalification}
           dataSource={paramsCalificationMap(data)}
+          pagination={false}
+        />
+      )}
+      {render == "QUALIFICATION-ALL" && (
+        <Table
+          columns={qualificationParamsAll}
+          dataSource={qualificationParamasAllMap(data)}
           pagination={false}
         />
       )}
