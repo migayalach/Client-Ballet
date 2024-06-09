@@ -22,7 +22,7 @@ function ClassParams({ params }) {
         <ListStudents idClass={params.idClass} />
       </div>
       <div>
-        <FloatOption render="CLASS-STUDENT" idClass={params.idClass} />
+        {/* <FloatOption render="CLASS-STUDENT" idClass={params.idClass} /> */}
       </div>
     </div>
   );

@@ -35,6 +35,7 @@ function PaginationComponet({ pages, navegation }) {
   const selectFilterURL = useSelector(({ root }) => root?.URL);
   const selectHours = useSelector(({ root }) => root?.hours);
   const selectClass = useSelector(({ root }) => root?.classes);
+  // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
     switch (option) {
@@ -208,6 +209,9 @@ function PaginationComponet({ pages, navegation }) {
         dispatch(filter(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
+    } else if (navegation === "QUALIFICATION") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
+      // TODO NAVEGACION NORMAL CON FILTROS - CLASS
     }
   };
 

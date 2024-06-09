@@ -4,7 +4,7 @@ import ListData from "@/components/listData/ListData";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAll, clearFilterAll } from "@/redux/actions";
 
-function ModalSelect({ render, handleSelect }) {
+function ModalSelect({ render, handleSelect, idUser }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flagRender, setFlagRender] = useState("");
@@ -43,6 +43,10 @@ function ModalSelect({ render, handleSelect }) {
       if (render === "HOURS-ALL") {
         dispatch(filterAll("all=hours"));
         setFlagRender("HOURS-ALL");
+      }
+      if (render === "CLASS-IDUSER") {
+        dispatch(filterAll(+idUser));
+        setFlagRender("IDUSER-CLASSALL");
       }
     }
   }, [isModalOpen]);

@@ -60,6 +60,10 @@ function NavBar() {
               key: "class",
             },
             {
+              label: <Link href="/qualification">Calificationes</Link>,
+              key: "qualications",
+            },
+            {
               label: <Link href="/hours">Horarios</Link>,
               key: "hours",
             },

@@ -37,6 +37,7 @@ import {
   dataResults,
   URLFilter,
   postParamsQualification,
+  getParamsQualificationAll,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -335,6 +336,17 @@ export const createParamsQualification = (infoData) => {
   };
 };
 
+export const paramsQualificationAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/params`)).data;
+      return dispatch(getParamsQualificationAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 export const getPageClass = (page) => {
   return async function (dispatch) {
     try {
@@ -394,7 +406,10 @@ export const filter = (infoData, valueState) => {
 export const filterAll = (infoData) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
+      const data =
+        typeof infoData === "string"
+          ? (await axios.get(`${URL}/filter?${infoData}`)).data
+          : (await axios.get(`${URL}/filter/idUser=${infoData}`)).data;
       return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));

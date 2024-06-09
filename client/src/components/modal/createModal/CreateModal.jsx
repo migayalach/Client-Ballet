@@ -5,8 +5,9 @@ import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
 import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
+import FormQualification from "@/components/form/formQualification/FormQualification";
 
-function CreateModal({ flag, handleAdd, render, idClass }) {
+function CreateModal({ flag, handleAdd, render, idClass, idUser }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -49,6 +50,13 @@ function CreateModal({ flag, handleAdd, render, idClass }) {
             option="create"
             handleState={handleOk}
             idClass={idClass}
+          />
+        )}
+        {render === "QUALIFICATION" && (
+          <FormQualification
+            option="create"
+            handleState={handleOk}
+            idUser={idUser}
           />
         )}
       </Modal>

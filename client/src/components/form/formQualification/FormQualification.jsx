@@ -7,17 +7,18 @@ import TableComponent from "@/components/tableComponent/TableComponent";
 import AreaText from "@/components/areaText/AreaText";
 import DateComponent from "@/components/date/DateComponent";
 import { createParamsQualification } from "@/redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
-function FormQualification({ idClass }) {
+function FormQualification({ option, handleState, idUser }) {
   const dispatch = useDispatch();
   const [list, setList] = useState([]);
   const [flag, setFlag] = useState(false);
   const [update, setUpdate] = useState(false);
-
   const [head, setHead] = useState({
     title: "",
     dateTest: "",
+    idClass: 0,
   });
 
   const [data, setData] = useState({
@@ -71,12 +72,13 @@ function FormQualification({ idClass }) {
   };
 
   const handleSubmitCalification = () => {
-    dispatch(createParamsQualification({ idClass, ...head, params: list }));
+    dispatch(createParamsQualification({ ...head, params: list }));
     setHead({
       title: "",
       dateTest: "",
     });
     setList([]);
+    handleState();
   };
 
   useEffect(() => {
@@ -116,6 +118,18 @@ function FormQualification({ idClass }) {
               placeholder="Primer parcial"
               data={head.title}
             />
+          </Form.Item>
+
+          {/*TODO Si es director o secretaria traer todos
+          si es profesor traer solo sus clases */}
+          <Form.Item label="Clase">
+            <div>
+              <ModalSelect render="CLASS-IDUSER" idUser={idUser} />
+              <InputComponent
+                placeholder="Selecciona una clase"
+                // data={nameData.user}
+              />
+            </div>
           </Form.Item>
 
           <Form.Item label="Fecha">
