@@ -205,7 +205,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        {option === "edit" && (
+        {/* {option === "edit" && ( */}
           <Form.Item label="Nivel">
             <SelectComponet
               list={selectLevel}
@@ -214,7 +214,7 @@ function FormUser({ dataUser, option, handleState }) {
               value={option === "edit" ? dataUser?.idExtension : ""}
             />
           </Form.Item>
-        )}
+        {/* )} */}
 
         <Form.Item label="Fecha de nacimiento">
           <DateComponent

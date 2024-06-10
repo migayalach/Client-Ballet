@@ -45,7 +45,7 @@ function ModalSelect({ render, handleSelect, idUser }) {
         setFlagRender("HOURS-ALL");
       }
       if (render === "CLASS-IDUSER") {
-        dispatch(filterAll(+idUser));
+        dispatch(filterAll(idUser));
         setFlagRender("IDUSER-CLASSALL");
       }
     }

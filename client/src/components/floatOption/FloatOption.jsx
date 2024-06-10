@@ -18,7 +18,7 @@ function FloatOption({ render, idClass, nameLevel, idUser }) {
 
   return (
     <div className="conteiner">
-      {(nameLevel === "Profesor" || nameLevel === "Director") && (
+      {/* {(nameLevel === "Profesor" || nameLevel === "Director") && ( */}
         <FloatButton
           icon={<FileAddOutlined />}
           tooltip={<div>Nuevo</div>}
@@ -29,7 +29,7 @@ function FloatOption({ render, idClass, nameLevel, idUser }) {
           }}
           onClick={() => handleAdd()}
         />
-      )}
+      {/* )} */}
 
       <FloatButton
         icon={<QuestionCircleOutlined />}

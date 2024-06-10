@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { paramsQualificationAll } from "@/redux/actions";
+import { paramsQualificationAll, filterAll } from "@/redux/actions";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
 
@@ -27,7 +27,7 @@ function page() {
 
   useEffect(() => {
     if (!selectFilter.length) {
-      dispatch(paramsQualificationAll());
+      dispatch(paramsQualificationAll(selectAccess?.dataUser?.idUser));
     }
   }, []);
 
@@ -39,11 +39,12 @@ function page() {
     );
   }
 
-  console.log(selectAccess);
-
   return (
     <div>
       <div>
+        <h1>
+          SOY {selectAccess?.level} - {selectAccess?.dataUser?.idUser}
+        </h1>
         <h1>FILTROS - QUALIFICATION ()</h1>
         <p>solo lo pueden ver todos los registros el director y secretaria</p>
         <p>
