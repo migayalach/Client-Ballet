@@ -19,6 +19,7 @@ function FormQualification({ option, handleState, idUser }) {
     title: "",
     dateTest: "",
     idClass: 0,
+    class: "",
   });
 
   const [data, setData] = useState({
@@ -34,6 +35,14 @@ function FormQualification({ option, handleState, idUser }) {
 
   const onChangeHeadTitle = (event) => {
     setHead({ ...head, [event.target.name]: event.target.value });
+  };
+
+  const onChangeHeadClass = (idData, name, flag) => {
+    setHead({
+      ...head,
+      idClass: idData,
+      class: name,
+    });
   };
 
   const handleHeadDate = (date, dateString) => {
@@ -120,14 +129,16 @@ function FormQualification({ option, handleState, idUser }) {
             />
           </Form.Item>
 
-          {/*TODO Si es director o secretaria traer todos
-          si es profesor traer solo sus clases */}
           <Form.Item label="Clase">
             <div>
-              <ModalSelect render="CLASS-IDUSER" idUser={idUser} />
+              <ModalSelect
+                render="CLASS-IDUSER"
+                handleSelect={onChangeHeadClass}
+                idUser={idUser}
+              />
               <InputComponent
                 placeholder="Selecciona una clase"
-                // data={nameData.user}
+                data={head.class}
               />
             </div>
           </Form.Item>
