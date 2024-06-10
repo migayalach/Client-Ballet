@@ -17,6 +17,7 @@ import { getByIdClass } from "@/redux/actions";
 
 function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
   const dispatch = useDispatch();
+
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
   };
@@ -375,6 +376,47 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     );
   };
 
+  const classIdUser = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Clase", dataIndex: "nameClass", key: "nameClass" },
+    { title: "Paralelo", dataIndex: "parallel", key: "parallel" },
+    { title: "Tiempo", dataIndex: "totalTime", key: "totalTime" },
+    {
+      title: "Seleccionar",
+      key: "action",
+      render: ({ idClass, parallel }) => (
+        <a onClick={() => select(idClass, parallel, "IDCLASS-ALL")}>XXX</a>
+      ),
+    },
+  ];
+
+  const classIdUserMap = (data) => {
+    return data?.map(
+      (
+        {
+          idClass,
+          idHours,
+          idTypeClass,
+          nameClass,
+          parallel,
+          totalTime,
+          stateClass,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        idClass,
+        idHours,
+        idTypeClass,
+        nameClass,
+        parallel,
+        totalTime,
+        stateClass,
+      })
+    );
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -426,10 +468,17 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
           pagination={false}
         />
       )}
-      {render == "QUALIFICATION-ALL" && (
+      {render === "QUALIFICATION-ALL" && (
         <Table
           columns={qualificationParamsAll}
           dataSource={qualificationParamasAllMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "IDUSER-CLASSALL" && (
+        <Table
+          columns={classIdUser}
+          dataSource={classIdUserMap(data)}
           pagination={false}
         />
       )}
