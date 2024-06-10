@@ -71,11 +71,11 @@ function FormClassStudent({ handleState, idClass }) {
       onFinish={onFinish}
     >
       <Form.Item label="Selecciona un Alumno">
-        <SelectComponet
+        {/* <SelectComponet
           list={selectUser}
           handleChange={handleChange}
           flag="User"
-        />
+        /> */}
       </Form.Item>
 
       <Form.Item label="Estado del alumno">
