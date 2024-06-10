@@ -336,10 +336,10 @@ export const createParamsQualification = (infoData) => {
   };
 };
 
-export const paramsQualificationAll = () => {
+export const paramsQualificationAll = (idUser) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/params`)).data;
+      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
       return dispatch(getParamsQualificationAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -409,7 +409,7 @@ export const filterAll = (infoData) => {
       const data =
         typeof infoData === "string"
           ? (await axios.get(`${URL}/filter?${infoData}`)).data
-          : (await axios.get(`${URL}/filter/idUser=${infoData}`)).data;
+          : (await axios.get(`${URL}/filter/${infoData}`)).data;
       return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
