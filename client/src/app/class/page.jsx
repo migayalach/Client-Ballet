@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getClassAll } from "@/redux/actions";
+import { getClassAll, paramsQualificationAll } from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
 // JAVASCRIP
@@ -24,10 +24,11 @@ function page() {
   const selectClass = useSelector(({ root }) => root?.classes);
   const selectInfo = useSelector((state) => state.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
+  const selectAccess = useSelector(({ root }) => root?.access);
 
   useEffect(() => {
     if (!selectFilter.length) {
-      dispatch(getClassAll());
+      dispatch(getClassAll(selectAccess?.dataUser?.idUser));
     }
   }, []);
 
