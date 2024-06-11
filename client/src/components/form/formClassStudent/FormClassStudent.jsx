@@ -12,6 +12,8 @@ import { Button, Form } from "antd";
 
 //REDUX
 import { getClassAll, getUserAll, createClassStudent } from "@/redux/actions";
+import InputComponent from "@/components/inputComponent/InputComponent";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // STYLESHEET'
 
@@ -19,19 +21,15 @@ import { getClassAll, getUserAll, createClassStudent } from "@/redux/actions";
 
 function FormClassStudent({ handleState, idClass }) {
   const dispatch = useDispatch();
-  const selectUser = useSelector(({ root }) => root?.user);
   const [data, setData] = useState({
     idClass: +idClass,
+    nameStudent: "",
     idUser: 0,
     stateStudent: true,
   });
 
-  const handleChange = (event) => {
-    const key = !event.key ? [event.target.name] : event.title;
-    setData({
-      ...data,
-      [key]: !event.key ? event.target.value : event.key,
-    });
+  const handleSelect = (idData, name, flag) => {
+    setData({ ...data, idUser: idData, nameStudent: name });
   };
 
   const onChangeState = (boolean) => {
@@ -47,13 +45,13 @@ function FormClassStudent({ handleState, idClass }) {
       idClass: 0,
       idUser: 0,
       stateStudent: true,
+      nameStudent: "",
     });
     handleState();
   };
 
   useEffect(() => {
     dispatch(getClassAll());
-    dispatch(getUserAll());
   }, []);
 
   return (
@@ -71,11 +69,13 @@ function FormClassStudent({ handleState, idClass }) {
       onFinish={onFinish}
     >
       <Form.Item label="Selecciona un Alumno">
-        {/* <SelectComponet
-          list={selectUser}
-          handleChange={handleChange}
-          flag="User"
-        /> */}
+        <div>
+          <ModalSelect render="STUDEN-ALL" handleSelect={handleSelect} />
+          <InputComponent
+            placeholder="Selecciona un usuario"
+            data={data.nameStudent}
+          />
+        </div>
       </Form.Item>
 
       <Form.Item label="Estado del alumno">

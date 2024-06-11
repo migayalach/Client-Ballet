@@ -135,6 +135,11 @@ export const Slice = createSlice({
       state.state = action.payload.state;
     },
 
+    getIdUserAllClass: (state, action) => {
+      state.classes = action.payload.results;
+      state.info = action.payload.info;
+    },
+
     //*CLASS STUDENT
     getIdClassStudent: (state, action) => {
       state.student = action.payload.results;
@@ -253,5 +258,6 @@ export const {
   URLFilter,
   postParamsQualification,
   getParamsQualificationAll,
+  getIdUserAllClass,
 } = Slice.actions;
 export default Slice.reducer;

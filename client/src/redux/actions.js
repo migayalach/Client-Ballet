@@ -38,6 +38,7 @@ import {
   URLFilter,
   postParamsQualification,
   getParamsQualificationAll,
+  getIdUserAllClass,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -269,10 +270,10 @@ export const getPageTypeClass = (page) => {
 };
 
 //!CLASS
-export const getClassAll = () => {
+export const getClassAll = (idUser) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/class`)).data;
+      const data = (await axios.get(`${URL}/class?idUser=${idUser}`)).data;
       return dispatch(getAllClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -318,6 +319,17 @@ export const removeClass = (idClass) => {
     try {
       const data = (await axios.delete(`${URL}/class/${idClass}`)).data;
       return dispatch(deleteClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const paramsClassAllId = (idUser) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
+      return dispatch(getIdUserAllClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
