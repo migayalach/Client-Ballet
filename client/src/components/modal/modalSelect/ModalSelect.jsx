@@ -48,6 +48,10 @@ function ModalSelect({ render, handleSelect, idUser }) {
         dispatch(filterAll(idUser));
         setFlagRender("IDUSER-CLASSALL");
       }
+      if (render === "STUDEN-ALL") {
+        dispatch(filterAll("all=student"));
+        setFlagRender("STUDENT-ALL");
+      }
     }
   }, [isModalOpen]);
 
