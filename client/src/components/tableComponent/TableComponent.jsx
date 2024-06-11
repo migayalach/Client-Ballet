@@ -417,6 +417,41 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     );
   };
 
+  const studentAll = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    {
+      title: "Perfil",
+      dataIndex: "photoUser",
+      key: "photoUser",
+      render: (photoUser) => <Avatar src={photoUser} />,
+    },
+    { title: "Nombre", dataIndex: "name", key: "name" },
+    { title: "Carner", dataIndex: "carnet", key: "carnet" },
+    {
+      title: "Seleccionar",
+      key: "action",
+      render: ({ idUser, name, carnet }) => (
+        <a onClick={() => select(idUser, name, "STUDENT-ALL")}>:D</a>
+      ),
+    },
+  ];
+
+  const studentAllMap = (data) => {
+    return data?.map(
+      (
+        { idUser, nameUser, lastNameUser, carnetUser, department, photoUser },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        idUser,
+        name: `${nameUser} ${lastNameUser}`,
+        carnet: `${carnetUser} ${department}`,
+        photoUser,
+      })
+    );
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -479,6 +514,13 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
         <Table
           columns={classIdUser}
           dataSource={classIdUserMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "STUDENT-ALL" && (
+        <Table
+          columns={studentAll}
+          dataSource={studentAllMap(data)}
           pagination={false}
         />
       )}
