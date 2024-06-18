@@ -3,7 +3,7 @@
 // HOOK'S
 import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
 
@@ -22,6 +22,8 @@ import {
 function DeleteModal({ idData, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { dataUser } = useSelector(({ root }) => root?.access);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -35,7 +37,7 @@ function DeleteModal({ idData, render }) {
       case "TYPE-CLASS":
         return dispatch(removeTypeClass(idData));
       case "CLASS":
-        return dispatch(removeClass(idData));
+        return dispatch(removeClass(dataUser.idUser, idData));
       default:
         break;
     }
