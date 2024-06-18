@@ -19,10 +19,11 @@ import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // JAVASCRIP
 
-function FormClass({ idData, option, handleState }) {
+function FormClass({ idData, option, handleState, idUserCreate }) {
   const dispatch = useDispatch();
   const selectClass = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
+    idUserCreate: idUserCreate,
     idUser: 0,
     idHours: 0,
     idTypeClass: 0,
@@ -69,6 +70,7 @@ function FormClass({ idData, option, handleState }) {
     } else {
       dispatch(createClass(data));
       setData({
+        idUserCreate: 0,
         idUser: 0,
         idHours: 0,
         idTypeClass: 0,
