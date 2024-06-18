@@ -51,7 +51,7 @@ function FormClassStudent({ handleState, idClass }) {
   };
 
   useEffect(() => {
-    dispatch(getClassAll());
+    dispatch(getClassAll(idClass));
   }, []);
 
   return (
