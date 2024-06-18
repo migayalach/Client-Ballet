@@ -35,6 +35,7 @@ function PaginationComponet({ pages, navegation }) {
   const selectFilterURL = useSelector(({ root }) => root?.URL);
   const selectHours = useSelector(({ root }) => root?.hours);
   const selectClass = useSelector(({ root }) => root?.classes);
+  const accessUserData = useSelector(({ root }) => root?.access);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
@@ -129,20 +130,21 @@ function PaginationComponet({ pages, navegation }) {
         break;
 
       case "CLASS":
+        const { dataUser } = accessUserData;
         if (Object.keys(selectClass).length && selectState === "create") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
-            dispatch(getPageClass(selectInfo.pages));
+            dispatch(getPageClass(dataUser?.idUser, selectInfo.pages));
             setCurrent(selectInfo.pages);
             setTIme();
           }
         } else if (selectState === "delete") {
           const lengtClass = selectClass.length;
           if (lengtClass - 1 > 0 && lengtClass - 1 <= 20) {
-            dispatch(getPageClass(current));
+            dispatch(getPageClass(dataUser?.idUser, current));
             dispatch(stateFlag(""));
           } else {
-            dispatch(getPageClass(selectInfo.pages));
+            dispatch(getPageClass(dataUser?.idUser, selectInfo.pages));
             dispatch(stateFlag(""));
             setCurrent(current - 1);
           }
@@ -150,7 +152,7 @@ function PaginationComponet({ pages, navegation }) {
           if (selectFilter.length > 0 && !selectClass.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
-            dispatch(getPageClass(current));
+            dispatch(getPageClass(dataUser?.idUser, current));
           }
           dispatch(stateFlag(""));
         }
@@ -199,9 +201,10 @@ function PaginationComponet({ pages, navegation }) {
         setCurrent(page);
       }
     } else if (navegation === "CLASS") {
+      const { dataUser } = accessUserData;
       // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
       if (selectClass.length && !selectFilter.length) {
-        dispatch(getPageClass(page));
+        dispatch(getPageClass(dataUser?.idUser, page));
         setCurrent(page);
       }
       // TODO NAVEGACION NORMAL CON FILTROS - CLASS

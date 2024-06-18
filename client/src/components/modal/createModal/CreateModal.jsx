@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Modal } from "antd";
 import FormHours from "@/components/form/formHours/FormHours";
 import FormUser from "@/components/form/formUser/FormUser";
@@ -9,7 +10,7 @@ import FormQualification from "@/components/form/formQualification/FormQualifica
 
 function CreateModal({ flag, handleAdd, render, idClass, idUser }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { dataUser } = useSelector(({ root }) => root?.access);
   const handleOk = () => {
     setIsModalOpen(false);
     handleAdd(false);
@@ -43,7 +44,11 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser }) {
           <FormTypeClass option="create" handleState={handleOk} />
         )}
         {render === "CLASS" && (
-          <FormClass option="create" handleState={handleOk} />
+          <FormClass
+            option="create"
+            handleState={handleOk}
+            idUserCreate={dataUser.idUser}
+          />
         )}
         {render === "CLASS-STUDENT" && (
           <FormClassStudent
