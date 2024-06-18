@@ -314,10 +314,11 @@ export const editClass = (infoData) => {
   };
 };
 
-export const removeClass = (idClass) => {
+export const removeClass = (idUser, idClass) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.delete(`${URL}/class/${idClass}`)).data;
+      const data = (await axios.delete(`${URL}/class/${idUser}/${idClass}`))
+        .data;
       return dispatch(deleteClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -359,10 +360,12 @@ export const paramsQualificationAll = (idUser) => {
   };
 };
 
-export const getPageClass = (page) => {
+export const getPageClass = (idUser, page) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/class?page=${page}`)).data;
+      const data = (
+        await axios.get(`${URL}/class?idUser=${idUser}&page=${page}`)
+      ).data;
       return dispatch(getAllClass(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
