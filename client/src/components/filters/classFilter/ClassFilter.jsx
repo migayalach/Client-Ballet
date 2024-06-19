@@ -20,6 +20,8 @@ import InputComponent from "@/components/inputComponent/InputComponent";
 function UserFilter() {
   const dispatch = useDispatch();
   const selectExtension = useSelector(({ root }) => root?.extension);
+  const selectAccess = useSelector(({ root }) => root?.access);
+
   const [form] = Form.useForm();
   const [data, setData] = useState({
     order: "",
@@ -43,7 +45,7 @@ function UserFilter() {
   };
 
   const handleSelect = (idData, name, flag) => {
-    if (flag === "typeClass") {
+    if (flag === "TYPE-CLASS") {
       setData({ ...data, idTypeClass: idData });
       setNameData({ ...nameData, typeClass: name });
     } else if (flag === "USER") {
@@ -87,15 +89,16 @@ function UserFilter() {
     });
     setTimeout(() => {
       dispatch(filterClear());
-      dispatch(getClassAll());
+      dispatch(getClassAll(selectAccess?.dataUser?.idUser));
       //TODO  Resetea los campos del formulario - ANTDESING
       form.resetFields();
       setData({
         order: "",
-        nameOrLastName: "",
+        // nameOrLastName: "",
+        idTypeClass: 0,
         idLevel: 0,
         idExtension: 0,
-        stateUser: false,
+        stateClass: false,
       });
       dispatch(filterURL(""));
     }, 10);
@@ -149,11 +152,11 @@ function UserFilter() {
 
         <Form.Item label="Tipo de clase" name="typeClass">
           <div>
-            <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
             <InputComponent
               placeholder="Selecciona un tipo de clase"
               data={nameData.typeClass}
             />
+            <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
           </div>
         </Form.Item>
 
