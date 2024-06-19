@@ -139,14 +139,18 @@ function PaginationComponet({ pages, navegation }) {
             setTIme();
           }
         } else if (selectState === "delete") {
-          const lengtClass = selectClass.length;
-          if (lengtClass - 1 > 0 && lengtClass - 1 <= 20) {
-            dispatch(getPageClass(dataUser?.idUser, current));
-            dispatch(stateFlag(""));
+          if (selectFilterURL !== "") {
+            dispatch(filter(`${selectFilterURL}${current}`));
           } else {
-            dispatch(getPageClass(dataUser?.idUser, selectInfo.pages));
-            dispatch(stateFlag(""));
-            setCurrent(current - 1);
+            const lengtClass = selectClass.length;
+            if (lengtClass - 1 > 0 && lengtClass - 1 <= 20) {
+              dispatch(getPageClass(dataUser?.idUser, current));
+              dispatch(stateFlag(""));
+            } else {
+              dispatch(getPageClass(dataUser?.idUser, selectInfo.pages));
+              dispatch(stateFlag(""));
+              setCurrent(current - 1);
+            }
           }
         } else if (selectState === "edit") {
           if (selectFilter.length > 0 && !selectClass.length) {
