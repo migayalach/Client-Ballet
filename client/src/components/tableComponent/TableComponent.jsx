@@ -123,10 +123,7 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
       title: "Editar",
       key: "action",
       render: (data) => (
-        // <div onClick={() => dispatchIdEdit(data.idClass)}>
         <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
-        // </div>
-        // <Button onClick={() => dispatchIdEdit(data.idClass)}>Editar</Button>
       ),
     },
     {
