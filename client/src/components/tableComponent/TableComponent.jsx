@@ -1,29 +1,39 @@
-import React, { useEffect } from "react";
-import { Table, Tag, Avatar, Button } from "antd";
+import React from "react";
+import { Table, Tag, Avatar } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
 import Link from "next/link";
-import ButtonRenderId from "../button/buttonRenderId/ButtonRenderId";
 import {
   EyeOutlined,
-  SearchOutlined,
   DeleteOutlined,
-  EditOutlined,
   DownloadOutlined,
+  ContainerOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
-import ProfileAvatar from "../avatar/ProfileAvatar";
-import { useDispatch } from "react-redux";
-import { getByIdClass } from "@/redux/actions";
 
 function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
-  const dispatch = useDispatch();
-
+  
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
   };
 
-  const dispatchIdEdit = (idData) => {
-    dispatch(getByIdClass(idData));
+  const renderOption = (option, idQualification, idClass) => {
+    switch (option) {
+      case "QUALIFICATION":
+        return console.log(
+          "QUALIFICATION: =====> " + idQualification + "-----" + idClass
+        );
+
+      case "UPDATE":
+        return console.log("UPDATE: =====> " + idQualification);
+
+      case "PRINT":
+        alert("DESCARGAR UN EXCEL");
+        return console.log("PRINT: =====> " + idQualification);
+
+      case "REMOVE":
+        return console.log("REMOVE: =====> " + idQualification);
+    }
   };
 
   const columns = [
@@ -343,10 +353,38 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     { title: "Curso", dataIndex: "parallel", key: "parallel" },
     { title: "Profesor", dataIndex: "teacher", key: "teacher" },
     { title: "Titulo", dataIndex: "title", key: "title" },
-    { title: "Calificar" },
-    { title: "Ver" },
-    { title: "Imprimir", key: "action", render: () => <DownloadOutlined /> },
-    { title: "Eliminar" },
+    {
+      title: "Calificar",
+      key: "action",
+      render: (data) => (
+        <Link href={`/qualification/${data.idParams}`}>
+          <ContainerOutlined />
+        </Link>
+      ),
+    },
+    {
+      title: "Editar",
+      key: "action",
+      render: (data) => (
+        <EditOutlined onClick={() => renderOption("UPDATE", data.idParams)} />
+      ),
+    },
+    {
+      title: "Imprimir",
+      key: "action",
+      render: (data) => (
+        <DownloadOutlined
+          onClick={() => renderOption("PRINT", data.idParams)}
+        />
+      ),
+    },
+    {
+      title: "Eliminar",
+      key: "action",
+      render: (data) => (
+        <DeleteOutlined onClick={() => renderOption("REMOVE", data.idParams)} />
+      ),
+    },
   ];
 
   const qualificationParamasAllMap = (data) => {
@@ -365,6 +403,8 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
       ) => ({
         key: index,
         numberItem: index + 1,
+        idParams,
+        idClass,
         dateTest: dateTest.substring(0, 10),
         parallel,
         teacher: `${nameUser} ${lastNameUser}`,
