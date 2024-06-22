@@ -1,9 +1,15 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-function page() {
+function page({ params }) {
   return (
-    <div>page</div>
-  )
+    <div>
+      <h1>HOLIS</h1>
+      <p>{params.idQualification}</p>
+      <h3>TABLA CON TODOS LOS ALUMNOS</h3>
+    </div>
+  );
 }
 
-export default page
+export default page;
