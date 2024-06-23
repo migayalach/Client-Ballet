@@ -42,8 +42,6 @@ import {
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
-// ACCIONES A EJECUTARSE
-
 //!HOURS
 export const createHours = (infoData) => {
   return async function (dispatch) {
@@ -326,40 +324,6 @@ export const removeClass = (idUser, idClass) => {
   };
 };
 
-export const paramsClassAllId = (idUser) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
-      return dispatch(getIdUserAllClass(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-//!QUALIFICATION
-export const createParamsQualification = (infoData) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.post(`${URL}/params`, infoData)).data;
-      return dispatch(postParamsQualification(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const paramsQualificationAll = (idUser) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
-      return dispatch(getParamsQualificationAll(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
 export const getPageClass = (idUser, page) => {
   return async function (dispatch) {
     try {
@@ -373,6 +337,7 @@ export const getPageClass = (idUser, page) => {
   };
 };
 
+//!CLASS STUDENT
 export const getIdAllClassStudent = (idClass) => {
   return async function (dispatch) {
     try {
@@ -395,6 +360,7 @@ export const createClassStudent = (infoData) => {
   };
 };
 
+//!LOGIN
 export const userLogin = (infoData) => {
   return async function (dispatch) {
     try {
@@ -406,6 +372,7 @@ export const userLogin = (infoData) => {
   };
 };
 
+//!FILTROS
 export const filter = (infoData, valueState) => {
   return async function (dispatch) {
     try {
@@ -432,16 +399,7 @@ export const filterAll = (infoData) => {
   };
 };
 
-export const clearFilterAll = () => {
-  return function (dispatch) {
-    try {
-      return dispatch(setFilterAll());
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
+//!CLEAR FILTER
 export const filterClear = () => {
   return function (dispatch) {
     try {
@@ -452,6 +410,27 @@ export const filterClear = () => {
   };
 };
 
+export const filterURL = (URL) => {
+  return function (dispatch) {
+    try {
+      return dispatch(URLFilter(URL));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const clearFilterAll = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(setFilterAll());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!REMOVE STATE
 export const removeData = () => {
   return function (dispatch) {
     try {
@@ -472,6 +451,7 @@ export const removeAux = () => {
   };
 };
 
+//!AUX STATE
 export const currentPage = (route, page) => {
   return async function (dispatch) {
     try {
@@ -493,12 +473,38 @@ export const stateFlag = (flag) => {
   };
 };
 
-export const filterURL = (URL) => {
-  return function (dispatch) {
+//*PARAMS
+export const createParamsQualification = (infoData) => {
+  return async function (dispatch) {
     try {
-      return dispatch(URLFilter(URL));
+      const data = (await axios.post(`${URL}/params`, infoData)).data;
+      return dispatch(postParamsQualification(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
+
+//*QUALIFICATION
+export const paramsClassAllId = (idUser) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
+      return dispatch(getIdUserAllClass(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const paramsQualificationAll = (idUser) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
+      return dispatch(getParamsQualificationAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
