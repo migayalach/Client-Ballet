@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { paramsQualificationAll, filterAll } from "@/redux/actions";
+import { getParamsAllIdUser, filterAll } from "@/redux/actions";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
 
@@ -20,14 +20,14 @@ import FloatOption from "@/components/floatOption/FloatOption";
 
 function page() {
   const dispatch = useDispatch();
-  const selectListParams = useSelector(({ root }) => root?.qualification);
+  const selectListParams = useSelector(({ root }) => root?.params);
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectInfo = useSelector((state) => state.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
     if (!selectFilter.length) {
-      dispatch(paramsQualificationAll(selectAccess?.dataUser?.idUser));
+      dispatch(getParamsAllIdUser(selectAccess?.dataUser?.idUser));
     }
   }, []);
 
