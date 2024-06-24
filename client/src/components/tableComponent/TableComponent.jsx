@@ -9,10 +9,10 @@ import {
   DownloadOutlined,
   ContainerOutlined,
   EditOutlined,
+  ReconciliationOutlined,
 } from "@ant-design/icons";
 
 function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
-  
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
   };
@@ -353,6 +353,7 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     { title: "Curso", dataIndex: "parallel", key: "parallel" },
     { title: "Profesor", dataIndex: "teacher", key: "teacher" },
     { title: "Titulo", dataIndex: "title", key: "title" },
+    { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
     {
       title: "Calificar",
       key: "action",
@@ -398,6 +399,7 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
           lastNameUser,
           dateTest,
           title,
+          noteFinish,
         },
         index
       ) => ({
@@ -409,6 +411,7 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
         parallel,
         teacher: `${nameUser} ${lastNameUser}`,
         title,
+        noteFinish,
       })
     );
   };
@@ -489,6 +492,22 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
     );
   };
 
+  const qualificationUsers = [
+    { title: "N°" },
+    { title: "Nombre" },
+    { title: "Carnet" },
+    { title: "Promedio" },
+    {
+      title: "Calificar",
+      key: "qualification",
+      render: () => <ReconciliationOutlined />,
+    },
+  ];
+
+  const qualificationUserMap = (data) => {
+    
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -558,6 +577,13 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
         <Table
           columns={studentAll}
           dataSource={studentAllMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "QUALIFICATION-USER" && (
+        <Table
+          columns={qualificationUsers}
+          dataSource={qualificationUserMap(data)}
           pagination={false}
         />
       )}
