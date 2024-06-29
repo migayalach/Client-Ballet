@@ -1,15 +1,18 @@
 "use client";
-import TableComponent from "@/components/tableComponent/TableComponent";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect } from "react";
+import TableNotes from "@/components/tableComponent/TableNotes";
 import { useDispatch, useSelector } from "react-redux";
 import { getQualificationAll } from "@/redux/actions";
 
 function page({ params }) {
   const dispatch = useDispatch();
+
   const {
     dataUser: { idUser },
   } = useSelector(({ root }) => root?.access);
   const selectQualification = useSelector(({ root }) => root?.qualification);
+  const selectAux = useSelector(({ root }) => root?.aux);
 
   useEffect(() => {
     dispatch(getQualificationAll(params.idQualification, idUser));
@@ -18,7 +21,10 @@ function page({ params }) {
   return (
     <div>
       <h1>Lista de estudiantes</h1>
-      <TableComponent data={selectQualification} render="QUALIFICATION-USER" />
+      <TableNotes
+        paramsQualification={selectAux}
+        qualificationList={selectQualification}
+      />
     </div>
   );
 }
