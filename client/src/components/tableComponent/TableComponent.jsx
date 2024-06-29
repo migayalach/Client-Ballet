@@ -12,7 +12,14 @@ import {
   ReconciliationOutlined,
 } from "@ant-design/icons";
 
-function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
+function TableComponent({
+  data,
+  render,
+  modal,
+  handleDelete,
+  handleUpdate,
+  handleNoteUser,
+}) {
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
   };
@@ -493,19 +500,66 @@ function TableComponent({ data, render, modal, handleDelete, handleUpdate }) {
   };
 
   const qualificationUsers = [
-    { title: "N°" },
-    { title: "Nombre" },
-    { title: "Carnet" },
-    { title: "Promedio" },
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Nombre", dataIndex: "name", key: "name" },
+    { title: "Carnet", dataIndex: "carnet", key: "carnet" },
+    { title: "Promedio", dataIndex: "note", key: "note" },
     {
       title: "Calificar",
       key: "qualification",
-      render: () => <ReconciliationOutlined />,
+      render: ({
+        idParams,
+        idUser,
+        numberItem,
+        name,
+        carnet,
+        note,
+        qualification,
+      }) => (
+        <a
+          onClick={() =>
+            handleNoteUser(
+              idParams,
+              idUser,
+              numberItem,
+              name,
+              carnet,
+              note,
+              qualification
+            )
+          }
+        >
+          <ReconciliationOutlined />
+        </a>
+      ),
     },
   ];
 
   const qualificationUserMap = (data) => {
-    
+    return data?.map(
+      (
+        {
+          idParams,
+          idUser,
+          nameUser,
+          lastNameUser,
+          carnetUser,
+          department,
+          note,
+          qualification,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        name: `${nameUser} ${lastNameUser}`,
+        carnet: `${carnetUser} ${department}`,
+        note,
+        qualification,
+        idParams,
+        idUser,
+      })
+    );
   };
 
   return (
