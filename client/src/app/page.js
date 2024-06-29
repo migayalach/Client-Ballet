@@ -9,6 +9,7 @@ export default function Home() {
       <div>
         <h1>Footer</h1>
       </div>
+      <br />
     </div>
   );
 }
