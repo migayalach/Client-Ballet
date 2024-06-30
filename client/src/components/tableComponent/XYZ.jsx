@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import { keyParse, qualificationRoute, calculeNote } from "@/utils/funAuxQua";
 
+//OK
 const originData = [];
 
+//OK
 const qualification = [
   {
     idParams: 7,
@@ -16,9 +18,10 @@ const qualification = [
     qualification: [
       { item: "Salto de tiempo triple", calification: 10 },
       { item: "Uniforme", calification: 5 },
+      { item: "Caida", calification: 3 },
     ],
     observation: "She's a very nice",
-    note: 15,
+    note: 18,
   },
   {
     idParams: 7,
@@ -30,9 +33,10 @@ const qualification = [
     qualification: [
       { item: "Salto de tiempo triple", calification: 0 },
       { item: "Uniforme", calification: 0 },
+      { item: "Caida", calification: 5 },
     ],
     observation: "S/D",
-    note: 0,
+    note: 5,
   },
   {
     idParams: 7,
@@ -44,12 +48,14 @@ const qualification = [
     qualification: [
       { item: "Salto de tiempo triple", calification: 0 },
       { item: "Uniforme", calification: 0 },
+      { item: "Caida", calification: 0 },
     ],
     observation: "S/D",
     note: 0,
   },
 ];
 
+//
 const paramsAux = [
   {
     item: "Salto de tiempo triple",
@@ -57,8 +63,14 @@ const paramsAux = [
     description: "Salto de triple tiempo",
   },
   { item: "Uniforme", calification: "5", description: "Uniforme" },
+  {
+    item: "Caida",
+    calification: "5",
+    description: "Caida",
+  },
 ];
 
+//OK
 for (let i = 0; i < qualification.length; i++) {
   originData.push({
     key: i,
@@ -75,6 +87,7 @@ for (let i = 0; i < qualification.length; i++) {
   });
 }
 
+//OK
 const EditableCell = ({
   editing,
   dataIndex,
@@ -173,6 +186,7 @@ function XYZ() {
     }
   };
 
+  //OK
   const columns = [
     { title: "N°", dataIndex: "number", width: "5%", editable: false },
     { title: "Nombre", dataIndex: "nameUser", width: "10%", editable: false },
@@ -184,7 +198,8 @@ function XYZ() {
     },
     { title: "Carnet", dataIndex: "carnetUser", width: "5%", editable: false },
   ];
-
+  
+  //OK
   for (let i = 0; i < paramsAux.length; i++) {
     columns.push({
       title: `${paramsAux[i].item} / ${paramsAux[i].calification}`,
@@ -195,6 +210,7 @@ function XYZ() {
     });
   }
 
+  //OK
   columns.push(
     {
       title: "Observaciones",
