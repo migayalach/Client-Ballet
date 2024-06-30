@@ -7,12 +7,9 @@ import { getQualificationAll } from "@/redux/actions";
 
 function page({ params }) {
   const dispatch = useDispatch();
-
   const {
     dataUser: { idUser },
   } = useSelector(({ root }) => root?.access);
-  const selectQualification = useSelector(({ root }) => root?.qualification);
-  const selectAux = useSelector(({ root }) => root?.aux);
 
   useEffect(() => {
     dispatch(getQualificationAll(params.idQualification, idUser));
@@ -21,10 +18,7 @@ function page({ params }) {
   return (
     <div>
       <h1>Lista de estudiantes</h1>
-      <TableNotes
-        paramsQualification={selectAux}
-        qualificationList={selectQualification}
-      />
+      <TableNotes />
     </div>
   );
 }
