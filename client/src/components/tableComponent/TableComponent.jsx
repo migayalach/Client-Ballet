@@ -371,13 +371,6 @@ function TableComponent({
       ),
     },
     {
-      title: "Editar",
-      key: "action",
-      render: (data) => (
-        <EditOutlined onClick={() => renderOption("UPDATE", data.idParams)} />
-      ),
-    },
-    {
       title: "Imprimir",
       key: "action",
       render: (data) => (
