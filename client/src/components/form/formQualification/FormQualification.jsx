@@ -81,7 +81,7 @@ function FormQualification({ option, handleState, idUser }) {
   };
 
   const handleSubmitCalification = () => {
-    dispatch(createParamsQualification({ ...head, params: list }));
+    dispatch(createParamsQualification({ idUser, ...head, params: list }));
     setHead({
       title: "",
       dateTest: "",
