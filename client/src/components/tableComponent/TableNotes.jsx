@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { postQualification } from "@/redux/actions";
 import {
   Form,
   Input,
@@ -16,6 +17,7 @@ import {
   calculeNote,
   parseQualification,
   qualificatioNote,
+  castingQualification,
 } from "@/utils/funAuxQua";
 import Text from "@/components/text/Text";
 
@@ -50,6 +52,8 @@ const EditableCell = ({
 function TableNotes() {
   const qualification = useSelector(({ root }) => root?.qualification);
   const selectAuxParams = useSelector(({ root }) => root?.aux);
+  const selectAccess = useSelector(({ root }) => root?.access);
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [data, setData] = useState([...qualification]);
   const [quaParams, setQuaParams] = useState([]);
@@ -117,7 +121,15 @@ function TableNotes() {
   };
 
   const onFinish = () => {
-
+    const arrayData = [];
+    const idUser = selectAccess?.dataUser?.idUser;
+    const idParams = qualification[0]?.idParams;
+    for (let i = 0; i < data.length; i++) {
+      arrayData.push(
+        castingQualification(data[i], quaParams, selectAuxParams?.params)
+      );
+    }
+    dispatch(postQualification({ idUser, idParams, arrayData }));
   };
 
   useEffect(() => {
@@ -237,7 +249,7 @@ function TableNotes() {
       <h3>Curso: {selectAuxParams?.parallel}</h3>
       <h4>Fecha: {selectAuxParams?.dateTest?.substring(0, 10)}</h4>
       <h4>Titulo: {selectAuxParams?.title}</h4>
-      <Form form={form} component={false} onFinish={onFinish}>
+      <Form form={form} component={false}>
         <Table
           components={{ body: { cell: EditableCell } }}
           bordered
@@ -249,7 +261,7 @@ function TableNotes() {
           pagination={false}
           rowClassName="editable-row"
         />
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" onClick={onFinish}>
           <Text text="Subir notas" />
         </Button>
       </Form>
