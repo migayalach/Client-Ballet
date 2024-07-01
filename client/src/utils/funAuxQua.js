@@ -44,10 +44,39 @@ function qualificatioNote(data) {
   return Math.ceil((sum + 1) / 2);
 }
 
+function hasPropertyQua(key, arrayKey) {
+  let string = "";
+  arrayKey.forEach(({ item }) => {
+    const data = keyParse(item);
+    if (data === key) {
+      string = item;
+    }
+  });
+  return string;
+}
+
+function castingQualification(data, quaParams, paramsOriginal) {
+  const qualification = [];
+  for (let j = 0; j < quaParams.length; j++) {
+    if (data.hasOwnProperty([quaParams[j]])) {
+      qualification.push({
+        [hasPropertyQua(quaParams[j], paramsOriginal)]: data[quaParams[j]],
+      });
+    }
+  }
+  return {
+    idUser: data.idUser,
+    qualification,
+    observation: data.observation,
+    note: data.note,
+  };
+}
+
 export {
   keyParse,
   qualificationRoute,
   calculeNote,
   parseQualification,
   qualificatioNote,
+  castingQualification,
 };
