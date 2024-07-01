@@ -513,24 +513,13 @@ export const getQualificationAll = (idParams, idUser) => {
   };
 };
 
-// export const paramsClassAllId = (idUser) => {
-//   return async function (dispatch) {
-//     try {
-//       const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
-//       return dispatch(getIdUserAllClass(data));
-//     } catch (error) {
-//       return dispatch(errorResponse(error.response.data));
-//     }
-//   };
-// };
-
-// export const paramsQualificationAll = (idUser) => {
-//   return async function (dispatch) {
-//     try {
-//       const data = (await axios.get(`${URL}/qualification/${idUser}`)).data;
-//       return dispatch(getParamsQualificationAll(data));
-//     } catch (error) {
-//       return dispatch(errorResponse(error.response.data));
-//     }
-//   };
-// };
+export const postQualification = (infoData) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${URL}/qualification`, infoData);
+      return;
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
