@@ -42,20 +42,6 @@ function page() {
   return (
     <div>
       <div>
-        <h1>
-          SOY {selectAccess?.level} - {selectAccess?.dataUser?.idUser}
-        </h1>
-        <h1>FILTROS - QUALIFICATION ()</h1>
-        <p>solo lo pueden ver todos los registros el director y secretaria</p>
-        <p>
-          El profesor solo puede ver de sus cursos y hacer las acciones
-          necesarias
-        </p>
-        <p>El alumno no puede ver</p>
-        <p>Si es secretaria no puede crear</p>
-      </div>
-
-      <div>
         <TableComponent data={selectListParams} render="QUALIFICATION-ALL" />
       </div>
 

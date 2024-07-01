@@ -1,4 +1,4 @@
-const keyParse = (data) => data.trim().replace(/\s+/g, "");
+const keyParse = (data) => data?.trim().replace(/\s+/g, "");
 
 function qualificationRoute(qualification) {
   let formattedData = {};
@@ -57,10 +57,11 @@ function hasPropertyQua(key, arrayKey) {
 
 function castingQualification(data, quaParams, paramsOriginal) {
   const qualification = [];
-  for (let j = 0; j < quaParams.length; j++) {
+  for (let j = 0; j < quaParams?.length; j++) {
     if (data.hasOwnProperty([quaParams[j]])) {
       qualification.push({
-        [hasPropertyQua(quaParams[j], paramsOriginal)]: data[quaParams[j]],
+        item: `${hasPropertyQua(quaParams[j], paramsOriginal)}`,
+        calification: data[quaParams[j]],
       });
     }
   }
