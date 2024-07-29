@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 import {
   postHours,
@@ -40,6 +41,8 @@ import {
   getParamsIdUserAll,
   getIdUserAllClass,
   getListQualification,
+  getListAllClassAssistance,
+  getAllListAssistance,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -355,6 +358,29 @@ export const createClassStudent = (infoData) => {
     try {
       const data = (await axios.post(`${URL}/classStudent`, infoData)).data;
       return dispatch(postClassStudent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!ASSISTANCE
+export const getAllClassList = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/assistance?filter=no`)).data;
+      return dispatch(getListAllClassAssistance(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getAllListClassAss = (idClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/assistance/${idClass}`)).data;
+      return dispatch(getAllListAssistance(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
