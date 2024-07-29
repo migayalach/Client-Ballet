@@ -4,7 +4,7 @@ import CreateModal from "../modal/createModal/CreateModal";
 import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
-function FloatOption({ render, idClass, nameLevel, idUser }) {
+function FloatOption({ render, idClass, nameLevel, idUser, access }) {
   const [flagAdd, setFlagAdd] = useState(false);
   const [flagInfo, setFlagInfo] = useState(false);
 
@@ -18,7 +18,35 @@ function FloatOption({ render, idClass, nameLevel, idUser }) {
 
   return (
     <div className="conteiner">
-      {/* {(nameLevel === "Profesor" || nameLevel === "Director") && ( */}
+      {render !== "QUALIFICATION" &&
+        (access === "Director" || access === "Secretaria") && (
+          <FloatButton
+            icon={<FileAddOutlined />}
+            tooltip={<div>Nuevo</div>}
+            type="primary"
+            style={{
+              right: 80,
+              bottom: 20,
+            }}
+            onClick={() => handleAdd()}
+          />
+        )}
+
+      {(access === "Secretatia" || access === "Director") &&
+        render === "CLASS-STUDENT" && (
+          <FloatButton
+            icon={<FileAddOutlined />}
+            tooltip={<div>Nuevo</div>}
+            type="primary"
+            style={{
+              right: 80,
+              bottom: 20,
+            }}
+            onClick={() => handleAdd()}
+          />
+        )}
+
+      {access === "Profesor" && render === "QUALIFICATION" && (
         <FloatButton
           icon={<FileAddOutlined />}
           tooltip={<div>Nuevo</div>}
@@ -29,21 +57,28 @@ function FloatOption({ render, idClass, nameLevel, idUser }) {
           }}
           onClick={() => handleAdd()}
         />
-      {/* )} */}
+      )}
 
-      <FloatButton
-        icon={<QuestionCircleOutlined />}
-        tooltip={<div>Información</div>}
-        type="primary"
-        style={{
-          right: 10,
-          bottom: 20,
-        }}
-        onClick={() => handleInfo()}
-      />
+      {
+        <FloatButton
+          icon={<QuestionCircleOutlined />}
+          tooltip={<div>Información</div>}
+          type="primary"
+          style={{
+            right: 10,
+            bottom: 20,
+          }}
+          onClick={() => handleInfo()}
+        />
+      }
 
       {flagInfo && (
-        <InfoModal flag={true} handleInfo={handleInfo} render={render} />
+        <InfoModal
+          flag={true}
+          handleInfo={handleInfo}
+          render={render}
+          access={access}
+        />
       )}
 
       {flagAdd && (
@@ -53,6 +88,7 @@ function FloatOption({ render, idClass, nameLevel, idUser }) {
           render={render}
           idClass={idClass}
           idUser={idUser}
+          access={access}
         />
       )}
     </div>
