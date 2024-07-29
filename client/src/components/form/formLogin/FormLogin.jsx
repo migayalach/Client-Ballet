@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Button, Checkbox, Form, Input } from "antd";
 import { userLogin } from "@/redux/actions";
 import { useAuth } from "@/context/authContext";
+import { emailRules, passwordRules } from "../validation/validationRules";
 
 function FormLogin() {
   const dispatch = useDispatch();
@@ -23,8 +24,7 @@ function FormLogin() {
     dispatch(userLogin(user));
   };
 
-  const handleGoogle = async () => {
-  };
+  const handleGoogle = async () => {};
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -49,29 +49,11 @@ function FormLogin() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
-        label="Usuario"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Por favor introduzca su usuario!",
-          },
-        ]}
-      >
+      <Form.Item label="Usuario" name="email" rules={emailRules}>
         <Input name="email" onChange={handleInfo} />
       </Form.Item>
 
-      <Form.Item
-        label="Contraseña"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Por favor introduzca su contraseña!",
-          },
-        ]}
-      >
+      <Form.Item label="Contraseña" name="password" rules={passwordRules}>
         <Input.Password name="password" onChange={handleInfo} />
       </Form.Item>
 
@@ -92,9 +74,11 @@ function FormLogin() {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
-          Acceder
-        </Button>
+        {
+          <Button type="primary" htmlType="submit">
+            Acceder
+          </Button>
+        }
         <Button onClick={handleGoogle}>Google</Button>
       </Form.Item>
     </Form>

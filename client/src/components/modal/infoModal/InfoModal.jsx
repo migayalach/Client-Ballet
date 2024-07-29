@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
+import { infoMessageTitle } from "../optionMessage";
+import CollapseData from "./collapseData/CollapseData";
 
-function InfoModal({ flag, handleInfo, render }) {
+function InfoModal({ flag, handleInfo, render, access }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOk = () => {
@@ -14,26 +16,6 @@ function InfoModal({ flag, handleInfo, render }) {
     handleInfo(false);
   };
 
-  const messageTitle = (render) => {
-    switch (render) {
-      case "USER":
-        return "Información administrar usuarios";
-
-      default:
-        break;
-    }
-  };
-
-  const messageInformation = (render) => {
-    switch (render) {
-      case "USER":
-        return <p>HOlis soy usuario</p>;
-
-      default:
-        break;
-    }
-  };
-
   useEffect(() => {
     setIsModalOpen(true);
     handleInfo;
@@ -42,12 +24,12 @@ function InfoModal({ flag, handleInfo, render }) {
   return (
     <>
       <Modal
-        title={messageTitle(render)}
+        title={infoMessageTitle(render)}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {messageInformation(render)}
+        <CollapseData render={render} access={access} />
       </Modal>
     </>
   );

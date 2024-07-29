@@ -5,6 +5,7 @@ import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 import UserFilter from "@/components/filters/userFilter/UserFilter";
 import Loading from "@/components/pageResult/Loading";
+import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -25,12 +26,21 @@ function User() {
   const selectUser = useSelector((state) => state.root?.user);
   const selectInfo = useSelector((state) => state.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
+  const selectAccess = useSelector(({ root }) => root?.access);
 
   useEffect(() => {
     if (!selectFilter.length) {
       dispatch(getUserAll());
     }
   }, []);
+
+  if (Object.keys(selectAccess).length === 0) {
+    return (
+      <div>
+        <Page404 />
+      </div>
+    );
+  }
 
   if (!selectUser.length && !selectInfo) {
     return (
@@ -54,7 +64,7 @@ function User() {
         )}
       </div>
       <div>
-        <FloatOption render="USER" />
+        <FloatOption render="USER" access={selectAccess?.level} />
       </div>
     </div>
   );

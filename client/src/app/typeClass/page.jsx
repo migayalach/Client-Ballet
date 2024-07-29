@@ -4,6 +4,7 @@ import TableComponent from "@/components/tableComponent/TableComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Loading from "@/components/pageResult/Loading";
+import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -25,12 +26,21 @@ function TypeClass() {
   const selectTypeClass = useSelector((state) => state.root.typeClass);
   const selectInfo = useSelector((state) => state.root.info);
   const selectFilter = useSelector((state) => state.root?.filter);
+  const selectAccess = useSelector(({ root }) => root?.access);
 
   useEffect(() => {
     if (!selectFilter.length) {
       dispatch(getTypeClassAll());
     }
   }, []);
+
+  if (Object.keys(selectAccess).length === 0) {
+    return (
+      <div>
+        <Page404 />
+      </div>
+    );
+  }
 
   if (!selectTypeClass?.length && !selectInfo) {
     return (
@@ -50,6 +60,7 @@ function TypeClass() {
         <TableComponent
           data={selectTypeClass.length ? selectTypeClass : selectFilter}
           render="TYPE-CLASS"
+          access={selectAccess?.level}
         />
       </div>
       <div>
@@ -61,7 +72,7 @@ function TypeClass() {
         )}
       </div>
       <div>
-        <FloatOption render="TYPE-CLASS" />
+        && <FloatOption render="TYPE-CLASS" access={selectAccess?.level} />
       </div>
     </div>
   );

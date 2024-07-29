@@ -1,19 +1,26 @@
 "use client";
 
 // COMPONET'S
-import CardComponent from "@/components/card/CardComponent";
-import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
+import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import ListStudents from "@/components/listStudents/ListStudents";
 
 //REDUX
-// import { getByIdClass } from "@/redux/actions";
-
 function ClassParams({ params }) {
+  const selectUser = useSelector(({ root }) => root?.access);
+
+  if (Object.keys(selectUser).length === 0) {
+    return (
+      <div>
+        <Page404 />
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>ESTUDIANTES</h1>
@@ -22,14 +29,14 @@ function ClassParams({ params }) {
         <ListStudents idClass={params.idClass} />
       </div>
       <div>
-        <FloatOption render="CLASS-STUDENT" idClass={params.idClass} />
+        <FloatOption
+          render="CLASS-STUDENT"
+          idClass={params.idClass}
+          access={selectUser?.level}
+        />
       </div>
     </div>
   );
 }
 
 export default ClassParams;
-
-// DATOS DE LA CLASE
-// DATOS DEL ESTUDIANTE
-// LISTA DE ESTUDIANTES

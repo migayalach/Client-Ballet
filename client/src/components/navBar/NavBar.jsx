@@ -22,8 +22,8 @@ import "./nav-bar.css";
 
 function NavBar() {
   const [current, setCurrent] = useState("home");
-  const [data, setData] = useState({});
   const selectAccess = useSelector(({ root }) => root?.access);
+  const levelUser = selectAccess?.level;
   const handleLogout = async () => await logout();
   const items = [
     {
@@ -32,9 +32,17 @@ function NavBar() {
       icon: <MailOutlined />,
     },
     {
-      label: selectAccess?.access && <Link href="/user">Usuarios</Link>,
+      label:
+        (levelUser === "Director" || levelUser === "Secretaria") &&
+        selectAccess?.access ? (
+          <Link href="/user">Usuarios</Link>
+        ) : null,
       key: "staff",
-      icon: selectAccess?.access && <MailOutlined />,
+      icon:
+        (levelUser === "Director" || levelUser === "Secretaria") &&
+        selectAccess?.access ? (
+          <MailOutlined />
+        ) : null,
     },
     {
       label: selectAccess?.access && "Danzas",
@@ -43,8 +51,14 @@ function NavBar() {
       children: [
         {
           type: "group",
-          label: "Tipo de danzas",
-          children: [
+          label:
+            (levelUser === "Director" ||
+              levelUser === "Secretaria" ||
+              levelUser === "Profesor") &&
+            "Tipo de danzas",
+          children: (levelUser === "Director" ||
+            levelUser === "Secretaria" ||
+            levelUser === "Profesor") && [
             {
               label: <Link href="typeClass">Tipo de clases</Link>,
               key: "typeClass",
@@ -60,6 +74,12 @@ function NavBar() {
               key: "class",
             },
             {
+              label: <Link href="/attendance">Asistencia</Link>,
+              key: "asistencia",
+            },
+            (levelUser === "Director" ||
+              levelUser === "Secretaria" ||
+              levelUser === "Profesor") && {
               label: <Link href="/qualification">Calificationes</Link>,
               key: "qualications",
             },
@@ -115,7 +135,6 @@ function NavBar() {
 
   useEffect(() => {
     const levelUser = selectAccess?.level;
-    // console.log(levelUser);
   }, [selectAccess]);
 
   return (
