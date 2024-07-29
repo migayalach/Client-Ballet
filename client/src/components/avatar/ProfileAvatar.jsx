@@ -5,11 +5,7 @@ import { Avatar, Space } from "antd";
 function ProfileAvatar({ img }) {
   return (
     <Space direction="vertical" size={16}>
-      <Avatar
-        src={img}
-        size={64}
-        icon={<UserOutlined />}
-      />
+      <Avatar src={img} size={150} icon={<UserOutlined />} />
     </Space>
   );
 }
