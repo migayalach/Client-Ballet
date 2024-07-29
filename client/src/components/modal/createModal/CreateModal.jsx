@@ -7,8 +7,9 @@ import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
 import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
 import FormQualification from "@/components/form/formQualification/FormQualification";
+import { optionMessageModal } from "../optionMessage";
 
-function CreateModal({ flag, handleAdd, render, idClass, idUser }) {
+function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { dataUser } = useSelector(({ root }) => root?.access);
   const handleOk = () => {
@@ -29,20 +30,24 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser }) {
   return (
     <>
       <Modal
-        title="Crear nueva hora"
+        title={`${optionMessageModal(render)}`}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {render === "USER" && (
-          <FormUser option="create" handleState={handleOk} />
-        )}
-        {render === "HOURS" && (
-          <FormHours option="create" handleState={handleOk} />
-        )}
+        {(access === "Secretaria" || access === "Director") &&
+          render === "USER" && (
+            <FormUser option="create" handleState={handleOk} />
+          )}
+
         {render === "TYPE-CLASS" && (
           <FormTypeClass option="create" handleState={handleOk} />
         )}
+
+        {render === "HOURS" && (
+          <FormHours option="create" handleState={handleOk} />
+        )}
+
         {render === "CLASS" && (
           <FormClass
             option="create"
