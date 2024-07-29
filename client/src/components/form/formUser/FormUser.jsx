@@ -16,24 +16,31 @@ import { Button, Form, Input } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import {
-  createUser,
-  editUser,
-  getExtensionAll,
-  stateFlag,
-} from "@/redux/actions";
+import { createUser, editUser, getExtensionAll } from "@/redux/actions";
 import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
+import "./form-user.css";
 
 // JAVASCRIP
 import ProfileAvatar from "@/components/avatar/ProfileAvatar";
+import {
+  emailRules,
+  passwordRules,
+  nameRules,
+  lastNameRules,
+  carnetRules,
+  addressRules,
+  birthdayRules,
+  idRules,
+} from "../validation/validationRules";
 
 dayjs.extend(customParseFormat);
 
 function FormUser({ dataUser, option, handleState }) {
   const dispatch = useDispatch();
   const selectLevel = useSelector(({ root }) => root?.level);
+  const selectAccess = useSelector(({ root }) => root?.access?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
   const [data, setData] = useState({
     idLevel: 0,
@@ -130,8 +137,10 @@ function FormUser({ dataUser, option, handleState }) {
   }, [option]);
 
   return (
-    <>
-      {option === "editProfile" && <ProfileAvatar img={data.photoUser} />}
+    <div className="form-user">
+      <div className="photo-user">
+        {option === "editProfile" && <ProfileAvatar img={data.photoUser} />}
+      </div>
 
       <Form
         labelCol={{
@@ -146,7 +155,7 @@ function FormUser({ dataUser, option, handleState }) {
         }}
         onFinish={onFinish}
       >
-        <Form.Item label="Nombres">
+        <Form.Item label="Nombres" name="nameUser" rules={nameRules}>
           <InputComponent
             onChange={handleChange}
             name="nameUser"
@@ -155,7 +164,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Apellidos">
+        <Form.Item label="Apellidos" name="lastNameUser" rules={lastNameRules}>
           <InputComponent
             onChange={handleChange}
             name="lastNameUser"
@@ -164,7 +173,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Email">
+        <Form.Item label="Email" name="emailUser" rules={emailRules}>
           <InputComponent
             onChange={handleChange}
             name="emailUser"
@@ -173,8 +182,9 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
+        {/* TODO RELLENAR CAMPOS CON EL LOCALSTORAGE */}
         {option === "editProfile" && (
-          <Form.Item label="Password">
+          <Form.Item label="Password" name="passwordUser" rules={passwordRules}>
             <Input.Password
               onChange={handleChange}
               name="passwordUser"
@@ -183,7 +193,7 @@ function FormUser({ dataUser, option, handleState }) {
           </Form.Item>
         )}
 
-        <Form.Item label="Carnet">
+        <Form.Item label="Carnet" name="carnetUser" rules={carnetRules}>
           <InputComponent
             onChange={handleChange}
             name="carnetUser"
@@ -192,7 +202,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Extension">
+        <Form.Item label="Extension" name="extension">
           <SelectComponet
             list={selectExtension}
             handleChange={handleChange}
@@ -204,9 +214,8 @@ function FormUser({ dataUser, option, handleState }) {
             }
           />
         </Form.Item>
-
-        {/* {option === "edit" && ( */}
-          <Form.Item label="Nivel">
+        {(selectAccess === "Director" || selectAccess === "Secretaria") && (
+          <Form.Item label="Nivel" name="level">
             <SelectComponet
               list={selectLevel}
               handleChange={handleChange}
@@ -214,9 +223,9 @@ function FormUser({ dataUser, option, handleState }) {
               value={option === "edit" ? dataUser?.idExtension : ""}
             />
           </Form.Item>
-        {/* )} */}
+        )}
 
-        <Form.Item label="Fecha de nacimiento">
+        <Form.Item label="Fecha de nacimiento" name="birthdate">
           <DateComponent
             onChange={onChangeDate}
             date={
@@ -227,7 +236,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Dirección">
+        <Form.Item label="Dirección" name="addressUser">
           <AreaText
             name="addressUser"
             placeholder="Calle siempre viva N°666"
@@ -252,7 +261,7 @@ function FormUser({ dataUser, option, handleState }) {
           <Text text="Crear" />
         </Button>
       </Form>
-    </>
+    </div>
   );
 }
 
