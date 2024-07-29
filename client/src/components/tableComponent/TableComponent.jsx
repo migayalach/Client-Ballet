@@ -19,6 +19,7 @@ function TableComponent({
   handleDelete,
   handleUpdate,
   handleNoteUser,
+  access,
 }) {
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
@@ -59,28 +60,32 @@ function TableComponent({
       dataIndex: "description",
       key: "description",
     },
-    {
-      title: "Editar",
-      key: "action",
-      render: (data) => (
-        <ButtonEdit
-          idData={data.idTypeClass}
-          text="Editar"
-          render="TYPE-CLASS"
-        />
-      ),
-    },
-    {
-      title: "Eliminar",
-      key: "action",
-      render: (data) => (
-        <ButtonDelete
-          idData={data.idTypeClass}
-          text="Eliminar"
-          render="TYPE-CLASS"
-        />
-      ),
-    },
+    ...(access === "Director" || access === "Secretaria"
+      ? [
+          {
+            title: "Editar",
+            key: "action",
+            render: (data) => (
+              <ButtonEdit
+                idData={data.idTypeClass}
+                text="Editar"
+                render="TYPE-CLASS"
+              />
+            ),
+          },
+          {
+            title: "Eliminar",
+            key: "action",
+            render: (data) => (
+              <ButtonDelete
+                idData={data.idTypeClass}
+                text="Eliminar"
+                render="TYPE-CLASS"
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   const dataMap = (data) => {
@@ -127,29 +132,37 @@ function TableComponent({
       },
     },
     { title: "Duración", dataIndex: "totalTime", key: "totalTime" },
-    {
-      title: "Ver",
-      key: "view",
-      render: (data) => (
-        <Link href={`/class/${data.idClass}`}>
-          <EyeOutlined />
-        </Link>
-      ),
-    },
-    {
-      title: "Editar",
-      key: "action",
-      render: (data) => (
-        <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
-      ),
-    },
-    {
-      title: "Eliminar",
-      key: "action",
-      render: (data) => (
-        <ButtonDelete idData={data.idClass} text="Eliminar" render="CLASS" />
-      ),
-    },
+    ...(access === "Secretaria" || access === "Director"
+      ? [
+          {
+            title: "Ver",
+            key: "view",
+            render: (data) => (
+              <Link href={`/class/${data.idClass}`}>
+                <EyeOutlined />
+              </Link>
+            ),
+          },
+          {
+            title: "Editar",
+            key: "action",
+            render: (data) => (
+              <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
+            ),
+          },
+          {
+            title: "Eliminar",
+            key: "action",
+            render: (data) => (
+              <ButtonDelete
+                idData={data.idClass}
+                text="Eliminar"
+                render="CLASS"
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   const classMap = (data) => {
@@ -197,20 +210,29 @@ function TableComponent({
         return <Tag color={color}>{text}</Tag>;
       },
     },
-    {
-      title: "Editar",
-      key: "action",
-      render: (data) => (
-        <ButtonEdit idData={data.idHours} text="Editar" render="HOURS" />
-      ),
-    },
-    {
-      title: "Eliminar",
-      key: "action",
-      render: (data) => (
-        <ButtonDelete idData={data.idHours} text="Eliminar" render="HOURS" />
-      ),
-    },
+
+    ...(access === "Secretaria" || access === "Director"
+      ? [
+          {
+            title: "Editar",
+            key: "edit",
+            render: (data) => (
+              <ButtonEdit idData={data.idHours} text="Editar" render="HOURS" />
+            ),
+          },
+          {
+            title: "Eliminar",
+            key: "delete",
+            render: (data) => (
+              <ButtonDelete
+                idData={data.idHours}
+                text="Eliminar"
+                render="HOURS"
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   const hoursMap = (data) => {
@@ -361,15 +383,19 @@ function TableComponent({
     { title: "Profesor", dataIndex: "teacher", key: "teacher" },
     { title: "Titulo", dataIndex: "title", key: "title" },
     { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
-    {
-      title: "Calificar",
-      key: "action",
-      render: (data) => (
-        <Link href={`/qualification/${data.idParams}`}>
-          <ContainerOutlined />
-        </Link>
-      ),
-    },
+    ...(access === "Profesor"
+      ? [
+          {
+            title: "Calificar",
+            key: "action",
+            render: (data) => (
+              <Link href={`/qualification/${data.idParams}`}>
+                <ContainerOutlined />
+              </Link>
+            ),
+          },
+        ]
+      : []),
     {
       title: "Imprimir",
       key: "action",
@@ -379,13 +405,19 @@ function TableComponent({
         />
       ),
     },
-    {
-      title: "Eliminar",
-      key: "action",
-      render: (data) => (
-        <DeleteOutlined onClick={() => renderOption("REMOVE", data.idParams)} />
-      ),
-    },
+    ...(access === "Profesor"
+      ? [
+          {
+            title: "Eliminar",
+            key: "action",
+            render: (data) => (
+              <DeleteOutlined
+                onClick={() => renderOption("REMOVE", data.idParams)}
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   const qualificationParamasAllMap = (data) => {
@@ -555,6 +587,56 @@ function TableComponent({
     );
   };
 
+  const classListAssistance = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Profesor", dataIndex: "teacher", key: "teacher" },
+    { title: "Carnet", dataIndex: "carnetUser", key: "carnetUser" },
+    { title: "Paralelo", dataIndex: "parallel", key: "parallel" },
+    {
+      title: "Estado",
+      dataIndex: "stateClass",
+      key: "stateClass",
+      render: (stateClass) => {
+        let color = stateClass ? "green" : "volcano";
+        let text = stateClass ? "Habilidato" : "Deshabilitado";
+        return <Tag color={color}>{text}</Tag>;
+      },
+    },
+    {
+      title: "Registro",
+      key: "view",
+      render: (data) => (
+        <Link href={`/attendance/${data.idClass}`}>
+          <ContainerOutlined />
+        </Link>
+      ),
+    },
+  ];
+
+  const classListAssistanceMap = (data) => {
+    return data?.map(
+      (
+        {
+          idClass,
+          nameUser,
+          lastNameUser,
+          carnetUser,
+          parallel,
+          stateClass,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        teacher: `${nameUser} ${lastNameUser}`,
+        carnetUser,
+        parallel,
+        stateClass,
+        idClass,
+      })
+    );
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -631,6 +713,13 @@ function TableComponent({
         <Table
           columns={qualificationUsers}
           dataSource={qualificationUserMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "LIST-CLASS-ASSISTANCE" && (
+        <Table
+          columns={classListAssistance}
+          dataSource={classListAssistanceMap(data)}
           pagination={false}
         />
       )}
