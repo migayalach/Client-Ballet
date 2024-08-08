@@ -41,8 +41,8 @@ import {
   getParamsIdUserAll,
   getIdUserAllClass,
   getListQualification,
-  getListAllClassAssistance,
-  getAllListAssistance,
+  getClassIdAssistance,
+  getIdAttendanceList,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -364,29 +364,6 @@ export const createClassStudent = (infoData) => {
   };
 };
 
-//!ASSISTANCE
-export const getAllClassList = () => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/assistance?filter=no`)).data;
-      return dispatch(getListAllClassAssistance(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
-export const getAllListClassAss = (idClass) => {
-  return async function (dispatch) {
-    try {
-      const data = (await axios.get(`${URL}/assistance/${idClass}`)).data;
-      return dispatch(getAllListAssistance(data));
-    } catch (error) {
-      return dispatch(errorResponse(error.response.data));
-    }
-  };
-};
-
 //!LOGIN
 export const userLogin = (infoData) => {
   return async function (dispatch) {
@@ -544,6 +521,30 @@ export const postQualification = (infoData) => {
     try {
       await axios.post(`${URL}/qualification`, infoData);
       return;
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!ASSISTANCE
+export const getAssistanceClassId = (idClass) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/assistance/${idClass}`)).data;
+      return dispatch(getClassIdAssistance(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!ATTENDANCE
+export const getListIdAttendance = (idAttendance) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/attendance/${idAttendance}/frontend`)).data;
+      return dispatch(getIdAttendanceList(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

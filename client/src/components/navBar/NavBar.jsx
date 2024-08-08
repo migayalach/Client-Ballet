@@ -73,10 +73,6 @@ function NavBar() {
               label: <Link href="/class">Clases</Link>,
               key: "class",
             },
-            {
-              label: <Link href="/attendance">Asistencia</Link>,
-              key: "asistencia",
-            },
             (levelUser === "Director" ||
               levelUser === "Secretaria" ||
               levelUser === "Profesor") && {

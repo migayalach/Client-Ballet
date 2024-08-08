@@ -1,4 +1,5 @@
 export const optionMessageModal = (option) => {
+  console.log(option);
   switch (option) {
     case "USER":
       return `Crear nuevo usuario`;
@@ -12,6 +13,8 @@ export const optionMessageModal = (option) => {
       return `Inscribir nuev@ alumno`;
     case "QUALIFICATION":
       return `Crear nueva evaluación`;
+    case "LIST-ASSISTANCE-IDCLASS":
+      return `Crear nuevo registro`;
   }
 };
 

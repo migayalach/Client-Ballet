@@ -18,6 +18,19 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
 
   return (
     <div className="conteiner">
+      {render === "LIST-ASSISTANCE-IDCLASS" && (
+        <FloatButton
+          icon={<FileAddOutlined />}
+          tooltip={<div>Nuevo</div>}
+          type="primary"
+          style={{
+            right: 80,
+            bottom: 20,
+          }}
+          onClick={() => handleAdd()}
+        />
+      )}
+
       {render !== "QUALIFICATION" &&
         (access === "Director" || access === "Secretaria") && (
           <FloatButton
