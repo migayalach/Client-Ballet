@@ -8,6 +8,7 @@ import FormClass from "@/components/form/formClass/FormClass";
 import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
 import FormQualification from "@/components/form/formQualification/FormQualification";
 import { optionMessageModal } from "../optionMessage";
+import FormAssistance from "@/components/form/formAssistance/FormAssistance";
 
 function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,6 +69,9 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
             handleState={handleOk}
             idUser={idUser}
           />
+        )}
+        {render === "LIST-ASSISTANCE-IDCLASS" && (
+          <FormAssistance option="create" handleState={handleOk} />
         )}
       </Modal>
     </>
