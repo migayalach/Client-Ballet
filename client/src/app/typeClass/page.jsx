@@ -72,7 +72,7 @@ function TypeClass() {
         )}
       </div>
       <div>
-        && <FloatOption render="TYPE-CLASS" access={selectAccess?.level} />
+        <FloatOption render="TYPE-CLASS" access={selectAccess?.level} />
       </div>
     </div>
   );
