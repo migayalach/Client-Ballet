@@ -13,6 +13,7 @@ export const Slice = createSlice({
     params: [],
     qualification: [],
     assistance: [],
+    attendance: [],
     info: null,
     data: null,
     access: {},
@@ -218,11 +219,16 @@ export const Slice = createSlice({
     URLFilter: (state, action) => {
       state.URL = action.payload;
     },
-    getListAllClassAssistance: (state, action) => {
-      state.filter = action.payload;
+
+    //!ASSISTANCE
+    getClassIdAssistance: (state, action) => {
+      state.assistance = action.payload.results;
+      state.info = action.payload.info;
     },
-    getAllListAssistance: (state, action) => {
-      state.assistance = action.payload;
+
+    //!ATTENDANCE
+    getIdAttendanceList: (state, action) => {
+      state.attendance = action.payload;
     },
   },
 });
@@ -274,7 +280,7 @@ export const {
   getParamsIdUserAll,
   getIdUserAllClass,
   getListQualification,
-  getListAllClassAssistance,
-  getAllListAssistance
+  getClassIdAssistance,
+  getIdAttendanceList,
 } = Slice.actions;
 export default Slice.reducer;
