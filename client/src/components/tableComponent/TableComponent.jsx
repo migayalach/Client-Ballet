@@ -20,6 +20,7 @@ function TableComponent({
   handleUpdate,
   handleNoteUser,
   access,
+  handleFlagClass,
 }) {
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
@@ -132,6 +133,18 @@ function TableComponent({
       },
     },
     { title: "Duración", dataIndex: "totalTime", key: "totalTime" },
+    {
+      title: "Asistencia",
+      key: "action",
+      render: (data) => (
+        <Link
+          href={`/class/assistance`}
+          onClick={() => handleFlagClass(data.idClass)}
+        >
+          <ReconciliationOutlined />
+        </Link>
+      ),
+    },
     ...(access === "Secretaria" || access === "Director"
       ? [
           {
@@ -587,54 +600,46 @@ function TableComponent({
     );
   };
 
-  const classListAssistance = [
+  const assistanceList = [
     { title: "N°", dataIndex: "numberItem", key: "numberItem" },
-    { title: "Profesor", dataIndex: "teacher", key: "teacher" },
-    { title: "Carnet", dataIndex: "carnetUser", key: "carnetUser" },
-    { title: "Paralelo", dataIndex: "parallel", key: "parallel" },
+    { title: "Fecha", dataIndex: "dateAssistance", key: "dateAssistance" },
     {
-      title: "Estado",
-      dataIndex: "stateClass",
-      key: "stateClass",
-      render: (stateClass) => {
-        let color = stateClass ? "green" : "volcano";
-        let text = stateClass ? "Habilidato" : "Deshabilitado";
-        return <Tag color={color}>{text}</Tag>;
-      },
+      title: "Registrar",
+      key: "register",
+      render: ({ idAssistance }) => (
+        <Link href={`/class/assistance/${idAssistance}`}>
+          <ReconciliationOutlined />
+        </Link>
+      ),
     },
     {
-      title: "Registro",
-      key: "view",
-      render: (data) => (
-        <Link href={`/attendance/${data.idClass}`}>
-          <ContainerOutlined />
-        </Link>
+      title: "Editar",
+      key: "edit",
+      render: ({ idAssistance }) => (
+        <a onClick={() => alert(idAssistance)}>
+          <EditOutlined />
+        </a>
+      ),
+    },
+    {
+      title: "Eliminar",
+      key: "delete",
+      render: ({ idAssistance }) => (
+        <a onClick={() => alert(idAssistance)}>
+          <DeleteOutlined />
+        </a>
       ),
     },
   ];
 
-  const classListAssistanceMap = (data) => {
-    return data?.map(
-      (
-        {
-          idClass,
-          nameUser,
-          lastNameUser,
-          carnetUser,
-          parallel,
-          stateClass,
-        },
-        index
-      ) => ({
-        key: index,
-        numberItem: index + 1,
-        teacher: `${nameUser} ${lastNameUser}`,
-        carnetUser,
-        parallel,
-        stateClass,
-        idClass,
-      })
-    );
+  const assistanceListMap = (data) => {
+    return data?.map(({ idAssistance, idClass, dateAssistance }, index) => ({
+      key: index,
+      numberItem: index + 1,
+      idAssistance,
+      idClass,
+      dateAssistance: dateAssistance.substring(0, 10),
+    }));
   };
 
   return (
@@ -716,10 +721,10 @@ function TableComponent({
           pagination={false}
         />
       )}
-      {render === "LIST-CLASS-ASSISTANCE" && (
+      {render === "LIST-ASSISTANCE-IDCLASS" && (
         <Table
-          columns={classListAssistance}
-          dataSource={classListAssistanceMap(data)}
+          columns={assistanceList}
+          dataSource={assistanceListMap(data)}
           pagination={false}
         />
       )}
