@@ -1,10 +1,11 @@
 ```
-└── 📁clientBallet
+└── 📁Client-Ballet
     └── .gitignore
     └── 📁.vscode
         └── settings.json
     └── README.md
     └── 📁client
+        └── .babelrc
         └── .eslintrc.json
         └── .gitignore
         └── README.md
@@ -18,6 +19,12 @@
         └── 📁src
             └── 📁app
                 └── 📁class
+                    └── 📁[idClass]
+                        └── page.jsx
+                    └── 📁assistance
+                        └── 📁[idAssistance]
+                            └── page.jsx
+                        └── page.jsx
                     └── class.css
                     └── page.jsx
                 └── 📁hours
@@ -26,50 +33,97 @@
                 └── layout.js
                 └── not-found.jsx
                 └── page.js
-                └── 📁staff
+                └── 📁qualification
+                    └── 📁[idQualification]
+                        └── page.jsx
                     └── page.jsx
-                    └── staff.css
-                └── 📁student
-                    └── page.jsx
-                    └── student.css
                 └── 📁typeClass
                     └── page.jsx
                     └── type-class.css
+                └── 📁user
+                    └── 📁[idUser]
+                        └── info-staff.css
+                        └── page.jsx
+                    └── page.jsx
+                    └── staff.css
             └── 📁components
                 └── 📁areaText
                     └── AreaText.jsx
+                └── 📁avatar
+                    └── ProfileAvatar.jsx
                 └── 📁button
-                    └── 📁buttonCreate
+                    └── 📁butonModal
+                        └── ButtonModal.jsx
                     └── 📁buttonDelete
                         └── ButtonDelete.jsx
                         └── button-delete.css
                     └── 📁buttonEdit
                         └── ButtonEdit.jsx
+                    └── 📁buttonRenderId
+                        └── ButtonRenderId.jsx
+                        └── button-render-id.css
                 └── 📁card
                     └── CardComponent.jsx
                     └── card-component.css
+                └── 📁cards
+                    └── Cards.jsx
+                    └── cards.css
+                └── 📁checkBox
+                    └── Check.jsx
+                └── 📁collapseData
+                    └── CollapseData.jsx
                 └── 📁date
                     └── DateComponent.jsx
+                └── 📁filters
+                    └── 📁assistanceFilter
+                        └── AssistanceFilter.jsx
+                    └── 📁classFilter
+                        └── ClassFilter.jsx
+                    └── 📁hoursFilter
+                        └── HoursFilter.jsx
+                    └── 📁typeClassFilter
+                        └── TypeClassFilter.jsx
+                    └── 📁userFilter
+                        └── UserFilter.jsx
                 └── 📁floatOption
                     └── FloatOption.jsx
                     └── float-option.css
                 └── 📁form
+                    └── 📁formAssistance
+                        └── FormAssistance.jsx
                     └── 📁formClass
                         └── FormClass.jsx
+                    └── 📁formClassStudent
+                        └── FormClassStudent.jsx
                     └── 📁formHours
                         └── FormHours.jsx
-                    └── 📁formStaff
-                        └── FormStaff.jsx
-                    └── 📁formStudent
-                        └── FormStudent.jsx
+                    └── 📁formLogin
+                        └── FormLogin.jsx
+                    └── 📁formQualification
+                        └── FormQualification.jsx
                     └── 📁formTypeClass
                         └── FormTypeClass.jsx
+                    └── 📁formUser
+                        └── FormUser.jsx
+                        └── form-user.css
+                    └── 📁validation
+                        └── validationRules.js
                 └── 📁imageCloudinary
                     └── ImageCloudinary.jsx
+                └── 📁infoData
+                    └── InfoData.jsx
+                └── 📁infoMessage
+                    └── info-message.css
+                    └── infoMessage.jsx
                 └── 📁inputComponent
                     └── InputComponent.jsx
-                └── 📁list
-                    └── List.jsx
+                └── 📁listData
+                    └── ListData.jsx
+                    └── list-data.css
+                └── 📁listStudents
+                    └── ListStudents.jsx
+                └── 📁messageFloat
+                    └── MessageFloat.jsx
                 └── 📁modal
                     └── 📁createModal
                         └── CreateModal.jsx
@@ -79,6 +133,23 @@
                         └── EditModal.jsx
                     └── 📁infoModal
                         └── InfoModal.jsx
+                        └── 📁collapseData
+                            └── CollapseData.jsx
+                    └── 📁loginModal
+                        └── LoginModal.jsx
+                    └── 📁modalSelect
+                        └── ModalSelect.jsx
+                    └── optionMessage.js
+                    └── 📁qualificationModal
+                        └── QualificationModal.jsx
+                └── 📁navBar
+                    └── NavBar.jsx
+                    └── nav-bar.css
+                └── 📁pageResult
+                    └── Loading.jsx
+                    └── Page403.jsx
+                    └── Page404.jsx
+                    └── Page500.jsx
                 └── 📁pagination
                     └── PaginationComponet.jsx
                     └── pagination.css
@@ -86,18 +157,25 @@
                     └── PhotoLoading.jsx
                 └── 📁photography
                     └── Photography.jsx
-                └── 📁pickchure
+                └── 📁protectedRoute
+                    └── ProtectedRoute.jsx
                 └── 📁select
                     └── SelectComponet.jsx
                 └── 📁state
                     └── State.jsx
                 └── 📁tableComponent
+                    └── TableAssistance.jsx
                     └── TableComponent.jsx
+                    └── TableNotes.jsx
+                    └── XYZ.jsx
                 └── 📁text
                     └── Text.jsx
                 └── 📁totalHours
                     └── TotalHours.jsx
+            └── 📁context
+                └── authContext.js
             └── 📁helpers
+                └── firebase.js
             └── 📁redux
                 └── actions.js
                 └── provider.js
@@ -110,4 +188,5 @@
                 └── page.css
             └── 📁utils
                 └── calHours.js
+                └── funAuxQua.js
 ```
