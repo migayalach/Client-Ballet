@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getClassAll } from "@/redux/actions";
+import { getClassAll, getAssistanceClassId } from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
 // JAVASCRIP
@@ -26,6 +26,10 @@ function page() {
   const selectInfo = useSelector((state) => state.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectAccess = useSelector(({ root }) => root?.access);
+
+  const handleFlagClass = (idClass) => {
+    dispatch(getAssistanceClassId(idClass));
+  };
 
   useEffect(() => {
     if (!selectFilter.length) {
@@ -62,6 +66,7 @@ function page() {
           data={selectClass.length ? selectClass : selectFilter}
           render="CLASS"
           access={selectAccess?.level}
+          handleFlagClass={handleFlagClass}
         />
       </div>
       <div>
