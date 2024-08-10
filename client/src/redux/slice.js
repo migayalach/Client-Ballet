@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { postAssistanceDate } from "./actions";
 
 export const Slice = createSlice({
   name: "root",
@@ -226,6 +227,17 @@ export const Slice = createSlice({
       state.info = action.payload.info;
     },
 
+    deleteIdAssistance: (state, action) => {
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
+    },
+
+    postDateAssistance: (state, action) => {
+      state.aux = action.payload.assistanceData;
+      state.info = action.payload.infoData.info;
+      state.state = action.payload.state;
+    },
+
     //!ATTENDANCE
     getIdAttendanceList: (state, action) => {
       state.attendance = action.payload;
@@ -281,6 +293,8 @@ export const {
   getIdUserAllClass,
   getListQualification,
   getClassIdAssistance,
+  deleteIdAssistance,
+  postDateAssistance,
   getIdAttendanceList,
 } = Slice.actions;
 export default Slice.reducer;
