@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 import ListStudents from "@/components/listStudents/ListStudents";
 
 //REDUX
+
+// STYLESHEET'
+
 function ClassParams({ params }) {
   const selectUser = useSelector(({ root }) => root?.access);
 

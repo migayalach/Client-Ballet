@@ -1,8 +1,15 @@
 "use client";
+// COMPONET'S
 import TableAssistance from "@/components/tableComponent/TableAssistance";
+
+// HOOK'S
 import React, { useEffect, useState } from "react";
-import { getListIdAttendance } from "@/redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+
+//REDUX
+import { getListIdAttendance } from "@/redux/actions";
+
+// STYLESHEET'
 
 function page({ params }) {
   const dispatch = useDispatch();
@@ -18,7 +25,7 @@ function page({ params }) {
 
   return (
     <div>
-      LISTA DE CLASE A CALIFICAR - {params.idAssistance}{" "}
+      LISTA DE CLASE A CALIFICAR - {params.idAssistance}
       <TableAssistance
         list={selectAttendanceList}
         attendance={params.idAssistance}
