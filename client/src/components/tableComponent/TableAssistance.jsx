@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Checkbox, Table, Button, Tag } from "antd";
 import Text from "@/components/text/Text";
+import { postListAttendance } from "@/redux/actions";
 
 const EditableCell = ({
   editing,
@@ -28,7 +29,7 @@ const EditableCell = ({
   return <td {...restProps}>{editing ? inputNode : children}</td>;
 };
 
-function TableAssistance({ list }) {
+function TableAssistance({ list, attendance }) {
   const selectAccess = useSelector(({ root }) => root?.access);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -43,10 +44,7 @@ function TableAssistance({ list }) {
       ...item,
       assistance: item.assistance === 1 ? 1 : 0,
     }));
-    const idUser = selectAccess?.dataUser?.idUser;
-    const idParams = list[0]?.idParams;
-    console.log(arrayData);
-    // dispatch(postQualification({ idUser, idParams, arrayData }));
+    dispatch(postListAttendance({ idAssistance: attendance, list: arrayData }));
   };
 
   useEffect(() => {

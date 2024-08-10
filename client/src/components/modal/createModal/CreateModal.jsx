@@ -71,7 +71,11 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
           />
         )}
         {render === "LIST-ASSISTANCE-IDCLASS" && (
-          <FormAssistance option="create" handleState={handleOk} />
+          <FormAssistance
+            option="create"
+            handleState={handleOk}
+            idClass={idClass}
+          />
         )}
       </Modal>
     </>

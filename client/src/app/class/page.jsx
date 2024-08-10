@@ -8,7 +8,7 @@ import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // LIBRARY
@@ -29,6 +29,7 @@ function page() {
 
   const handleFlagClass = (idClass) => {
     dispatch(getAssistanceClassId(idClass));
+    localStorage.setItem("classId", JSON.stringify(idClass));
   };
 
   useEffect(() => {

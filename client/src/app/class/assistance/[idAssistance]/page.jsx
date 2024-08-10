@@ -19,7 +19,10 @@ function page({ params }) {
   return (
     <div>
       LISTA DE CLASE A CALIFICAR - {params.idAssistance}{" "}
-      <TableAssistance list={selectAttendanceList} />
+      <TableAssistance
+        list={selectAttendanceList}
+        attendance={params.idAssistance}
+      />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 export const optionMessageModal = (option) => {
-  console.log(option);
+  // console.log(option);
   switch (option) {
     case "USER":
       return `Crear nuevo usuario`;

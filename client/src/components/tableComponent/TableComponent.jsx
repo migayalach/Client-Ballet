@@ -624,8 +624,8 @@ function TableComponent({
     {
       title: "Eliminar",
       key: "delete",
-      render: ({ idAssistance }) => (
-        <a onClick={() => alert(idAssistance)}>
+      render: ({ idClass, idAssistance }) => (
+        <a onClick={() => handleDelete(idClass, idAssistance)}>
           <DeleteOutlined />
         </a>
       ),

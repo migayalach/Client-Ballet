@@ -3,8 +3,9 @@ import Text from "@/components/text/Text";
 import { useDispatch } from "react-redux";
 import { DatePicker } from "antd";
 import { Button, Form, Input } from "antd";
+import { postAssistanceDate } from "@/redux/actions";
 
-function FormAssistance() {
+function FormAssistance({ idClass }) {
   const dispatch = useDispatch();
   const [date, setDate] = useState({ dateAssistance: "" });
 
@@ -15,12 +16,14 @@ function FormAssistance() {
   };
 
   const onFinish = () => {
-    // dispatch(date)
+    dispatch(
+      postAssistanceDate({ idClass, dateAssistance: date.dateAssistance })
+    );
   };
 
   useEffect(() => {
     return () => {
-      console.log("bay");
+      // console.log("bay");
     };
   }, []);
 
