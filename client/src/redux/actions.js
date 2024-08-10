@@ -42,6 +42,8 @@ import {
   getIdUserAllClass,
   getListQualification,
   getClassIdAssistance,
+  deleteIdAssistance,
+  postDateAssistance,
   getIdAttendanceList,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
@@ -539,12 +541,51 @@ export const getAssistanceClassId = (idClass) => {
   };
 };
 
+export const postAssistanceDate = (info) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/assistance`, info)).data;
+      return dispatch(postDateAssistance(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const deleteAssistanceDate = (idClass, idAssistance) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.delete(`${URL}/assistance/${idClass}/${idAssistance}`)
+      ).data;
+      return dispatch(deleteIdAssistance(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const updateAssistanceDate = (data) => {};
+
 //!ATTENDANCE
 export const getListIdAttendance = (idAttendance) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/attendance/${idAttendance}/frontend`)).data;
+      const data = (
+        await axios.get(`${URL}/attendance/${idAttendance}/frontend`)
+      ).data;
       return dispatch(getIdAttendanceList(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const postListAttendance = (data) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(`${URL}/attendance`, data);
+      return;
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
