@@ -5,6 +5,7 @@ import PaginationComponet from "@/components/pagination/PaginationComponet";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
+import TypeClassFilter from "@/components/filters/typeClassFilter/TypeClassFilter";
 
 // HOOK'S
 import React, { useEffect } from "react";
@@ -14,7 +15,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
 import { getTypeClassAll } from "@/redux/actions";
-import TypeClassFilter from "@/components/filters/typeClassFilter/TypeClassFilter";
 
 // JAVASCRIP
 

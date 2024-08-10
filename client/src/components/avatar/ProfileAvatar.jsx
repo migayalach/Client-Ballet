@@ -1,6 +1,13 @@
+// HOOK'S
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
+
+// LIBRARY
 import { Avatar, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
+// JAVASCRIP
+
+// STYLESHEET'
 
 function ProfileAvatar({ img }) {
   return (

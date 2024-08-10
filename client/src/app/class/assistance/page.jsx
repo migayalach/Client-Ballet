@@ -1,9 +1,20 @@
 "use client";
-import React from "react";
+// COMPONET'S
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
+
+// HOOK'S
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+// LIBRARY
+
+//REDUX
 import { deleteAssistanceDate } from "@/redux/actions";
+
+// JAVASCRIP
+
+// STYLESHEET'
 
 function Assistance() {
   const dispatch = useDispatch();

@@ -1,10 +1,22 @@
 "use client";
+// COMPONET'S
+import CollapseData from "@/components/collapseData/CollapseData";
+import Page404 from "@/components/pageResult/Page404";
+
+// HOOK'S
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+// LIBRARY
+
+//REDUX
 import { getByIdUser } from "@/redux/actions";
-import CollapseData from "@/components/collapseData/CollapseData";
+
+// JAVASCRIP
+
+// STYLESHEET'
 import "./info-staff.css";
-import Page404 from "@/components/pageResult/Page404";
+
 
 function InfoUser({ params }) {
   const dispatch = useDispatch();

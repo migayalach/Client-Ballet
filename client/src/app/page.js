@@ -1,6 +1,18 @@
 "use client";
+// COMPONET'S
 import React, { useState, useEffect } from "react";
+
+// HOOK'S
+
+// LIBRARY
+
+//REDUX
+
+// JAVASCRIP
+
+// STYLESHEET'
 import "../stylesheet/page.css";
+
 
 export default function Home() {
   const [data, setData] = useState({
