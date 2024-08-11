@@ -612,14 +612,18 @@ function TableComponent({
         </Link>
       ),
     },
+    // {
+    //   title: "Editar",
+    //   key: "edit",
+    //   render: ({ idClass, idAssistance }) => (
+    //     <a onClick={() => handleUpdate(idClass, idAssistance)}>
+    //       <EditOutlined />
+    //     </a>
+    //   ),
+    // },
     {
-      title: "Editar",
-      key: "edit",
-      render: ({ idAssistance }) => (
-        <a onClick={() => alert(idAssistance)}>
-          <EditOutlined />
-        </a>
-      ),
+      title: "Descargar",
+      key: "download",
     },
     {
       title: "Eliminar",
