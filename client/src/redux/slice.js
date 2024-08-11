@@ -227,6 +227,10 @@ export const Slice = createSlice({
       state.info = action.payload.info;
     },
 
+    getAssistanceId: (state, action) => {
+      state.data = action.payload;
+    },
+
     deleteIdAssistance: (state, action) => {
       state.info = action.payload.infoData.info;
       state.state = action.payload.state;
@@ -295,6 +299,7 @@ export const {
   getClassIdAssistance,
   deleteIdAssistance,
   postDateAssistance,
+  getAssistanceId,
   getIdAttendanceList,
 } = Slice.actions;
 export default Slice.reducer;
