@@ -44,6 +44,7 @@ import {
   getClassIdAssistance,
   deleteIdAssistance,
   postDateAssistance,
+  getAssistanceId,
   getIdAttendanceList,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
@@ -541,6 +542,34 @@ export const getAssistanceClassId = (idClass) => {
   };
 };
 
+export const getIdAssistance = (idClass, idAssistance) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(
+          `${URL}/assistance?idClass=${idClass}&idAssistance=${idAssistance}`
+        )
+      ).data;
+      return dispatch(getAssistanceId(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getPageAssistance = (idClass, page) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(`${URL}/assistance?idClass=${idClass}&page=${page}`)
+      ).data;
+      return dispatch(getClassIdAssistance(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 export const postAssistanceDate = (info) => {
   return async function (dispatch) {
     try {
@@ -565,7 +594,7 @@ export const deleteAssistanceDate = (idClass, idAssistance) => {
   };
 };
 
-export const updateAssistanceDate = (data) => {};
+export const updateAssistanceDate = (infoData) => {};
 
 //!ATTENDANCE
 export const getListIdAttendance = (idAttendance) => {

@@ -10,7 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { deleteAssistanceDate } from "@/redux/actions";
+import { deleteAssistanceDate, getIdAssistance } from "@/redux/actions";
+import PaginationComponet from "@/components/pagination/PaginationComponet";
 
 // JAVASCRIP
 
@@ -19,10 +20,16 @@ import { deleteAssistanceDate } from "@/redux/actions";
 function Assistance() {
   const dispatch = useDispatch();
   const selectAssistanceList = useSelector(({ root }) => root?.assistance);
-  const classLocalStorage = localStorage.getItem("classId");
   const selectInfo = useSelector((state) => state.root?.info);
+  const classLocalStorage = localStorage.getItem("classId");
+
   const handleDelete = (idClass, idAssistance) => {
     dispatch(deleteAssistanceDate(idClass, idAssistance));
+  };
+
+  const handleUpdate = (idClass, idAssistance) => {
+    dispatch(getIdAssistance(idClass, idAssistance));
+    console.log("open modal");
   };
 
   return (
@@ -34,15 +41,24 @@ function Assistance() {
           data={selectAssistanceList}
           render="LIST-ASSISTANCE-IDCLASS"
           handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
           // access={}
         />
       </div>
-      <div>PAGINADO</div>
+      <div>
+        {selectInfo && (
+          <PaginationComponet
+            pages={selectInfo.pages}
+            navegation="LIST-ASSISTANCE-IDCLASS"
+            idClass={classLocalStorage}
+          />
+        )}
+      </div>
       <div>
         <FloatOption
           render="LIST-ASSISTANCE-IDCLASS"
-          idClass={classLocalStorage}
           // access={}
+          idClass={classLocalStorage}
         />
       </div>
     </div>

@@ -16,6 +16,7 @@ import {
   getPageTypeClass,
   getPageHours,
   getPageClass,
+  getPageAssistance,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -23,7 +24,7 @@ import {
 // STYLESHEET'
 import "./pagination.css";
 
-function PaginationComponet({ pages, navegation }) {
+function PaginationComponet({ pages, navegation, idClass }) {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
   const selectAux = useSelector(({ root }) => root?.aux);
@@ -35,6 +36,7 @@ function PaginationComponet({ pages, navegation }) {
   const selectFilterURL = useSelector(({ root }) => root?.URL);
   const selectHours = useSelector(({ root }) => root?.hours);
   const selectClass = useSelector(({ root }) => root?.classes);
+  const selectAssistance = useSelector(({ root }) => root?.assistance);
   const accessUserData = useSelector(({ root }) => root?.access);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
@@ -162,6 +164,37 @@ function PaginationComponet({ pages, navegation }) {
         }
         break;
 
+      case "LIST-ASSISTANCE-IDCLASS":
+        if (Object.keys(selectAux).length && selectState === "create") {
+          const number = selectInfo.pages * 20;
+          if (selectInfo.count <= number) {
+            dispatch(getPageAssistance(idClass, selectInfo.pages));
+            setCurrent(selectInfo.pages);
+            setTIme();
+          }
+        } else if (selectState === "delete") {
+          if (selectFilterURL !== "") {
+            // dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            const lengthAssistance = selectAssistance.length;
+            if (lengthAssistance - 1 > 0 && lengthAssistance - 1 <= 20) {
+              dispatch(getPageAssistance(idClass, selectInfo.pages));
+            } else {
+              dispatch(getPageAssistance(idClass, selectInfo.pages));
+              setCurrent(current - 1);
+            }
+          }
+          setTIme();
+        } else if (selectState === "edit") {
+          if (selectFilter.length > 0 && !selectAssistance.length) {
+            // dispatch(filter(`${selectFilterURL}${current}`));
+          } else {
+            dispatch(getPageAssistance(idClass, current));
+          }
+          dispatch(stateFlag(""));
+        }
+        break;
+
       default:
         break;
     }
@@ -219,6 +252,11 @@ function PaginationComponet({ pages, navegation }) {
     } else if (navegation === "QUALIFICATION") {
       // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
       // TODO NAVEGACION NORMAL CON FILTROS - CLASS
+    } else if (navegation === "LIST-ASSISTANCE-IDCLASS") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - ASSISTANCE
+      dispatch(getPageAssistance(idClass, page));
+      setCurrent(page);
+      // TODO NAVEGACION CON FILTROS
     }
   };
 

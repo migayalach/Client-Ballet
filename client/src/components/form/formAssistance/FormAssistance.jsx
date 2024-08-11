@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Text from "@/components/text/Text";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DatePicker } from "antd";
 import { Button, Form, Input } from "antd";
 import { postAssistanceDate } from "@/redux/actions";
 
 function FormAssistance({ idClass }) {
   const dispatch = useDispatch();
+  const selectAssistance = useSelector(({ root }) => root?.data);
+
   const [date, setDate] = useState({ dateAssistance: "" });
 
   const onChange = (date, dateString) => {
@@ -20,6 +22,14 @@ function FormAssistance({ idClass }) {
       postAssistanceDate({ idClass, dateAssistance: date.dateAssistance })
     );
   };
+
+  useEffect(() => {
+    setDate({
+      dateAssistance: (selectAssistance?.dateAssistance).substring(0, 10),
+    });
+  }, [selectAssistance]);
+
+  console.log(date);
 
   useEffect(() => {
     return () => {
@@ -42,7 +52,7 @@ function FormAssistance({ idClass }) {
       onFinish={onFinish}
     >
       <Form.Item label="Fecha" name="date">
-        <DatePicker onChange={onChange} needConfirm />
+        <DatePicker onChange={onChange} />
       </Form.Item>
 
       <Button type="primary" htmlType="submit">
