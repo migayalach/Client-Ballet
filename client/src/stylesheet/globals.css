@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  /* background-color: #1b1b32; */
+  background-color: #1b1b32;
   background-color: #fff;
-  /* color: #fff; */
   color: #000;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
