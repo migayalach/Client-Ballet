@@ -1,79 +1,73 @@
 "use client";
 // COMPONET'S
-import React, { useState, useEffect } from "react";
+import Slider from "@/components/home/slider/Slider";
+import Video from "@/components/home/video/Video";
+import ListEvents from "@/components/home/listEvents/ListEvents";
+import CallData from "@/components/home/callData/CallData";
+import Footer from "@/components/home/footer/Footer";
 
 // HOOK'S
+import React, { useState, useEffect } from "react";
 
 // LIBRARY
-
-//REDUX
+import {
+  ClockCircleOutlined,
+  TeamOutlined,
+  StarOutlined,
+} from "@ant-design/icons";
 
 // JAVASCRIP
 
 // STYLESHEET'
 import "../stylesheet/page.css";
 
-
 export default function Home() {
-  const [data, setData] = useState({
-    name: "",
-    lastName: "",
-  });
-
-  // Cargar datos de localStorage cuando el componente se monta
-  useEffect(() => {
-    const savedData = localStorage.getItem("formData");
-    console.log("Datos cargados de localStorage:", savedData);
-    if (savedData) {
-      const parsedData = JSON.parse(savedData);
-      setData(parsedData);
-    }
-  }, []);
-
-  // Guardar datos en localStorage cuando 'data' cambia
-  useEffect(() => {
-    console.log("Guardando datos en localStorage:", data);
-    localStorage.setItem("formData", JSON.stringify(data));
-  }, [data]);
-
-  const handleChange = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
-  };
-
   return (
-    <div className="container">
-      <div className="container-body">
-        <h1>Body</h1>
+    <div className="container-app">
+      <div className="slider">
+        <Slider />
       </div>
-      <div>
-        <h1>Footer</h1>
-      </div>
-      <div>
-        <form>
+      <div className="box-info">
+        <div className="container-message">
+          <i className="icon">
+            <ClockCircleOutlined />
+          </i>
           <div>
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              value={data.name}
-              onChange={handleChange}
-            />
+            <p className="text-message">HORARIOS</p>
+            <p className="text-message">FLEXIBLES</p>
           </div>
+        </div>
+        <div className="container-message">
+          <i className="icon">
+            <TeamOutlined />
+          </i>
           <div>
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={data.lastName}
-              onChange={handleChange}
-            />
+            <p className="text-message">CLASES</p>
+            <p className="text-message">DINAMICAS</p>
           </div>
-        </form>
+        </div>
+        <div className="container-message">
+          <i className="icon">
+            <StarOutlined />
+          </i>
+          <div>
+            <p className="text-message">COSTOS</p>
+            <p className="text-message">PREFERENCIALES</p>
+          </div>
+        </div>
       </div>
-      <br />
+      <div className="video">
+        <Video />
+      </div>
+      <div className="list-events">
+        <ListEvents />
+      </div>
+      <div className="call-data">
+        <CallData />
+      </div>
+      <div className="footer">
+        <Footer />
+      </div>
     </div>
   );
 }
