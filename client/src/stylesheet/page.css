@@ -4,7 +4,7 @@
 
 .box-info {
   position: absolute;
-  top: 26.5%;
+  top: 19.5%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -41,4 +41,13 @@
 .icon {
   color: #f26419;
   font-size: 50px;
+}
+
+.call-data {
+  height: 575px;
+}
+
+.footer {
+  background-color: #0d1b2a;
+  height: 305px;
 }
