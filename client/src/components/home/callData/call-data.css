@@ -1,0 +1,36 @@
+.call-data-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
+  height: 90vh;
+}
+
+.title-call {
+  padding-top: 80px;
+  padding-left: 1px;
+  position: relative;
+  color: #fb8500;
+  font-family: "Roboto";
+  font-size: 60px;
+  z-index: 1;
+  text-align: center;
+}
+
+.container-form {
+  margin-bottom: 325px;
+  padding-top: 70px;
+  padding-left: 130px;
+}
+
+.image-background-call-data {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 84%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.85;
+}
