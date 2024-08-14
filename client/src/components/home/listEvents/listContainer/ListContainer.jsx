@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import "./list-container.css";
+import ButtonMoreInfo from "@/components/button/buttonMoreInfo/ButtonMoreInfo";
 
 const info = [
   {
@@ -58,27 +59,32 @@ const gridStyleContent = {
 
 function ListContainer() {
   return (
-    <Card title="Lista de eventos">
-      {info.map(({ date, month, description, picture }, index) => (
-        <div
-          key={index}
-          style={{ display: "flex", width: "100%", textAlign: "center" }}
-        >
-          <Card.Grid style={gridStyle}>
-            <p className="date-text">{date}</p>
-            <p className="date-text">{month}</p>
-          </Card.Grid>
-          <Card.Grid style={gridStyleContent}>{description}</Card.Grid>
-          <Card.Grid style={gridStyle}>
-            <img
-              src={picture}
-              alt={description}
-              style={{ maxWidth: "150px", height: "auto", margin: "0" }}
-            />
-          </Card.Grid>
+    <>
+      <Card title="Lista de eventos">
+        <div className="container-button">
+          <ButtonMoreInfo />
         </div>
-      ))}
-    </Card>
+        {info.map(({ date, month, description, picture }, index) => (
+          <div
+            key={index}
+            style={{ display: "flex", width: "100%", textAlign: "center" }}
+          >
+            <Card.Grid style={gridStyle}>
+              <p className="date-text">{date}</p>
+              <p className="date-text">{month}</p>
+            </Card.Grid>
+            <Card.Grid style={gridStyleContent}>{description}</Card.Grid>
+            <Card.Grid style={gridStyle}>
+              <img
+                src={picture}
+                alt={description}
+                style={{ maxWidth: "150px", height: "auto", margin: "0" }}
+              />
+            </Card.Grid>
+          </div>
+        ))}
+      </Card>
+    </>
   );
 }
 
