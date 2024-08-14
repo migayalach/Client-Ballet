@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Checkbox, Form, Input } from "antd";
 import { userLogin } from "@/redux/actions";
-import { useAuth } from "@/context/authContext";
 import { emailRules, passwordRules } from "../validation/validationRules";
 
 function FormLogin() {
