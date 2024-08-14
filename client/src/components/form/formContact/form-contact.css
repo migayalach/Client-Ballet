@@ -1,0 +1,33 @@
+.container-contact-form {
+  background-color: #ffe9ce;
+}
+
+.container-text {
+  background-color: #ff9f1c;
+  padding: 15px;
+  border-end-start-radius: 75px;
+  border-end-end-radius: 75px;
+}
+
+.text-description {
+  color: #fff;
+  font-size: 28px;
+  text-align: center;
+}
+
+.form-ant {
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 12px;
+}
+
+.container-button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.button-ant {
+  background-color: #001c55;
+  align-items: center;
+  transition: 0.2s;
+}
