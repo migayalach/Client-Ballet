@@ -8,7 +8,7 @@ import EditModal from "../modal/editModal/EditModal";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { MailOutlined, SettingOutlined } from "@ant-design/icons";
+import { MailOutlined, SettingOutlined, HomeOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 
 // LIBRARY
@@ -135,8 +135,10 @@ function NavBar() {
 
   return (
     <div className="container-navbar">
-      <div>
-        <Link href="/">Logo</Link>
+      <div className="icon-home">
+        <Link href="/">
+          <HomeOutlined style={{fontSize:"25px", color: "#000"}}/>
+        </Link>
       </div>
       <div className="container-menu">
         <Menu
