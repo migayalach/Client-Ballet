@@ -24,6 +24,7 @@ export const Slice = createSlice({
     filterAll: [],
     URL: "",
     error: null,
+    list: [],
   },
   reducers: {
     // *HOURS
@@ -246,6 +247,11 @@ export const Slice = createSlice({
     getIdAttendanceList: (state, action) => {
       state.attendance = action.payload;
     },
+
+    //!LIST
+    getAllListEvents: (state, action) => {
+      state.list = action.payload.results;
+    },
   },
 });
 
@@ -301,5 +307,6 @@ export const {
   postDateAssistance,
   getAssistanceId,
   getIdAttendanceList,
+  getAllListEvents,
 } = Slice.actions;
 export default Slice.reducer;

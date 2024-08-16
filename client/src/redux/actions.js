@@ -46,6 +46,7 @@ import {
   postDateAssistance,
   getAssistanceId,
   getIdAttendanceList,
+  getAllListEvents,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -615,6 +616,18 @@ export const postListAttendance = (data) => {
     try {
       await axios.post(`${URL}/attendance`, data);
       return;
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!LIST EVENTS
+export const getListEventsAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/listEvents`)).data;
+      return dispatch(getAllListEvents(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
