@@ -57,7 +57,7 @@ const gridStyleContent = {
   textAlign: "left",
 };
 
-function ListContainer() {
+function ListContainer({ list }) {
   return (
     <>
       <Card title="Lista de eventos">
