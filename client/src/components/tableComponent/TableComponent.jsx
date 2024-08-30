@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Tag, Avatar } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
+import ContactModal from "../modal/contactModal/ContactModal";
 import Link from "next/link";
 import {
   EyeOutlined,
@@ -612,15 +613,6 @@ function TableComponent({
         </Link>
       ),
     },
-    // {
-    //   title: "Editar",
-    //   key: "edit",
-    //   render: ({ idClass, idAssistance }) => (
-    //     <a onClick={() => handleUpdate(idClass, idAssistance)}>
-    //       <EditOutlined />
-    //     </a>
-    //   ),
-    // },
     {
       title: "Descargar",
       key: "download",
@@ -644,6 +636,56 @@ function TableComponent({
       idClass,
       dateAssistance: dateAssistance.substring(0, 10),
     }));
+  };
+
+  const contactList = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    { title: "Fecha", dataIndex: "dateContact", key: "dateContact" },
+    { title: "Correo", dataIndex: "emailContact", key: "emailContact" },
+    { title: "Nombre", dataIndex: "nameContact", key: "nameContact" },
+    { title: "Celular", dataIndex: "phoneContact", key: "phoneContact" },
+    {
+      title: "Estado",
+      dataIndex: "stateContact",
+      key: "stateContact",
+      render: (stateContact) => {
+        let color = stateContact ? "green" : "volcano";
+        let text = stateContact ? "Se contactado" : "No se contactado";
+        return <Tag color={color}>{text}</Tag>;
+      },
+    },
+    {
+      title: "Ver",
+      key: "action",
+      render: ({ idContact }) => <ContactModal contact={idContact} />,
+    },
+  ];
+
+  const contactListMap = (data) => {
+    return data?.map(
+      (
+        {
+          idContact,
+          dateContact,
+          emailContact,
+          nameContact,
+          feedback,
+          phoneContact,
+          stateContact,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        idContact,
+        dateContact: dateContact.substring(0, 10),
+        emailContact,
+        nameContact,
+        phoneContact,
+        feedback,
+        stateContact,
+      })
+    );
   };
 
   return (
@@ -729,6 +771,13 @@ function TableComponent({
         <Table
           columns={assistanceList}
           dataSource={assistanceListMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "CONTACT" && (
+        <Table
+          columns={contactList}
+          dataSource={contactListMap(data)}
           pagination={false}
         />
       )}
