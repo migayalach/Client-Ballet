@@ -47,6 +47,8 @@ import {
   getAssistanceId,
   getIdAttendanceList,
   getAllListEvents,
+  getAllContact,
+  getIdContact,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -628,6 +630,29 @@ export const getListEventsAll = () => {
     try {
       const data = (await axios.get(`${URL}/listEvents`)).data;
       return dispatch(getAllListEvents(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!CONTACT
+export const getContactAll = () => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/contact`)).data;
+      return dispatch(getAllContact(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getContactId = (idContact) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/contact/${idContact}`)).data;
+      return dispatch(getIdContact(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
