@@ -17,7 +17,6 @@ function Events() {
 
   return (
     <div>
-      holis
       <ListContainer list={selectList} />
       <div>Paginado</div>
       <div>Agregar nuevos</div>
