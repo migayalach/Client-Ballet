@@ -25,7 +25,7 @@ function FormAssistance({ idClass }) {
 
   useEffect(() => {
     setDate({
-      dateAssistance: (selectAssistance?.dateAssistance).substring(0, 10),
+      // dateAssistance: (selectAssistance?.dateAssistance).substring(0, 10),
     });
   }, [selectAssistance]);
 
