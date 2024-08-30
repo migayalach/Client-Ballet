@@ -25,6 +25,7 @@ export const Slice = createSlice({
     URL: "",
     error: null,
     list: [],
+    contact: [],
   },
   reducers: {
     // *HOURS
@@ -205,6 +206,7 @@ export const Slice = createSlice({
     clearData: (state, action) => {
       state.data = null;
     },
+    
     clearAux: (state, action) => {
       state.aux = {};
       state.state = "";
@@ -252,6 +254,14 @@ export const Slice = createSlice({
     getAllListEvents: (state, action) => {
       state.list = action.payload.results;
     },
+
+    //!CONTACT
+    getAllContact: (state, action) => {
+      state.contact = action.payload.results;
+    },
+    getIdContact: (state, action) => {
+      state.data = action.payload;
+    }
   },
 });
 
@@ -308,5 +318,7 @@ export const {
   getAssistanceId,
   getIdAttendanceList,
   getAllListEvents,
+  getAllContact,
+  getIdContact
 } = Slice.actions;
 export default Slice.reducer;
