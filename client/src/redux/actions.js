@@ -658,3 +658,14 @@ export const getContactId = (idContact) => {
     }
   };
 };
+
+export const editContact = (info) => {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${URL}/contact`, info);
+      return dispatch(flagState("edit"));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
