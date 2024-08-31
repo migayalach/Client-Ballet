@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal } from "antd";
 import { ReconciliationOutlined } from "@ant-design/icons";
@@ -12,7 +12,7 @@ function ContactModal({ contact }) {
 
   const showModal = () => {
     setIsModalOpen(true);
-    contact > 0 && dispatch(getContactId(contact));
+    dispatch(getContactId(contact));
   };
 
   const handleOk = () => {
@@ -24,6 +24,10 @@ function ContactModal({ contact }) {
     dispatch(removeData());
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    return () => {};
+  }, []);
 
   return (
     <>
