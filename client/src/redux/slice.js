@@ -261,7 +261,8 @@ export const Slice = createSlice({
     },
     getIdContact: (state, action) => {
       state.data = action.payload;
-    }
+    },
+
   },
 });
 
