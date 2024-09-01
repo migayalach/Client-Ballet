@@ -49,6 +49,8 @@ import {
   getAllListEvents,
   getAllContact,
   getIdContact,
+  postContact,
+  clearError,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -461,6 +463,16 @@ export const removeAux = () => {
   };
 };
 
+export const removeError = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(clearError());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 //!AUX STATE
 export const currentPage = (route, page) => {
   return async function (dispatch) {
@@ -664,6 +676,28 @@ export const editContact = (info) => {
     try {
       await axios.put(`${URL}/contact`, info);
       return dispatch(flagState("edit"));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getPageContact = (page) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/contact?page=${page}`)).data;
+      return dispatch(getAllContact(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const createContact = (info) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/contact`, info)).data;
+      return dispatch(postContact(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
