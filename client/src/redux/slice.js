@@ -206,11 +206,16 @@ export const Slice = createSlice({
     clearData: (state, action) => {
       state.data = null;
     },
-    
+
     clearAux: (state, action) => {
       state.aux = {};
       state.state = "";
     },
+
+    clearError: (state, action) => {
+      state.error = null;
+    },
+
     errorResponse: (state, action) => {
       state.error = action.payload;
     },
@@ -258,11 +263,14 @@ export const Slice = createSlice({
     //!CONTACT
     getAllContact: (state, action) => {
       state.contact = action.payload.results;
+      state.info = action.payload.info;
     },
     getIdContact: (state, action) => {
       state.data = action.payload;
     },
-
+    postContact: (state, action) => {
+      state.aux = action.payload;
+    },
   },
 });
 
@@ -320,6 +328,8 @@ export const {
   getIdAttendanceList,
   getAllListEvents,
   getAllContact,
-  getIdContact
+  getIdContact,
+  postContact,
+  clearError
 } = Slice.actions;
 export default Slice.reducer;

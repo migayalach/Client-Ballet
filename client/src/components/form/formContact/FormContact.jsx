@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input } from "antd";
 import "./form-contact.css";
+import { createContact, removeAux, removeError } from "@/redux/actions";
 
 function FormContact() {
   const dispatch = useDispatch();
+  const selectAux = useSelector(({ root }) => root?.aux);
+  const selectError = useSelector(({ root }) => root?.error);
+
   const [data, setData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    nameContact: "",
+    emailContact: "",
+    phoneContact: "",
   });
 
   const handleInfo = (event) => {
@@ -19,8 +23,20 @@ function FormContact() {
   };
 
   const onFinish = () => {
-    // dispatch(userLogin(user));
+    dispatch(createContact(data));
   };
+
+  useEffect(() => {
+    if (Object.keys(selectAux).length && !selectError) {
+      setTimeout(() => {
+        dispatch(removeAux());
+      }, 3000);
+    } else if(selectError !== null && Object.keys(selectAux).length === 0)  {
+      setTimeout(() => {
+        dispatch(removeError());
+      }, 3000);
+    }
+  }, [selectAux, selectError]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -46,13 +62,13 @@ function FormContact() {
         autoComplete="off"
       >
         <Form.Item label="Nombre" name="name">
-          <Input name="name" onChange={handleInfo} />
+          <Input name="nameContact" onChange={handleInfo} />
         </Form.Item>
         <Form.Item label="Email" name="email">
-          <Input name="email" onChange={handleInfo} />
+          <Input name="emailContact" onChange={handleInfo} />
         </Form.Item>
         <Form.Item label="Telefono" name="phone">
-          <Input name="phone" onChange={handleInfo} />
+          <Input name="phoneContact" onChange={handleInfo} />
         </Form.Item>
         <div className="container-button">
           <Button className="button-ant" type="primary" htmlType="submit">
