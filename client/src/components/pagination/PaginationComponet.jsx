@@ -17,6 +17,7 @@ import {
   getPageHours,
   getPageClass,
   getPageAssistance,
+  getPageContact,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -38,6 +39,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const selectClass = useSelector(({ root }) => root?.classes);
   const selectAssistance = useSelector(({ root }) => root?.assistance);
   const accessUserData = useSelector(({ root }) => root?.access);
+  const selectContact = useSelector(({ root }) => root?.contact);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
@@ -195,6 +197,17 @@ function PaginationComponet({ pages, navegation, idClass }) {
         }
         break;
 
+      case "CONTACT":
+        if (selectState === "edit") {
+          // if (selectFilter.length > 0 && !selectTypeClass.length) {
+          // dispatch(filter(`${selectFilterURL}${current}`));
+          // } else {
+          dispatch(getPageContact(current));
+          // }
+          dispatch(stateFlag(""));
+        }
+        break;
+
       default:
         break;
     }
@@ -257,6 +270,13 @@ function PaginationComponet({ pages, navegation, idClass }) {
       dispatch(getPageAssistance(idClass, page));
       setCurrent(page);
       // TODO NAVEGACION CON FILTROS
+    } else if (navegation === "CONTACT") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - ASSISTANCE
+      if (selectContact.length && !selectFilter.length) {
+        dispatch(getPageContact(page));
+        setCurrent(page);
+      }
+      // TODO NAVEGACION CON FILTROS
     }
   };
 
@@ -273,7 +293,11 @@ function PaginationComponet({ pages, navegation, idClass }) {
 
   return (
     <div className="container-pagination">
-      <Pagination onChange={onChange} total={pages * 10} current={current} />
+      <Pagination
+        onChange={onChange}
+        total={(pages || 0) * 10}
+        current={current}
+      />
     </div>
   );
 }
