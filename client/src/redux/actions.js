@@ -411,6 +411,18 @@ export const filterAll = (infoData) => {
   };
 };
 
+export const filterInfo = (flag, infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/filter?flag=${flag}&${infoData}`))
+        .data;
+      return dispatch(getFilter(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 //!CLEAR FILTER
 export const filterClear = () => {
   return function (dispatch) {
