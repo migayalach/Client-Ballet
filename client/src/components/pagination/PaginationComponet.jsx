@@ -18,6 +18,7 @@ import {
   getPageClass,
   getPageAssistance,
   getPageContact,
+  filterInfo
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -277,6 +278,15 @@ function PaginationComponet({ pages, navegation, idClass }) {
         setCurrent(page);
       }
       // TODO NAVEGACION CON FILTROS
+      if (selectFilter.length > 0) {
+        console.log(selectInfo);
+        
+        dispatch(filterInfo(`${selectFilterURL}${page}`));
+        setCurrent(page);
+
+      }
+
+      
     }
   };
 

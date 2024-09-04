@@ -175,6 +175,7 @@ export const Slice = createSlice({
     getFilter: (state, action) => {
       state.filter = action.payload.results;
       state.info = action.payload.info;
+      state.contact = [];
     },
 
     getFilterAll: (state, action) => {
