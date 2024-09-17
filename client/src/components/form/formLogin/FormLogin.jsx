@@ -31,7 +31,7 @@ function FormLogin() {
 
   return (
     <Form
-      name="basic"
+      // name="basic"
       labelCol={{
         span: 8,
       }}

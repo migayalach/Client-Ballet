@@ -26,13 +26,21 @@ export const passwordRules = [
   // },
 ];
 
-export const nameRules = [
+// export const nameRules = [
+//   { required: true, message: "Por favor ingrese su nombre!" },
+//   {
+//     min: 0,
+//     message: "Por favor ingrese su nombre completo!",
+//   },
+// ];
+
+export const nameRules = () => [    
   { required: true, message: "Por favor ingrese su nombre!" },
   {
-    min: 0,
+    min: 3,
     message: "Por favor ingrese su nombre completo!",
   },
-];
+]
 
 export const lastNameRules = [
   { required: true, message: "Por favor ingrese sus apellidos!" },

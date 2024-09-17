@@ -155,7 +155,11 @@ function FormUser({ dataUser, option, handleState }) {
         }}
         onFinish={onFinish}
       >
-        <Form.Item label="Nombres" name="nameUser" rules={nameRules}>
+        <Form.Item
+          label="Nombres"
+          name="nameUser"
+          rules={nameRules(data.nameUser)}
+        >
           <InputComponent
             onChange={handleChange}
             name="nameUser"
@@ -164,8 +168,9 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Apellidos" name="lastNameUser" rules={lastNameRules}>
+        <Form.Item label="Apellidos">
           <InputComponent
+            rules={lastNameRules}
             onChange={handleChange}
             name="lastNameUser"
             placeholder="Del Rio"
@@ -173,8 +178,9 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Email" name="emailUser" rules={emailRules}>
+        <Form.Item label="Email">
           <InputComponent
+            rules={emailRules}
             onChange={handleChange}
             name="emailUser"
             placeholder="albert@gmail.com"
@@ -193,8 +199,9 @@ function FormUser({ dataUser, option, handleState }) {
           </Form.Item>
         )}
 
-        <Form.Item label="Carnet" name="carnetUser" rules={carnetRules}>
+        <Form.Item label="Carnet">
           <InputComponent
+            rules={carnetRules}
             onChange={handleChange}
             name="carnetUser"
             placeholder="8569134"
@@ -202,25 +209,28 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Extension" name="extension">
+        <Form.Item label="Extension">
           <SelectComponet
+            name="extension"
             list={selectExtension}
             handleChange={handleChange}
             flag="Extension"
             value={
               option === "edit" || option === "editProfile"
                 ? dataUser?.idExtension
-                : ""
+                : "5555"
             }
           />
         </Form.Item>
+
         {(selectAccess === "Director" || selectAccess === "Secretaria") && (
-          <Form.Item label="Nivel" name="level">
+          <Form.Item label="Nivel">
             <SelectComponet
+              name="level"
               list={selectLevel}
               handleChange={handleChange}
               flag="Level"
-              value={option === "edit" ? dataUser?.idExtension : ""}
+              value={option === "edit" ? dataUser?.idLevel : ""}
             />
           </Form.Item>
         )}
@@ -236,7 +246,7 @@ function FormUser({ dataUser, option, handleState }) {
           />
         </Form.Item>
 
-        <Form.Item label="Dirección" name="addressUser">
+        <Form.Item label="Dirección">
           <AreaText
             name="addressUser"
             placeholder="Calle siempre viva N°666"
