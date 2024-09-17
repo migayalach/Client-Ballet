@@ -5,6 +5,8 @@ import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
 function FloatOption({ render, idClass, nameLevel, idUser, access }) {
+  // console.log(render, idClass, nameLevel, idUser, access);
+
   const [flagAdd, setFlagAdd] = useState(false);
   const [flagInfo, setFlagInfo] = useState(false);
 
@@ -18,21 +20,8 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
 
   return (
     <div className="conteiner">
-      {render === "LIST-ASSISTANCE-IDCLASS" && (
-        <FloatButton
-          icon={<FileAddOutlined />}
-          tooltip={<div>Nuevo</div>}
-          type="primary"
-          style={{
-            right: 80,
-            bottom: 20,
-          }}
-          onClick={() => handleAdd()}
-        />
-      )}
-
-      {render !== "QUALIFICATION" &&
-        (access === "Director" || access === "Secretaria") && (
+      {/* <div>
+        {render === "LIST-ASSISTANCE-IDCLASS" && (
           <FloatButton
             icon={<FileAddOutlined />}
             tooltip={<div>Nuevo</div>}
@@ -44,9 +33,45 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
             onClick={() => handleAdd()}
           />
         )}
+      </div> */}
 
-      {(access === "Secretatia" || access === "Director") &&
-        render === "CLASS-STUDENT" && (
+      <div>
+        {/* {render !== "QUALIFICATION" &&
+          (access === "Director" || access === "Secretaria") && <p></p>} */}
+        {(access === "Director" || access === "Secretaria") && (
+          <>
+            <FloatButton
+              icon={<FileAddOutlined />}
+              tooltip={<div>Nuevo</div>}
+              type="primary"
+              style={{
+                right: 80,
+                bottom: 20,
+              }}
+              onClick={() => handleAdd()}
+            />
+          </>
+        )}
+      </div>
+
+      {/* <div>
+        {(access === "Secretatia" || access === "Director") &&
+          render === "CLASS-STUDENT" && (
+            <FloatButton
+              icon={<FileAddOutlined />}
+              tooltip={<div>Nuevo</div>}
+              type="primary"
+              style={{
+                right: 80,
+                bottom: 20,
+              }}
+              onClick={() => handleAdd()}
+            />
+          )}
+      </div> */}
+
+      {/* <div>
+        {access === "Profesor" && render === "QUALIFICATION" && (
           <FloatButton
             icon={<FileAddOutlined />}
             tooltip={<div>Nuevo</div>}
@@ -58,20 +83,9 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
             onClick={() => handleAdd()}
           />
         )}
+      </div> */}
 
-      {access === "Profesor" && render === "QUALIFICATION" && (
-        <FloatButton
-          icon={<FileAddOutlined />}
-          tooltip={<div>Nuevo</div>}
-          type="primary"
-          style={{
-            right: 80,
-            bottom: 20,
-          }}
-          onClick={() => handleAdd()}
-        />
-      )}
-
+      {/* TODO: MODAL INFORMACION */}
       {
         <FloatButton
           icon={<QuestionCircleOutlined />}
@@ -85,6 +99,7 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
         />
       }
 
+      {/* TODO: OPCINES */}
       {flagInfo && (
         <InfoModal
           flag={true}
