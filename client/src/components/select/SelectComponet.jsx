@@ -58,7 +58,7 @@ const optionList = (list, flag) => {
   }
 };
 
-function SelectComponet({ list, handleChange, flag, value }) {
+function SelectComponet({ list, handleChange, flag, value }) {   
   return !value ? (
     <Select
       labelInValue
