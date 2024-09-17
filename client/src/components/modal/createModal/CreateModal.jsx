@@ -36,50 +36,76 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {(access === "Secretaria" || access === "Director") &&
-          render === "USER" && (
+        <div>
+          {render === "TYPE-CLASS" && (
+            <FormTypeClass option="create" handleState={handleOk} />
+          )}
+        </div>
+
+        <div>
+          {render === "HOURS" && (
+            <FormHours option="create" handleState={handleOk} />
+          )}
+        </div>
+
+        <div>
+          {/* (access === "Secretaria" || access === "Director") && */}
+          {render === "USER" && (
             <FormUser option="create" handleState={handleOk} />
           )}
+        </div>
 
-        {render === "TYPE-CLASS" && (
-          <FormTypeClass option="create" handleState={handleOk} />
-        )}
+        <div>
+          {render === "CLASS" && (
+            <FormClass
+              option="create"
+              handleState={handleOk}
+              idUserCreate={dataUser.idUser}
+            />
+          )}
+        </div>
 
-        {render === "HOURS" && (
-          <FormHours option="create" handleState={handleOk} />
-        )}
+        {/* 
+        <div>
+          {render === "CLASS-STUDENT" && (
+            <FormClassStudent
+              option="create"
+              handleState={handleOk}
+              idClass={idClass}
+            />
+          )}
+        </div> */}
 
-        {render === "CLASS" && (
-          <FormClass
-            option="create"
-            handleState={handleOk}
-            idUserCreate={dataUser.idUser}
-          />
-        )}
-        {render === "CLASS-STUDENT" && (
-          <FormClassStudent
-            option="create"
-            handleState={handleOk}
-            idClass={idClass}
-          />
-        )}
-        {render === "QUALIFICATION" && (
-          <FormQualification
-            option="create"
-            handleState={handleOk}
-            idUser={idUser}
-          />
-        )}
-        {render === "LIST-ASSISTANCE-IDCLASS" && (
-          <FormAssistance
-            option="create"
-            handleState={handleOk}
-            idClass={idClass}
-          />
-        )}
+        {/* <div>
+          {render === "QUALIFICATION" && (
+            <FormQualification
+              option="create"
+              handleState={handleOk}
+              idUser={idUser}
+            />
+          )}
+        </div> */}
+
+        {/* <div>
+          {render === "LIST-ASSISTANCE-IDCLASS" && (
+            <FormAssistance
+              option="create"
+              handleState={handleOk}
+              idClass={idClass}
+            />
+          )}
+        </div> */}
       </Modal>
     </>
   );
 }
 
 export default CreateModal;
+
+{
+  /* <div>
+          {render === "TYPE-CLASS" && (
+            <FormTypeClass option="create" handleState={handleOk} />
+          )}
+        </div> */
+}
