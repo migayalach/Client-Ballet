@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "antd";
+import { nameRules } from "@/components/form/validation/validationRules";
 
 function InputComponent({ onChange, name, placeholder, data }) {
   return (
