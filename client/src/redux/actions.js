@@ -167,6 +167,8 @@ export const createUser = (infoData) => {
 };
 
 export const editUser = (infoData) => {
+  console.log(infoData);
+  
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/user`, infoData);
