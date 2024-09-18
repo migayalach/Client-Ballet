@@ -8,8 +8,9 @@ import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
 
 // LIBRARY
 
