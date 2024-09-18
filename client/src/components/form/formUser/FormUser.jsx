@@ -24,16 +24,6 @@ import "./form-user.css";
 
 // JAVASCRIP
 import ProfileAvatar from "@/components/avatar/ProfileAvatar";
-import {
-  emailRules,
-  passwordRules,
-  nameRules,
-  lastNameRules,
-  carnetRules,
-  addressRules,
-  birthdayRules,
-  idRules,
-} from "../validation/validationRules";
 
 dayjs.extend(customParseFormat);
 
@@ -85,8 +75,22 @@ function FormUser({ dataUser, option, handleState }) {
   };
 
   const onFinish = async () => {
-    if (option === "edit" || option === "editProfile") {
-      dispatch(editUser({ ...data, idUser: dataUser.idUser }));
+    if (option === "edit") {
+      dispatch(
+        editUser({
+          ...data,
+          idUser: dataUser.idUser,
+          edit: "edit",
+        })
+      );
+    } else if (option === "editProfile") {
+      dispatch(
+        editUser({
+          ...data,
+          idUser: dataUser.idUser,
+          edit: "profile",
+        })
+      );
     } else {
       dispatch(createUser(data));
       setData({
@@ -155,11 +159,7 @@ function FormUser({ dataUser, option, handleState }) {
         }}
         onFinish={onFinish}
       >
-        <Form.Item
-          label="Nombres"
-          name="nameUser"
-          rules={nameRules(data.nameUser)}
-        >
+        <Form.Item label="Nombres">
           <InputComponent
             onChange={handleChange}
             name="nameUser"
@@ -170,7 +170,6 @@ function FormUser({ dataUser, option, handleState }) {
 
         <Form.Item label="Apellidos">
           <InputComponent
-            rules={lastNameRules}
             onChange={handleChange}
             name="lastNameUser"
             placeholder="Del Rio"
@@ -180,7 +179,6 @@ function FormUser({ dataUser, option, handleState }) {
 
         <Form.Item label="Email">
           <InputComponent
-            rules={emailRules}
             onChange={handleChange}
             name="emailUser"
             placeholder="albert@gmail.com"
@@ -190,7 +188,7 @@ function FormUser({ dataUser, option, handleState }) {
 
         {/* TODO RELLENAR CAMPOS CON EL LOCALSTORAGE */}
         {option === "editProfile" && (
-          <Form.Item label="Password" name="passwordUser" rules={passwordRules}>
+          <Form.Item label="Password">
             <Input.Password
               onChange={handleChange}
               name="passwordUser"
@@ -201,7 +199,6 @@ function FormUser({ dataUser, option, handleState }) {
 
         <Form.Item label="Carnet">
           <InputComponent
-            rules={carnetRules}
             onChange={handleChange}
             name="carnetUser"
             placeholder="8569134"
@@ -218,7 +215,7 @@ function FormUser({ dataUser, option, handleState }) {
             value={
               option === "edit" || option === "editProfile"
                 ? dataUser?.idExtension
-                : "5555"
+                : ""
             }
           />
         </Form.Item>
