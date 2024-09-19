@@ -5,6 +5,7 @@ import InputComponent from "@/components/inputComponent/InputComponent";
 import DateComponent from "@/components/date/DateComponent";
 import AreaText from "@/components/areaText/AreaText";
 import State from "@/components/state/State";
+import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -17,7 +18,6 @@ import dayjs from "dayjs";
 
 //REDUX
 import { createUser, editUser, getExtensionAll } from "@/redux/actions";
-import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
 
 // STYLESHEET'
 import "./form-user.css";
