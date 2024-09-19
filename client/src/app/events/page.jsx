@@ -20,8 +20,13 @@ function Events() {
   return (
     <div>
       <div>Filter</div>
-      <ListContainer list={selectList} />
+
+      <div>
+        <ListContainer list={selectList} />
+      </div>
+
       <div>Paginado</div>
+
       <div>
         <FloatOption
           render="EVENTS"

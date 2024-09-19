@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "antd";
 import "./list-container.css";
 import ButtonMoreInfo from "@/components/button/buttonMoreInfo/ButtonMoreInfo";
+import CardFlex from "@/components/cardFlex/CardFlex";
 
 const info = [
   {
@@ -64,28 +65,46 @@ function ListContainer({ list }) {
         <div className="container-button">
           <ButtonMoreInfo />
         </div>
-        {info.map(({ date, month, description, picture }, index) => (
-          <div
-            key={index}
-            style={{ display: "flex", width: "100%", textAlign: "center" }}
-          >
-            <Card.Grid style={gridStyle}>
-              <p className="date-text">{date}</p>
-              <p className="date-text">{month}</p>
-            </Card.Grid>
-            <Card.Grid style={gridStyleContent}>{description}</Card.Grid>
-            <Card.Grid style={gridStyle}>
-              <img
-                src={picture}
-                alt={description}
-                style={{ maxWidth: "150px", height: "auto", margin: "0" }}
-              />
-            </Card.Grid>
-          </div>
-        ))}
+        {list.map(
+          (
+            {
+              idListEvent,
+              dateNews,
+              hourEvent,
+              title,
+              body,
+              urlPicture,
+              stateEvent,
+            },
+            index
+          ) => (
+            <div>{idListEvent}</div>
+          )
+        )}
+        
       </Card>
+      <CardFlex/>
     </>
   );
 }
 
 export default ListContainer;
+
+// <div
+//   key={index}
+//   style={{ display: "flex", width: "100%", textAlign: "center" }}
+// >
+//   <Card.Grid style={gridStyle}>
+//     <p className="date-text">{dateNews}</p>
+//     <p className="date-text">{hourEvent}</p>
+//   </Card.Grid>
+//   <Card.Grid style={gridStyleContent}>{title}</Card.Grid>
+//   <Card.Grid style={gridStyleContent}>{body}</Card.Grid>
+//   <Card.Grid style={gridStyle}>
+//     <img
+//       src={urlPicture}
+//       alt={body}
+//       style={{ maxWidth: "150px", height: "auto", margin: "0" }}
+//     />
+//   </Card.Grid>
+// </div>
