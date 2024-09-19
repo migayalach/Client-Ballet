@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getListEventsAll } from "@/redux/actions";
 import ListContainer from "@/components/home/listEvents/listContainer/ListContainer";
+import FloatOption from "@/components/floatOption/FloatOption";
+import PaginationComponet from "@/components/pagination/PaginationComponet";
 
 function Events() {
   const dispatch = useDispatch();
@@ -17,9 +19,16 @@ function Events() {
 
   return (
     <div>
+      <div>Filter</div>
       <ListContainer list={selectList} />
       <div>Paginado</div>
-      <div>Agregar nuevos</div>
+      <div>
+        <FloatOption
+          render="EVENTS"
+          access="Director"
+          // access={selectAccess?.level}
+        />
+      </div>
     </div>
   );
 }

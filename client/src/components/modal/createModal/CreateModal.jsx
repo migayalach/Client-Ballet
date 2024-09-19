@@ -5,8 +5,10 @@ import FormHours from "@/components/form/formHours/FormHours";
 import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
+import FormEvents from "@/components/form/formEvents/FormEvents";
 import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
 import FormQualification from "@/components/form/formQualification/FormQualification";
+
 import { optionMessageModal } from "../optionMessage";
 import FormAssistance from "@/components/form/formAssistance/FormAssistance";
 
@@ -65,6 +67,12 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
           )}
         </div>
 
+        <div>
+          {render === "EVENTS" && (
+            <FormEvents option="create" handleState={handleOk} />
+          )}
+        </div>
+
         {/* 
         <div>
           {render === "CLASS-STUDENT" && (
@@ -101,11 +109,3 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
 }
 
 export default CreateModal;
-
-{
-  /* <div>
-          {render === "TYPE-CLASS" && (
-            <FormTypeClass option="create" handleState={handleOk} />
-          )}
-        </div> */
-}

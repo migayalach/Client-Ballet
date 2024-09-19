@@ -51,6 +51,7 @@ import {
   getIdContact,
   postContact,
   clearError,
+  postListEvent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -168,7 +169,7 @@ export const createUser = (infoData) => {
 
 export const editUser = (infoData) => {
   console.log(infoData);
-  
+
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/user`, infoData);
@@ -656,6 +657,17 @@ export const getListEventsAll = () => {
     try {
       const data = (await axios.get(`${URL}/listEvents`)).data;
       return dispatch(getAllListEvents(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const addListEvent = (info) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/listEvents`, info)).data;
+      return dispatch(postListEvent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

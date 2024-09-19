@@ -15,6 +15,8 @@ export const optionMessageModal = (option) => {
       return `Crear nueva evaluación`;
     case "LIST-ASSISTANCE-IDCLASS":
       return `Crear nuevo registro`;
+    case "EVENTS": 
+      return `Crear nuevo evento`;
   }
 };
 
@@ -32,6 +34,8 @@ export const infoMessageTitle = (render) => {
       return `Información uso de filtros, crear, editar y eliminar nuev@s alumnos`;
     case "QUALIFICATION":
       return `Información uso de filtros, crear, editar y eliminar evaluaciónes`;
+    case "EVENTS":
+      return `Informacion uso de filtros, crear y editar eventos`;
   }
 };
 
