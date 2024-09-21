@@ -52,6 +52,7 @@ import {
   postContact,
   clearError,
   postListEvent,
+  getIdEvent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -668,6 +669,17 @@ export const addListEvent = (info) => {
     try {
       const data = (await axios.post(`${URL}/listEvents`, info)).data;
       return dispatch(postListEvent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getEventId = (idEvent) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/listEvents/${idEvent}`)).data;
+      return dispatch(getIdEvent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
