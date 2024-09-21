@@ -59,52 +59,7 @@ const gridStyleContent = {
 };
 
 function ListContainer({ list }) {
-  return (
-    <>
-      <Card title="Lista de eventos">
-        <div className="container-button">
-          <ButtonMoreInfo />
-        </div>
-        {list.map(
-          (
-            {
-              idListEvent,
-              dateNews,
-              hourEvent,
-              title,
-              body,
-              urlPicture,
-              stateEvent,
-            },
-            index
-          ) => (
-            <div>{idListEvent}</div>
-          )
-        )}
-        
-      </Card>
-      <CardFlex/>
-    </>
-  );
+  return <CardFlex list={list} />;
 }
 
 export default ListContainer;
-
-// <div
-//   key={index}
-//   style={{ display: "flex", width: "100%", textAlign: "center" }}
-// >
-//   <Card.Grid style={gridStyle}>
-//     <p className="date-text">{dateNews}</p>
-//     <p className="date-text">{hourEvent}</p>
-//   </Card.Grid>
-//   <Card.Grid style={gridStyleContent}>{title}</Card.Grid>
-//   <Card.Grid style={gridStyleContent}>{body}</Card.Grid>
-//   <Card.Grid style={gridStyle}>
-//     <img
-//       src={urlPicture}
-//       alt={body}
-//       style={{ maxWidth: "150px", height: "auto", margin: "0" }}
-//     />
-//   </Card.Grid>
-// </div>
