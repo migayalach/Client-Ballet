@@ -267,6 +267,10 @@ export const Slice = createSlice({
       state.state = action.payload.state;
     },
 
+    getIdEvent: (state, action) => {
+      state.data = action.payload;
+    },
+
     //!CONTACT
     getAllContact: (state, action) => {
       state.contact = action.payload.results;
@@ -338,6 +342,7 @@ export const {
   getIdContact,
   postContact,
   clearError,
-  postListEvent
+  postListEvent,
+  getIdEvent,
 } = Slice.actions;
 export default Slice.reducer;
