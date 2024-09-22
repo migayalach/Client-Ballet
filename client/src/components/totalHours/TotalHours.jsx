@@ -4,7 +4,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { TimePicker } from "antd";
 dayjs.extend(customParseFormat);
 
-function TotalHours({ hours, name, handleChange }) {
+function TotalHours({ hours, name, handleChange }) { 
   const onChange = (time, timeString) => {
     handleChange(name, time, timeString);
   };

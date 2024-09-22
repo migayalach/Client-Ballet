@@ -12,7 +12,15 @@ import FormQualification from "@/components/form/formQualification/FormQualifica
 import { optionMessageModal } from "../optionMessage";
 import FormAssistance from "@/components/form/formAssistance/FormAssistance";
 
-function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
+function CreateModal({
+  flag,
+  handleAdd,
+  render,
+  idClass,
+  idUser,
+  access,
+  event,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { dataUser } = useSelector(({ root }) => root?.access);
   const handleOk = () => {
@@ -69,7 +77,7 @@ function CreateModal({ flag, handleAdd, render, idClass, idUser, access }) {
 
         <div>
           {render === "EVENTS" && (
-            <FormEvents option="create" handleState={handleOk} />
+            <FormEvents option="create" handleState={handleOk} event={event} />
           )}
         </div>
 

@@ -18,7 +18,8 @@ import {
   getPageClass,
   getPageAssistance,
   getPageContact,
-  filterInfo
+  getPageEvent,
+  filterInfo,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -41,6 +42,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const selectAssistance = useSelector(({ root }) => root?.assistance);
   const accessUserData = useSelector(({ root }) => root?.access);
   const selectContact = useSelector(({ root }) => root?.contact);
+  const selectListEvent = useSelector(({ root }) => root?.list);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
@@ -209,6 +211,9 @@ function PaginationComponet({ pages, navegation, idClass }) {
         }
         break;
 
+      case "EVENTS":
+        break;
+
       default:
         break;
     }
@@ -280,13 +285,16 @@ function PaginationComponet({ pages, navegation, idClass }) {
       // TODO NAVEGACION CON FILTROS
       if (selectFilter.length > 0) {
         console.log(selectInfo);
-        
+
         dispatch(filterInfo(`${selectFilterURL}${page}`));
         setCurrent(page);
-
       }
-
-      
+    } else if (navegation === "EVENTS") {     
+      // TODO NAVEGACION NORMAL SIN FILTROS - EVENTS
+      if (selectListEvent.length && !selectFilter.length) {
+        dispatch(getPageEvent(page));
+        setCurrent(page);
+      }
     }
   };
 

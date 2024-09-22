@@ -4,7 +4,7 @@ import CreateModal from "../modal/createModal/CreateModal";
 import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
-function FloatOption({ render, idClass, nameLevel, idUser, access }) {
+function FloatOption({ render, idClass, nameLevel, idUser, access, event }) {
   // console.log(render, idClass, nameLevel, idUser, access);
 
   const [flagAdd, setFlagAdd] = useState(false);
@@ -42,7 +42,7 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
           <>
             <FloatButton
               icon={<FileAddOutlined />}
-              tooltip={<div>Nuevo</div>}
+              tooltip={<div>{`${event === "edit" ? "Editar" : "Nuevo"}`}</div>}
               type="primary"
               style={{
                 right: 80,
@@ -117,6 +117,7 @@ function FloatOption({ render, idClass, nameLevel, idUser, access }) {
           idClass={idClass}
           idUser={idUser}
           access={access}
+          event={event}
         />
       )}
     </div>

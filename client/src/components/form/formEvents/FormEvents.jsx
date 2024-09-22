@@ -14,13 +14,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "antd";
 
 //REDUX
-import { addListEvent } from "@/redux/actions";
+import { addListEvent, editEvent } from "@/redux/actions";
 
 // STYLESHEET'
 
 // JAVASCRIP
 
-function FormEvents({ option, handleState }) {
+function FormEvents({ option, handleState, event }) {
+  const selectEvent = useSelector(({ root }) => root?.data);
+
   const dispatch = useDispatch();
   const [data, setData] = useState({
     hour: "00:00:00",
@@ -59,8 +61,8 @@ function FormEvents({ option, handleState }) {
   };
 
   const onFinish = () => {
-    if (option === "edit") {
-      // dispatch(editTypeHour({ ...data, idTypeClass: idData }));
+    if (event === "edit") {
+      dispatch(editEvent(data));
     } else {
       dispatch(addListEvent(data));
       setData({
@@ -74,7 +76,30 @@ function FormEvents({ option, handleState }) {
     }
   };
 
-  console.log(data);
+  useEffect(() => {
+    if (event === "edit") {
+      selectEvent?.map(
+        ({
+          idListEvent,
+          hourEvent,
+          dateNews,
+          title,
+          body,
+          stateEvent,
+          urlPicture,
+        }) =>
+          setData({
+            idListEvent,
+            hour: hourEvent,
+            dateNews: dateNews.toString().slice(0, 10),
+            title,
+            body,
+            stateEvent,
+            urlPicture,
+          })
+      );
+    }
+  }, [event]);
 
   return (
     <>
@@ -113,11 +138,7 @@ function FormEvents({ option, handleState }) {
           <DateComponent
             name="dateNews"
             onChange={onChangeDate}
-            date={
-              option === "edit" || option === "editProfile"
-                ? data?.dateNews
-                : ""
-            }
+            date={option !== "edit" ? data?.dateNews : ""}
           />
         </Form.Item>
 
