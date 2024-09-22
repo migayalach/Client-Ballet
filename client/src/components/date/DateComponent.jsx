@@ -2,7 +2,7 @@ import React from "react";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 
-function DateComponent({ onChange, date }) {
+function DateComponent({ onChange, date }) { 
   if (date) {
     return (
       <DatePicker
