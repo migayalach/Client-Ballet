@@ -55,6 +55,7 @@ import {
   getIdEvent,
   updateEvent,
   clearState,
+  deleteEvent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -707,11 +708,23 @@ export const editEvent = (info) => {
   };
 };
 
-export const getPageEvent = (page) => { 
+export const getPageEvent = (page) => {
   return async function (dispatch) {
     try {
       const data = (await axios.get(`${URL}/listEvents?page=${page}`)).data;
       return dispatch(getAllListEvents(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeEvent = (idListEvent) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.delete(`${URL}/listEvents/${idListEvent}`))
+        .data;
+      return dispatch(deleteEvent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
