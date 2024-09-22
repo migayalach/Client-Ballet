@@ -199,6 +199,10 @@ export const Slice = createSlice({
       state.state = action.payload;
     },
 
+    clearState: (state, action) => {
+      state.state = "";
+    },
+
     //!LOGIN
     loginUser: (state, action) => {
       state.access = action.payload;
@@ -259,6 +263,8 @@ export const Slice = createSlice({
     //!LIST
     getAllListEvents: (state, action) => {
       state.list = action.payload.results;
+      state.info = action.payload.info;
+      state.data = null;
     },
 
     postListEvent: (state, action) => {
@@ -269,6 +275,11 @@ export const Slice = createSlice({
 
     getIdEvent: (state, action) => {
       state.data = action.payload;
+    },
+
+    updateEvent: (state, action) => {
+      state.data = action.payload.infoData;
+      state.state = action.payload.state;
     },
 
     //!CONTACT
@@ -344,5 +355,7 @@ export const {
   clearError,
   postListEvent,
   getIdEvent,
+  updateEvent,
+  clearState,
 } = Slice.actions;
 export default Slice.reducer;
