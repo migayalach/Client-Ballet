@@ -20,6 +20,7 @@ import {
   getPageContact,
   getPageEvent,
   filterInfo,
+  stateClear,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -212,6 +213,15 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "EVENTS":
+        if (Object.keys(selectAux).length && selectState === "create") {
+          dispatch(getPageEvent(1));
+          setCurrent(1);
+          setTIme();
+        } else if (selectState === "delete") {
+          dispatch(getPageEvent(1));
+          setCurrent(1);
+          dispatch(stateClear());
+        }
         break;
 
       default:
@@ -289,7 +299,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         dispatch(filterInfo(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
-    } else if (navegation === "EVENTS") {     
+    } else if (navegation === "EVENTS") {
       // TODO NAVEGACION NORMAL SIN FILTROS - EVENTS
       if (selectListEvent.length && !selectFilter.length) {
         dispatch(getPageEvent(page));
