@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import { Button, Card, Flex, Typography } from "antd";
+import ButtonDelete from "../button/buttonDelete/ButtonDelete";
 const cardStyle = {
   width: 620,
 };
@@ -10,7 +11,7 @@ const imgStyle = {
   width: 273,
 };
 
-const CardFlex = ({ list }) => {
+const CardFlex = ({ list, access }) => {
   return (
     <>
       {list?.map(
@@ -58,6 +59,13 @@ const CardFlex = ({ list }) => {
                     Saber más!
                   </Button>
                 </Link>
+                {(access === "Director" || access === "Secretaria") && (
+                  <ButtonDelete
+                    idData={idListEvent}
+                    text="Elinar"
+                    render="EVENTS"
+                  />
+                )}
               </Flex>
             </Flex>
           </Card>
