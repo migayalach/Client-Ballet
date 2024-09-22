@@ -53,6 +53,8 @@ import {
   clearError,
   postListEvent,
   getIdEvent,
+  updateEvent,
+  clearState,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -169,8 +171,6 @@ export const createUser = (infoData) => {
 };
 
 export const editUser = (infoData) => {
-  console.log(infoData);
-
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/user`, infoData);
@@ -489,6 +489,16 @@ export const removeError = () => {
   };
 };
 
+export const stateClear = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(clearState());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 //!AUX STATE
 export const currentPage = (route, page) => {
   return async function (dispatch) {
@@ -680,6 +690,28 @@ export const getEventId = (idEvent) => {
     try {
       const data = (await axios.get(`${URL}/listEvents/${idEvent}`)).data;
       return dispatch(getIdEvent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editEvent = (info) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/listEvents`, info)).data;
+      return dispatch(updateEvent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getPageEvent = (page) => { 
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/listEvents?page=${page}`)).data;
+      return dispatch(getAllListEvents(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
