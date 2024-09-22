@@ -24,19 +24,22 @@ function page() {
   const selectList = useSelector(({ root }) => root?.contact);
   const selectInfo = useSelector((state) => state?.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
-  // const selectAccess = useSelector(({ root }) => root?.access);
+  const selectAccess = useSelector(({ root }) => root?.access);
 
   useEffect(() => {
     dispatch(getContactAll());
   }, []);
 
-  // if (Object.keys(selectAccess).length === 0) {
-  //   return (
-  //     <div>
-  //       <Page404 />
-  //     </div>
-  //   );
-  // }
+  if (
+    Object.keys(selectAccess).length === 0 ||
+    (selectAccess.access === "Director" || selectAccess.access === "Secretaria")
+  ) {
+    return (
+      <div>
+        <Page404 />
+      </div>
+    );
+  }
 
   if (!selectList?.length && !selectInfo) {
     return (

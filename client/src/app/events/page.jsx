@@ -33,7 +33,7 @@ function Events() {
       <div>Filter</div>
 
       <div>
-        <ListContainer list={selectList} />
+        <ListContainer list={selectList} access={selectAccess?.level} />
       </div>
 
       <div>
@@ -43,7 +43,6 @@ function Events() {
       <div>
         <FloatOption render="EVENTS" access={selectAccess?.level} />
       </div>
-      
     </div>
   );
 }

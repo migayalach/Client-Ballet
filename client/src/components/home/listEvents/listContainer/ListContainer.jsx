@@ -58,8 +58,8 @@ const gridStyleContent = {
   textAlign: "left",
 };
 
-function ListContainer({ list }) {
-  return <CardFlex list={list} />;
+function ListContainer({ list, access }) {
+  return <CardFlex list={list} access={access} />;
 }
 
 export default ListContainer;
