@@ -146,17 +146,17 @@ function TableComponent({
         </Link>
       ),
     },
+    {
+      title: "Ver",
+      key: "view",
+      render: (data) => (
+        <Link href={`/class/${data.idClass}`}>
+          <EyeOutlined />
+        </Link>
+      ),
+    },
     ...(access === "Secretaria" || access === "Director"
       ? [
-          {
-            title: "Ver",
-            key: "view",
-            render: (data) => (
-              <Link href={`/class/${data.idClass}`}>
-                <EyeOutlined />
-              </Link>
-            ),
-          },
           {
             title: "Editar",
             key: "action",
@@ -688,6 +688,100 @@ function TableComponent({
     );
   };
 
+  const listStudentsClass = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    {
+      title: "Usuario",
+      dataIndex: "photoUser",
+      key: "photoUser",
+      render: (photoUser) => <Avatar src={photoUser} />,
+    },
+    {
+      title: "Estudiante",
+      dataIndex: "student",
+      key: "student",
+    },
+    {
+      title: "Carnet",
+      dataIndex: "carnetUser",
+      key: "carnetUser",
+    },
+    {
+      title: "Extension",
+      dataIndex: "department",
+      key: "department",
+    },
+    {
+      title: "Estado",
+      dataIndex: "stateUser",
+      key: "stateUser",
+      render: (stateUser) => {
+        let color = stateUser ? "green" : "volcano";
+        let text = stateUser ? "Habilidato" : "Deshabilitado";
+        return <Tag color={color}>{text}</Tag>;
+      },
+    },
+    {
+      title: "Calificaciones",
+      key: "qualification",
+      render: ({ idUser, idClass }) => (
+        <Link href={`/qualification/${idUser}/${idClass}`}>
+          <ReconciliationOutlined />
+        </Link>
+      ),
+    },
+    {
+      title: "Asistencias",
+      key: "assistances",
+      render: ({ idUser, idClass }) => (
+        <Link href={`/class/assistance/${idUser}/${idClass}`}>
+          <ReconciliationOutlined />
+        </Link>
+      ),
+    },
+    ...(access === "Director" || access === "Secretaria"
+      ? [
+          {
+            title: "Eliminar",
+            key: "delete",
+            render: ({ idClass, idUser }) => (
+              <a onClick={() => handleDelete(idClass, idUser)}>
+                <DeleteOutlined />
+              </a>
+            ),
+          },
+        ]
+      : []),
+  ];
+
+  const listStudentsClassMap = (data) => {
+    return data.map(
+      (
+        {
+          idUser,
+          idClass,
+          nameUser,
+          lastNameUser,
+          carnetUser,
+          department,
+          photoUser,
+          stateUser,
+        },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        idUser,
+        idClass,
+        student: `${nameUser} ${lastNameUser}`,
+        carnetUser,
+        department,
+        photoUser,
+        stateUser,
+      })
+    );
+  };
+
   return (
     <div>
       {render === "TYPE-CLASS" && (
@@ -778,6 +872,13 @@ function TableComponent({
         <Table
           columns={contactList}
           dataSource={contactListMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "LIST-STUDENT-CLASS" && (
+        <Table
+          columns={listStudentsClass}
+          dataSource={listStudentsClassMap(data)}
           pagination={false}
         />
       )}
