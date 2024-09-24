@@ -5,6 +5,7 @@ import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import Loading from "@/components/pageResult/Loading";
 import InfoMessage from "@/components/infoMessage/InfoMessage";
+import Notification from "@/components/modal/notification/Notification";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // REDUX
 import { getListEventsAll } from "@/redux/actions";
+import { flagState } from "@/redux/slice";
 
 // JAVASCRIP
 
@@ -22,19 +24,20 @@ import { getListEventsAll } from "@/redux/actions";
 function Events() {
   const dispatch = useDispatch();
   const [dataState, setDataState] = useState({ state: null, messge: "" });
+  const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.list);
-  const selectInfo = useSelector(({ root }) => root?.info);
+  const selectInfo = useSelector(({ root }) => root?.insfo);
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectAccess = useSelector((state) => state.root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    console.log("me limnpio");
-    // setDataState({
-    //   state: null,
-    //   messge: "",
-    // });
+    setDataState({
+      state: null,
+      messge: "",
+    });
+    setFlagAlert(false);
   };
 
   useEffect(() => {
@@ -49,11 +52,13 @@ function Events() {
         state: selectState,
         message: "con exito",
       });
+      setFlagAlert(true);
     } else if (selectError !== null) {
       setDataState({
         state: "error",
         messge: selectError,
       });
+      setFlagAlert(true);
     }
   }, [selectState, selectError]);
 
@@ -82,7 +87,12 @@ function Events() {
       </div>
 
       <div>
-        <InfoMessage dataState={dataState} clearLocalState={clearLocalState} />
+        {flagAlert && (
+          <Notification
+            dataState={dataState}
+            clearLocalState={clearLocalState}
+          />
+        )}
       </div>
     </div>
   );
