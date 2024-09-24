@@ -1,7 +1,9 @@
 import React from "react";
 import { Alert, Space } from "antd";
 
-function infoMessage({ message }) {
+function InfoMessage({ dataState: { state, message }, clearLocalState }) {
+  console.log(state);
+  
   return (
     <Space
       direction="vertical"
@@ -9,7 +11,13 @@ function infoMessage({ message }) {
         width: "100%",
       }}
     >
-      {(message === "No se puede agregar numeros negativos" && (
+      {/* POSIBLES 4 ESTADOS
+    create
+    delete
+    update
+    error */}
+
+      {/* {(message === "No se puede agregar numeros negativos" && (
         <Alert message={message} type="error" showIcon />
       )) ||
         (message === "Se sumo correctamente...!" && (
@@ -17,9 +25,13 @@ function infoMessage({ message }) {
         )) ||
         (message === "Se resto correctamente...!" && (
           <Alert message={message} type="info" showIcon />
-        ))}
+        ))} */}
+      {state === "create" && (
+        <Alert message={`Creado ${message}`} type="success" showIcon />
+      )}
+
     </Space>
   );
 }
 
-export default infoMessage;
+export default InfoMessage;

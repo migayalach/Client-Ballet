@@ -5,9 +5,11 @@ import Video from "@/components/home/video/Video";
 import ListEvents from "@/components/home/listEvents/ListEvents";
 import CallData from "@/components/home/callData/CallData";
 import Footer from "@/components/home/footer/Footer";
+import InfoMessage from "@/components/infoMessage/InfoMessage";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // LIBRARY
 import {
@@ -22,6 +24,14 @@ import {
 import "../stylesheet/page.css";
 
 export default function Home() {
+  // const selectAccess = useSelector(({ root }) => root?.access);
+  // const selectError = useSelector(({ root }) => root?.error);
+  // const [state, setState] = useState({ date: "", state: false });
+
+  // useEffect(() => {
+
+  // }, [selectAccess, selectError]);
+
   return (
     <div className="container-app">
       <div className="slider">
@@ -68,6 +78,7 @@ export default function Home() {
       <div className="footer">
         <Footer />
       </div>
+      {/* <InfoMessage /> */}
     </div>
   );
 }
