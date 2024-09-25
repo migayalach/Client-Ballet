@@ -3,12 +3,24 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getEventId, stateClear } from "@/redux/actions";
 import FloatOption from "@/components/floatOption/FloatOption";
+import Notification from "@/components/modal/notification/Notification";
 
 function page({ params }) {
   const dispatch = useDispatch();
+  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [flagAlert, setFlagAlert] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
   const selectEvent = useSelector(({ root }) => root?.data);
   const selectAccess = useSelector((state) => state.root?.access);
+  const selectError = useSelector(({ root }) => root?.error);
+
+  const clearLocalState = () => {
+    setDataState({
+      state: null,
+      messge: "",
+    });
+    setFlagAlert(false);
+  };
 
   const [data, setData] = useState({
     idListEvent: "",
@@ -69,6 +81,22 @@ function page({ params }) {
     };
   }, [selectEvent, selectState]);
 
+  useEffect(() => {
+    if (selectState?.length) {
+      setDataState({
+        state: selectState,
+        message: "con exito",
+      });
+    } else if (selectError !== null) {
+      setDataState({
+        state: "error",
+        message: selectError?.error,
+      });
+    }
+    setFlagAlert(true);
+    return () => {};
+  }, [selectState, selectError]);
+
   return (
     <div>
       <div>
@@ -94,6 +122,15 @@ function page({ params }) {
           />
         </div>
       )}
+
+      <div>
+        {flagAlert && (
+          <Notification
+            dataState={dataState}
+            clearLocalState={clearLocalState}
+          />
+        )}
+      </div>
     </div>
   );
 }
