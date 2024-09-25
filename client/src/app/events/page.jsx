@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 // REDUX
-import { getListEventsAll } from "@/redux/actions";
+import { getListEventsAll, listClear, removeData } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -24,7 +24,7 @@ function Events() {
   const [dataState, setDataState] = useState({ state: null, message: "" });
   const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.list);
-  const selectInfo = useSelector(({ root }) => root?.insfo);
+  const selectInfo = useSelector(({ root }) => root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectAccess = useSelector((state) => state.root?.access);
   const selectState = useSelector(({ root }) => root?.state);
@@ -33,7 +33,7 @@ function Events() {
   const clearLocalState = () => {
     setDataState({
       state: null,
-      messge: "",
+      message: "",
     });
     setFlagAlert(false);
   };
@@ -42,6 +42,10 @@ function Events() {
     if (!selectFilter.length) {
       dispatch(getListEventsAll());
     }
+    return () => {
+      dispatch(removeData());
+      dispatch(listClear());
+    };
   }, []);
 
   useEffect(() => {
