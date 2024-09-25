@@ -4,7 +4,6 @@ import ListContainer from "@/components/home/listEvents/listContainer/ListContai
 import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import Loading from "@/components/pageResult/Loading";
-import InfoMessage from "@/components/infoMessage/InfoMessage";
 import Notification from "@/components/modal/notification/Notification";
 
 // HOOK'S
@@ -15,7 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 // REDUX
 import { getListEventsAll } from "@/redux/actions";
-import { flagState } from "@/redux/slice";
 
 // JAVASCRIP
 
@@ -23,7 +21,7 @@ import { flagState } from "@/redux/slice";
 
 function Events() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, messge: "" });
+  const [dataState, setDataState] = useState({ state: null, message: "" });
   const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.list);
   const selectInfo = useSelector(({ root }) => root?.insfo);
@@ -52,14 +50,14 @@ function Events() {
         state: selectState,
         message: "con exito",
       });
-      setFlagAlert(true);
     } else if (selectError !== null) {
       setDataState({
         state: "error",
-        messge: selectError,
+        message: selectError?.error,
       });
-      setFlagAlert(true);
     }
+    setFlagAlert(true);
+    return () => {};
   }, [selectState, selectError]);
 
   if (!selectList?.length && !selectInfo) {
