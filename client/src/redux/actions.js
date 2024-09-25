@@ -56,6 +56,7 @@ import {
   updateEvent,
   clearState,
   deleteEvent,
+  clearEvent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -781,6 +782,17 @@ export const createContact = (info) => {
     try {
       const data = (await axios.post(`${URL}/contact`, info)).data;
       return dispatch(postContact(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+//!CLEAR STATES
+export const listClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearEvent());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

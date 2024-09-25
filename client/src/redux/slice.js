@@ -297,6 +297,11 @@ export const Slice = createSlice({
     postContact: (state, action) => {
       state.aux = action.payload;
     },
+
+    //!CLEAR STATES:
+    clearEvent: (state, action) => {
+      state.list = [];
+    },
   },
 });
 
@@ -362,5 +367,6 @@ export const {
   updateEvent,
   clearState,
   deleteEvent,
+  clearEvent,
 } = Slice.actions;
 export default Slice.reducer;

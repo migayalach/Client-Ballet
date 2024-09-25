@@ -19,25 +19,21 @@ const Notification = ({ dataState: { state, message }, clearLocalState }) => {
       instance = modal.error({
         title: "Operación interrumpida",
         content: `${message}`,
-        okButtonProps: { style: { display: "none" } },
       });
     } else if (state === "create") {
       instance = modal.success({
         title: "Operación realizada con éxito",
         content: `Creado con éxito!`,
-        okButtonProps: { style: { display: "none" } },
       });
     } else if (state === "delete") {
       instance = modal.info({
         title: "Operación realizada con éxito",
         content: `Eliminado con éxito!`,
-        okButtonProps: { style: { display: "none" } },
       });
     } else if (state === "edit") {
       instance = modal.warning({
         title: "Operación realizada con éxito",
         content: `Actualización realizada con éxito!`,
-        okButtonProps: { style: { display: "none" } },
       });
     }
 

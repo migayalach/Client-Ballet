@@ -15,7 +15,7 @@ export const optionMessageModal = (option) => {
       return `Crear nueva evaluación`;
     case "LIST-ASSISTANCE-IDCLASS":
       return `Crear nuevo registro`;
-    case "EVENTS": 
+    case "EVENTS":
       return `Crear nuevo evento`;
   }
 };
@@ -433,6 +433,45 @@ export const textInfoHours = (view) => {
               podrá eliminar.
             </li>
           </ol>
+        </div>
+      );
+  }
+};
+
+export const textInfoEvent = (view) => {
+  switch (view) {
+    case "search":
+      return (
+        <div>
+          Puedes filtrar los eventos ordenados por fecha y por su estado,
+          indicando si el evento ya ha pasado o si está por realizarse. Esto te
+          permite visualizar de manera organizada los eventos próximos o los que
+          ya ocurrieron.
+        </div>
+      );
+    case "newOrUpdate":
+      return (
+        <div>
+          Puedes crear un nuevo evento introduciendo todos los datos requeridos,
+          como el nombre, fecha, hora y ubicación. Asimismo, para actualizar un
+          evento existente, es necesario completar todos los campos con la
+          información actualizada.
+        </div>
+      );
+    case "delete":
+      return (
+        <div>
+          Solo es posible eliminar un evento si este aún no ha pasado. Si el
+          evento ya se llevó a cabo o se realiza el mismo día, no será posible
+          eliminarlo para mantener el registro histórico.
+        </div>
+      );
+    case "detail":
+      return (
+        <div>
+          Al hacer clic en "Saber más", serás redirigido a una nueva ventana
+          donde podrás obtener información detallada sobre el evento, incluyendo
+          la ubicación, horario y descripción completa.
         </div>
       );
   }
