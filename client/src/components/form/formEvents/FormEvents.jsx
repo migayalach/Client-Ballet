@@ -17,13 +17,15 @@ import { Button, Form } from "antd";
 import { addListEvent, editEvent } from "@/redux/actions";
 
 // STYLESHEET'
+import "./form-events.css";
 
 // JAVASCRIP
+import formValidation from "./formValidation.js";
 
 function FormEvents({ option, handleState, event }) {
-  const selectEvent = useSelector(({ root }) => root?.data);
-
   const dispatch = useDispatch();
+  const selectEvent = useSelector(({ root }) => root?.data);
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     hour: "00:00:00",
     dateNews: "",
@@ -37,6 +39,9 @@ function FormEvents({ option, handleState, event }) {
       ...data,
       [event.target.name]: event.target.value,
     });
+    setErrors(
+      formValidation({ ...data, [event.target.name]: event.target.value })
+    );
   };
 
   const handleChangeHour = (name, time, timeString, value) => {
@@ -44,6 +49,7 @@ function FormEvents({ option, handleState, event }) {
       ...data,
       hour: timeString,
     });
+    setErrors(formValidation({ ...data, hour: timeString }));
   };
 
   const onChangeDate = (date, dateString) => {
@@ -51,6 +57,7 @@ function FormEvents({ option, handleState, event }) {
       ...data,
       dateNews: dateString,
     });
+    setErrors(formValidation({ ...data, dateNews: dateString }));
   };
 
   const handleURLChange = (URL) => {
@@ -58,6 +65,7 @@ function FormEvents({ option, handleState, event }) {
       ...data,
       urlPicture: URL,
     });
+    setErrors(formValidation({ ...data, urlPicture: URL }));
   };
 
   const onFinish = () => {
@@ -123,6 +131,7 @@ function FormEvents({ option, handleState, event }) {
             placeholder="Lago de los cisnes"
             data={data.title}
           />
+          {errors.title ? <p className="messageError">{errors.title}</p> : ""}
         </Form.Item>
 
         <Form.Item label="Descripcion">
@@ -132,6 +141,7 @@ function FormEvents({ option, handleState, event }) {
             placeholder="Se realizara el dia 2/2/2222 en la plaza San Francisco"
             value={data.body}
           />
+          {errors.body ? <p className="messageError">{errors.body}</p> : ""}
         </Form.Item>
 
         <Form.Item label="Fecha del evento">
@@ -140,6 +150,11 @@ function FormEvents({ option, handleState, event }) {
             onChange={onChangeDate}
             date={option !== "edit" ? data?.dateNews : ""}
           />
+          {errors.dateNews ? (
+            <p className="messageError">{errors.dateNews}</p>
+          ) : (
+            ""
+          )}
         </Form.Item>
 
         <Form.Item label="Hora del evento">
@@ -148,15 +163,25 @@ function FormEvents({ option, handleState, event }) {
             hours={data.hour}
             handleChange={handleChangeHour}
           />
+          {errors.hour ? <p className="messageError">{errors.hour}</p> : ""}
         </Form.Item>
 
         <Form.Item label="Imagen">
           <ImageCloudinary onChange={handleURLChange} />
+          {errors.urlPicture ? (
+            <p className="messageError">{errors.urlPicture}</p>
+          ) : (
+            ""
+          )}
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
-          <Text text="Crear" />
-        </Button>
+        {!Object.keys(errors).length && data.title.length ? (
+          <Button type="primary" htmlType="submit">
+            <Text text="Crear" />
+          </Button>
+        ) : (
+          ""
+        )}
       </Form>
     </>
   );
