@@ -7,6 +7,7 @@ import {
   textInfoHours,
   textInfoQualification,
   textInformationAddStudent,
+  textInfoEvent,
 } from "../../optionMessage";
 
 const mapList = (render, access) => {
@@ -189,6 +190,44 @@ const mapList = (render, access) => {
           },
         ];
       } else return [];
+
+    case "EVENTS":
+      if (access === "Director" || access === "Secretaria") {
+        return [
+          {
+            key: "1",
+            label: "Busqueda",
+            children: <p>{textInfoEvent("search")}</p>,
+          },
+          {
+            key: "2",
+            label: "Crear/editar evento",
+            children: <p>{textInfoEvent("newOrUpdate")}</p>,
+          },
+          {
+            key: "3",
+            label: "Eliminar evento",
+            children: <p>{textInfoEvent("delete")}</p>,
+          },
+          {
+            key: "4",
+            label: "Obtener detalle",
+            children: <p>{textInfoEvent("detail")}</p>,
+          },
+        ];
+      } else
+        return [
+          {
+            key: "1",
+            label: "Busqueda",
+            children: <p>{textInfoEvent("search")}</p>,
+          },
+          {
+            key: "2",
+            label: "Obtener detalle",
+            children: <p>{textInfoEvent("detail")}</p>,
+          },
+        ];
   }
 };
 
