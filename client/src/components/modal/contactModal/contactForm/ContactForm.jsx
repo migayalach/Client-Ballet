@@ -1,14 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Button, Form, Input } from "antd";
+// COMPONET'S
 import State from "@/components/state/State";
 import AreaText from "@/components/areaText/AreaText";
 import Text from "@/components/text/Text";
+
+// HOOK'S
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
+// LIBRARY
+import { Button, Form, Input } from "antd";
+
+//REDUX
 import { editContact } from "@/redux/actions";
+
+// STYLESHEET'
+import "./contact-form.css";
+
+// JAVASCRIP
+import formValidationSend from "./validationContact";
 
 function ContactForm({ data }) {
   const dispatch = useDispatch();
-
+  const [errors, setErrors] = useState({});
   const [info, setInfo] = useState({
     idContact: 0,
     feedback: "",
@@ -20,6 +33,7 @@ function ContactForm({ data }) {
       ...info,
       feedback: event.target.value,
     });
+    setErrors(formValidationSend({ ...data, feedback: event.target.value }));
   };
 
   const onChangeState = (boolean) => {
@@ -85,15 +99,29 @@ function ContactForm({ data }) {
             placeholder="Este tipo de baile proviene de las villas ubicadas en argentina"
             value={info.feedback}
           />
+          {errors.feedback ? (
+            <p className="messageError">{errors.feedback}</p>
+          ) : (
+            ""
+          )}
         </Form.Item>
 
         <Form.Item label="Estado de contacto" name="stateContact">
           <State stateHours={info.stateContact} handleChange={onChangeState} />
+          {info.stateContact ? (
+            <p className="successContact">Se contacto con exito</p>
+          ) : (
+            <p className="unsuccessContact">No se pudo contactar</p>
+          )}
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
-          <Text text="Aceptar" />
-        </Button>
+        {!Object.keys(errors).length && info.feedback?.length ? (
+          <Button type="primary" htmlType="submit">
+            <Text text="Aceptar" />
+          </Button>
+        ) : (
+          ""
+        )}
       </Form>
     </div>
   );
