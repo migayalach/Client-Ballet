@@ -1,0 +1,13 @@
+.messageError {
+  color: red;
+}
+
+.successContact {
+  margin-top: 10px;
+  color: #38b000;
+}
+
+.unsuccessContact {
+  margin-top: 10px;
+  color: #f72585;
+}
