@@ -13,7 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getContactAll } from "@/redux/actions";
+import { getContactAll, sentClear, removeData } from "@/redux/actions";
+import Notification from "@/components/modal/notification/Notification";
 
 // JAVASCRIP
 
@@ -21,18 +22,51 @@ import { getContactAll } from "@/redux/actions";
 
 function page() {
   const dispatch = useDispatch();
+  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.contact);
   const selectInfo = useSelector((state) => state?.root?.info);
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectAccess = useSelector(({ root }) => root?.access);
+  const selectState = useSelector(({ root }) => root?.state);
+  const selectError = useSelector(({ root }) => root?.error);
+
+  const clearLocalState = () => {
+    setDataState({
+      state: null,
+      message: "",
+    });
+    setFlagAlert(false);
+  };
 
   useEffect(() => {
     dispatch(getContactAll());
+    return () => {
+      dispatch(removeData());
+      dispatch(sentClear());
+    };
   }, []);
+
+  useEffect(() => {
+    if (selectState?.length) {
+      setDataState({
+        state: selectState,
+        message: "con exito",
+      });
+    } else if (selectError !== null) {
+      setDataState({
+        state: "error",
+        message: selectError?.error,
+      });
+    }
+    setFlagAlert(true);
+    return () => {};
+  }, [selectState, selectError]);
 
   if (
     Object.keys(selectAccess).length === 0 ||
-    (selectAccess.access === "Director" || selectAccess.access === "Secretaria")
+    selectAccess.access === "Director" ||
+    selectAccess.access === "Secretaria"
   ) {
     return (
       <div>
@@ -59,12 +93,20 @@ function page() {
         <TableComponent
           data={selectList.length ? selectList : selectFilter}
           render="CONTACT"
-          /*access={}*/
         />
       </div>
 
       <div>
         <PaginationComponet pages={selectInfo?.pages} navegation="CONTACT" />
+      </div>
+
+      <div>
+        {flagAlert && (
+          <Notification
+            dataState={dataState}
+            clearLocalState={clearLocalState}
+          />
+        )}
       </div>
     </div>
   );
