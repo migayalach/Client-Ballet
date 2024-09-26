@@ -57,6 +57,8 @@ import {
   clearState,
   deleteEvent,
   clearEvent,
+  clearSend,
+  clearInfo,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -793,6 +795,26 @@ export const listClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearEvent());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const sentClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearSend());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const infoClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearInfo());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
