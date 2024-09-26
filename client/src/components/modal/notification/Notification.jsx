@@ -15,7 +15,12 @@ const Notification = ({ dataState: { state, message }, clearLocalState }) => {
     let secondsToGo = 3;
     let instance;
 
-    if (state === "error") {
+    if (state === true) {
+      instance = modal.info({
+        title: "Operación exitosa",
+        content: `${message}`,
+      });
+    } else if (state === "error") {
       instance = modal.error({
         title: "Operación interrumpida",
         content: `${message}`,
