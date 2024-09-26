@@ -302,6 +302,14 @@ export const Slice = createSlice({
     clearEvent: (state, action) => {
       state.list = [];
     },
+
+    clearSend: (state, action) => {
+      state.contact = [];
+    },
+
+    clearInfo: (state, action) => {
+      state.info = null;
+    },
   },
 });
 
@@ -368,5 +376,7 @@ export const {
   clearState,
   deleteEvent,
   clearEvent,
+  clearSend,
+  clearInfo
 } = Slice.actions;
 export default Slice.reducer;
