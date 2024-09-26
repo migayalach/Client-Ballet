@@ -5,7 +5,7 @@ import Video from "@/components/home/video/Video";
 import ListEvents from "@/components/home/listEvents/ListEvents";
 import CallData from "@/components/home/callData/CallData";
 import Footer from "@/components/home/footer/Footer";
-import InfoMessage from "@/components/infoMessage/InfoMessage";
+import Notification from "@/components/modal/notification/Notification";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -28,14 +28,36 @@ import "../stylesheet/page.css";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [flagAlert, setFlagAlert] = useState(false);
   const selectInfo = useSelector(({ root }) => root.info);
-  // const selectAccess = useSelector(({ root }) => root?.access);
-  // const selectError = useSelector(({ root }) => root?.error);
-  // const [state, setState] = useState({ date: "", state: false });
+  const selectAux = useSelector(({ root }) => root.aux);
+  const selectError = useSelector(({ root }) => root?.error);
 
-  // useEffect(() => {
+  const clearLocalState = () => {
+    setDataState({
+      state: null,
+      message: "",
+    });
+    setFlagAlert(false);
+  };
 
-  // }, [selectAccess, selectError]);
+  useEffect(() => {
+    if (Object.keys(selectAux).length) {
+      setDataState({
+        state: selectAux.state,
+        message:
+          "Gracias por contactarse con nosotros nuestro equipo se comunicara contigo muy pronto!",
+      });
+    } else if (selectError !== null) {
+      setDataState({
+        state: "error",
+        message: selectError?.error,
+      });
+    }
+    setFlagAlert(true);
+    return () => {};
+  }, [selectAux, selectError]);
 
   useEffect(() => {
     dispatch(infoClear());
@@ -87,7 +109,14 @@ export default function Home() {
       <div className="footer">
         <Footer />
       </div>
-      {/* <InfoMessage /> */}
+      <div>
+        {flagAlert && (
+          <Notification
+            dataState={dataState}
+            clearLocalState={clearLocalState}
+          />
+        )}
+      </div>
     </div>
   );
 }
