@@ -9,7 +9,7 @@ import InfoMessage from "@/components/infoMessage/InfoMessage";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // LIBRARY
 import {
@@ -18,12 +18,17 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 
+// REDUX
+import { infoClear } from "@/redux/actions";
+
 // JAVASCRIP
 
 // STYLESHEET'
 import "../stylesheet/page.css";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const selectInfo = useSelector(({ root }) => root.info);
   // const selectAccess = useSelector(({ root }) => root?.access);
   // const selectError = useSelector(({ root }) => root?.error);
   // const [state, setState] = useState({ date: "", state: false });
@@ -31,6 +36,10 @@ export default function Home() {
   // useEffect(() => {
 
   // }, [selectAccess, selectError]);
+
+  useEffect(() => {
+    dispatch(infoClear());
+  }, [selectInfo]);
 
   return (
     <div className="container-app">
