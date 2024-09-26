@@ -1,14 +1,26 @@
+// COMPONET'S
+
+// HOOK'S
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+// LIBRARY
 import { Button, Form, Input } from "antd";
-import "./form-contact.css";
+
+//REDUX
 import { createContact, removeAux, removeError } from "@/redux/actions";
+
+// STYLESHEET'
+import "./form-contact.css";
+
+// JAVASCRIP
+import formContactValidate from "./formContactValidate";
 
 function FormContact() {
   const dispatch = useDispatch();
   const selectAux = useSelector(({ root }) => root?.aux);
   const selectError = useSelector(({ root }) => root?.error);
-
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     nameContact: "",
     emailContact: "",
@@ -20,6 +32,9 @@ function FormContact() {
       ...data,
       [event.target.name]: event.target.value,
     });
+    setErrors(
+      formContactValidate({ ...data, [event.target.name]: event.target.value })
+    );
   };
 
   const onFinish = () => {
@@ -31,7 +46,7 @@ function FormContact() {
       setTimeout(() => {
         dispatch(removeAux());
       }, 3000);
-    } else if(selectError !== null && Object.keys(selectAux).length === 0)  {
+    } else if (selectError !== null && Object.keys(selectAux).length === 0) {
       setTimeout(() => {
         dispatch(removeError());
       }, 3000);
@@ -53,7 +68,7 @@ function FormContact() {
       </div>
       <Form
         className="form-ant"
-        name="basic"
+        // name="basic"
         labelCol={{
           span: 7,
         }}
@@ -61,19 +76,35 @@ function FormContact() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item label="Nombre" name="name">
+        <Form.Item label="Nombre">
           <Input name="nameContact" onChange={handleInfo} />
+          {errors.nameContact && (
+            <p className="messageError">{errors.nameContact}</p>
+          )}
         </Form.Item>
-        <Form.Item label="Email" name="email">
+
+        <Form.Item label="Email">
           <Input name="emailContact" onChange={handleInfo} />
+          {errors.emailContact && (
+            <p className="messageError">{errors.emailContact}</p>
+          )}
         </Form.Item>
-        <Form.Item label="Telefono" name="phone">
-          <Input name="phoneContact" onChange={handleInfo} />
+
+        <Form.Item label="Teléfono">
+          <Input name="phoneContact" onChange={handleInfo} maxLength={8} />
+          {errors.phoneContact && (
+            <p className="messageError">{errors.phoneContact}</p>
+          )}
         </Form.Item>
+
         <div className="container-button">
-          <Button className="button-ant" type="primary" htmlType="submit">
-            Aceptar
-          </Button>
+          {!Object.keys(errors).length && data.nameContact.length ? (
+            <Button className="button-ant" type="primary" htmlType="submit">
+              Aceptar
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </Form>
     </div>
