@@ -68,7 +68,7 @@ function FormContact() {
       </div>
       <Form
         className="form-ant"
-        // name="basic"
+        name="FormContact"
         labelCol={{
           span: 7,
         }}
