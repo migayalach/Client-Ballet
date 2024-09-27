@@ -18,12 +18,15 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET'
+import "./form-type-class.css";
 
 // JAVASCRIP
+import formTypeClassValidate from "./formTypeClassValidate";
 
 function FormTypeClass({ idData, option, handleState }) {
   const dispatch = useDispatch();
   const selectTypeHour = useSelector(({ root }) => root?.data);
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     nameClass: "",
     description: "",
@@ -34,6 +37,12 @@ function FormTypeClass({ idData, option, handleState }) {
       ...data,
       [event.target.name]: event.target.value,
     });
+    setErrors(
+      formTypeClassValidate({
+        ...data,
+        [event.target.name]: event.target.value,
+      })
+    );
   };
 
   const onFinish = () => {
@@ -84,6 +93,9 @@ function FormTypeClass({ idData, option, handleState }) {
             placeholder="Cumbia"
             data={data.nameClass}
           />
+          {errors.nameClass && (
+            <p className="messageError">{errors.nameClass}</p>
+          )}
         </Form.Item>
         <Form.Item label="Descripcion">
           <AreaText
@@ -93,9 +105,14 @@ function FormTypeClass({ idData, option, handleState }) {
             value={data.description}
           />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
-          <Text text="Crear" />
-        </Button>
+        
+        {!Object.keys(errors).length && data.nameClass.length ? (
+          <Button type="primary" htmlType="submit">
+            <Text text="Crear" />
+          </Button>
+        ) : (
+          ""
+        )}
       </Form>
     </>
   );
