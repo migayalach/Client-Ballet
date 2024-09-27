@@ -59,7 +59,8 @@ import {
   clearEvent,
   clearSend,
   clearInfo,
-  clearTypeClass
+  clearTypeClass,
+  clearHours,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -826,6 +827,16 @@ export const typeClassClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearTypeClass());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const hoursClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearHours());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
