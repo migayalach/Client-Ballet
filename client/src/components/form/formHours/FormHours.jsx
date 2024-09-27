@@ -1,7 +1,18 @@
+// COMPONET'S
+
+// HOOK'S
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+// LIBRARY
 import { Button, Form } from "antd";
+
+//REDUX
 import { createHours, editIdHours, getByIdHours } from "@/redux/actions";
+
+// STYLESHEET'
+
+// JAVASCRIP
 import { timeDifference } from "@/utils/calHours";
 import TotalHours from "../../totalHours/TotalHours";
 import State from "../../state/State";
@@ -90,7 +101,7 @@ const FormHours = ({ idData, option, handleState }) => {
       onFinish={onFinish}
       style={{ maxWidth: 650 }}
     >
-      <Form.Item name="time-start" label="Inicio de clase">
+      <Form.Item label="Inicio de clase">
         <TotalHours
           name="startTime"
           hours={data.startTime}
@@ -98,7 +109,7 @@ const FormHours = ({ idData, option, handleState }) => {
         />
       </Form.Item>
 
-      <Form.Item name="time-end" label="Finalización de clase">
+      <Form.Item label="Finalización de clase">
         <TotalHours
           name="endTime"
           hours={data.endTime}
@@ -106,12 +117,15 @@ const FormHours = ({ idData, option, handleState }) => {
         />
       </Form.Item>
 
-      <Form.Item name="duration" label="Duración de clase">
+      <Form.Item label="Duración de clase">
         <TotalHours name="total" hours={data.totalTime} />
       </Form.Item>
 
       {option === "edit" && (
-        <Form.Item name="switch" label="Estado de clase" valuePropName="checked">
+        <Form.Item
+          label="Estado de clase"
+          valuePropName="checked"
+        >
           <State
             stateHours={data.stateHours}
             handleChange={handleChangeState}

@@ -314,6 +314,10 @@ export const Slice = createSlice({
     clearTypeClass: (state, action) => {
       state.typeClass = [];
     },
+
+    clearHours: (state, action) => {
+      state.hours = [];
+    },
   },
 });
 
@@ -382,6 +386,7 @@ export const {
   clearEvent,
   clearSend,
   clearInfo,
-  clearTypeClass
+  clearTypeClass,
+  clearHours,
 } = Slice.actions;
 export default Slice.reducer;
