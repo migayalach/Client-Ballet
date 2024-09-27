@@ -12,7 +12,7 @@ const Notification = ({ dataState: { state, message }, clearLocalState }) => {
     if (isNotified) return;
     setIsNotified(true);
 
-    let secondsToGo = 1;
+    let secondsToGo = 2;
     let instance;
 
     if (state === true) {
