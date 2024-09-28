@@ -19,7 +19,7 @@ import {
 } from "@ant-design/icons";
 
 // REDUX
-import { infoClear } from "@/redux/actions";
+import { infoClear, removeError } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -32,6 +32,7 @@ export default function Home() {
   const [flagAlert, setFlagAlert] = useState(false);
   const selectInfo = useSelector(({ root }) => root.info);
   const selectAux = useSelector(({ root }) => root.aux);
+  const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
@@ -43,21 +44,20 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (Object.keys(selectAux).length) {
+    if (Object.keys(selectAux).length && selectState.length) {
       setDataState({
-        state: selectAux.state,
-        message:
-          "Gracias por contactarse con nosotros nuestro equipo se comunicara contigo muy pronto!",
+        state: selectState,
+        message: `Bienvenido ${selectAux.name}`,
       });
     } else if (selectError !== null) {
       setDataState({
         state: "error",
-        message: selectError?.error,
+        message: selectError?.message,
       });
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectAux, selectError]);
+  }, [selectAux, selectState, selectError]);
 
   useEffect(() => {
     dispatch(infoClear());
