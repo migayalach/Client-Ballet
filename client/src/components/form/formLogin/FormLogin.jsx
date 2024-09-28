@@ -1,12 +1,25 @@
 "use client";
+// COMPONET'S
+
+// HOOK'S
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+
+// LIBRARY
 import { Button, Checkbox, Form, Input } from "antd";
+
+//REDUX
 import { userLogin } from "@/redux/actions";
-import { emailRules, passwordRules } from "../validation/validationRules";
+
+// STYLESHEET'
+import "./form-login.css";
+
+// JAVASCRIP
+import formLoginValidation from "./formLoginValidation.js";
 
 function FormLogin() {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState({});
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -17,6 +30,9 @@ function FormLogin() {
       ...user,
       [event.target.name]: event.target.value,
     });
+    setErrors(
+      formLoginValidation({ ...user, [event.target.name]: event.target.value })
+    );
   };
 
   const onFinish = () => {
@@ -31,7 +47,7 @@ function FormLogin() {
 
   return (
     <Form
-      // name="basic"
+      name="FormLogin"
       labelCol={{
         span: 8,
       }}
@@ -48,12 +64,18 @@ function FormLogin() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item label="Usuario" name="email" rules={emailRules}>
+      <Form.Item label="Usuario">
         <Input name="email" onChange={handleInfo} />
+        {errors.email ? <p className="messageError">{errors.email}</p> : ""}
       </Form.Item>
 
-      <Form.Item label="Contraseña" name="password" rules={passwordRules}>
+      <Form.Item label="Contraseña">
         <Input.Password name="password" onChange={handleInfo} />
+        {errors.password ? (
+          <p className="messageError">{errors.password}</p>
+        ) : (
+          ""
+        )}
       </Form.Item>
 
       <Form.Item
@@ -73,12 +95,13 @@ function FormLogin() {
           span: 16,
         }}
       >
-        {
-          <Button type="primary" htmlType="submit">
-            Acceder
-          </Button>
-        }
-        <Button onClick={handleGoogle}>Google</Button>
+        <Button type="primary" htmlType="submit" className="button-login">
+          Acceder
+        </Button>
+
+        <Button onClick={handleGoogle} className="button-login-google">
+          Google
+        </Button>
       </Form.Item>
     </Form>
   );
