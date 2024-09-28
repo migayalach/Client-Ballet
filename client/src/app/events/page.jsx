@@ -13,7 +13,12 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 // REDUX
-import { getListEventsAll, listClear, removeData } from "@/redux/actions";
+import {
+  getListEventsAll,
+  listClear,
+  removeData,
+  removeError,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -45,6 +50,7 @@ function Events() {
     return () => {
       dispatch(removeData());
       dispatch(listClear());
+      // dispatch(removeError());
     };
   }, []);
 

@@ -41,6 +41,7 @@ function FormUser({ dataUser, option, handleState }) {
     addressUser: "",
     dateBirthUser: "",
     carnetUser: "",
+    numberPhone: "", 
     photoUser: "",
     stateUser: true,
   });
@@ -202,6 +203,15 @@ function FormUser({ dataUser, option, handleState }) {
             onChange={handleChange}
             name="carnetUser"
             placeholder="8569134"
+            data={data.carnetUser}
+          />
+        </Form.Item>
+
+        <Form.Item label="Numero de contacto">
+        <InputComponent
+            onChange={handleChange}
+            name="phoneNumber"
+            placeholder="75710692"
             data={data.carnetUser}
           />
         </Form.Item>

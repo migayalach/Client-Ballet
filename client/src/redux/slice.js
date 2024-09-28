@@ -205,7 +205,9 @@ export const Slice = createSlice({
 
     //!LOGIN
     loginUser: (state, action) => {
-      state.access = action.payload;
+      state.access = action.payload.access;
+      state.aux = action.payload.aux;
+      state.state = action.payload.state;
     },
 
     clearData: (state, action) => {

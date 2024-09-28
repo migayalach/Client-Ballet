@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Modal } from "antd";
 import { removeError } from "@/redux/actions";
 
-const Notification = ({ dataState: { state, message }, clearLocalState }) => {
+const Notification = ({ dataState: { state, message }, clearLocalState }) => { 
   const dispatch = useDispatch();
   const [modal, contextHolder] = Modal.useModal();
   const [isNotified, setIsNotified] = useState(false);
@@ -15,7 +15,12 @@ const Notification = ({ dataState: { state, message }, clearLocalState }) => {
     let secondsToGo = 2;
     let instance;
 
-    if (state === true) {
+    if (state === "login"){
+      instance = modal.success({
+        title: "Operación exitosa",
+        content: `${message}`,
+      });
+    }else if (state === true) {
       instance = modal.info({
         title: "Operación exitosa",
         content: `${message}`,

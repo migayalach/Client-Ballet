@@ -1,7 +1,5 @@
 import React from "react";
-import { Card } from "antd";
 import "./list-container.css";
-import ButtonMoreInfo from "@/components/button/buttonMoreInfo/ButtonMoreInfo";
 import CardFlex from "@/components/cardFlex/CardFlex";
 
 const info = [
