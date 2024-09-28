@@ -17,7 +17,7 @@ import {
   AuditOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { Menu, Col, Divider, Row } from "antd";
+import { Menu, Col, Row } from "antd";
 
 //REDUX
 
@@ -30,7 +30,6 @@ function NavBar() {
   const [current, setCurrent] = useState("home");
   const selectAccess = useSelector(({ root }) => root?.access);
   const levelUser = selectAccess?.level;
-  const handleLogout = async () => await logout();
 
   const items = [
     {
@@ -64,9 +63,9 @@ function NavBar() {
     levelUser === "Estudiante"
       ? [
           {
-            label: selectAccess?.access && "Danzas",
+            label: Object.keys(selectAccess).length && "Danzas",
             key: "SubMenuDances",
-            icon: selectAccess?.access && <SettingOutlined />,
+            icon: Object.keys(selectAccess).length && <SettingOutlined />,
             children: [
               {
                 type: "group",
@@ -109,7 +108,7 @@ function NavBar() {
         ]
       : []),
 
-    ...(selectAccess?.access
+    ...(Object.keys(selectAccess).length
       ? [
           {
             label: "Usuario",
@@ -134,11 +133,7 @@ function NavBar() {
                     key: "setting:2",
                   },
                   {
-                    label: (
-                      <a href="/" onClick={handleLogout}>
-                        Salir
-                      </a>
-                    ),
+                    label: <a href="/">Salir</a>,
                     key: "out",
                   },
                 ],
