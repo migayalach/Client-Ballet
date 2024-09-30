@@ -13,12 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 // REDUX
-import {
-  getListEventsAll,
-  listClear,
-  removeData,
-  removeError,
-} from "@/redux/actions";
+import { getListEventsAll, listClear, removeData } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -50,12 +45,16 @@ function Events() {
     return () => {
       dispatch(removeData());
       dispatch(listClear());
-      // dispatch(removeError());
     };
   }, []);
 
   useEffect(() => {
-    if (selectState?.length) {
+    if(selectState === "login" && Object.keys(selectAccess).length){
+      setDataState({
+        state: selectState,
+        message: `Bienvenido ${selectAccess.name}`,
+      });
+    }else if (selectState?.length) {
       setDataState({
         state: selectState,
         message: "con exito",
@@ -68,7 +67,7 @@ function Events() {
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectState, selectError]);
+  }, [selectState, selectError, selectAccess]);
 
   if (!selectList?.length && !selectInfo) {
     return (
