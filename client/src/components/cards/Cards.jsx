@@ -17,6 +17,7 @@ function Cards({ user }) {
             addressUser,
             dateBirthUser,
             carnetUser,
+            numberPhone,
             photoUser,
             stateUser,
           },
@@ -34,6 +35,7 @@ function Cards({ user }) {
               addressUser={addressUser}
               dateBirthUser={dateBirthUser}
               carnetUser={carnetUser}
+              numberPhone={numberPhone}
               photoUser={photoUser}
               stateUser={stateUser}
             />
