@@ -31,9 +31,10 @@ export default function Home() {
   const [dataState, setDataState] = useState({ state: null, message: "" });
   const [flagAlert, setFlagAlert] = useState(false);
   const selectInfo = useSelector(({ root }) => root.info);
-  const selectAux = useSelector(({ root }) => root.aux);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAccess = useSelector(({ root }) => root?.access);
+  const selectAux = useSelector(({ root }) => root?.aux);
 
   const clearLocalState = () => {
     setDataState({
@@ -44,10 +45,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (Object.keys(selectAux).length && selectState.length) {
+    if (selectAux === "Registrado con exito" && selectState === "success") {
       setDataState({
         state: selectState,
-        message: `Bienvenido ${selectAux.name}`,
+        message: `${selectAux}`,
+      });
+    } else if (Object.keys(selectAccess).length && selectState.length) {
+      setDataState({
+        state: selectState,
+        message: `Bienvenido ${selectAccess.name}`,
       });
     } else if (selectError !== null) {
       setDataState({
@@ -57,7 +63,7 @@ export default function Home() {
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectAux, selectState, selectError]);
+  }, [selectAccess, selectState, selectError, selectAux]);
 
   useEffect(() => {
     dispatch(infoClear());
