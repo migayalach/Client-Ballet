@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getEventId, stateClear } from "@/redux/actions";
+import { getEventId, stateClear, removeData } from "@/redux/actions";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Notification from "@/components/modal/notification/Notification";
 
@@ -52,6 +52,7 @@ function page({ params }) {
         stateEvent: false,
         urlPicture: "",
       });
+      dispatch(removeData());
     };
   }, []);
 
@@ -82,7 +83,12 @@ function page({ params }) {
   }, [selectEvent, selectState]);
 
   useEffect(() => {
-    if (selectState?.length) {
+    if (selectState === "login" && Object.keys(selectAccess).length) {
+      setDataState({
+        state: selectState,
+        message: `Bienvenido ${selectAccess.name}`,
+      });
+    } else if (selectState?.length) {
       setDataState({
         state: selectState,
         message: "con exito",
@@ -95,7 +101,7 @@ function page({ params }) {
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectState, selectError]);
+  }, [selectState, selectError, selectAccess]);
 
   return (
     <div>
