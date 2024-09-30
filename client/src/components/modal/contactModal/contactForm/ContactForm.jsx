@@ -106,7 +106,7 @@ function ContactForm({ data }) {
           )}
         </Form.Item>
 
-        <Form.Item label="Estado de contacto" name="stateContact">
+        <Form.Item label="Estado de contacto">
           <State stateHours={info.stateContact} handleChange={onChangeState} />
           {info.stateContact ? (
             <p className="successContact">Se contacto con exito</p>
