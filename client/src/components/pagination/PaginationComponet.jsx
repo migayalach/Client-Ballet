@@ -49,7 +49,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const optionEffect = (option) => {
     switch (option) {
       case "USER":
-        if (Object.keys(selectAux).length && selectState === "create") {
+        if (selectAux && Object.keys(selectAux).length && selectState === "create") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageUser(selectInfo.pages));
