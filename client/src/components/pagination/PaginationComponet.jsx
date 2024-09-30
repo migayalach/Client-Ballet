@@ -213,7 +213,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "EVENTS":
-        if (Object.keys(selectAux).length && selectState === "create") {
+        if (selectState === "create") {
           dispatch(getPageEvent(1));
           setCurrent(1);
           setTIme();
