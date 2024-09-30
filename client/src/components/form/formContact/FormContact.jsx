@@ -18,8 +18,8 @@ import formContactValidate from "./formContactValidate";
 
 function FormContact() {
   const dispatch = useDispatch();
-  const selectAux = useSelector(({ root }) => root?.aux);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAccess = useSelector(({ root }) => root.access);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     nameContact: "",
@@ -39,19 +39,24 @@ function FormContact() {
 
   const onFinish = () => {
     dispatch(createContact(data));
+    setData({
+      nameContact: "",
+      emailContact: "",
+      phoneContact: "",
+    });
   };
 
   useEffect(() => {
-    if (Object.keys(selectAux).length && !selectError) {
+    if (Object.keys(selectAccess).length && !selectError) {
       setTimeout(() => {
         dispatch(removeAux());
       }, 3000);
-    } else if (selectError !== null && Object.keys(selectAux).length === 0) {
+    } else if (selectError !== null && Object.keys(selectAccess).length === 0) {
       setTimeout(() => {
         dispatch(removeError());
       }, 3000);
     }
-  }, [selectAux, selectError]);
+  }, [selectAccess, selectError]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -77,21 +82,34 @@ function FormContact() {
         autoComplete="off"
       >
         <Form.Item label="Nombre">
-          <Input name="nameContact" onChange={handleInfo} />
+          <Input
+            name="nameContact"
+            value={data?.nameContact}
+            onChange={handleInfo}
+          />
           {errors.nameContact && (
             <p className="messageError">{errors.nameContact}</p>
           )}
         </Form.Item>
 
         <Form.Item label="Email">
-          <Input name="emailContact" onChange={handleInfo} />
+          <Input
+            name="emailContact"
+            value={data?.emailContact}
+            onChange={handleInfo}
+          />
           {errors.emailContact && (
             <p className="messageError">{errors.emailContact}</p>
           )}
         </Form.Item>
 
         <Form.Item label="Teléfono">
-          <Input name="phoneContact" onChange={handleInfo} maxLength={8} />
+          <Input
+            name="phoneContact"
+            value={data?.phoneContact}
+            onChange={handleInfo}
+            maxLength={8}
+          />
           {errors.phoneContact && (
             <p className="messageError">{errors.phoneContact}</p>
           )}
