@@ -17,6 +17,7 @@ function CardComponent({
   addressUser,
   dateBirthUser,
   carnetUser,
+  numberPhone,
   photoUser,
   stateUser,
 }) {
@@ -30,6 +31,7 @@ function CardComponent({
     addressUser,
     dateBirthUser,
     carnetUser,
+    numberPhone,
     photoUser,
     stateUser,
   });
@@ -45,6 +47,7 @@ function CardComponent({
       addressUser,
       dateBirthUser,
       carnetUser,
+      numberPhone,
       photoUser,
       stateUser,
     });
@@ -58,6 +61,7 @@ function CardComponent({
     addressUser,
     dateBirthUser,
     carnetUser,
+    numberPhone,
     photoUser,
     stateUser,
   ]);

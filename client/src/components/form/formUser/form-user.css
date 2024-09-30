@@ -9,3 +9,8 @@
   justify-content: center;
   margin-bottom: 17px;
 }
+
+.messageError {
+  margin-top: 5px;
+  color: #ff0a54;
+}

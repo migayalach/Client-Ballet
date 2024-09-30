@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal } from "antd";
-import { removeError } from "@/redux/actions";
+import { removeError, stateClear, removeAux } from "@/redux/actions";
 
-const Notification = ({ dataState: { state, message }, clearLocalState }) => { 
+const Notification = ({ dataState: { state, message }, clearLocalState }) => {
   const dispatch = useDispatch();
   const [modal, contextHolder] = Modal.useModal();
   const [isNotified, setIsNotified] = useState(false);
@@ -12,15 +12,23 @@ const Notification = ({ dataState: { state, message }, clearLocalState }) => {
     if (isNotified) return;
     setIsNotified(true);
 
-    let secondsToGo = 2;
+    let secondsToGo = 3;
     let instance;
 
-    if (state === "login"){
+    if (state === "success") {
       instance = modal.success({
         title: "Operación exitosa",
         content: `${message}`,
       });
-    }else if (state === true) {
+      dispatch(stateClear());
+      dispatch(removeAux());
+    } else if (state === "login") {
+      instance = modal.success({
+        title: "Operación exitosa",
+        content: `${message}`,
+      });
+      dispatch(stateClear());
+    } else if (state === true) {
       instance = modal.info({
         title: "Operación exitosa",
         content: `${message}`,
