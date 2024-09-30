@@ -6,6 +6,7 @@ import DateComponent from "@/components/date/DateComponent";
 import AreaText from "@/components/areaText/AreaText";
 import State from "@/components/state/State";
 import ImageCloudinary from "@/components/imageCloudinary/ImageCloudinary";
+import ProfileAvatar from "@/components/avatar/ProfileAvatar";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -23,8 +24,7 @@ import { createUser, editUser, getExtensionAll } from "@/redux/actions";
 import "./form-user.css";
 
 // JAVASCRIP
-import ProfileAvatar from "@/components/avatar/ProfileAvatar";
-
+import formValidationUser from "./formValidationUser";
 dayjs.extend(customParseFormat);
 
 function FormUser({ dataUser, option, handleState }) {
@@ -32,6 +32,8 @@ function FormUser({ dataUser, option, handleState }) {
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectAccess = useSelector(({ root }) => root?.access?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
+  const selectState = useSelector(({ root }) => root?.state);
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     idLevel: 0,
     idExtension: 0,
@@ -41,7 +43,7 @@ function FormUser({ dataUser, option, handleState }) {
     addressUser: "",
     dateBirthUser: "",
     carnetUser: "",
-    numberPhone: "", 
+    numberPhone: "",
     photoUser: "",
     stateUser: true,
   });
@@ -52,6 +54,12 @@ function FormUser({ dataUser, option, handleState }) {
       ...data,
       [key]: !event.key ? event.target.value : event.key,
     });
+    setErrors(
+      formValidationUser({
+        ...data,
+        [key]: !event.key ? event.target.value : event.key,
+      })
+    );
   };
 
   const handleURLChange = (URL) => {
@@ -66,6 +74,12 @@ function FormUser({ dataUser, option, handleState }) {
       ...data,
       dateBirthUser: dateString,
     });
+    setErrors(
+      formValidationUser({
+        ...data,
+        dateBirthUser: dateString,
+      })
+    );
   };
 
   const onChangeState = (boolean) => {
@@ -94,20 +108,25 @@ function FormUser({ dataUser, option, handleState }) {
       );
     } else {
       dispatch(createUser(data));
-      setData({
-        idLevel: 0,
-        idExtension: 0,
-        nameUser: "",
-        lastNameUser: "",
-        emailUser: "",
-        passwordUser: "",
-        addressUser: "",
-        dateBirthUser: "",
-        carnetUser: "",
-        photoUser: "",
-        stateUser: true,
-      });
-      handleState();
+      console.log(selectState);
+      
+      if (selectState === "create") {
+        setData({
+          idLevel: 0,
+          idExtension: 0,
+          nameUser: "",
+          lastNameUser: "",
+          emailUser: "",
+          passwordUser: "",
+          addressUser: "",
+          dateBirthUser: "",
+          carnetUser: "",
+          numberPhone: "",
+          photoUser: "",
+          stateUser: true,
+        });
+        handleState();
+      }
     }
   };
 
@@ -122,6 +141,7 @@ function FormUser({ dataUser, option, handleState }) {
         addressUser: dataUser.addressUser,
         dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
         carnetUser: dataUser.carnetUser,
+        numberPhone: dataUser.numberPhone,
         stateUser: dataUser.stateUser,
       });
     } else if (option === "editProfile") {
@@ -134,6 +154,7 @@ function FormUser({ dataUser, option, handleState }) {
         addressUser: dataUser.addressUser,
         dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
         carnetUser: dataUser.carnetUser,
+        numberPhone: dataUser.numberPhone,
         stateUser: dataUser.stateUser,
         photoUser: dataUser.photoUser,
       });
@@ -167,6 +188,7 @@ function FormUser({ dataUser, option, handleState }) {
             placeholder="Alverto Reinaldo"
             data={data.nameUser}
           />
+          {errors.nameUser && <p className="messageError">{errors.nameUser}</p>}
         </Form.Item>
 
         <Form.Item label="Apellidos">
@@ -176,6 +198,9 @@ function FormUser({ dataUser, option, handleState }) {
             placeholder="Del Rio"
             data={data.lastNameUser}
           />
+          {errors.lastNameUser && (
+            <p className="messageError">{errors.lastNameUser}</p>
+          )}
         </Form.Item>
 
         <Form.Item label="Email">
@@ -185,6 +210,9 @@ function FormUser({ dataUser, option, handleState }) {
             placeholder="albert@gmail.com"
             data={data.emailUser}
           />
+          {errors.emailUser && (
+            <p className="messageError">{errors.emailUser}</p>
+          )}
         </Form.Item>
 
         {/* TODO RELLENAR CAMPOS CON EL LOCALSTORAGE */}
@@ -205,15 +233,21 @@ function FormUser({ dataUser, option, handleState }) {
             placeholder="8569134"
             data={data.carnetUser}
           />
+          {errors.carnetUser && (
+            <p className="messageError">{errors.carnetUser}</p>
+          )}
         </Form.Item>
 
         <Form.Item label="Numero de contacto">
-        <InputComponent
+          <InputComponent
             onChange={handleChange}
-            name="phoneNumber"
+            name="numberPhone"
             placeholder="75710692"
-            data={data.carnetUser}
+            data={data.numberPhone}
           />
+          {errors.numberPhone && (
+            <p className="messageError">{errors.numberPhone}</p>
+          )}
         </Form.Item>
 
         <Form.Item label="Extension">
@@ -228,6 +262,9 @@ function FormUser({ dataUser, option, handleState }) {
                 : ""
             }
           />
+          {errors.extension && (
+            <p className="messageError">{errors.extension}</p>
+          )}
         </Form.Item>
 
         {(selectAccess === "Director" || selectAccess === "Secretaria") && (
@@ -239,11 +276,13 @@ function FormUser({ dataUser, option, handleState }) {
               flag="Level"
               value={option === "edit" ? dataUser?.idLevel : ""}
             />
+            {errors.level && <p className="messageError">{errors.level}</p>}
           </Form.Item>
         )}
 
-        <Form.Item label="Fecha de nacimiento" name="birthdate">
+        <Form.Item label="Fecha de nacimiento">
           <DateComponent
+            name="birthdate"
             onChange={onChangeDate}
             date={
               option === "edit" || option === "editProfile"
@@ -251,6 +290,9 @@ function FormUser({ dataUser, option, handleState }) {
                 : ""
             }
           />
+          {errors.birthdate && (
+            <p className="messageError">{errors.birthdate}</p>
+          )}
         </Form.Item>
 
         <Form.Item label="Dirección">
@@ -274,9 +316,15 @@ function FormUser({ dataUser, option, handleState }) {
           </Form.Item>
         )}
 
-        <Button type="primary" htmlType="submit">
-          <Text text="Crear" />
-        </Button>
+        <div>
+          {!Object.keys(errors).length && data.nameUser.length ? (
+            <Button type="primary" htmlType="submit">
+              <Text text="Crear" />
+            </Button>
+          ) : (
+            ""
+          )}
+        </div>
       </Form>
     </div>
   );
