@@ -297,7 +297,8 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
     postContact: (state, action) => {
-      state.aux = action.payload;
+      state.aux = action.payload.message;
+      state.state = action.payload.state;
     },
 
     //!CLEAR STATES:
