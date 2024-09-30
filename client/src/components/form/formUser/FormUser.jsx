@@ -108,8 +108,6 @@ function FormUser({ dataUser, option, handleState }) {
       );
     } else {
       dispatch(createUser(data));
-      console.log(selectState);
-      
       if (selectState === "create") {
         setData({
           idLevel: 0,
