@@ -31,7 +31,7 @@ const formValidationUser = (data) => {
     errors.carnetUser = "Ingrese un numero de carnet valido!";
   }
 
-  if (!data.carnetUser.length) {
+  if (data.carnetUser.length === 0) {
     errors.carnetUser = "Ingrese su numero de carnet!";
   }
 
