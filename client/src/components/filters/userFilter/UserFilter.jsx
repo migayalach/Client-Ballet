@@ -14,7 +14,7 @@ import {
 } from "@/redux/actions";
 import Text from "@/components/text/Text";
 
-function Filters() {
+function Filters() { 
   const dispatch = useDispatch();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);

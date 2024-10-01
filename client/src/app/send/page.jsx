@@ -3,7 +3,6 @@
 import TableComponent from "@/components/tableComponent/TableComponent";
 import SendFilter from "@/components/filters/sendFilter/SendFilter";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
-import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
@@ -71,14 +70,6 @@ function page() {
     return (
       <div>
         <Page404 />
-      </div>
-    );
-  }
-
-  if (!selectList?.length && !selectInfo) {
-    return (
-      <div>
-        <Loading />
       </div>
     );
   }

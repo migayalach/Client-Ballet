@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
 
-const optionList = (list, flag) => {
+const optionList = (list, flag) => { 
   switch (flag) {
     case "Level":
       return list.map(({ idLevel, nameLevel }) => ({
@@ -58,7 +58,7 @@ const optionList = (list, flag) => {
   }
 };
 
-function SelectComponet({ list, handleChange, flag, value }) {   
+function SelectComponet({ list, handleChange, flag, value }) {      
   return !value ? (
     <Select
       labelInValue
@@ -74,7 +74,7 @@ function SelectComponet({ list, handleChange, flag, value }) {
       labelInValue
       placeholder={value ? value : "Elije " + flag}
       onChange={handleChange}
-      options={optionList(list, flag)}
+      options={optionList(list, flag, value)}
       style={{
         width: 200,
       }}

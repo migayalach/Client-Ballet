@@ -49,12 +49,12 @@ function Events() {
   }, []);
 
   useEffect(() => {
-    if(selectState === "login" && Object.keys(selectAccess).length){
+    if (selectState === "login" && Object.keys(selectAccess).length) {
       setDataState({
         state: selectState,
         message: `Bienvenido ${selectAccess.name}`,
       });
-    }else if (selectState?.length) {
+    } else if (selectState?.length) {
       setDataState({
         state: selectState,
         message: "con exito",

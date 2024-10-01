@@ -17,7 +17,6 @@ import { getByIdUser } from "@/redux/actions";
 // STYLESHEET'
 import "./info-staff.css";
 
-
 function InfoUser({ params }) {
   const dispatch = useDispatch();
   const selectUser = useSelector(({ root }) => root?.data);
