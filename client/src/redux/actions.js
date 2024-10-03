@@ -61,6 +61,9 @@ import {
   clearInfo,
   clearTypeClass,
   clearHours,
+  clearUser,
+  clearLevel,
+  clearExtension,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -179,8 +182,9 @@ export const createUser = (infoData) => {
 export const editUser = (infoData) => {
   return async function (dispatch) {
     try {
-      await axios.put(`${URL}/user`, infoData);
-      return dispatch(flagState("edit"));
+      const data = (await axios.put(`${URL}/user`, infoData)).data;
+      dispatch(flagState("edit"));
+      return dispatch(getIdUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -837,6 +841,36 @@ export const hoursClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearHours());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const userClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearUser());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const levelClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearLevel());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const extensionClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearExtension());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
