@@ -321,6 +321,18 @@ export const Slice = createSlice({
     clearHours: (state, action) => {
       state.hours = [];
     },
+
+    clearUser: (state, action) => {
+      state.user = [];
+    },
+
+    clearLevel: (state, action) => {
+      state.level = [];
+    },
+
+    clearExtension: (state, action) => {
+      state.extension = [];
+    },
   },
 });
 
@@ -391,5 +403,8 @@ export const {
   clearInfo,
   clearTypeClass,
   clearHours,
+  clearUser,
+  clearLevel,
+  clearExtension,
 } = Slice.actions;
 export default Slice.reducer;
