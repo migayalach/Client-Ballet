@@ -58,7 +58,7 @@ const optionList = (list, flag) => {
   }
 };
 
-function SelectComponet({ list, handleChange, flag, value }) {      
+function SelectComponet({ list, handleChange, flag, value }) {       
   return !value ? (
     <Select
       labelInValue
@@ -78,7 +78,7 @@ function SelectComponet({ list, handleChange, flag, value }) {
       style={{
         width: 200,
       }}
-      defaultValue={value && value}
+      value={value && value}
     />
   );
 }
