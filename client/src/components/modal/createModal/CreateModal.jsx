@@ -61,7 +61,11 @@ function CreateModal({
         <div>
           {/* (access === "Secretaria" || access === "Director") && */}
           {render === "USER" && (
-            <FormUser option="create" handleState={handleOk} />
+            <FormUser
+              option={event === "edit" ? "edit" : "create"}
+              handleState={handleOk}
+              idUser={idUser}
+            />
           )}
         </div>
 
