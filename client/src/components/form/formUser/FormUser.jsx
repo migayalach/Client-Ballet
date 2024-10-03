@@ -18,7 +18,7 @@ import { Button, Form, Input } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import { createUser, editUser, getExtensionAll } from "@/redux/actions";
+import { createUser, editUser, getByIdUser } from "@/redux/actions";
 
 // STYLESHEET'
 import "./form-user.css";
@@ -27,12 +27,13 @@ import "./form-user.css";
 import formValidationUser from "./formValidationUser";
 dayjs.extend(customParseFormat);
 
-function FormUser({ dataUser, option, handleState }) {
+function FormUser({ idUser, option, handleState }) {
   const dispatch = useDispatch();
   const selectLevel = useSelector(({ root }) => root?.level);
   const selectAccess = useSelector(({ root }) => root?.access?.level);
   const selectExtension = useSelector(({ root }) => root?.extension);
   const selectState = useSelector(({ root }) => root?.state);
+  const selectUser = useSelector(({ root }) => root?.data);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     idLevel: 0,
@@ -89,76 +90,57 @@ function FormUser({ dataUser, option, handleState }) {
     });
   };
 
-  const onFinish = async () => {
-    if (option === "edit") {
+  const onFinish = async () => {    
+    if (option === "edit" || option === "editProfile") {
       dispatch(
         editUser({
           ...data,
-          idUser: dataUser.idUser,
+          idUser: selectUser?.idUser,
           edit: "edit",
         })
       );
-    } else if (option === "editProfile") {
-      dispatch(
-        editUser({
-          ...data,
-          idUser: dataUser.idUser,
-          edit: "profile",
-        })
-      );
-    } else {
+    } else if (selectState === "create") {
       dispatch(createUser(data));
-      if (selectState === "create") {
-        setData({
-          idLevel: 0,
-          idExtension: 0,
-          nameUser: "",
-          lastNameUser: "",
-          emailUser: "",
-          passwordUser: "",
-          addressUser: "",
-          dateBirthUser: "",
-          carnetUser: "",
-          numberPhone: "",
-          photoUser: "",
-          stateUser: true,
-        });
-        handleState();
-      }
+      setData({
+        idLevel: 0,
+        idExtension: 0,
+        nameUser: "",
+        lastNameUser: "",
+        emailUser: "",
+        addressUser: "",
+        dateBirthUser: "",
+        carnetUser: "",
+        numberPhone: "",
+        photoUser: "",
+        stateUser: true,
+      });
+      handleState();
     }
   };
 
   useEffect(() => {
-    if (option === "edit") {
-      setData({
-        idLevel: dataUser.idLevel,
-        idExtension: dataUser.idExtension,
-        nameUser: dataUser.nameUser,
-        lastNameUser: dataUser.lastNameUser,
-        emailUser: dataUser.emailUser,
-        addressUser: dataUser.addressUser,
-        dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
-        carnetUser: dataUser.carnetUser,
-        numberPhone: dataUser.numberPhone,
-        stateUser: dataUser.stateUser,
-      });
-    } else if (option === "editProfile") {
-      setData({
-        idLevel: dataUser.idLevel,
-        idExtension: dataUser.idExtension,
-        nameUser: dataUser.nameUser,
-        lastNameUser: dataUser.lastNameUser,
-        emailUser: dataUser.emailUser,
-        addressUser: dataUser.addressUser,
-        dateBirthUser: dataUser?.dateBirthUser.substring(0, 10),
-        carnetUser: dataUser.carnetUser,
-        numberPhone: dataUser.numberPhone,
-        stateUser: dataUser.stateUser,
-        photoUser: dataUser.photoUser,
-      });
-      dispatch(getExtensionAll());
+    if (option === "edit" && idUser > 0) {
+      dispatch(getByIdUser(idUser));
     }
-  }, [option]);
+  }, [option, idUser]);
+
+  useEffect(() => {
+    if (option === "edit" || option === "editProfile") {
+      setData({
+        idLevel: selectUser?.idLevel,
+        idExtension: selectUser?.idExtension,
+        nameUser: selectUser?.nameUser,
+        lastNameUser: selectUser?.lastNameUser,
+        emailUser: selectUser?.emailUser,
+        addressUser: selectUser?.addressUser,
+        dateBirthUser: selectUser?.dateBirthUser.substring(0, 10),
+        carnetUser: selectUser?.carnetUser,
+        numberPhone: selectUser?.numberPhone,
+        stateUser: selectUser?.stateUser,
+        photoUser: selectUser?.photoUser,
+      });
+    }
+  }, [selectUser, option]);
 
   return (
     <div className="form-user">
@@ -213,17 +195,6 @@ function FormUser({ dataUser, option, handleState }) {
           )}
         </Form.Item>
 
-        {/* TODO RELLENAR CAMPOS CON EL LOCALSTORAGE */}
-        {option === "editProfile" && (
-          <Form.Item label="Password">
-            <Input.Password
-              onChange={handleChange}
-              name="passwordUser"
-              placeholder="hola-123"
-            />
-          </Form.Item>
-        )}
-
         <Form.Item label="Carnet">
           <InputComponent
             onChange={handleChange}
@@ -256,7 +227,7 @@ function FormUser({ dataUser, option, handleState }) {
             flag="Extension"
             value={
               option === "edit" || option === "editProfile"
-                ? dataUser?.idExtension
+                ? data?.idExtension
                 : ""
             }
           />
@@ -272,7 +243,11 @@ function FormUser({ dataUser, option, handleState }) {
               list={selectLevel}
               handleChange={handleChange}
               flag="Level"
-              value={option === "edit" ? dataUser?.idLevel : ""}
+              value={
+                option === "edit" || option === "editProfile"
+                  ? data?.idLevel
+                  : ""
+              }
             />
             {errors.level && <p className="messageError">{errors.level}</p>}
           </Form.Item>
@@ -308,14 +283,12 @@ function FormUser({ dataUser, option, handleState }) {
           </Form.Item>
         )}
 
-        {option === "create" && (
-          <Form.Item label="Foto de perfil">
-            <ImageCloudinary onChange={handleURLChange} />
-          </Form.Item>
-        )}
+        <Form.Item label="Foto de perfil">
+          <ImageCloudinary onChange={handleURLChange} />
+        </Form.Item>
 
         <div>
-          {!Object.keys(errors).length && data.nameUser.length ? (
+          {!Object.keys(errors).length && data.nameUser?.length ? (
             <Button type="primary" htmlType="submit">
               <Text text="Crear" />
             </Button>
