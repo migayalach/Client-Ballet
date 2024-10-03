@@ -4,17 +4,22 @@ import Text from "@/components/text/Text";
 import FormUser from "@/components/form/formUser/FormUser";
 import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
+import FormPassword from "@/components/form/formUser/formPassword/FormPassword";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 
 // LIBRARY
-import { EditOutlined } from "@ant-design/icons";
 
 //REDUX
-import { removeData, stateFlag, getByIdClass } from "@/redux/actions";
+import {
+  removeData,
+  stateFlag,
+  getByIdClass,
+  getByIdUser,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -25,10 +30,11 @@ function EditModal({ idData, dataUser, text, render }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
   const selectFilter = useSelector(({ root }) => root?.filter);
+  const selectDataUser = useSelector(({ root }) => root?.access);
 
   const showModal = () => {
     setIsModalOpen(true);
-    render === "PROFILE" && dispatch(stateFlag("editProfile"));
+    render === "PROFILE" && dispatch(getByIdUser(selectDataUser?.idUser));
   };
 
   const handleOk = () => {
@@ -59,11 +65,14 @@ function EditModal({ idData, dataUser, text, render }) {
     };
   }, [isModalOpen]);
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        <EditOutlined key="edit" />
-      </Button>
+      {render === "PROFILE" && <p onClick={showModal}> Editar Perfil</p>}
+      {render === "PASSWORD" && <p onClick={showModal}> Editar contraseña</p>}
 
       <Modal
         title="Editar informacion"
@@ -72,14 +81,13 @@ function EditModal({ idData, dataUser, text, render }) {
         onCancel={handleCancel}
       >
         {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
-        {render === "PROFILE" && (
-          <FormUser dataUser={dataUser} option="editProfile" />
-        )}
+        {render === "PROFILE" && <FormUser option="editProfile" />}
         {render === "HOURS" && <FormHours idData={idData} option="edit" />}
         {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}
+        {render === "PASSWORD" && <FormPassword />}
       </Modal>
     </>
   );

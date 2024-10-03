@@ -8,6 +8,7 @@ import EditModal from "../modal/editModal/EditModal";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
 
 // LIBRARY
 import {
@@ -18,6 +19,7 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 import { Menu, Col, Row } from "antd";
+import { render } from "react-dom";
 
 //REDUX
 
@@ -30,6 +32,11 @@ function NavBar() {
   const [current, setCurrent] = useState("home");
   const selectAccess = useSelector(({ root }) => root?.access);
   const levelUser = selectAccess?.level;
+  const pathname = usePathname();
+
+  const route = pathname.slice(0, 6);
+
+  // console.log(pathname /user/);
 
   const items = [
     {
@@ -119,14 +126,17 @@ function NavBar() {
                 type: "group",
                 label: "Opciones",
                 children: [
+                  ...(route !== "/user/"
+                    ? [
+                        {
+                          label: <EditModal render="PROFILE" />,
+                          key: "editProfile",
+                        },
+                      ]
+                    : []),
                   {
-                    label: (
-                      <EditModal
-                        dataUser={selectAccess?.dataUser}
-                        render="PROFILE"
-                      />
-                    ),
-                    key: "editProfile",
+                    label: <EditModal render="PASSWORD" />,
+                    key: "changePassword",
                   },
                   {
                     label: "Informacion",

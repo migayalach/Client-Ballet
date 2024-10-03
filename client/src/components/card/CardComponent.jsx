@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
-import { Card } from "antd";
+import { Card, Space } from "antd";
 const { Meta } = Card;
 import ButtonEdit from "../modal/editModal/EditModal";
 import "./card-component.css";
@@ -75,11 +75,12 @@ function CardComponent({
         }}
         cover={<img alt="example" src={photoUser} className="image-photo" />}
         actions={[
-          <Link href={`/user/${idUser}`}>
-            <ButtonRenderId />
-          </Link>,
-          <ButtonEdit dataUser={dataUser} text="editar" render="USER" />,
-          <ButtonDelete idData={idUser} text="eliminar" render="USER" />,
+          <Space size={65}>
+            <Link href={`/user/${idUser}`}>
+              <ButtonRenderId />
+            </Link>
+            <ButtonDelete idData={idUser} text="eliminar" render="USER" />
+          </Space>,
         ]}
         className="card"
       >

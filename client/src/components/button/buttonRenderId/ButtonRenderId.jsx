@@ -6,10 +6,16 @@ function ButtonRenderId() {
   return (
     <Flex wrap="wrap" gap="small">
       <Button
-        type="link"
-        style={{ backgroundColor: "#02c39a", borderColor: "#02c39a" }}
+        style={{
+          backgroundColor: "#02c39a",
+          borderColor: "#02c39a",
+          color: "white",
+          transition: "opacity 0.3s",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
       >
-        <ContactsOutlined key="setting" />
+        <ContactsOutlined style={{ color: "white" }} key="setting" />
       </Button>
     </Flex>
   );
