@@ -202,6 +202,18 @@ export const removeUser = (infoData) => {
   };
 };
 
+//!PASSWORD
+export const changePassword = (info) => { 
+  return async function (dispatch) {
+    try {
+      const data = (await axios.post(`${URL}/change`, info)).data;
+      // return dispatch(flagState(data))
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 //!EXTENSION
 export const getExtensionAll = () => {
   return async function (dispatch) {
