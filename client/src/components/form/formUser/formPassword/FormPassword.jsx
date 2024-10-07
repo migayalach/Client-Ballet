@@ -1,4 +1,5 @@
 // COMPONET'S
+import Notification from "@/components/modal/notification/Notification";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -8,19 +9,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input } from "antd";
 
 //REDUX
-import { changePassword } from "@/redux/actions.js";
+import { changePassword, removeAux, removeError } from "@/redux/actions.js";
 
 // STYLESHEET'
+import "./form-password.css";
 
 // JAVASCRIP
 import formValidationPassword from "./formValidationPassword.js";
 
-function FormPassword() {
+function FormPassword({ handleOk }) {
   const dispatch = useDispatch();
   const selectData = useSelector(({ root }) => root?.access);
+  const selectState = useSelector(({ root }) => root?.aux);
+  const selectError = useSelector(({ root }) => root.error);
   const [errors, setErrors] = useState({});
   const [errorSms, setErrorSms] = useState({});
   const [flag, setFlag] = useState(false);
+  const [message, setMessage] = useState({});
   const [data, setData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -43,13 +48,30 @@ function FormPassword() {
   const onFinish = () => {
     const idUser = selectData?.idUser;
     dispatch(changePassword({ idUser, ...data }));
-    setErrorSms({});
-    setFlag(false);
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    if (selectState?.state === "changePassword") {
+      setMessage({ ...selectState });
+      setTimeout(() => {
+        setErrorSms({});
+        setFlag(false);
+        setMessage({});
+        dispatch(removeAux());
+        handleOk();
+      }, 2000);
+    }
+  }, [selectState]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(removeError());
+    }, 1000);
+  }, [selectError]);
 
   useEffect(() => {
     if (!data.oldPassword || !data.newPassword || !data.repeatNewPassword) {
@@ -101,7 +123,7 @@ function FormPassword() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item label="Antigua contraseña:">
+      <Form.Item label="Contraseña actual:">
         <Input.Password name="oldPassword" onChange={handleInfo} />
         {errors.oldPassword && (
           <p className="messageError">{errors.oldPassword}</p>
@@ -122,17 +144,35 @@ function FormPassword() {
         )}
       </Form.Item>
 
-      {<p className="messageError">{errorSms.message}</p>}
-
-      {!Object.keys(errors).length &&
-      data.repeatNewPassword?.length &&
-      !flag ? (
-        <Button type="primary" htmlType="submit" className="button-login">
-          Cambiar contraseña
-        </Button>
-      ) : (
-        ""
-      )}
+      <div className="container-send">
+        {message.state === "changePassword" ? (
+          <span className="success-update">{message.message}!</span>
+        ) : selectError?.error === "La contraseña antigua es incorrecta" ? (
+          <span className="error-update">
+            La contraseña antigua es incorrecta!
+          </span>
+        ) : (
+          <div>
+            {!Object.keys(errors).length &&
+            data.repeatNewPassword?.length &&
+            !flag &&
+            selectError === null ? (
+              <Button type="primary" htmlType="submit" className="button-login">
+                Cambiar contraseña
+              </Button>
+            ) : null}
+            <span
+              className={
+                errorSms.message === "Contraseña válida."
+                  ? "messageSuccess"
+                  : "messageError"
+              }
+            >
+              {errorSms.message}
+            </span>
+          </div>
+        )}
+      </div>
     </Form>
   );
 }
