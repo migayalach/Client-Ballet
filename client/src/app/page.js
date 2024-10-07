@@ -19,7 +19,7 @@ import {
 } from "@ant-design/icons";
 
 // REDUX
-import { infoClear, removeError } from "@/redux/actions";
+import { infoClear, getLevelAll, getExtensionAll } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -55,6 +55,8 @@ export default function Home() {
         state: selectState,
         message: `Bienvenido ${selectAccess.name}`,
       });
+      dispatch(getLevelAll());
+      dispatch(getExtensionAll());
     } else if (selectError !== null) {
       setDataState({
         state: "error",
