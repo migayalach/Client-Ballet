@@ -64,6 +64,7 @@ import {
   clearUser,
   clearLevel,
   clearExtension,
+  passwordChange,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -203,11 +204,11 @@ export const removeUser = (infoData) => {
 };
 
 //!PASSWORD
-export const changePassword = (info) => { 
+export const changePassword = (info) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.post(`${URL}/change`, info)).data;
-      // return dispatch(flagState(data))
+      const data = (await axios.post(`${URL}/change`, info)).data;      
+      return dispatch(passwordChange(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
