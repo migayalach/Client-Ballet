@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getClassAll, getAssistanceClassId } from "@/redux/actions";
+import { getClassAll, getAssistanceClassId, levelClear } from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
 // JAVASCRIP
@@ -34,7 +34,8 @@ function page() {
 
   useEffect(() => {
     if (!selectFilter.length) {
-      dispatch(getClassAll(selectAccess?.dataUser?.idUser));
+      dispatch(getClassAll(selectAccess?.idUser));
+      dispatch(levelClear());
     }
   }, []);
 
