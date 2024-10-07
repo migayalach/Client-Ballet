@@ -87,7 +87,7 @@ function EditModal({ idData, dataUser, text, render }) {
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="edit" />
         )}
-        {render === "PASSWORD" && <FormPassword />}
+        {render === "PASSWORD" && <FormPassword handleOk={handleOk} />}
       </Modal>
     </>
   );
