@@ -17,6 +17,7 @@ import { stateClear, getByIdUser } from "@/redux/actions";
 
 // STYLESHEET'
 import "./info-staff.css";
+import { clearData } from "@/redux/slice";
 
 function InfoUser({ params }) {
   const dispatch = useDispatch();
@@ -71,6 +72,9 @@ function InfoUser({ params }) {
 
   useEffect(() => {
     dispatch(getByIdUser(params.idUser));
+    return()=> {
+      dispatch(clearData())
+    }
   }, []);
 
   useEffect(() => {

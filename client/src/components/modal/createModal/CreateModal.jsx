@@ -22,7 +22,7 @@ function CreateModal({
   event,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { dataUser } = useSelector(({ root }) => root?.access);
+  const dataUser = useSelector(({ root }) => root?.access);
   const handleOk = () => {
     setIsModalOpen(false);
     handleAdd(false);
