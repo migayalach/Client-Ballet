@@ -333,6 +333,11 @@ export const Slice = createSlice({
     clearExtension: (state, action) => {
       state.extension = [];
     },
+
+    //*PASSWORD
+    passwordChange: (state, action) => {
+      state.aux = action.payload;
+    },
   },
 });
 
@@ -406,5 +411,6 @@ export const {
   clearUser,
   clearLevel,
   clearExtension,
+  passwordChange
 } = Slice.actions;
 export default Slice.reducer;
