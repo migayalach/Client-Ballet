@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "antd";
 import ListData from "@/components/listData/ListData";
 import { useDispatch, useSelector } from "react-redux";
-import { filterAll, clearFilterAll } from "@/redux/actions";
+import { filterAll, clearFilterAll, filterAllData } from "@/redux/actions";
+import "./modal-select.css";
 
 function ModalSelect({ render, handleSelect, idUser }) {
   const dispatch = useDispatch();
@@ -33,15 +34,15 @@ function ModalSelect({ render, handleSelect, idUser }) {
   useEffect(() => {
     if (isModalOpen) {
       if (render === "TEACHER-ALL") {
-        dispatch(filterAll("all=teacher"));
+        dispatch(filterAllData("teacher"));
         setFlagRender("TEACHER");
       }
       if (render === "TYPE-CLASS-ALL") {
-        dispatch(filterAll("all=typeClass"));
+        dispatch(filterAllData("typeDance"));
         setFlagRender("TYPE-CLASS-ALL");
       }
       if (render === "HOURS-ALL") {
-        dispatch(filterAll("all=hours"));
+        dispatch(filterAllData("hours"));
         setFlagRender("HOURS-ALL");
       }
       if (render === "CLASS-IDUSER") {
@@ -56,8 +57,8 @@ function ModalSelect({ render, handleSelect, idUser }) {
   }, [isModalOpen]);
 
   return (
-    <>
-      <Button type="primary" onClick={showModal}>
+    <div>
+      <Button type="primary" onClick={showModal} className="distance-button">
         ...
       </Button>
       <Modal
@@ -65,10 +66,11 @@ function ModalSelect({ render, handleSelect, idUser }) {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        width={620} 
       >
         <ListData flagRender={flagRender} modal={x} />
       </Modal>
-    </>
+    </div>
   );
 }
 export default ModalSelect;
