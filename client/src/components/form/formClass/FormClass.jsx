@@ -16,6 +16,7 @@ import State from "@/components/state/State";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // STYLESHEET'
+import "./form-class.css";
 
 // JAVASCRIP
 
@@ -108,7 +109,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
           span: 8,
         }}
         wrapperCol={{
-          span: 10,
+          span: 13,
         }}
         layout="horizontal"
         style={{
@@ -117,7 +118,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
         onFinish={onFinish}
       >
         <Form.Item label="Profesor">
-          <div>
+          <div className="container-input-modal">
             <InputComponent
               placeholder="Selecciona un profesor"
               data={nameData.user}
@@ -127,7 +128,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
         </Form.Item>
 
         <Form.Item label="Tipo de danza">
-          <div>
+          <div className="container-input-modal">
             <InputComponent
               placeholder="Selecciona un tipo de clase"
               data={nameData.typeClass}
@@ -137,7 +138,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
         </Form.Item>
 
         <Form.Item label="Horario">
-          <div>
+          <div className="container-input-modal">
             <InputComponent
               placeholder="Selecciona un horario"
               data={nameData.hours}

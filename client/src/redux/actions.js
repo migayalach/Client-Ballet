@@ -207,7 +207,7 @@ export const removeUser = (infoData) => {
 export const changePassword = (info) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.post(`${URL}/change`, info)).data;      
+      const data = (await axios.post(`${URL}/change`, info)).data;
       return dispatch(passwordChange(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -418,6 +418,17 @@ export const filter = (infoData, valueState) => {
       const data = (await axios.get(`${URL}/filter?${infoData}`)).data;
       dispatch(setFilterState(valueState));
       return dispatch(getFilter(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterAllData = (search) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.get(`${URL}/allData?dataRequest=${search}`)).data;
+      return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

@@ -273,13 +273,12 @@ function TableComponent({
     },
     { title: "Nombre", dataIndex: "teacher", key: "teacher" },
     { title: "Carnet", dataIndex: "carnetUser", key: "carnetUser" },
-    { title: "Extension", dataIndex: "department", key: "department" },
     {
       title: "Seleccionar",
       title: "action",
       key: "action",
       render: ({ idUser, teacher }) => (
-        <a onClick={() => select(idUser, teacher, "USER")}>HOLIS</a>
+        <a onClick={() => select(idUser, teacher, "USER")}>Seleccionar</a>
       ),
     },
   ];
@@ -287,15 +286,7 @@ function TableComponent({
   const teacherMap = (data) => {
     return data?.map(
       (
-        {
-          idUser,
-          nameLevel,
-          nameUser,
-          lastNameUser,
-          carnetUser,
-          department,
-          photoUser,
-        },
+        { idUser, nameLevel, nameUser, lastNameUser, carnetUser, photoUser },
         index
       ) => ({
         key: index,
@@ -304,7 +295,6 @@ function TableComponent({
         nameLevel,
         teacher: `${nameUser} ${lastNameUser}`,
         carnetUser,
-        department,
         photoUser,
       })
     );
@@ -318,7 +308,7 @@ function TableComponent({
       key: "action",
       render: ({ idTypeClass, nameClass }) => (
         <a onClick={() => select(idTypeClass, nameClass, "TYPE-CLASS")}>
-          HOLIS
+          Seleccionar
         </a>
       ),
     },
@@ -342,7 +332,7 @@ function TableComponent({
       title: "Seleccionar",
       key: "action",
       render: ({ idHours, totalTime }) => (
-        <a onClick={() => select(idHours, totalTime, "HOURS")}>HOLIS</a>
+        <a onClick={() => select(idHours, totalTime, "HOURS")}>Seleccionar</a>
       ),
     },
   ];
