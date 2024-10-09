@@ -24,7 +24,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
   const dispatch = useDispatch();
   const selectClass = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
-    idUserCreate: idUserCreate,
+    idUserCreate: +idUserCreate,
     idUser: 0,
     idHours: 0,
     idTypeClass: 0,
