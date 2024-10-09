@@ -318,7 +318,7 @@ export const getClassAll = (idUser) => {
   };
 };
 
-export const createClass = (infoData) => {
+export const createClass = (infoData) => { 
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/class`, infoData)).data;
@@ -363,7 +363,7 @@ export const removeClass = (idUser, idClass) => {
   };
 };
 
-export const getPageClass = (idUser, page) => {
+export const getPageClass = (idUser, page) => { 
   return async function (dispatch) {
     try {
       const data = (

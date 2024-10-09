@@ -26,6 +26,8 @@ import {
 // STYLESHEET'
 
 function EditModal({ idData, dataUser, text, render }) {
+    console.log( idData, dataUser, text, render);
+    
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
