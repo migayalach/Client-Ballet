@@ -23,7 +23,7 @@ import {
 function DeleteModal({ idData, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { dataUser } = useSelector(({ root }) => root?.access);
+  const dataUser = useSelector(({ root }) => root?.access);
 
   const showModal = () => {
     setIsModalOpen(true);
