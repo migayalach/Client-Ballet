@@ -5,8 +5,8 @@ import { removeError, stateClear, removeAux } from "@/redux/actions";
 
 const Notification = ({ dataState: { state, message }, clearLocalState }) => {
   if (
-    (state === null && !message.length) ||
-    state === "login" ||
+    // (state === null && !message.length) ||
+    state !== "login" ||
     (state === "error" && message === "Contraseña incorrecta")
   ) {
     const dispatch = useDispatch();
