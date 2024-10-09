@@ -49,7 +49,11 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const optionEffect = (option) => {
     switch (option) {
       case "USER":
-        if (selectAux && Object.keys(selectAux).length && selectState === "create") {
+        if (
+          selectAux &&
+          Object.keys(selectAux).length &&
+          selectState === "create"
+        ) {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageUser(selectInfo.pages));
@@ -138,7 +142,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "CLASS":
-        const { dataUser } = accessUserData;
+        const dataUser = accessUserData;
         if (Object.keys(selectClass).length && selectState === "create") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
@@ -267,7 +271,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         setCurrent(page);
       }
     } else if (navegation === "CLASS") {
-      const { dataUser } = accessUserData;
+      const dataUser = accessUserData;
       // TODO NAVEGACION NORMAL SIN FILTROS - CLASS
       if (selectClass.length && !selectFilter.length) {
         dispatch(getPageClass(dataUser?.idUser, page));
