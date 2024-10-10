@@ -102,6 +102,10 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
     }
   }, [selectClass]);
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <div>
       <Form
