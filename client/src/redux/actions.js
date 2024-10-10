@@ -65,6 +65,9 @@ import {
   clearLevel,
   clearExtension,
   passwordChange,
+  clearClass,
+  clearStudent,
+  getAllStudent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -318,7 +321,7 @@ export const getClassAll = (idUser) => {
   };
 };
 
-export const createClass = (infoData) => { 
+export const createClass = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/class`, infoData)).data;
@@ -363,7 +366,7 @@ export const removeClass = (idUser, idClass) => {
   };
 };
 
-export const getPageClass = (idUser, page) => { 
+export const getPageClass = (idUser, page) => {
   return async function (dispatch) {
     try {
       const data = (
@@ -399,6 +402,19 @@ export const createClassStudent = (infoData) => {
   };
 };
 
+export const getPageClassStudent = (idClass, page) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(`${URL}/classStudent?idClass=${idClass}&page=${page}`)
+      ).data;
+      return dispatch(getIdClassStudent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 //!LOGIN
 export const userLogin = (infoData) => {
   return async function (dispatch) {
@@ -427,7 +443,8 @@ export const filter = (infoData, valueState) => {
 export const filterAllData = (search) => {
   return async function (dispatch) {
     try {
-      const data = (await axios.get(`${URL}/allData?dataRequest=${search}`)).data;
+      const data = (await axios.get(`${URL}/allData?dataRequest=${search}`))
+        .data;
       return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -895,6 +912,26 @@ export const extensionClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearExtension());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const classClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearClass());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const studentClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearStudent());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
