@@ -152,6 +152,7 @@ export const Slice = createSlice({
 
     postClassStudent: (state, action) => {
       state.student = action.payload.results;
+      state.info = action.payload.info;
     },
 
     //*QUALIFICATION
@@ -334,6 +335,14 @@ export const Slice = createSlice({
       state.extension = [];
     },
 
+    clearClass: (state, action) => {
+      state.classes = [];
+    },
+
+    clearStudent: (state, action) => {
+      state.student = [];
+    },
+
     //*PASSWORD
     passwordChange: (state, action) => {
       state.aux = action.payload;
@@ -411,6 +420,8 @@ export const {
   clearUser,
   clearLevel,
   clearExtension,
-  passwordChange
+  passwordChange,
+  clearClass,
+  clearStudent,
 } = Slice.actions;
 export default Slice.reducer;
