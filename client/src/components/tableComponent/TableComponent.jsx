@@ -158,13 +158,6 @@ function TableComponent({
     ...(access === "Secretaria" || access === "Director"
       ? [
           {
-            title: "Editar",
-            key: "action",
-            render: (data) => (
-              <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
-            ),
-          },
-          {
             title: "Eliminar",
             key: "action",
             render: (data) => (
@@ -507,7 +500,7 @@ function TableComponent({
       title: "Seleccionar",
       key: "action",
       render: ({ idUser, name, carnet }) => (
-        <a onClick={() => select(idUser, name, "STUDENT-ALL")}>:D</a>
+        <a onClick={() => select(idUser, name, "STUDENT-ALL")}>Elejir</a>
       ),
     },
   ];
@@ -522,7 +515,7 @@ function TableComponent({
         numberItem: index + 1,
         idUser,
         name: `${nameUser} ${lastNameUser}`,
-        carnet: `${carnetUser} ${department}`,
+        carnet: `${carnetUser}`,
         photoUser,
       })
     );
