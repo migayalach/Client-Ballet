@@ -15,7 +15,15 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getClassAll, getAssistanceClassId, levelClear } from "@/redux/actions";
+import {
+  getClassAll,
+  getAssistanceClassId,
+  levelClear,
+  classClear,
+  extensionClear,
+  typeClassClear,
+  userClear,
+} from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
 // JAVASCRIP
@@ -50,6 +58,12 @@ function page() {
       dispatch(getClassAll(selectAccess?.idUser));
       dispatch(levelClear());
     }
+    return () => {
+      dispatch(classClear());
+      dispatch(extensionClear());
+      dispatch(typeClassClear());
+      dispatch(userClear());
+    };
   }, []);
 
   if (Object.keys(selectAccess).length === 0) {
