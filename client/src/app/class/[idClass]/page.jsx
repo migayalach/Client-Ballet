@@ -4,13 +4,14 @@
 import FloatOption from "@/components/floatOption/FloatOption";
 import Page404 from "@/components/pageResult/Page404";
 import TableComponent from "@/components/tableComponent/TableComponent";
+import PaginationComponet from "@/components/pagination/PaginationComponet";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
-import { getIdAllClassStudent } from "@/redux/actions";
+import { getIdAllClassStudent, studentClear } from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -20,15 +21,15 @@ function ClassParams({ params }) {
   const selectInfo = useSelector((state) => state.root.info);
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectAccess = useSelector(({ root }) => root?.access);
+  const selectUser = useSelector(({ root }) => root?.access);
 
-  // const selectUser = useSelector(({ root }) => root?.access);
-  // if (Object.keys(selectUser).length === 0) {
-  //   return (
-  //     <div>
-  //       <Page404 />
-  //     </div>
-  //   );
-  // }
+  if (Object.keys(selectUser).length === 0) {
+    return (
+      <div>
+        <Page404 />
+      </div>
+    );
+  }
 
   const handleDelete = (idClass, idUser) => {
     alert(`${idClass}, ${idUser}`);
@@ -36,6 +37,9 @@ function ClassParams({ params }) {
 
   useEffect(() => {
     dispatch(getIdAllClassStudent(params?.idClass));
+    return () => {
+      dispatch(studentClear());
+    };
   }, []);
 
   return (
@@ -53,7 +57,16 @@ function ClassParams({ params }) {
         />
       </div>
 
-      <div>PAGINADO</div>
+      <div>
+        {selectInfo && (
+          <PaginationComponet
+            pages={selectInfo.pages}
+            navegation="CLASS-STUDENT"
+            idClass={params.idClass}
+          />
+        )}
+      </div>
+
       <div>
         <FloatOption
           render="CLASS-STUDENT"
