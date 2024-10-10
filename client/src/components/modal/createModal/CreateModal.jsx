@@ -85,7 +85,6 @@ function CreateModal({
           )}
         </div>
 
-        {/* 
         <div>
           {render === "CLASS-STUDENT" && (
             <FormClassStudent
@@ -94,7 +93,7 @@ function CreateModal({
               idClass={idClass}
             />
           )}
-        </div> */}
+        </div>
 
         {/* <div>
           {render === "QUALIFICATION" && (

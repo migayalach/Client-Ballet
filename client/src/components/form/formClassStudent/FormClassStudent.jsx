@@ -16,6 +16,7 @@ import InputComponent from "@/components/inputComponent/InputComponent";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // STYLESHEET'
+import "./form-class-student.css";
 
 // JAVASCRIP
 
@@ -60,7 +61,7 @@ function FormClassStudent({ handleState, idClass }) {
         span: 8,
       }}
       wrapperCol={{
-        span: 10,
+        span: 14,
       }}
       layout="horizontal"
       style={{
@@ -69,7 +70,7 @@ function FormClassStudent({ handleState, idClass }) {
       onFinish={onFinish}
     >
       <Form.Item label="Selecciona un Alumno">
-        <div>
+        <div className="form-class-student">
           <ModalSelect render="STUDEN-ALL" handleSelect={handleSelect} />
           <InputComponent
             placeholder="Selecciona un usuario"

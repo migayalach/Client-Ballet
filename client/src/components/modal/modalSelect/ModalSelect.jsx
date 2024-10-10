@@ -50,7 +50,7 @@ function ModalSelect({ render, handleSelect, idUser }) {
         setFlagRender("IDUSER-CLASSALL");
       }
       if (render === "STUDEN-ALL") {
-        dispatch(filterAll("all=student"));
+        dispatch(filterAllData("students"));
         setFlagRender("STUDENT-ALL");
       }
     }
@@ -66,7 +66,7 @@ function ModalSelect({ render, handleSelect, idUser }) {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        width={620} 
+        width={620}
       >
         <ListData flagRender={flagRender} modal={x} />
       </Modal>

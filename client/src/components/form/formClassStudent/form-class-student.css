@@ -1,0 +1,4 @@
+.form-class-student {
+  display: flex;
+  flex-direction: row-reverse;
+}
