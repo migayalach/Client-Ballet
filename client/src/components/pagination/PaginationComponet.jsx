@@ -21,6 +21,7 @@ import {
   getPageEvent,
   filterInfo,
   stateClear,
+  getPageClassStudent,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -44,6 +45,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const accessUserData = useSelector(({ root }) => root?.access);
   const selectContact = useSelector(({ root }) => root?.contact);
   const selectListEvent = useSelector(({ root }) => root?.list);
+  const selectStudent = useSelector(({ root }) => root?.student);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
@@ -307,6 +309,12 @@ function PaginationComponet({ pages, navegation, idClass }) {
       // TODO NAVEGACION NORMAL SIN FILTROS - EVENTS
       if (selectListEvent.length && !selectFilter.length) {
         dispatch(getPageEvent(page));
+        setCurrent(page);
+      }
+    } else if (navegation === "CLASS-STUDENT") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - CLASS-STUDENT
+      if (selectStudent.length && !selectFilter.length) {
+        dispatch(getPageClassStudent(idClass, page));
         setCurrent(page);
       }
     }
