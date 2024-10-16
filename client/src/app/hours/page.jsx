@@ -34,10 +34,7 @@ function Hours() {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 

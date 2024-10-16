@@ -7,18 +7,16 @@ import Notification from "@/components/modal/notification/Notification";
 
 function page({ params }) {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
   const selectEvent = useSelector(({ root }) => root?.data);
   const selectAccess = useSelector((state) => state.root?.access);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectSuccess = useSelector(({ root }) => root?.success);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      messge: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -33,7 +31,7 @@ function page({ params }) {
   });
 
   useEffect(() => {
-    selectState === "edit"
+    selectState === "edit-event"
       ? setTimeout(() => {
           dispatch(stateClear());
         }, 500)
@@ -82,16 +80,25 @@ function page({ params }) {
     };
   }, [selectEvent, selectState]);
 
-  useEffect(() => {
-    if (selectState === "login" && Object.keys(selectAccess).length) {
+  useEffect(() => {    
+    if (selectState === "login") {
       setDataState({
         state: selectState,
         message: `Bienvenido ${selectAccess.name}`,
       });
-    } else if (selectState?.length) {
+    } else if (selectError !== null) {
+      if (selectError.message === "Contraseña incorrecta") {
+        setDataState({
+          message: selectError?.message,
+          state: "error",
+          action: "error-login",
+        });
+      }
+    }else if (selectState === "edit-event") {
       setDataState({
-        state: selectState,
-        message: "con exito",
+        action: "edit-event",
+        state: "success",
+        message: "Evento actualizado con exito!",
       });
     } else if (selectError !== null) {
       setDataState({
@@ -101,7 +108,7 @@ function page({ params }) {
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectState, selectError, selectAccess]);
+  }, [selectSuccess, selectAccess, selectError, selectState]);
 
   return (
     <div>
@@ -124,7 +131,7 @@ function page({ params }) {
           <FloatOption
             render="EVENTS"
             access={selectAccess?.level}
-            event="edit"
+            event="edit-event"
           />
         </div>
       )}

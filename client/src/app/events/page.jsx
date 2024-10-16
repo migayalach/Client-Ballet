@@ -21,7 +21,7 @@ import { getListEventsAll, listClear, removeData } from "@/redux/actions";
 
 function Events() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.list);
   const selectInfo = useSelector(({ root }) => root?.info);
@@ -29,12 +29,10 @@ function Events() {
   const selectAccess = useSelector((state) => state.root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectSuccess = useSelector(({ root }) => root?.success);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -49,25 +47,44 @@ function Events() {
   }, []);
 
   useEffect(() => {
-    if (selectState === "login" && Object.keys(selectAccess).length) {
+    if (selectState === "login") {
       setDataState({
         state: selectState,
         message: `Bienvenido ${selectAccess.name}`,
       });
-    } else if (selectState?.length) {
-      setDataState({
-        state: selectState,
-        message: "con exito",
-      });
     } else if (selectError !== null) {
+      if (selectError.message === "Contraseña incorrecta") {
+        setDataState({
+          message: selectError?.message,
+          state: "error",
+          action: "error-login",
+        });
+      }
+    }
+    console.log(selectError);
+    if (selectState === "create-event") {
       setDataState({
+        action: "create-event",
+        state: "success",
+        message: "Evento creado con exito",
+      });
+    } else if(selectState === "delete-event"){
+      setDataState({
+        action: "delete-event",
+        state: "success",
+        message: "Evento eliminado con exito",
+      });
+
+    } else if (selectError?.error === "Este evento no puede ser eliminado!") {
+      setDataState({
+        action: "error-delete-event",
         state: "error",
         message: selectError?.error,
       });
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectState, selectError, selectAccess]);
+  }, [selectSuccess, selectAccess, selectError, selectState]);
 
   if (!selectList?.length && !selectInfo) {
     return (

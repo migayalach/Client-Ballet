@@ -28,44 +28,49 @@ import "../stylesheet/page.css";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectInfo = useSelector(({ root }) => root.info);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
   const selectAccess = useSelector(({ root }) => root?.access);
-  const selectAux = useSelector(({ root }) => root?.aux);
+  const selectSuccess = useSelector(({ root }) => root?.success);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
   useEffect(() => {
-    if (selectAux === "Registrado con exito" && selectState === "success") {
-      setDataState({
-        state: selectState,
-        message: `${selectAux}`,
-      });
-    } else if (Object.keys(selectAccess).length && selectState.length) {
+    if (selectState === "login") {
       setDataState({
         state: selectState,
         message: `Bienvenido ${selectAccess.name}`,
       });
-      dispatch(getLevelAll());
-      dispatch(getExtensionAll());
+    } else if (Object.keys(selectSuccess).length && selectError === null) {
+      if (selectSuccess.action === "create-contact") {
+        setDataState({ ...selectSuccess });
+      }
     } else if (selectError !== null) {
-      setDataState({
-        state: "error",
-        message: selectError?.message,
-      });
+      if (selectError.message === "Contraseña incorrecta") {
+        setDataState({
+          message: selectError?.message,
+          state: "error",
+          action: "error-login",
+        });
+      } else if (
+        selectError.error === "Este email ya se encuentra registrado!"
+      ) {
+        setDataState({
+          message: selectError?.error,
+          state: "error",
+          action: "error-create-contact",
+        });
+      }
     }
     setFlagAlert(true);
     return () => {};
-  }, [selectAccess, selectState, selectError, selectAux]);
+  }, [selectSuccess, selectAccess, selectError, selectState]);
 
   useEffect(() => {
     dispatch(infoClear());

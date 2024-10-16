@@ -14,23 +14,20 @@ function ListData({ flagRender, modal }) {
   const filterStudents = (list, students) => {
     for (let i = 0; i < students.length; i++) {
       list = list.filter((index) => index.idUser !== students[i].idUser);
-    }    
+    }
     return list;
   };
 
   useEffect(() => {
-    if (selectFilterAll) {
-      setData(filterStudents(selectFilterAll, selectClassStudent));
-    }
+    // if (selectFilterAll) {
+    //   setData(filterStudents(selectFilterAll, selectClassStudent));
+    // }
+    setData(selectFilterAll);
   }, [selectFilterAll]);
 
   return (
     <List>
-      <TableComponent
-        data={data}
-        render={flagRender}
-        modal={modal}
-      />
+      <TableComponent data={data} render={flagRender} modal={modal} />
     </List>
   );
 }

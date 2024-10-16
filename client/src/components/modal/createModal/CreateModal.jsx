@@ -25,7 +25,7 @@ function CreateModal({
   const dataUser = useSelector(({ root }) => root?.access);
   const handleOk = () => {
     setIsModalOpen(false);
-    handleAdd(false);
+    handleAdd(false);    
   };
 
   const handleCancel = () => {

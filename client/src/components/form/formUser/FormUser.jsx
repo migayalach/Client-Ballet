@@ -90,7 +90,7 @@ function FormUser({ idUser, option, handleState }) {
     });
   };
 
-  const onFinish = async () => {    
+  const onFinish = async () => {
     if (option === "edit" || option === "editProfile") {
       dispatch(
         editUser({
@@ -99,7 +99,7 @@ function FormUser({ idUser, option, handleState }) {
           edit: "edit",
         })
       );
-    } else if (selectState === "create") {
+    } else {
       dispatch(createUser(data));
       setData({
         idLevel: 0,
@@ -133,7 +133,7 @@ function FormUser({ idUser, option, handleState }) {
         lastNameUser: selectUser?.lastNameUser,
         emailUser: selectUser?.emailUser,
         addressUser: selectUser?.addressUser,
-        dateBirthUser: selectUser?.dateBirthUser.substring(0, 10),
+        dateBirthUser: selectUser?.dateBirthUser?.substring(0, 10),
         carnetUser: selectUser?.carnetUser,
         numberPhone: selectUser?.numberPhone,
         stateUser: selectUser?.stateUser,

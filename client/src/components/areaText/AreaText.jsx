@@ -14,7 +14,7 @@ function AreaText({ onChange, name, placeholder, value }) {
 
   return (
     <TextArea
-      rows={4}
+      rows={10}
       onChange={onChange}
       name={name}
       value={value}

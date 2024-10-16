@@ -53,6 +53,10 @@ function page() {
     localStorage.setItem("classId", JSON.stringify(idClass));
   };
 
+  const handleUpdate = (idClass) => {
+    console.log(idClass);
+  };
+
   useEffect(() => {
     if (!selectFilter.length) {
       dispatch(getClassAll(selectAccess?.idUser));
@@ -112,6 +116,7 @@ function page() {
           render="CLASS"
           access={selectAccess?.level}
           handleFlagClass={handleFlagClass}
+          handleUpdate={handleUpdate}
         />
       </div>
 

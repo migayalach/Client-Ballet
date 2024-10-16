@@ -21,7 +21,7 @@ import Notification from "@/components/modal/notification/Notification";
 
 function page() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectList = useSelector(({ root }) => root?.contact);
   const selectInfo = useSelector((state) => state?.root?.info);
@@ -31,10 +31,7 @@ function page() {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -47,14 +44,15 @@ function page() {
   }, []);
 
   useEffect(() => {
-    if (selectState?.length) {
+    if (selectState.length && !selectError) {
       setDataState({
-        state: selectState,
-        message: "con exito",
+        message: "Actualizado correctamente",
+        state: `success`,
+        action: "edit-contact",
       });
     } else if (selectError !== null) {
       setDataState({
-        state: "error",
+        state: "error-contact",
         message: selectError?.error,
       });
     }
@@ -73,7 +71,7 @@ function page() {
       </div>
     );
   }
-
+  
   return (
     <div>
       <div>

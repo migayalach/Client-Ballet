@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Flex } from "antd";
-import Text from "../../text/Text";
 import EditModal from "@/components/modal/editModal/EditModal";
 import { EditOutlined } from "@ant-design/icons";
+import { stateFlag } from "@/redux/actions";
+import { useDispatch } from "react-redux";
 
 function ButtonEdit({ idData, text, render }) {
   const [flag, setFlag] = useState(false);
@@ -15,8 +16,8 @@ function ButtonEdit({ idData, text, render }) {
     <Flex wrap="wrap" gap="small">
       <Button type="primary" onClick={handleChange}>
         <EditOutlined key="ellipsis" />
-        {flag && <EditModal idData={idData} text={text} render={render} />}
       </Button>
+      {flag && <EditModal idData={idData} text={text} render={render} />}
     </Flex>
   );
 }

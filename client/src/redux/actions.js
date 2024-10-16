@@ -68,6 +68,7 @@ import {
   clearClass,
   clearStudent,
   getAllStudent,
+  clearSuccess,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -187,7 +188,7 @@ export const editUser = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.put(`${URL}/user`, infoData)).data;
-      dispatch(flagState("edit"));
+      dispatch(flagState("editUser"));
       return dispatch(getIdUser(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -280,7 +281,7 @@ export const editTypeHour = (infoData) => {
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/typeClass`, infoData);
-      return dispatch(flagState("edit"));
+      return dispatch(flagState("edit-typeClass"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -452,6 +453,21 @@ export const filterAllData = (search) => {
   };
 };
 
+export const filterAllDataIds = (idClass, search) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(
+          `${URL}/allData?dataRequest=${search}&idClass=${idClass}`
+        )
+      ).data;
+      return dispatch(getFilterAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
 export const filterAll = (infoData) => {
   return async function (dispatch) {
     try {
@@ -544,6 +560,16 @@ export const stateClear = () => {
   return function (dispatch) {
     try {
       return dispatch(clearState());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const successClear = () => {
+  return function (dispatch) {
+    try {
+      return dispatch(clearSuccess());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

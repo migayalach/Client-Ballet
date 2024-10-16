@@ -18,12 +18,19 @@ export const Slice = createSlice({
     info: null,
     data: null,
     access: {},
+
     state: "",
+    action: "",
+    message: "",
+
     aux: {},
     filter: [],
     filterAll: [],
     URL: "",
+
     error: null,
+    success: {},
+
     list: [],
     contact: [],
   },
@@ -207,7 +214,6 @@ export const Slice = createSlice({
     //!LOGIN
     loginUser: (state, action) => {
       state.access = action.payload.access;
-      state.aux = action.payload.aux;
       state.state = action.payload.state;
     },
 
@@ -298,8 +304,7 @@ export const Slice = createSlice({
       state.data = action.payload;
     },
     postContact: (state, action) => {
-      state.aux = action.payload.message;
-      state.state = action.payload.state;
+      state.success = action.payload;
     },
 
     //!CLEAR STATES:
@@ -341,6 +346,10 @@ export const Slice = createSlice({
 
     clearStudent: (state, action) => {
       state.student = [];
+    },
+
+    clearSuccess: (state, action) => {
+      state.success = {};
     },
 
     //*PASSWORD
@@ -423,5 +432,6 @@ export const {
   passwordChange,
   clearClass,
   clearStudent,
+  clearSuccess,
 } = Slice.actions;
 export default Slice.reducer;

@@ -20,6 +20,7 @@ function FormContact() {
   const dispatch = useDispatch();
   const selectError = useSelector(({ root }) => root?.error);
   const selectAccess = useSelector(({ root }) => root.access);
+  const selectSuccess = useSelector(({ root }) => root?.success);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     nameContact: "",
@@ -39,14 +40,16 @@ function FormContact() {
 
   const onFinish = () => {
     dispatch(createContact(data));
-    setData({
-      nameContact: "",
-      emailContact: "",
-      phoneContact: "",
-    });
   };
-
-  useEffect(() => {
+  
+  useEffect(() => {    
+    if (selectSuccess?.action === "create-contact") {      
+      setData({
+        nameContact: "",
+        emailContact: "",
+        phoneContact: "",
+      });
+    }
     if (Object.keys(selectAccess).length && !selectError) {
       setTimeout(() => {
         dispatch(removeAux());
@@ -56,7 +59,8 @@ function FormContact() {
         dispatch(removeError());
       }, 3000);
     }
-  }, [selectAccess, selectError]);
+    
+  }, [selectSuccess, selectAccess, selectError]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

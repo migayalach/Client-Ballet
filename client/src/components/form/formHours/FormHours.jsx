@@ -28,7 +28,7 @@ const formItemLayout = {
   },
 };
 
-const FormHours = ({ idData, option, handleState }) => {
+const FormHours = ({ idData, option, handleState }) => { 
   const dispatch = useDispatch();
   const dataHours = useSelector((state) => state.root.data);
   const [data, setData] = useState({

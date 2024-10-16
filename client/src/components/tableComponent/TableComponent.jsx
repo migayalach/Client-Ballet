@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Tag, Avatar } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
+import State from "@/components/state/State";
 import ContactModal from "../modal/contactModal/ContactModal";
 import Link from "next/link";
 import {
@@ -157,6 +158,13 @@ function TableComponent({
     },
     ...(access === "Secretaria" || access === "Director"
       ? [
+          {
+            title: "Editar",
+            key: "action",
+            render: (data) => (
+              <ButtonEdit idData={data.idClass} text="Editar" render="CLASS" />
+            ),
+          },
           {
             title: "Eliminar",
             key: "action",

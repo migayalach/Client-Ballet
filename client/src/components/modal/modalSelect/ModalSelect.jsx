@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "antd";
 import ListData from "@/components/listData/ListData";
 import { useDispatch, useSelector } from "react-redux";
-import { filterAll, clearFilterAll, filterAllData } from "@/redux/actions";
+import {
+  filterAll,
+  clearFilterAll,
+  filterAllData,
+  filterAllDataIds,
+} from "@/redux/actions";
 import "./modal-select.css";
 
-function ModalSelect({ render, handleSelect, idUser }) {
+function ModalSelect({ render, handleSelect, idUser, idClass }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flagRender, setFlagRender] = useState("");
@@ -50,7 +55,7 @@ function ModalSelect({ render, handleSelect, idUser }) {
         setFlagRender("IDUSER-CLASSALL");
       }
       if (render === "STUDEN-ALL") {
-        dispatch(filterAllData("students"));
+        dispatch(filterAllDataIds(idClass, "students"));
         setFlagRender("STUDENT-ALL");
       }
     }
