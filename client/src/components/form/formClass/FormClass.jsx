@@ -23,6 +23,7 @@ import "./form-class.css";
 function FormClass({ idData, option, handleState, idUserCreate }) {
   const dispatch = useDispatch();
   const selectClass = useSelector(({ root }) => root?.data);
+  const selectState = useSelector(({ root }) => root?.state);
   const [data, setData] = useState({
     idUserCreate: +idUserCreate,
     idUser: 0,
@@ -66,10 +67,15 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
   };
 
   const onFinish = () => {
-    if (option === "edit") {
+    if (option === "editClass") {
       dispatch(editClass({ ...data, idClass: selectClass.idClass }));
     } else {
       dispatch(createClass(data));
+    }
+  };
+
+  useEffect(() => {
+    if (selectState === "create-class") {
       setData({
         idUserCreate: 0,
         idUser: 0,
@@ -80,7 +86,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
       });
       handleState();
     }
-  };
+  }, [selectState]);
 
   useEffect(() => {
     if (selectClass !== null) {
@@ -160,7 +166,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
           />
         </Form.Item>
 
-        {option === "edit" && (
+        {option === "editClass" && (
           <Form.Item label="Estado de clase">
             <State stateHours={data?.stateClass} handleChange={onChangeState} />
           </Form.Item>
