@@ -23,7 +23,7 @@ import { getTypeClassAll, typeClassClear, removeAux } from "@/redux/actions";
 
 function TypeClass() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectTypeClass = useSelector((state) => state.root.typeClass);
   const selectInfo = useSelector((state) => state.root.info);
@@ -33,10 +33,7 @@ function TypeClass() {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
     dispatch(removeAux());
   };
@@ -51,13 +48,30 @@ function TypeClass() {
   }, []);
 
   useEffect(() => {
-    if (selectState?.length) {
+    if (selectState === "create-typeClass") {
       setDataState({
-        state: selectState,
-        message: "con exito",
+        action: "create-typeClass",
+        state: "success",
+        message: "Clase creada con exito",
       });
-    } else if (selectError !== null) {
+    } else if (selectState === "delete-typeClass") {
       setDataState({
+        action: "delete-typeClass",
+        state: "success",
+        message: "Clase eliminada con exito",
+      });
+    } else if (selectState === "edit-typeClass") {
+      setDataState({
+        action: "edit-typeClass",
+        state: "success",
+        message: "Se actualizo la informacion de la clase con exito",
+      });
+    } else if (
+      selectError?.error ===
+      "Lo siento no pueden haber tipo de clases repetidas"
+    ) {
+      setDataState({
+        action: "error-create-typeClass",
         state: "error",
         message: selectError?.error,
       });
