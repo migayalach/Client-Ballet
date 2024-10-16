@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // LIBRARY
-import { Button, Form, Input } from "antd";
+import { Button, Form } from "antd";
 
 //REDUX
 import { editContact } from "@/redux/actions";
