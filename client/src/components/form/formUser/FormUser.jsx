@@ -18,7 +18,7 @@ import { Button, Form, Input } from "antd";
 import dayjs from "dayjs";
 
 //REDUX
-import { createUser, editUser, getByIdUser } from "@/redux/actions";
+import { createUser, editUser, getByIdUser,  } from "@/redux/actions";
 
 // STYLESHEET'
 import "./form-user.css";
@@ -101,6 +101,11 @@ function FormUser({ idUser, option, handleState }) {
       );
     } else {
       dispatch(createUser(data));
+    }
+  };
+
+  useEffect(() => {
+    if (selectState === "create-user") {
       setData({
         idLevel: 0,
         idExtension: 0,
@@ -116,7 +121,7 @@ function FormUser({ idUser, option, handleState }) {
       });
       handleState();
     }
-  };
+  }, [selectState]);
 
   useEffect(() => {
     if (option === "edit" && idUser > 0) {

@@ -31,7 +31,7 @@ import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 // STYLESHEET'
 function page() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectClass = useSelector(({ root }) => root?.classes);
   const selectInfo = useSelector((state) => state.root?.info);
@@ -41,10 +41,7 @@ function page() {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -87,13 +84,32 @@ function page() {
   }
 
   useEffect(() => {
-    if (selectState?.length) {
+    if (selectState === "create-class") {
       setDataState({
-        state: selectState,
-        message: "con exito",
+        action: "create-class",
+        state: "success",
+        message: "Clase creada con exito",
       });
-    } else if (selectError !== null) {
+    } else if (selectState === "edit-class") {
       setDataState({
+        action: "edit-class",
+        state: "success",
+        message: "Se actualizo la clase con exito",
+      });
+    } else if (selectState === "delete-class") {
+      setDataState({
+        action: "delete-class",
+        state: "success",
+        message: "Clase eliminada con exito",
+      });
+    } else if (
+      selectError?.error ===
+        "Lo siento este paralelo ya se encuentra asignado" ||
+      selectError?.error ==
+        "Esta clase no puede ser eliminada ya que actualmente cuenta con alumnos"
+    ) {
+      setDataState({
+        action: "error-delete-class",
         state: "error",
         message: selectError?.error,
       });

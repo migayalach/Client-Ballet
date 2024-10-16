@@ -26,7 +26,6 @@ function EditModal({ idData, dataUser, text, render }) {
   const selectState = useSelector(({ root }) => root?.state);
   const selectFilter = useSelector(({ root }) => root?.filter);
   const selectDataUser = useSelector(({ root }) => root?.access);
-  console.log(idData, dataUser, text, render);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -51,17 +50,6 @@ function EditModal({ idData, dataUser, text, render }) {
   };
 
   useEffect(() => {
-    if (
-      render === "HOURS" &&
-      selectState === "editHours" &&
-      selectFilter.length
-    ) {
-      setIsModalOpen(false);
-      dispatch(removeData());
-    }
-  }, [selectState]);
-
-  useEffect(() => {
     if (render === "CLASS" && isModalOpen) {
       dispatch(getByIdClass(idData));
     }
@@ -70,6 +58,10 @@ function EditModal({ idData, dataUser, text, render }) {
 
   useEffect(() => {
     if (render === "TYPE-CLASS") {
+      showModal();
+    } else if (render === "HOURS") {
+      showModal();
+    } else if (render === "CLASS") {
       showModal();
     }
   }, [render]);
@@ -87,8 +79,8 @@ function EditModal({ idData, dataUser, text, render }) {
       >
         {render === "USER" && <FormUser dataUser={dataUser} option="edit" />}
         {render === "PROFILE" && <FormUser option="editProfile" />}
-        {render === "HOURS" && <FormHours idData={idData} option="edit" />}
-        {render === "CLASS" && <FormClass idData={idData} option="edit" />}
+        {render === "HOURS" && <FormHours idData={idData} option="editHour" />}
+        {render === "CLASS" && <FormClass idData={idData} option="editClass" />}
         {render === "TYPE-CLASS" && (
           <FormTypeClass idData={idData} option="editTypeClass" />
         )}

@@ -64,6 +64,51 @@ const Notification = ({ dataState, clearLocalState }) => {
           title: "Operación exitosa",
           content: `${dataState.message}`,
         });
+      } else if (dataState.action === "create-hour") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-hour") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "edit-hour") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "create-user") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "edit-user") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-user") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "create-class") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "edit-class") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-class") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
       }
     } else if (dataState.state === "error") {
       if (dataState.action === "error-create-contact") {
@@ -78,6 +123,22 @@ const Notification = ({ dataState, clearLocalState }) => {
         });
       } else if (dataState.action === "error-create-typeClass") {
         instance = modal.error({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "error-delete-hour") {
+        instance = modal.error({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "error-create-user") {
+        instance = modal.info({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+        dispatch(removeError());
+      } else if (dataState.action === "error-delete-class") {
+        instance = modal.info({
           title: "Operación interrumpida",
           content: `${dataState.message}`,
         });

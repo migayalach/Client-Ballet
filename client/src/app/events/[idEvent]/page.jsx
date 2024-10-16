@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getEventId, stateClear, removeData } from "@/redux/actions";
+import { getEventId, stateClear, listClear } from "@/redux/actions";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Notification from "@/components/modal/notification/Notification";
 
@@ -10,7 +10,7 @@ function page({ params }) {
   const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
-  const selectEvent = useSelector(({ root }) => root?.data);
+  const selectEvent = useSelector(({ root }) => root?.event);
   const selectAccess = useSelector((state) => state.root?.access);
   const selectError = useSelector(({ root }) => root?.error);
   const selectSuccess = useSelector(({ root }) => root?.success);
@@ -50,7 +50,7 @@ function page({ params }) {
         stateEvent: false,
         urlPicture: "",
       });
-      dispatch(removeData());
+      dispatch(listClear());
     };
   }, []);
 
@@ -80,7 +80,7 @@ function page({ params }) {
     };
   }, [selectEvent, selectState]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (selectState === "login") {
       setDataState({
         state: selectState,
@@ -94,7 +94,7 @@ function page({ params }) {
           action: "error-login",
         });
       }
-    }else if (selectState === "edit-event") {
+    } else if (selectState === "edit-event") {
       setDataState({
         action: "edit-event",
         state: "success",

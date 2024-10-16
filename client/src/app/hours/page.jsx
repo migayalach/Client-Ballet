@@ -24,7 +24,7 @@ import { getHoursAll, hoursClear } from "@/redux/actions";
 
 function Hours() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectHours = useSelector((state) => state.root.hours);
   const selectInfo = useSelector((state) => state.root.info);
@@ -48,13 +48,30 @@ function Hours() {
   }, []);
 
   useEffect(() => {
-    if (selectState?.length) {
+    if (selectState === "create-hour") {
       setDataState({
-        state: selectState,
-        message: "con exito",
+        action: "create-hour",
+        state: "success",
+        message: "Hora creada con exito",
       });
-    } else if (selectError !== null) {
+    } else if (selectState === "delete-hour") {
       setDataState({
+        action: "delete-hour",
+        state: "success",
+        message: "Hora eliminada con exito",
+      });
+    } else if (selectState === "edit-hour") {
+      setDataState({
+        action: "edit-hour",
+        state: "success",
+        message: "Se actualizo la hora con exito",
+      });
+    } else if (
+      selectError?.error ===
+      "Esta hora no puede ser eliminada ya que se encuentra vinculada a una clase."
+    ) {
+      setDataState({
+        action: "error-delete-hour",
         state: "error",
         message: selectError?.error,
       });

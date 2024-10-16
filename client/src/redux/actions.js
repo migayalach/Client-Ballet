@@ -121,7 +121,7 @@ export const editIdHours = (info) => {
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/hours`, info);
-      return dispatch(flagState("edit"));
+      return dispatch(flagState("edit-hour"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -348,7 +348,7 @@ export const editClass = (infoData) => {
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/class`, infoData);
-      return dispatch(flagState("edit"));
+      return dispatch(flagState("edit-class"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

@@ -45,7 +45,7 @@ const FormHours = ({ idData, option, handleState }) => {
   }, [idData, dispatch]);
 
   useEffect(() => {
-    if (option === "edit" && dataHours) {
+    if (option === "editHour" && dataHours) {
       setData({
         startTime: dataHours.startTime,
         endTime: dataHours.endTime,
@@ -80,7 +80,7 @@ const FormHours = ({ idData, option, handleState }) => {
   };
 
   const onFinish = () => {
-    if (option === "edit") {
+    if (option === "editHour") {
       dispatch(editIdHours({ ...data, idHours: idData }));
     } else {
       dispatch(createHours(data));

@@ -24,7 +24,7 @@ import Cards from "@/components/cards/Cards";
 
 function User() {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectUser = useSelector((state) => state.root?.user);
   const selectInfo = useSelector((state) => state.root?.info);
@@ -35,10 +35,7 @@ function User() {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -54,13 +51,24 @@ function User() {
   }, []);
 
   useEffect(() => {
-    if (selectAux && selectState === "create") {
+    if (selectAux && selectState === "create-user") {
       setDataState({
-        state: selectState,
-        message: `Usuario creado con exito.`,
+        action: "create-user",
+        state: "success",
+        message: "Usuario creado con exito",
       });
-    } else if (selectError !== null) {
+    } else if (selectState === "delete-user") {
       setDataState({
+        action: "delete-user",
+        state: "success",
+        message: "Usuario eliminado con exito",
+      });
+    } else if (
+      selectError?.error === "No puede haber carnets repetidos" ||
+      selectError?.error === "No pueden haber emails repetidos"
+    ) {
+      setDataState({
+        action: "error-create-user",
         state: "error",
         message: selectError?.error,
       });
