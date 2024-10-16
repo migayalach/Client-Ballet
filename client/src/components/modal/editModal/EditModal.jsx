@@ -1,4 +1,4 @@
-// COMPONET'S
+// COMPONENTS
 import FormHours from "@/components/form/formHours/FormHours";
 import Text from "@/components/text/Text";
 import FormUser from "@/components/form/formUser/FormUser";
@@ -6,14 +6,12 @@ import FormTypeClass from "@/components/form/formTypeClass/FormTypeClass";
 import FormClass from "@/components/form/formClass/FormClass";
 import FormPassword from "@/components/form/formUser/formPassword/FormPassword";
 
-// HOOK'S
+// HOOKS
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "antd";
 
-// LIBRARY
-
-//REDUX
+// REDUX ACTIONS
 import {
   removeData,
   stateFlag,
@@ -21,20 +19,23 @@ import {
   getByIdUser,
 } from "@/redux/actions";
 
-// JAVASCRIP
-
-// STYLESHEET'
-
+// COMPONENT
 function EditModal({ idData, dataUser, text, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectState = useSelector(({ root }) => root?.state);
   const selectFilter = useSelector(({ root }) => root?.filter);
   const selectDataUser = useSelector(({ root }) => root?.access);
+  console.log(idData, dataUser, text, render);
 
   const showModal = () => {
     setIsModalOpen(true);
-    render === "PROFILE" && dispatch(getByIdUser(selectDataUser?.idUser));
+    if (render === "PROFILE") {
+      dispatch(getByIdUser(selectDataUser?.idUser));
+    }
+    if (render === "CLASS") {
+      dispatch(getByIdClass(idData));
+    }
   };
 
   const handleOk = () => {
@@ -50,7 +51,11 @@ function EditModal({ idData, dataUser, text, render }) {
   };
 
   useEffect(() => {
-    if (render === "HOURS" && selectState === "edit" && selectFilter.length) {
+    if (
+      render === "HOURS" &&
+      selectState === "editHours" &&
+      selectFilter.length
+    ) {
       setIsModalOpen(false);
       dispatch(removeData());
     }
@@ -60,22 +65,22 @@ function EditModal({ idData, dataUser, text, render }) {
     if (render === "CLASS" && isModalOpen) {
       dispatch(getByIdClass(idData));
     }
-    return () => {
-      // console.log("bye");
-    };
+    return () => {};
   }, [isModalOpen]);
 
   useEffect(() => {
-    return () => {};
-  }, []);
+    if (render === "TYPE-CLASS") {
+      showModal();
+    }
+  }, [render]);
 
   return (
     <>
-      {render === "PROFILE" && <p onClick={showModal}> Editar Perfil</p>}
-      {render === "PASSWORD" && <p onClick={showModal}> Editar contraseña</p>}
+      {render === "PROFILE" && <p onClick={showModal}>Editar Perfil</p>}
+      {render === "PASSWORD" && <p onClick={showModal}>Editar Contraseña</p>}
 
       <Modal
-        title="Editar informacion"
+        title="Editar Información"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -85,7 +90,7 @@ function EditModal({ idData, dataUser, text, render }) {
         {render === "HOURS" && <FormHours idData={idData} option="edit" />}
         {render === "CLASS" && <FormClass idData={idData} option="edit" />}
         {render === "TYPE-CLASS" && (
-          <FormTypeClass idData={idData} option="edit" />
+          <FormTypeClass idData={idData} option="editTypeClass" />
         )}
         {render === "PASSWORD" && <FormPassword handleOk={handleOk} />}
       </Modal>
