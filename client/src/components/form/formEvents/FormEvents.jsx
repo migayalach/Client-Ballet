@@ -24,7 +24,7 @@ import formValidation from "./formValidation.js";
 
 function FormEvents({ option, handleState, event }) {
   const dispatch = useDispatch();
-  const selectEvent = useSelector(({ root }) => root?.data);
+  const selectEvent = useSelector(({ root }) => root?.event);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     hour: "00:00:00",
