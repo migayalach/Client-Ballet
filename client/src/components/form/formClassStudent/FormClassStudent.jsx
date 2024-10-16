@@ -71,7 +71,11 @@ function FormClassStudent({ handleState, idClass }) {
     >
       <Form.Item label="Selecciona un Alumno">
         <div className="form-class-student">
-          <ModalSelect render="STUDEN-ALL" handleSelect={handleSelect} />
+          <ModalSelect
+            render="STUDEN-ALL"
+            handleSelect={handleSelect}
+            idClass={idClass}
+          />
           <InputComponent
             placeholder="Selecciona un usuario"
             data={data.nameStudent}
