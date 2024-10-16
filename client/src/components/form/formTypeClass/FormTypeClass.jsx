@@ -26,6 +26,7 @@ import formTypeClassValidate from "./formTypeClassValidate";
 function FormTypeClass({ idData, option, handleState }) {
   const dispatch = useDispatch();
   const selectTypeHour = useSelector(({ root }) => root?.data);
+  const selectState = useSelector(({ root }) => root?.state);
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     nameClass: "",
@@ -46,24 +47,29 @@ function FormTypeClass({ idData, option, handleState }) {
   };
 
   const onFinish = () => {
-    if (option === "edit") {
+    if (option === "editTypeClass") {
       dispatch(editTypeHour({ ...data, idTypeClass: idData }));
     } else {
       dispatch(createTypeClass(data));
+    }
+  };
+
+  useEffect(() => {
+    if (selectState === "create-typeClass") {
       setData({
         nameClass: "",
         description: "",
       });
       handleState();
     }
-  };
+  }, [selectState]);
 
   useEffect(() => {
     idData && dispatch(getByIdTypeHour(idData));
   }, [idData]);
 
   useEffect(() => {
-    if (option === "edit" && selectTypeHour) {
+    if (option === "editTypeClass" && selectTypeHour) {
       setData({
         nameClass: selectTypeHour.nameClass,
         description: selectTypeHour.description,
@@ -105,7 +111,7 @@ function FormTypeClass({ idData, option, handleState }) {
             value={data.description}
           />
         </Form.Item>
-        
+
         {!Object.keys(errors).length && data.nameClass.length ? (
           <Button type="primary" htmlType="submit">
             <Text text="Crear" />
