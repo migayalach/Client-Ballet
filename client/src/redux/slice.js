@@ -283,11 +283,11 @@ export const Slice = createSlice({
     },
 
     getIdEvent: (state, action) => {
-      state.data = action.payload;
+      state.event = action.payload;
     },
 
     updateEvent: (state, action) => {
-      state.data = action.payload.infoData;
+      state.event = action.payload.infoData;
       state.state = action.payload.state;
     },
 
