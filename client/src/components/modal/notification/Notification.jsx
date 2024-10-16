@@ -1,91 +1,125 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal } from "antd";
-import { removeError, stateClear, removeAux } from "@/redux/actions";
+import {
+  removeError,
+  stateClear,
+  removeAux,
+  successClear,
+} from "@/redux/actions";
 
-const Notification = ({ dataState: { state, message }, clearLocalState }) => {
-  if (
-    // (state === null && !message.length) ||
-    state !== "login" ||
-    (state === "error" && message === "Contraseña incorrecta")
-  ) {
-    const dispatch = useDispatch();
-    const [modal, contextHolder] = Modal.useModal();
-    const [isNotified, setIsNotified] = useState(false);
+const Notification = ({ dataState, clearLocalState }) => {
+  console.log(dataState);
 
-    const countDown = () => {
-      if (isNotified) return;
-      setIsNotified(true);
+  const dispatch = useDispatch();
+  const [modal, contextHolder] = Modal.useModal();
+  const [isNotified, setIsNotified] = useState(false);
 
-      let secondsToGo = 3;
-      let instance;
+  const countDown = () => {
+    if (isNotified) return;
+    setIsNotified(true);
 
-      if (state === "success") {
+    let secondsToGo = 3;
+    let instance;
+
+    if (dataState.state === "success") {
+      if (dataState.action === "create-contact") {
         instance = modal.success({
           title: "Operación exitosa",
-          content: `${message}`,
+          content: `${dataState.message}`,
         });
-        dispatch(stateClear());
-        dispatch(removeAux());
-      } else if (state === "login") {
+        dispatch(successClear());
+      } else if (dataState.action === "edit-contact") {
         instance = modal.success({
           title: "Operación exitosa",
-          content: `${message}`,
+          content: `${dataState.message}`,
         });
-        dispatch(stateClear());
-      } else if (state === true) {
+      } else if (dataState.action === "create-event") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "edit-event") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-event") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "create-typeClass") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-typeClass") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "edit-typeClass") {
         instance = modal.info({
           title: "Operación exitosa",
-          content: `${message}`,
-        });
-      } else if (state === "error-change") {
-        instance = modal.error({
-          title: "Operación interrumpida",
-          content: `${message}`,
-        });
-      } else if (state === "error") {
-        instance = modal.error({
-          title: "Operación interrumpida",
-          content: `${message}`,
-        });
-      } else if (state === "create") {
-        instance = modal.success({
-          title: "Operación realizada con éxito",
-          content: `Creado con éxito!`,
-        });
-      } else if (state === "delete") {
-        instance = modal.info({
-          title: "Operación realizada con éxito",
-          content: `Eliminado con éxito!`,
-        });
-      } else if (state === "edit") {
-        instance = modal.warning({
-          title: "Operación realizada con éxito",
-          content: `Actualización realizada con éxito!`,
+          content: `${dataState.message}`,
         });
       }
-
-      const timer = setInterval(() => {
-        secondsToGo -= 1;
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(timer);
-        instance.destroy();
-        clearLocalState();
-        dispatch(removeError());
-        setIsNotified(false);
-      }, secondsToGo * 1000);
-    };
-
-    useEffect(() => {
-      if (state && !isNotified) {
-        countDown();
+    } else if (dataState.state === "error") {
+      if (dataState.action === "error-create-contact") {
+        instance = modal.error({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "error-delete-event") {
+        instance = modal.error({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "error-create-typeClass") {
+        instance = modal.error({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
       }
-    }, [state, message, clearLocalState, isNotified]);
+      dispatch(removeError());
+    }
 
-    return <>{contextHolder}</>;
-  }
+    if (dataState.state === "login") {
+      instance = modal.success({
+        title: "Operación exitosa",
+        content: `${dataState.message}`,
+      });
+      dispatch(stateClear());
+    } else if (dataState.action === "error-login") {
+      console.log("entre");
+
+      instance = modal.error({
+        title: "Operación interrumpida",
+        content: `${dataState.message}`,
+      });
+      dispatch(removeError());
+    }
+
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(timer);
+      // instance.destroy();
+      clearLocalState();
+      setIsNotified(false);
+    }, secondsToGo * 1000);
+  };
+
+  useEffect(() => {
+    if (Object.keys(dataState).length && !isNotified) {
+      countDown();
+    }
+  }, [dataState, isNotified]);
+
+  return <>{contextHolder}</>;
 };
 
 export default Notification;
