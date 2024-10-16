@@ -86,14 +86,14 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "TYPE-CLASS":
-        if (selectState === "edit") {
+        if (selectState === "edit-typeClass") {
           if (selectFilter.length > 0 && !selectTypeClass.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
             dispatch(getPageTypeClass(current));
           }
           dispatch(stateFlag(""));
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-typeClass") {
           if (selectFilterURL !== "") {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
@@ -105,7 +105,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
               setCurrent(current - 1);
             }
           }
-        } else if (Object.keys(selectAux).length && selectState === "create") {
+        } else if (Object.keys(selectAux).length && selectState === "create-typeClass") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageTypeClass(selectInfo.pages));
@@ -219,11 +219,11 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "EVENTS":
-        if (selectState === "create") {
+        if (selectState === "create-event") {
           dispatch(getPageEvent(1));
           setCurrent(1);
           setTIme();
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-event") {
           dispatch(getPageEvent(1));
           setCurrent(1);
           dispatch(stateClear());
