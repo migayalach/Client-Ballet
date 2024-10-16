@@ -69,7 +69,7 @@ function FormEvents({ option, handleState, event }) {
   };
 
   const onFinish = () => {
-    if (event === "edit") {
+    if (event === "edit-event") {
       dispatch(editEvent(data));
     } else {
       dispatch(addListEvent(data));
@@ -85,7 +85,7 @@ function FormEvents({ option, handleState, event }) {
   };
 
   useEffect(() => {
-    if (event === "edit") {
+    if (event === "edit-event") {
       selectEvent?.map(
         ({
           idListEvent,
