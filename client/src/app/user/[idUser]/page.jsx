@@ -17,12 +17,11 @@ import { stateClear, getByIdUser } from "@/redux/actions";
 
 // STYLESHEET'
 import "./info-staff.css";
-import { clearData } from "@/redux/slice";
 
 function InfoUser({ params }) {
   const dispatch = useDispatch();
   const [data, setData] = useState({});
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectDataUser = useSelector(({ root }) => root?.data);
   const selectFilter = useSelector((state) => state.root?.filter);
@@ -39,23 +38,16 @@ function InfoUser({ params }) {
   }
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
   useEffect(() => {
-    if (selectState === "edit") {
+    if (selectState === "editUser") {
       setDataState({
-        state: selectState,
-        message: `Editado con exito`,
-      });
-    } else if (selectError !== null) {
-      setDataState({
-        state: "error",
-        message: selectError?.error,
+        action: "edit-user",
+        state: "success",
+        message: "Se actualizo la informacion del usuario con exito",
       });
     }
     setFlagAlert(true);
@@ -63,7 +55,7 @@ function InfoUser({ params }) {
   }, [selectState, selectError]);
 
   useEffect(() => {
-    if (selectState === "edit") {
+    if (selectState === "editUser") {
       setTimeout(() => {
         dispatch(stateClear());
       }, 1500);
@@ -72,9 +64,9 @@ function InfoUser({ params }) {
 
   useEffect(() => {
     dispatch(getByIdUser(params.idUser));
-    return()=> {
-      dispatch(clearData())
-    }
+    return () => {
+      dispatch(stateClear());
+    };
   }, []);
 
   useEffect(() => {
