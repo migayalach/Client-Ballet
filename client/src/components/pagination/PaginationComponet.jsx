@@ -54,7 +54,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         if (
           selectAux &&
           Object.keys(selectAux).length &&
-          selectState === "create"
+          selectState === "create-user"
         ) {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
@@ -62,7 +62,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
             setCurrent(selectInfo.pages);
             setTIme();
           }
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-user") {
           if (selectFilterURL !== "") {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
@@ -75,7 +75,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
             }
           }
           setTIme();
-        } else if (selectState === "edit") {
+        } else if (selectState === "edit-user") {
           if (selectFilter.length > 0 && !selectUser.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
@@ -105,7 +105,10 @@ function PaginationComponet({ pages, navegation, idClass }) {
               setCurrent(current - 1);
             }
           }
-        } else if (Object.keys(selectAux).length && selectState === "create-typeClass") {
+        } else if (
+          Object.keys(selectAux).length &&
+          selectState === "create-typeClass"
+        ) {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageTypeClass(selectInfo.pages));
@@ -116,21 +119,21 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "HOURS":
-        if (Object.keys(selectAux).length && selectState === "create") {
+        if (Object.keys(selectAux).length && selectState === "create-hour") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageHours(selectInfo.pages));
             setCurrent(selectInfo.pages);
             setTIme();
           }
-        } else if (selectState === "edit") {
+        } else if (selectState === "edit-hour") {
           if (selectFilter.length > 0 && !selectHours.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
             dispatch(getPageHours(current));
           }
           dispatch(stateFlag(""));
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-hour") {
           const lengtHours = selectHours.length;
           if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
             dispatch(getPageHours(current));
@@ -145,14 +148,14 @@ function PaginationComponet({ pages, navegation, idClass }) {
 
       case "CLASS":
         const dataUser = accessUserData;
-        if (Object.keys(selectClass).length && selectState === "create") {
+        if (Object.keys(selectClass).length && selectState === "create-class") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageClass(dataUser?.idUser, selectInfo.pages));
             setCurrent(selectInfo.pages);
             setTIme();
           }
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-class") {
           if (selectFilterURL !== "") {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
@@ -166,7 +169,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
               setCurrent(current - 1);
             }
           }
-        } else if (selectState === "edit") {
+        } else if (selectState === "edit-class") {
           if (selectFilter.length > 0 && !selectClass.length) {
             dispatch(filter(`${selectFilterURL}${current}`));
           } else {
