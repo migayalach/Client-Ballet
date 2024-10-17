@@ -19,7 +19,7 @@ import { getIdAllClassStudent, studentClear } from "@/redux/actions";
 
 function ClassParams({ params }) {
   const dispatch = useDispatch();
-  const [dataState, setDataState] = useState({ state: null, message: "" });
+  const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectClassStudent = useSelector(({ root }) => root?.student);
   const selectInfo = useSelector((state) => state.root.info);
@@ -30,10 +30,7 @@ function ClassParams({ params }) {
   const selectError = useSelector(({ root }) => root?.error);
 
   const clearLocalState = () => {
-    setDataState({
-      state: null,
-      message: "",
-    });
+    setDataState({});
     setFlagAlert(false);
   };
 
@@ -55,6 +52,39 @@ function ClassParams({ params }) {
       dispatch(studentClear());
     };
   }, []);
+
+  useEffect(() => {
+    if (selectState === "registration-success") {
+      setDataState({
+        action: "registration-success",
+        state: "success",
+        message: "Alumno inscrito con exito a la clase.",
+      });
+    }
+    // else if (selectState === "edit-class") {
+    //   setDataState({
+    //     action: "edit-class",
+    //     state: "success",
+    //     message: "Se actualizo la clase con exito",
+    //   });
+    // } else if (selectState === "delete-class") {
+    //   setDataState({
+    //     action: "delete-class",
+    //     state: "success",
+    //     message: "Clase eliminada con exito",
+    //   });
+    // }
+    else if (
+      selectError?.error === "Este alumno ya esta registrado en esta clase"
+    ) {
+      setDataState({
+        action: "registration-error",
+        state: "error",
+        message: selectError?.error,
+      });
+    }
+    setFlagAlert(true);
+  }, [selectState, selectError]);
 
   return (
     <div>
@@ -87,6 +117,15 @@ function ClassParams({ params }) {
           idClass={params.idClass}
           access={selectAccess?.level}
         />
+      </div>
+
+      <div>
+        {flagAlert && (
+          <Notification
+            dataState={dataState}
+            clearLocalState={clearLocalState}
+          />
+        )}
       </div>
     </div>
   );

@@ -155,6 +155,7 @@ export const Slice = createSlice({
     //*CLASS STUDENT
     getIdClassStudent: (state, action) => {
       state.student = action.payload.results;
+      state.info = action.payload.info;
     },
 
     postClassStudent: (state, action) => {

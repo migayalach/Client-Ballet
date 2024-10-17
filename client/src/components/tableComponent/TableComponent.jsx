@@ -2,7 +2,6 @@ import React from "react";
 import { Table, Tag, Avatar } from "antd";
 import ButtonDelete from "@/components/button/buttonDelete/ButtonDelete";
 import ButtonEdit from "@/components/button/buttonEdit/ButtonEdit";
-import State from "@/components/state/State";
 import ContactModal from "../modal/contactModal/ContactModal";
 import Link from "next/link";
 import {
@@ -762,6 +761,10 @@ function TableComponent({
       ) => ({
         key: index,
         numberItem: index + 1,
+        idClass,
+        idUser,
+        idUser,
+        idClass,
         idUser,
         idClass,
         student: `${nameUser} ${lastNameUser}`,
