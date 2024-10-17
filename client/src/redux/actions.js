@@ -396,6 +396,7 @@ export const createClassStudent = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/classStudent`, infoData)).data;
+      dispatch(flagState("registration-success"));
       return dispatch(postClassStudent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
