@@ -11,7 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "antd";
 
 //REDUX
-import { getClassAll, getUserAll, createClassStudent } from "@/redux/actions";
+import {
+  getClassAll,
+  getUserAll,
+  createClassStudent,
+  stateClear,
+} from "@/redux/actions";
 import InputComponent from "@/components/inputComponent/InputComponent";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
