@@ -25,7 +25,7 @@ function CreateModal({
   const dataUser = useSelector(({ root }) => root?.access);
   const handleOk = () => {
     setIsModalOpen(false);
-    handleAdd(false);    
+    handleAdd(false);
   };
 
   const handleCancel = () => {
@@ -105,7 +105,7 @@ function CreateModal({
           )}
         </div> */}
 
-        {/* <div>
+        <div>
           {render === "LIST-ASSISTANCE-IDCLASS" && (
             <FormAssistance
               option="create"
@@ -113,7 +113,7 @@ function CreateModal({
               idClass={idClass}
             />
           )}
-        </div> */}
+        </div>
       </Modal>
     </>
   );
