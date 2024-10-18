@@ -115,6 +115,17 @@ const Notification = ({ dataState, clearLocalState }) => {
           content: `${dataState.message}`,
         });
         dispatch(stateClear());
+      } else if (dataState.action === "create-assistance") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+        dispatch(stateClear());
+      } else if (dataState.action === "delete-assistance") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
       }
     } else if (dataState.state === "error") {
       if (dataState.action === "error-create-contact") {
@@ -149,6 +160,11 @@ const Notification = ({ dataState, clearLocalState }) => {
           content: `${dataState.message}`,
         });
       } else if (dataState.action === "registration-error") {
+        instance = modal.info({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "error-delete-assistance") {
         instance = modal.info({
           title: "Operación interrumpida",
           content: `${dataState.message}`,
