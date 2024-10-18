@@ -5,9 +5,10 @@ import { DatePicker } from "antd";
 import { Button, Form, Input } from "antd";
 import { postAssistanceDate } from "@/redux/actions";
 
-function FormAssistance({ idClass }) {
+function FormAssistance({ idClass, handleState }) {
   const dispatch = useDispatch();
   const selectAssistance = useSelector(({ root }) => root?.data);
+  const selectState = useSelector(({ root }) => root?.state);
 
   const [date, setDate] = useState({ dateAssistance: "" });
 
@@ -30,6 +31,15 @@ function FormAssistance({ idClass }) {
   }, [selectAssistance]);
 
   console.log(date);
+
+  useEffect(() => {
+    if (selectState === "create-assistance") {
+      setDate({
+        dateAssistance: "",
+      });
+      handleState();
+    }
+  }, [selectState]);
 
   useEffect(() => {
     return () => {
