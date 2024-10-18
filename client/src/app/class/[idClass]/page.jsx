@@ -46,6 +46,10 @@ function ClassParams({ params }) {
     alert(`${idClass}, ${idUser}`);
   };
 
+  const handleUpdate = (idClass, idUser) => {
+    alert(`${idClass}, ${idUser}`);
+  };
+
   useEffect(() => {
     dispatch(getIdAllClassStudent(params?.idClass));
     return () => {
@@ -98,6 +102,7 @@ function ClassParams({ params }) {
           render="LIST-STUDENT-CLASS"
           access={selectAccess?.level}
           handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
         />
       </div>
 
