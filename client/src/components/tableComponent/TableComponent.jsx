@@ -606,6 +606,11 @@ function TableComponent({
     {
       title: "Descargar",
       key: "download",
+      render: ({ idAssistance }) => (
+        <a>
+          <DownloadOutlined />
+        </a>
+      ),
     },
     {
       title: "Eliminar",
@@ -712,7 +717,7 @@ function TableComponent({
       },
     },
     {
-      title: "Calificaciones",
+      title: "Calificacion",
       key: "qualification",
       render: ({ idUser, idClass }) => (
         <Link href={`/qualification/${idUser}/${idClass}`}>
@@ -721,7 +726,7 @@ function TableComponent({
       ),
     },
     {
-      title: "Asistencias",
+      title: "Asistencia",
       key: "assistances",
       render: ({ idUser, idClass }) => (
         <Link href={`/class/assistance/${idUser}/${idClass}`}>
@@ -731,6 +736,15 @@ function TableComponent({
     },
     ...(access === "Director" || access === "Secretaria"
       ? [
+          {
+            title: "Hab / Des",
+            key: "update",
+            render: ({ idClass, idUser }) => (
+              <a onClick={() => handleUpdate(idClass, idUser)}>
+                <EditOutlined />
+              </a>
+            ),
+          },
           {
             title: "Eliminar",
             key: "delete",

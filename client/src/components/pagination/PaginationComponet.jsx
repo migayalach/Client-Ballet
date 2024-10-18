@@ -180,14 +180,14 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "LIST-ASSISTANCE-IDCLASS":
-        if (Object.keys(selectAux).length && selectState === "create") {
+        if (Object.keys(selectAux).length && selectState === "create-assistance") {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageAssistance(idClass, selectInfo.pages));
             setCurrent(selectInfo.pages);
             setTIme();
           }
-        } else if (selectState === "delete") {
+        } else if (selectState === "delete-assistance") {
           if (selectFilterURL !== "") {
             // dispatch(filter(`${selectFilterURL}${current}`));
           } else {

@@ -353,6 +353,10 @@ export const Slice = createSlice({
       state.success = {};
     },
 
+    clearAssistance: (state, action) => {
+      state.assistance = [];
+    },
+
     //*PASSWORD
     passwordChange: (state, action) => {
       state.aux = action.payload;
@@ -434,5 +438,6 @@ export const {
   clearClass,
   clearStudent,
   clearSuccess,
+  clearAssistance
 } = Slice.actions;
 export default Slice.reducer;
