@@ -730,11 +730,11 @@ export const getListIdAttendance = (idAttendance) => {
   };
 };
 
-export const postListAttendance = (data) => {
+export const postListAttendance = (info) => {
   return async function (dispatch) {
     try {
-      await axios.post(`${URL}/attendance`, data);
-      return;
+      const data = (await axios.post(`${URL}/attendance`, info)).data;
+      return dispatch(stateFlag(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
