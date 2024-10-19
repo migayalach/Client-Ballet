@@ -126,6 +126,12 @@ const Notification = ({ dataState, clearLocalState }) => {
           title: "Operación exitosa",
           content: `${dataState.message}`,
         });
+      } else if (dataState.action === "create-list-assitance") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+        dispatch(stateClear());
       }
     } else if (dataState.state === "error") {
       if (dataState.action === "error-create-contact") {
