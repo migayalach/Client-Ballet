@@ -86,7 +86,9 @@ function Assistance() {
       selectError?.error ===
         "Esta clase no puede generar un registro ya que no cuenta con alumnado" ||
       selectError?.error ==
-        "Lo siento no se puede modificar la fecha ya que actualmente ya se registro la asistencia"
+        "Lo siento no se puede modificar la fecha ya que actualmente ya se registro la asistencia" ||
+      selectError?.error ===
+        "Lo siento no se puede eliminar ya que actualmente ya se registro asistencias"
     ) {
       setDataState({
         action: "error-delete-assistance",
