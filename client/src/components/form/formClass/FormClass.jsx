@@ -19,11 +19,13 @@ import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 import "./form-class.css";
 
 // JAVASCRIP
+import formClassValidate from "./formClassValidation.js";
 
 function FormClass({ idData, option, handleState, idUserCreate }) {
   const dispatch = useDispatch();
   const selectClass = useSelector(({ root }) => root?.data);
   const selectState = useSelector(({ root }) => root?.state);
+  const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     idUserCreate: +idUserCreate,
     idUser: 0,
@@ -32,6 +34,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
     parallel: "",
     stateClass: true,
   });
+
   const [nameData, setNameData] = useState({
     user: "",
     typeClass: "",
@@ -44,6 +47,9 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
       ...data,
       [key]: !event.key ? event.target.value : event.key,
     });
+    setErrors(
+      formClassValidate({ ...data, [event.target.name]: event.target.value })
+    );
   };
 
   const handleSelect = (idData, name, flag) => {
@@ -134,6 +140,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
               data={nameData.user}
             />
             <ModalSelect render="TEACHER-ALL" handleSelect={handleSelect} />
+          {/* {errors.user && <p className="messageError">{errors.user}</p>} */}
           </div>
         </Form.Item>
 
@@ -145,6 +152,9 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             />
             <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
           </div>
+          {/* {errors.typeClass && (
+            <p className="messageError">{errors.typeClass}</p>
+          )} */}
         </Form.Item>
 
         <Form.Item label="Horario">
@@ -155,6 +165,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             />
             <ModalSelect render="HOURS-ALL" handleSelect={handleSelect} />
           </div>
+          {/* {errors.hours && <p className="messageError">{errors.hours}</p>} */}
         </Form.Item>
 
         <Form.Item label="Paralelo">
@@ -164,6 +175,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             placeholder="5TO-B"
             data={data?.parallel}
           />
+          {errors.parallel && <p className="messageError">{errors.parallel}</p>}
         </Form.Item>
 
         {option === "editClass" && (
@@ -171,9 +183,13 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             <State stateHours={data?.stateClass} handleChange={onChangeState} />
           </Form.Item>
         )}
-        <Button type="primary" htmlType="submit">
-          <Text text="Crear" />
-        </Button>
+        {!Object.keys(errors).length && data.parallel.length !== "" ? (
+          <Button type="primary" htmlType="submit">
+            <Text text="Crear" />
+          </Button>
+        ) : (
+          ""
+        )}
       </Form>
     </div>
   );
