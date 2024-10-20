@@ -70,6 +70,7 @@ import {
   getAllStudent,
   clearSuccess,
   clearAssistance,
+  clearAttendance
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -970,6 +971,16 @@ export const assitanceClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearAssistance());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const attendanceClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearAttendance());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
