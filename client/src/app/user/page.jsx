@@ -15,7 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getUserAll, userClear, infoClear, removeData } from "@/redux/actions";
+import {
+  getUserAll,
+  userClear,
+  infoClear,
+  removeData,
+  assitanceClear,
+} from "@/redux/actions";
 import Cards from "@/components/cards/Cards";
 
 // JAVASCRIP
@@ -40,6 +46,7 @@ function User() {
   };
 
   useEffect(() => {
+    dispatch(assitanceClear());
     if (!selectFilter.length) {
       dispatch(getUserAll());
     }
