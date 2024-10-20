@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 // REDUX
-import { getListEventsAll, listClear, removeData } from "@/redux/actions";
+import { getListEventsAll, listClear, removeData, assitanceClear } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -39,6 +39,7 @@ function Events() {
   useEffect(() => {
     if (!selectFilter.length) {
       dispatch(getListEventsAll());
+      dispatch(assitanceClear());
     }
     return () => {
       dispatch(removeData());
