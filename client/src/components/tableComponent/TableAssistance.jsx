@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Checkbox, Table, Button, Tag } from "antd";
 import Text from "@/components/text/Text";
-import { postListAttendance } from "@/redux/actions";
+import { postListAttendance, removeError } from "@/redux/actions";
 
 const EditableCell = ({
   editing,
@@ -30,7 +30,7 @@ const EditableCell = ({
 };
 
 function TableAssistance({ list, attendance }) {
-  const selectAccess = useSelector(({ root }) => root?.access);
+  const selectError = useSelector(({ root }) => root?.error);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
@@ -132,6 +132,12 @@ function TableAssistance({ list, attendance }) {
 
     setColumns(mergedColumns);
   }, [editingKey, data]);
+
+  // useEffect(() => {
+  //   if (selectError?.error.length) {
+  //     dispatch(removeError());
+  //   }
+  // }, [selectError]);
 
   return (
     <div>
