@@ -12,7 +12,12 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getContactAll, sentClear, removeData } from "@/redux/actions";
+import {
+  getContactAll,
+  sentClear,
+  removeData,
+  assitanceClear,
+} from "@/redux/actions";
 import Notification from "@/components/modal/notification/Notification";
 
 // JAVASCRIP
@@ -37,6 +42,7 @@ function page() {
 
   useEffect(() => {
     dispatch(getContactAll());
+    dispatch(assitanceClear());
     return () => {
       dispatch(removeData());
       dispatch(sentClear());
@@ -71,7 +77,7 @@ function page() {
       </div>
     );
   }
-  
+
   return (
     <div>
       <div>
