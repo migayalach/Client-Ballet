@@ -19,7 +19,12 @@ import {
 } from "@ant-design/icons";
 
 // REDUX
-import { infoClear, getLevelAll, getExtensionAll } from "@/redux/actions";
+import {
+  infoClear,
+  getLevelAll,
+  getExtensionAll,
+  assitanceClear,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -74,6 +79,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(infoClear());
+    dispatch(assitanceClear());
   }, [selectInfo]);
 
   return (

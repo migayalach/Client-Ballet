@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
-import { getListIdAttendance } from "@/redux/actions";
+import { getListIdAttendance, attendanceClear } from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -31,7 +31,7 @@ function page({ params }) {
     dispatch(getListIdAttendance(params?.idAssistance));
 
     return () => {
-      // console.log(":D");
+      dispatch(attendanceClear());
     };
   }, []);
 

@@ -357,6 +357,10 @@ export const Slice = createSlice({
       state.assistance = [];
     },
 
+    clearAttendance: (state, action) => {
+      state.attendance = [];
+    },
+
     //*PASSWORD
     passwordChange: (state, action) => {
       state.aux = action.payload;
@@ -438,6 +442,7 @@ export const {
   clearClass,
   clearStudent,
   clearSuccess,
-  clearAssistance
+  clearAssistance,
+  clearAttendance,
 } = Slice.actions;
 export default Slice.reducer;

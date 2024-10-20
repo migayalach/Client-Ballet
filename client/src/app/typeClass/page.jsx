@@ -15,7 +15,12 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getTypeClassAll, typeClassClear, removeAux } from "@/redux/actions";
+import {
+  getTypeClassAll,
+  typeClassClear,
+  removeAux,
+  assitanceClear,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -39,6 +44,7 @@ function TypeClass() {
   };
 
   useEffect(() => {
+    dispatch(assitanceClear());
     if (!selectFilter.length) {
       dispatch(getTypeClassAll());
     }

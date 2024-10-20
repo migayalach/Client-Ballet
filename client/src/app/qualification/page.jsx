@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getParamsAllIdUser, filterAll } from "@/redux/actions";
+import { getParamsAllIdUser, filterAll, assitanceClear } from "@/redux/actions";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import FloatOption from "@/components/floatOption/FloatOption";
 
@@ -28,6 +28,7 @@ function page() {
   const selectFilter = useSelector((state) => state.root?.filter);
 
   useEffect(() => {
+    dispatch(assitanceClear());
     if (!selectFilter.length) {
       dispatch(getParamsAllIdUser(selectAccess?.dataUser?.idUser));
     }

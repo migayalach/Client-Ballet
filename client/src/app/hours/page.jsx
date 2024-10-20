@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getHoursAll, hoursClear } from "@/redux/actions";
+import { getHoursAll, hoursClear, assitanceClear } from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -39,6 +39,7 @@ function Hours() {
   };
 
   useEffect(() => {
+    dispatch(assitanceClear());
     if (!selectFilter.length) {
       dispatch(getHoursAll());
     }

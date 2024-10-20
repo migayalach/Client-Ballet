@@ -37,7 +37,7 @@ function Assistance() {
 
   const handleUpdate = (idClass, idAssistance) => {
     dispatch(getIdAssistance(idClass, idAssistance));
-    console.log("open modal");
+    // console.log("open modal");
   };
 
   const clearLocalState = () => {
