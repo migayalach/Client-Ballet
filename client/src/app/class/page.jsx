@@ -40,6 +40,10 @@ function page() {
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
 
+  const saveIdClass = (idClass) => {
+    localStorage.setItem("numberClass", JSON.stringify(idClass));
+  };
+
   const clearLocalState = () => {
     setDataState({});
     setFlagAlert(false);
@@ -55,6 +59,7 @@ function page() {
   };
 
   useEffect(() => {
+    // localStorage.removeItem("numberClass");
     if (!selectFilter.length) {
       dispatch(getClassAll(selectAccess?.idUser));
       dispatch(levelClear());
@@ -133,6 +138,7 @@ function page() {
           access={selectAccess?.level}
           handleFlagClass={handleFlagClass}
           handleUpdate={handleUpdate}
+          saveLocalStorage={saveIdClass}
         />
       </div>
 
