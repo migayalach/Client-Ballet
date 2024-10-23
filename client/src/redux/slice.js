@@ -165,7 +165,7 @@ export const Slice = createSlice({
 
     //*QUALIFICATION
     postParamsQualification: (state, action) => {
-      state.qualification = action.payload.results;
+      state.params = action.payload.results;
     },
 
     getListQualification: (state, action) => {
@@ -177,6 +177,10 @@ export const Slice = createSlice({
     //*PARAMS
     getParamsIdUserAll: (state, action) => {
       state.params = action.payload.results;
+      state.info = action.payload.info;
+    },
+
+    deleteParams: (state, action) => {
       state.info = action.payload.info;
     },
 
