@@ -13,7 +13,12 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 // REDUX
-import { getListEventsAll, listClear, removeData, assitanceClear } from "@/redux/actions";
+import {
+  getListEventsAll,
+  listClear,
+  removeData,
+  assitanceClear,
+} from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -62,20 +67,18 @@ function Events() {
         });
       }
     }
-    console.log(selectError);
     if (selectState === "create-event") {
       setDataState({
         action: "create-event",
         state: "success",
         message: "Evento creado con exito",
       });
-    } else if(selectState === "delete-event"){
+    } else if (selectState === "delete-event") {
       setDataState({
         action: "delete-event",
         state: "success",
         message: "Evento eliminado con exito",
       });
-
     } else if (selectError?.error === "Este evento no puede ser eliminado!") {
       setDataState({
         action: "error-delete-event",
