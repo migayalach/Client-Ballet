@@ -2,6 +2,8 @@
 
 // COMPONET'S
 import PaginationComponet from "@/components/pagination/PaginationComponet";
+import TableComponent from "@/components/tableComponent/TableComponent";
+import FloatOption from "@/components/floatOption/FloatOption";
 import Page404 from "@/components/pageResult/Page404";
 
 // HOOK'S
@@ -12,8 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 //REDUX
 import { getParamsAllIdUser, filterAll, assitanceClear } from "@/redux/actions";
-import TableComponent from "@/components/tableComponent/TableComponent";
-import FloatOption from "@/components/floatOption/FloatOption";
 
 // JAVASCRIP
 
@@ -72,6 +72,7 @@ function page() {
           />
         )}
       </div>
+      
       <div>
         <FloatOption
           render="QUALIFICATION"
