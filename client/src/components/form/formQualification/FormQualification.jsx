@@ -10,7 +10,7 @@ import { createParamsQualification } from "@/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
-function FormQualification({ option, handleState, idUser }) {
+function FormQualification({ option, handleState, idUser, idClass }) {
   const dispatch = useDispatch();
   const [list, setList] = useState([]);
   const [flag, setFlag] = useState(false);
@@ -18,8 +18,6 @@ function FormQualification({ option, handleState, idUser }) {
   const [head, setHead] = useState({
     title: "",
     dateTest: "",
-    idClass: 0,
-    class: "",
   });
 
   const [data, setData] = useState({
@@ -35,14 +33,6 @@ function FormQualification({ option, handleState, idUser }) {
 
   const onChangeHeadTitle = (event) => {
     setHead({ ...head, [event.target.name]: event.target.value });
-  };
-
-  const onChangeHeadClass = (idData, name, flag) => {
-    setHead({
-      ...head,
-      idClass: idData,
-      class: name,
-    });
   };
 
   const handleHeadDate = (date, dateString) => {
@@ -81,7 +71,7 @@ function FormQualification({ option, handleState, idUser }) {
   };
 
   const handleSubmitCalification = () => {
-    dispatch(createParamsQualification({ idUser, ...head, params: list }));
+    dispatch(createParamsQualification({ idClass, ...head, params: list }));
     setHead({
       title: "",
       dateTest: "",
@@ -127,20 +117,6 @@ function FormQualification({ option, handleState, idUser }) {
               placeholder="Primer parcial"
               data={head.title}
             />
-          </Form.Item>
-
-          <Form.Item label="Clase">
-            <div>
-              <ModalSelect
-                render="CLASS-IDUSER"
-                handleSelect={onChangeHeadClass}
-                idUser={idUser}
-              />
-              <InputComponent
-                placeholder="Selecciona una clase"
-                data={head.class}
-              />
-            </div>
           </Form.Item>
 
           <Form.Item label="Fecha">
