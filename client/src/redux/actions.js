@@ -70,7 +70,8 @@ import {
   getAllStudent,
   clearSuccess,
   clearAssistance,
-  clearAttendance
+  clearAttendance,
+  deleteParams
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -606,6 +607,7 @@ export const createParamsQualification = (infoData) => {
   return async function (dispatch) {
     try {
       const data = (await axios.post(`${URL}/params`, infoData)).data;
+      dispatch(flagState("create-param"));
       return dispatch(postParamsQualification(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -619,6 +621,41 @@ export const getParamsAllIdUser = (idUser) => {
       const data = (await axios.get(`${URL}/params/${idUser}`)).data;
       return dispatch(getParamsIdUserAll(data));
     } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getPageParams = (idClass, page) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(`${URL}/params?idClass=${idClass}&page=${page}`)
+      ).data;
+      return dispatch(getParamsIdUserAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const updateParams = (infoData) => {
+  return async function (dispatch) {
+    try {
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const removeParams = (idCLass, idParams) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.delete(`${URL}/params/${idCLass}/${idParams}`))
+        .data;        
+      dispatch(flagState("delete-param"));
+      return dispatch(deleteParams(data));
+    } catch (error) {     
       return dispatch(errorResponse(error.response.data));
     }
   };

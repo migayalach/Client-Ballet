@@ -22,6 +22,7 @@ import {
   filterInfo,
   stateClear,
   getPageClassStudent,
+  getPageParams,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -180,7 +181,10 @@ function PaginationComponet({ pages, navegation, idClass }) {
         break;
 
       case "LIST-ASSISTANCE-IDCLASS":
-        if (Object.keys(selectAux).length && selectState === "create-assistance") {
+        if (
+          Object.keys(selectAux).length &&
+          selectState === "create-assistance"
+        ) {
           const number = selectInfo.pages * 20;
           if (selectInfo.count <= number) {
             dispatch(getPageAssistance(idClass, selectInfo.pages));
@@ -232,6 +236,27 @@ function PaginationComponet({ pages, navegation, idClass }) {
           dispatch(stateClear());
         }
         break;
+
+      case "QUALIFICATION-ALL":
+        if (Object.keys(selectAux).length && selectState === "create-param") {
+          const number = selectInfo.pages * 20;
+          if (selectInfo.count <= number) {
+            dispatch(getPageParams(idClass, selectInfo.pages));
+            setCurrent(selectInfo.pages);
+            setTIme();
+          }
+        } else if (selectState === "delete-param") {
+          const lengtHours = selectHours.length;
+          if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
+            dispatch(getPageParams(current));
+            dispatch(stateFlag(""));
+          } else {
+            dispatch(getPageParams(selectInfo.pages));
+            dispatch(stateFlag(""));
+            setCurrent(current - 1);
+          }
+        }
+        return;
 
       default:
         break;

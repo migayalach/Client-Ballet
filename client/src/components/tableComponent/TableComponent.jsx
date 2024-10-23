@@ -11,6 +11,7 @@ import {
   ContainerOutlined,
   EditOutlined,
   ReconciliationOutlined,
+  FolderOpenOutlined,
 } from "@ant-design/icons";
 
 function TableComponent({
@@ -22,28 +23,10 @@ function TableComponent({
   handleNoteUser,
   access,
   handleFlagClass,
+  saveLocalStorage,
 }) {
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
-  };
-
-  const renderOption = (option, idQualification, idClass) => {
-    switch (option) {
-      case "QUALIFICATION":
-        return console.log(
-          "QUALIFICATION: =====> " + idQualification + "-----" + idClass
-        );
-
-      case "UPDATE":
-        return console.log("UPDATE: =====> " + idQualification);
-
-      case "PRINT":
-        alert("DESCARGAR UN EXCEL");
-        return console.log("PRINT: =====> " + idQualification);
-
-      case "REMOVE":
-        return console.log("REMOVE: =====> " + idQualification);
-    }
   };
 
   const columns = [
@@ -143,6 +126,18 @@ function TableComponent({
           onClick={() => handleFlagClass(data.idClass)}
         >
           <ReconciliationOutlined />
+        </Link>
+      ),
+    },
+    {
+      title: "Calificaciones",
+      key: "action",
+      render: (data) => (
+        <Link
+          onClick={() => saveLocalStorage(data.idClass)}
+          href={`/class/qualification`}
+        >
+          <FolderOpenOutlined />
         </Link>
       ),
     },
@@ -383,8 +378,6 @@ function TableComponent({
   const qualificationParamsAll = [
     { title: "N°", dataIndex: "numberItem", key: "numberItem" },
     { title: "Fecha", dataIndex: "dateTest", key: "dateTest" },
-    { title: "Curso", dataIndex: "parallel", key: "parallel" },
-    { title: "Profesor", dataIndex: "teacher", key: "teacher" },
     { title: "Titulo", dataIndex: "title", key: "title" },
     { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
     ...(access === "Profesor"
@@ -403,49 +396,37 @@ function TableComponent({
     {
       title: "Imprimir",
       key: "action",
+      // render: (data) => (
+      //   <DownloadOutlined
+      //     onClick={() => renderOption("PRINT", data.idParams)}
+      //   />
+      // ),
+    },
+    // ...(access === "Profesor"
+    //   ? [
+    {
+      title: "Editar",
+      key: "action",
+    },
+    {
+      title: "Eliminar",
+      key: "action",
       render: (data) => (
-        <DownloadOutlined
-          onClick={() => renderOption("PRINT", data.idParams)}
-        />
+        <ButtonDelete idData={data.idParams} text="Editar" render="PARAMS" />
       ),
     },
-    ...(access === "Profesor"
-      ? [
-          {
-            title: "Eliminar",
-            key: "action",
-            render: (data) => (
-              <DeleteOutlined
-                onClick={() => renderOption("REMOVE", data.idParams)}
-              />
-            ),
-          },
-        ]
-      : []),
+    // ]
+    // : []),
   ];
 
   const qualificationParamasAllMap = (data) => {
     return data?.map(
-      (
-        {
-          idParams,
-          idClass,
-          parallel,
-          nameUser,
-          lastNameUser,
-          dateTest,
-          title,
-          noteFinish,
-        },
-        index
-      ) => ({
+      ({ idParams, idClass, dateTest, title, noteFinish }, index) => ({
         key: index,
         numberItem: index + 1,
         idParams,
         idClass,
         dateTest: dateTest.substring(0, 10),
-        parallel,
-        teacher: `${nameUser} ${lastNameUser}`,
         title,
         noteFinish,
       })

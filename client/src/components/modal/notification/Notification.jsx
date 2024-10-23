@@ -9,7 +9,7 @@ import {
 } from "@/redux/actions";
 
 const Notification = ({ dataState, clearLocalState }) => {
-  console.log(dataState);
+  // console.log(dataState);
 
   const dispatch = useDispatch();
   const [modal, contextHolder] = Modal.useModal();
@@ -132,6 +132,22 @@ const Notification = ({ dataState, clearLocalState }) => {
           content: `${dataState.message}`,
         });
         dispatch(stateClear());
+      } else if (dataState.action === "create-param") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+        dispatch(stateClear());
+      } else if (dataState.action === "edit-param") {
+        instance = modal.info({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+      } else if (dataState.action === "delete-param") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
       }
     } else if (dataState.state === "error") {
       if (dataState.action === "error-create-contact") {
@@ -175,6 +191,12 @@ const Notification = ({ dataState, clearLocalState }) => {
           title: "Operación interrumpida",
           content: `${dataState.message}`,
         });
+      } else if (dataState.action === "error-delete-param") {
+        instance = modal.info({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+        dispatch(removeError());
       }
       dispatch(removeError());
     }

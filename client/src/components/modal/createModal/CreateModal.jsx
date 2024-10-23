@@ -95,15 +95,16 @@ function CreateModal({
           )}
         </div>
 
-        {/* <div>
+        <div>
           {render === "QUALIFICATION" && (
             <FormQualification
               option="create"
               handleState={handleOk}
+              idClass={idClass}
               idUser={idUser}
             />
           )}
-        </div> */}
+        </div>
 
         <div>
           {render === "LIST-ASSISTANCE-IDCLASS" && (

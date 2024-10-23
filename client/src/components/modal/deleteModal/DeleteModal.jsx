@@ -14,6 +14,7 @@ import {
   removeTypeClass,
   removeClass,
   removeEvent,
+  removeParams,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -41,6 +42,11 @@ function DeleteModal({ idData, render }) {
         return dispatch(removeClass(dataUser.idUser, idData));
       case "EVENTS":
         return dispatch(removeEvent(idData));
+      case "PARAMS":
+        return dispatch(
+          removeParams(localStorage.getItem("numberClass"), idData)
+        );
+
       default:
         break;
     }
@@ -63,6 +69,8 @@ function DeleteModal({ idData, render }) {
         return `esta clase`;
       case "EVENTS":
         return `este evento`;
+      case "PARAMS":
+        return `esta evaluacion`;
     }
   };
 
