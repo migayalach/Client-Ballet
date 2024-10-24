@@ -18,6 +18,7 @@ import {
   getByIdClass,
   getByIdUser,
 } from "@/redux/actions";
+import FormQualification from "@/components/form/formQualification/FormQualification";
 
 // COMPONENT
 function EditModal({ idData, dataUser, text, render }) {
@@ -63,6 +64,8 @@ function EditModal({ idData, dataUser, text, render }) {
       showModal();
     } else if (render === "CLASS") {
       showModal();
+    } else if (render === "QUALIFICATION") {
+      showModal();
     }
   }, [render]);
 
@@ -85,6 +88,9 @@ function EditModal({ idData, dataUser, text, render }) {
           <FormTypeClass idData={idData} option="editTypeClass" />
         )}
         {render === "PASSWORD" && <FormPassword handleOk={handleOk} />}
+        {render === "QUALIFICATION" && (
+          <FormQualification idClass={idData} option="editParam" />
+        )}
       </Modal>
     </>
   );
