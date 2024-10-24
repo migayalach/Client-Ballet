@@ -165,13 +165,14 @@ export const Slice = createSlice({
 
     //*QUALIFICATION
     postParamsQualification: (state, action) => {
-      state.params = action.payload.results;
+      state.aux = action.payload.results;
+      state.info = action.payload.info;
     },
 
     getListQualification: (state, action) => {
       state.qualification = action.payload.results;
       state.aux = action.payload.params;
-      state.info = action.payload.info;
+      // state.info = action.payload.info;
     },
 
     //*PARAMS
@@ -180,8 +181,15 @@ export const Slice = createSlice({
       state.info = action.payload.info;
     },
 
+    getIdParam: (state, action) => {
+      state.data = action.payload;
+    },
+
     deleteParams: (state, action) => {
       state.info = action.payload.info;
+    },
+
+    updateParams: (state, action) => {
     },
 
     //*FILTER
@@ -448,5 +456,8 @@ export const {
   clearSuccess,
   clearAssistance,
   clearAttendance,
+  deleteParams,
+  getIdParam,
+  updateParams
 } = Slice.actions;
 export default Slice.reducer;
