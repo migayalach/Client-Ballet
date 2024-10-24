@@ -74,6 +74,7 @@ import {
   deleteParams,
   getIdParam,
   updateParams,
+  clearQualification
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -697,7 +698,7 @@ export const postQualification = (infoData) => {
   return async function (dispatch) {
     try {
       await axios.post(`${URL}/qualification`, infoData);
-      return;
+      return dispatch(flagState("create-qualification"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -1034,6 +1035,16 @@ export const attendanceClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearAttendance());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const qualificationClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearQualification());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
