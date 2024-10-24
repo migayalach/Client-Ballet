@@ -17,7 +17,7 @@ function page({ params }) {
 
   return (
     <div>
-      <p>TABLA CON TODAS LAS CALIFICACIONES DEL ESTUDIANTE</p>
+      <p>TABLA CON TODAS LAS CALIFICACIONES DEL ESTUDIANTE XD</p>
     </div>
   );
 }

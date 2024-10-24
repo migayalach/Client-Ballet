@@ -92,18 +92,6 @@ function NavBar() {
                     label: <Link href="/class">Clases</Link>,
                     key: "class",
                   },
-                  ...(levelUser === "Director" ||
-                  levelUser === "Secretaria" ||
-                  levelUser === "Profesor"
-                    ? [
-                        {
-                          label: (
-                            <Link href="/qualification">Calificationes</Link>
-                          ),
-                          key: "qualications",
-                        },
-                      ]
-                    : []),
                   {
                     label: <Link href="/hours">Horarios</Link>,
                     key: "hours",

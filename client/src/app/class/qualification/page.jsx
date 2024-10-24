@@ -33,10 +33,6 @@ function page() {
     setFlagAlert(false);
   };
 
-  const handleUpdate = () => {};
-
-  const handlePrintInfo = () => {};
-
   if (Object.keys(selectAccess).length === 0) {
     return (
       <div>

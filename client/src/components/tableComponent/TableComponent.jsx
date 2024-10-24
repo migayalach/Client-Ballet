@@ -709,7 +709,7 @@ function TableComponent({
       title: "Calificacion",
       key: "qualification",
       render: ({ idUser, idClass }) => (
-        <Link href={`/qualification/${idUser}/${idClass}`}>
+        <Link href={`/class/qualification/${idUser}/${idClass}`}>
           <ReconciliationOutlined />
         </Link>
       ),
