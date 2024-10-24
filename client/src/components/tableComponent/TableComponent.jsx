@@ -380,22 +380,23 @@ function TableComponent({
     { title: "Fecha", dataIndex: "dateTest", key: "dateTest" },
     { title: "Titulo", dataIndex: "title", key: "title" },
     { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
-    ...(access === "Profesor"
-      ? [
+    // ...(access === "Profesor"
+      // ? [
           {
             title: "Calificar",
             key: "action",
             render: (data) => (
-              <Link href={`/qualification/${data.idParams}`}>
+              <Link href={`/class/qualification/${data.idParams}`}>
                 <ContainerOutlined />
               </Link>
             ),
           },
-        ]
-      : []),
+        // ]
+      // : []),
     {
       title: "Imprimir",
       key: "action",
+      render: () => <DownloadOutlined />,
       // render: (data) => (
       //   <DownloadOutlined
       //     onClick={() => renderOption("PRINT", data.idParams)}
@@ -407,6 +408,13 @@ function TableComponent({
     {
       title: "Editar",
       key: "action",
+      render: (data) => (
+        <ButtonEdit
+          idData={data.idParams}
+          text="Editar"
+          render="QUALIFICATION"
+        />
+      ),
     },
     {
       title: "Eliminar",
