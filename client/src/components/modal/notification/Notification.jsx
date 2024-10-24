@@ -9,8 +9,6 @@ import {
 } from "@/redux/actions";
 
 const Notification = ({ dataState, clearLocalState }) => {
-  // console.log(dataState);
-
   const dispatch = useDispatch();
   const [modal, contextHolder] = Modal.useModal();
   const [isNotified, setIsNotified] = useState(false);
@@ -148,6 +146,12 @@ const Notification = ({ dataState, clearLocalState }) => {
           title: "Operación exitosa",
           content: `${dataState.message}`,
         });
+      } else if (dataState.action === "create-qualification") {
+        instance = modal.success({
+          title: "Operación exitosa",
+          content: `${dataState.message}`,
+        });
+        dispatch(stateClear());
       }
     } else if (dataState.state === "error") {
       if (dataState.action === "error-create-contact") {
@@ -192,6 +196,12 @@ const Notification = ({ dataState, clearLocalState }) => {
           content: `${dataState.message}`,
         });
       } else if (dataState.action === "error-delete-param") {
+        instance = modal.info({
+          title: "Operación interrumpida",
+          content: `${dataState.message}`,
+        });
+        dispatch(removeError());
+      } else if (dataState.action === "error-delete-qualification") {
         instance = modal.info({
           title: "Operación interrumpida",
           content: `${dataState.message}`,
