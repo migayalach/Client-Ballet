@@ -129,7 +129,7 @@ function TableNotes() {
         castingQualification(data[i], quaParams, selectAuxParams?.params)
       );
     }
-    dispatch(postQualification({ idUser, idParams, arrayData }));
+    dispatch(postQualification({ idParams, arrayData }));
   };
 
   useEffect(() => {
@@ -258,7 +258,9 @@ function TableNotes() {
             key: index,
           }))}
           columns={columns}
-          pagination={false}
+          pagination={{
+            pageSize: 20,
+          }}
           rowClassName="editable-row"
         />
         <Button type="primary" onClick={onFinish}>
