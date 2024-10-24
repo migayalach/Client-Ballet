@@ -71,7 +71,9 @@ import {
   clearSuccess,
   clearAssistance,
   clearAttendance,
-  deleteParams
+  deleteParams,
+  getIdParam,
+  updateParams,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -639,9 +641,23 @@ export const getPageParams = (idClass, page) => {
   };
 };
 
-export const updateParams = (infoData) => {
+export const getParmsId = (idClass, idParams) => {
   return async function (dispatch) {
     try {
+      const data = (await axios.get(`${URL}/params/${idClass}/${idParams}`))
+        .data;
+      return dispatch(getIdParam(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const editParams = (infoData) => {
+  return async function (dispatch) {
+    try {
+      const data = (await axios.put(`${URL}/params`, infoData)).data;
+      return dispatch(flagState("edit-param"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -652,22 +668,22 @@ export const removeParams = (idCLass, idParams) => {
   return async function (dispatch) {
     try {
       const data = (await axios.delete(`${URL}/params/${idCLass}/${idParams}`))
-        .data;        
+        .data;
       dispatch(flagState("delete-param"));
       return dispatch(deleteParams(data));
-    } catch (error) {     
+    } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
   };
 };
 
 //*QUALIFICATION
-export const getQualificationAll = (idParams, idUser) => {
+export const getQualificationAll = (idParams) => {
   return async function (dispatch) {
     try {
       const data = (
         await axios.get(
-          `${URL}/qualification?idParams=${idParams}&idUser=${idUser}`
+          `${URL}/qualification?idParams=${idParams}&flag=frontend`
         )
       ).data;
       return dispatch(getListQualification(data));

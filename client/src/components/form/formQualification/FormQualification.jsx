@@ -6,12 +6,18 @@ import { Button, Form } from "antd";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import AreaText from "@/components/areaText/AreaText";
 import DateComponent from "@/components/date/DateComponent";
-import { createParamsQualification } from "@/redux/actions";
+import {
+  createParamsQualification,
+  getParmsId,
+  editParams,
+} from "@/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
-function FormQualification({ option, handleState, idUser, idClass }) {
+function FormQualification({ option, handleState, idClass }) {
   const dispatch = useDispatch();
+  const selectData = useSelector(({ root }) => root?.data);
+  const selectState = useSelector(({ root }) => root?.state);
   const [list, setList] = useState([]);
   const [flag, setFlag] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -71,13 +77,24 @@ function FormQualification({ option, handleState, idUser, idClass }) {
   };
 
   const handleSubmitCalification = () => {
-    dispatch(createParamsQualification({ idClass, ...head, params: list }));
-    setHead({
-      title: "",
-      dateTest: "",
-    });
-    setList([]);
-    handleState();
+    if (option === "editParam") {
+      dispatch(
+        editParams({
+          idClass: selectData?.idClass,
+          idParams: selectData?.idParams,
+          ...head,
+          params: list,
+        })
+      );
+    } else {
+      dispatch(createParamsQualification({ idClass, ...head, params: list }));
+      setHead({
+        title: "",
+        dateTest: "",
+      });
+      setList([]);
+      handleState();
+    }
   };
 
   useEffect(() => {
@@ -93,6 +110,22 @@ function FormQualification({ option, handleState, idUser, idClass }) {
       }, 200);
     }
   }, [flag]);
+
+  useEffect(() => {
+    if (option === "editParam") {
+      dispatch(getParmsId(localStorage.getItem("numberClass"), idClass));
+    }
+  }, [option]);
+
+  useEffect(() => {
+    if (selectData) {
+      setHead({
+        title: selectData?.title,
+        dateTest: selectData?.dateTest?.substring(0, 10),
+      });
+      setList([...selectData?.params]);
+    }
+  }, [selectData]);
 
   return (
     <div>

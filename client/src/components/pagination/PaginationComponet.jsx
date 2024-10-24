@@ -47,6 +47,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const selectContact = useSelector(({ root }) => root?.contact);
   const selectListEvent = useSelector(({ root }) => root?.list);
   const selectStudent = useSelector(({ root }) => root?.student);
+  const selectParams = useSelector(({ root }) => root?.params);
   // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
@@ -246,12 +247,12 @@ function PaginationComponet({ pages, navegation, idClass }) {
             setTIme();
           }
         } else if (selectState === "delete-param") {
-          const lengtHours = selectHours.length;
-          if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
-            dispatch(getPageParams(current));
+          const lengtParams = selectParams.length;
+          if (lengtParams - 1 > 0 && lengtParams - 1 <= 20) {
+            dispatch(getPageParams(idClass, selectInfo.pages));
             dispatch(stateFlag(""));
           } else {
-            dispatch(getPageParams(selectInfo.pages));
+            dispatch(getPageParams(idClass, selectInfo.pages));
             dispatch(stateFlag(""));
             setCurrent(current - 1);
           }
@@ -343,6 +344,12 @@ function PaginationComponet({ pages, navegation, idClass }) {
       // TODO NAVEGACION NORMAL SIN FILTROS - CLASS-STUDENT
       if (selectStudent.length && !selectFilter.length) {
         dispatch(getPageClassStudent(idClass, page));
+        setCurrent(page);
+      }
+    } else if (navegation === "QUALIFICATION-ALL") {
+      // TODO NAVEGACION NORMAL SIN FILTROS - PARAMS
+      if (selectParams.length && !selectFilter.length) {
+        dispatch(getPageParams(idClass, page));
         setCurrent(page);
       }
     }
