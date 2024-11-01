@@ -13,7 +13,11 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { deleteAssistanceDate, getIdAssistance } from "@/redux/actions";
+import {
+  deleteAssistanceDate,
+  getIdAssistance,
+  dataDownload,
+} from "@/redux/actions";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 
 // JAVASCRIP
@@ -37,7 +41,12 @@ function Assistance() {
 
   const handleUpdate = (idClass, idAssistance) => {
     dispatch(getIdAssistance(idClass, idAssistance));
-    // console.log("open modal");
+  };
+
+  const downloadList = (idClass, idAssistance) => {
+    dispatch(
+      dataDownload(selectAccess?.idUser, idClass, idAssistance, "listAssitance")
+    );
   };
 
   const clearLocalState = () => {
@@ -110,6 +119,7 @@ function Assistance() {
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
           access={selectAccess?.level}
+          download={downloadList}
         />
       </div>
       <div>
