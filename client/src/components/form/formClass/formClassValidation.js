@@ -1,6 +1,4 @@
-const formClassValidate = (data) => {
-  console.log(data);
-  
+const formClassValidate = (data) => {  
   const errors = {};
   if (data.idUser === 0) {
     errors.user = "Por favor asigne un profesor a esta clase!";

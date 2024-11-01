@@ -13,7 +13,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 //REDUX
-import { getParamsAllIdUser, filterAll, assitanceClear } from "@/redux/actions";
+import {
+  getParamsAllIdUser,
+  filterAll,
+  assitanceClear,
+  dataDownload,
+} from "@/redux/actions";
 
 function page() {
   const dispatch = useDispatch();
@@ -48,6 +53,18 @@ function page() {
       </div>
     );
   }
+
+  const downloadList = (idClass, idParams) => {
+    dispatch(
+      dataDownload(
+        selectAccess?.idUser,
+        idClass,
+        "",
+        "listQualification",
+        idParams
+      )
+    );
+  };
 
   useEffect(() => {
     if (selectState === "create-param") {
@@ -107,6 +124,7 @@ function page() {
           data={selectListParams}
           render="QUALIFICATION-ALL"
           access={accessLevel}
+          download={downloadList}
         />
       </div>
 

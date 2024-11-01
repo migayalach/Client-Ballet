@@ -24,6 +24,7 @@ function TableComponent({
   access,
   handleFlagClass,
   saveLocalStorage,
+  download,
 }) {
   const select = (idData, name, flag) => {
     modal(idData, name, flag);
@@ -139,6 +140,15 @@ function TableComponent({
         >
           <FolderOpenOutlined />
         </Link>
+      ),
+    },
+    {
+      title: "Descargar",
+      key: "download",
+      render: ({ idClass }) => (
+        <a onClick={() => download(idClass)}>
+          <DownloadOutlined />
+        </a>
       ),
     },
     {
@@ -381,27 +391,26 @@ function TableComponent({
     { title: "Titulo", dataIndex: "title", key: "title" },
     { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
     // ...(access === "Profesor"
-      // ? [
-          {
-            title: "Calificar",
-            key: "action",
-            render: (data) => (
-              <Link href={`/class/qualification/${data.idParams}`}>
-                <ContainerOutlined />
-              </Link>
-            ),
-          },
-        // ]
-      // : []),
+    // ? [
+    {
+      title: "Calificar",
+      key: "action",
+      render: (data) => (
+        <Link href={`/class/qualification/${data.idParams}`}>
+          <ContainerOutlined />
+        </Link>
+      ),
+    },
+    // ]
+    // : []),
     {
       title: "Imprimir",
-      key: "action",
-      render: () => <DownloadOutlined />,
-      // render: (data) => (
-      //   <DownloadOutlined
-      //     onClick={() => renderOption("PRINT", data.idParams)}
-      //   />
-      // ),
+      key: "download",
+      render: ({ idClass, idParams }) => (
+        <a onClick={() => download(idClass, idParams)}>
+          <DownloadOutlined />
+        </a>
+      ),
     },
     // ...(access === "Profesor"
     //   ? [
@@ -595,8 +604,8 @@ function TableComponent({
     {
       title: "Descargar",
       key: "download",
-      render: ({ idAssistance }) => (
-        <a>
+      render: ({ idClass, idAssistance }) => (
+        <a onClick={() => download(idClass, idAssistance)}>
           <DownloadOutlined />
         </a>
       ),
@@ -704,24 +713,6 @@ function TableComponent({
         let text = stateUser ? "Habilidato" : "Deshabilitado";
         return <Tag color={color}>{text}</Tag>;
       },
-    },
-    {
-      title: "Calificacion",
-      key: "qualification",
-      render: ({ idUser, idClass }) => (
-        <Link href={`/class/qualification/${idUser}/${idClass}`}>
-          <ReconciliationOutlined />
-        </Link>
-      ),
-    },
-    {
-      title: "Asistencia",
-      key: "assistances",
-      render: ({ idUser, idClass }) => (
-        <Link href={`/class/assistance/${idUser}/${idClass}`}>
-          <ReconciliationOutlined />
-        </Link>
-      ),
     },
     ...(access === "Director" || access === "Secretaria"
       ? [
