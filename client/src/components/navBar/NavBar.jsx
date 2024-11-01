@@ -127,10 +127,6 @@ function NavBar() {
                     key: "changePassword",
                   },
                   {
-                    label: "Informacion",
-                    key: "setting:2",
-                  },
-                  {
                     label: <a href="/">Salir</a>,
                     key: "out",
                   },
