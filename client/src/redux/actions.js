@@ -74,7 +74,7 @@ import {
   deleteParams,
   getIdParam,
   updateParams,
-  clearQualification
+  clearQualification,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -1045,6 +1045,53 @@ export const qualificationClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearQualification());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+// DOWNLOAD
+export const dataDownload = (idUser, idClass, idAssistance, option, idParams) => {
+  return async function (dispatch) {
+    try {
+      let response = null;
+      if (option === "listQualification") {
+        response = await axios.get(
+          `${URL}/download?idUser=${idUser}&idClass=${idClass}&idParams=${idParams}&option=${option}`,
+          {
+            responseType: "blob", // Esto indica que la respuesta es un archivo
+          }
+        );
+      } else {
+        response = await axios.get(
+          `${URL}/download?idUser=${idUser}&idClass=${idClass}&idAssistance=${idAssistance}&option=${option}`,
+          {
+            responseType: "blob", // Esto indica que la respuesta es un archivo
+          }
+        );
+      }
+
+      // Crear un enlace para la descarga del archivo
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Asignar nombre del archivo según la opción
+      link.setAttribute(
+        "download",
+        option === "listStudents"
+          ? "lista-estudiantes.pdf"
+          : option === "listAssitance"
+          ? "lista-asistencia.xlsx"
+          : "lista-calificaciones.xlsx"
+      );
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      return;
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
