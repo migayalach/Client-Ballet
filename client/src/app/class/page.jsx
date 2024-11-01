@@ -23,6 +23,7 @@ import {
   extensionClear,
   typeClassClear,
   userClear,
+  dataDownload,
 } from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
@@ -56,6 +57,10 @@ function page() {
 
   const handleUpdate = (idClass) => {
     console.log(idClass);
+  };
+
+  const downloadList = (idClass) => {
+    dispatch(dataDownload(selectAccess?.idUser, idClass, "", "listStudents"));
   };
 
   useEffect(() => {
@@ -139,6 +144,7 @@ function page() {
           handleFlagClass={handleFlagClass}
           handleUpdate={handleUpdate}
           saveLocalStorage={saveIdClass}
+          download={downloadList}
         />
       </div>
 
