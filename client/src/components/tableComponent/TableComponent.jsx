@@ -714,24 +714,6 @@ function TableComponent({
         return <Tag color={color}>{text}</Tag>;
       },
     },
-    {
-      title: "Calificacion",
-      key: "qualification",
-      render: ({ idUser, idClass }) => (
-        <Link href={`/class/qualification/${idUser}/${idClass}`}>
-          <ReconciliationOutlined />
-        </Link>
-      ),
-    },
-    {
-      title: "Asistencia",
-      key: "assistances",
-      render: ({ idUser, idClass }) => (
-        <Link href={`/class/assistance/${idUser}/${idClass}`}>
-          <ReconciliationOutlined />
-        </Link>
-      ),
-    },
     ...(access === "Director" || access === "Secretaria"
       ? [
           {
