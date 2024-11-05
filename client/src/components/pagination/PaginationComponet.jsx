@@ -2,7 +2,7 @@
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
-import { Pagination } from "antd";
+import { Alert, Pagination } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
@@ -23,6 +23,7 @@ import {
   stateClear,
   getPageClassStudent,
   getPageParams,
+  filterPrevNext,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -338,6 +339,12 @@ function PaginationComponet({ pages, navegation, idClass }) {
       // TODO NAVEGACION NORMAL SIN FILTROS - EVENTS
       if (selectListEvent.length && !selectFilter.length) {
         dispatch(getPageEvent(page));
+        setCurrent(page);
+      }
+      if (selectFilter.length > 0) {
+        let URL = selectInfo.next.length;
+        URL = selectInfo.next.substring(0, URL - 1);
+        dispatch(filterPrevNext(`${URL}${page}`));
         setCurrent(page);
       }
     } else if (navegation === "CLASS-STUDENT") {
