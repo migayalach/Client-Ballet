@@ -5,6 +5,7 @@ import FloatOption from "@/components/floatOption/FloatOption";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import Loading from "@/components/pageResult/Loading";
 import Notification from "@/components/modal/notification/Notification";
+import ListEventFilter from "@/components/filters/listEventFilter/ListEventFilter";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
@@ -23,6 +24,7 @@ import {
 // JAVASCRIP
 
 // STYLESHEET
+import "./events.css";
 
 function Events() {
   const dispatch = useDispatch();
@@ -51,6 +53,15 @@ function Events() {
       dispatch(listClear());
     };
   }, []);
+
+  // useEffect(() => {
+  //   if (
+  //     selectFilter.length
+  //     // && !selectList.length
+  //   ) {
+  //     console.log("filtross");
+  //   }
+  // }, [selectFilter]);
 
   useEffect(() => {
     if (selectState === "login") {
@@ -100,10 +111,15 @@ function Events() {
 
   return (
     <div>
-      <div>Filter</div>
-
       <div>
-        <ListContainer list={selectList} access={selectAccess?.level} />
+        <ListEventFilter />
+      </div>
+
+      <div className="list-container">
+        <ListContainer
+          list={selectList.length ? selectList : selectFilter}
+          access={selectAccess?.level}
+        />
       </div>
 
       <div>
