@@ -75,6 +75,7 @@ import {
   getIdParam,
   updateParams,
   clearQualification,
+  getUpdateFilter,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -495,6 +496,36 @@ export const filterInfo = (flag, infoData) => {
       const data = (await axios.get(`${URL}/filter?flag=${flag}&${infoData}`))
         .data;
       return dispatch(getFilter(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterSet = ({ search, data, page }) => {
+  return async function (dispatch) {
+    try {
+      const response = (
+        await axios.get(
+          `${URL}/filter?search=${search}&data=${data}&page=${page}`
+        )
+      ).data;
+      return dispatch(getFilter(response));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterPrevNext = (info) => {
+  console.log(info);
+  
+  return async function (dispatch) {
+    try {
+      const response = (await axios.get(info)).data;
+      console.log(response);
+      
+      return dispatch(getUpdateFilter(response));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
@@ -1052,7 +1083,13 @@ export const qualificationClear = () => {
 };
 
 // DOWNLOAD
-export const dataDownload = (idUser, idClass, idAssistance, option, idParams) => {
+export const dataDownload = (
+  idUser,
+  idClass,
+  idAssistance,
+  option,
+  idParams
+) => {
   return async function (dispatch) {
     try {
       let response = null;
