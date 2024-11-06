@@ -195,33 +195,37 @@ export const Slice = createSlice({
     getFilter: (state, action) => {
       state.filter = action.payload.results;
       state.info = action.payload.info;
-      state.contact = [];
+      state.list = [];
     },
 
-    getFilterAll: (state, action) => {
-      state.filterAll = action.payload;
+    getUpdateFilter: (state, action) => {
+      state.filter = action.payload.results;
     },
 
-    setFilterAll: (state, action) => {
-      state.filterAll = [];
-    },
+    // getFilterAll: (state, action) => {
+    //   state.filterAll = action.payload;
+    // },
 
-    setFilterState: (state, action) => {
-      state[action.payload] = [];
-    },
+    // setFilterAll: (state, action) => {
+    //   state.filterAll = [];
+    // },
 
-    clearFilter: (state, action) => {
-      state.filter = [];
-      state.state = "";
-    },
+    // setFilterState: (state, action) => {
+    //   state[action.payload] = [];
+    // },
 
-    flagState: (state, action) => {
-      state.state = action.payload;
-    },
+    // clearFilter: (state, action) => {
+    //   state.filter = [];
+    //   state.state = "";
+    // },
 
-    clearState: (state, action) => {
-      state.state = "";
-    },
+    // flagState: (state, action) => {
+    //   state.state = action.payload;
+    // },
+
+    // clearState: (state, action) => {
+    //   state.state = "";
+    // },
 
     //!LOGIN
     loginUser: (state, action) => {
@@ -463,5 +467,6 @@ export const {
   getIdParam,
   updateParams,
   clearQualification,
+  getUpdateFilter
 } = Slice.actions;
 export default Slice.reducer;

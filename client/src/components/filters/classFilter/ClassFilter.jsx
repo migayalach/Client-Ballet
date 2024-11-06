@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Form, Button, Input } from "antd";
+// COMPONET'S
 import SelectComponet from "@/components/select/SelectComponet";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
+import InputComponent from "@/components/inputComponent/InputComponent";
 import Text from "@/components/text/Text";
 import State from "@/components/state/State";
+
+// HOOK'S
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// LIBRARY
+import { Form, Button } from "antd";
+
+// REDUX
 import {
   getUserAll,
   getExtensionAll,
@@ -14,8 +23,6 @@ import {
   stateFlag,
   filterURL,
 } from "@/redux/actions";
-import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
-import InputComponent from "@/components/inputComponent/InputComponent";
 
 function UserFilter() {
   const dispatch = useDispatch();
