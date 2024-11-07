@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "antd";
+// COMPONET'S
 import SelectComponet from "../../select/SelectComponet";
-import { useSelector, useDispatch } from "react-redux";
 import Text from "@/components/text/Text";
+
+// HOOK'S
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+// LIBRARY
+import { Form, Button } from "antd";
+
+// REDUX
 import {
-  filter,
   filterClear,
-  stateFlag,
-  filterURL,
+  filterSet,
   getTypeClassAll,
+  filterURL,
+  stateFlag,
 } from "@/redux/actions";
+
+// STYLESHEET
 
 function TypeClassFilter() {
   const dispatch = useDispatch();
@@ -29,17 +38,13 @@ function TypeClassFilter() {
   };
 
   const onFinish = () => {
-    let search = "search=typeHours&";
-    if (data.order.trim()) {
-      search += `order=${data.order}&`;
-    }
-    dispatch(filter(`${search}page=1`, "typeClass"));
-    dispatch(filterURL(`${search}page=`));
-    dispatch(stateFlag("filter"));
+    dispatch(
+      filterSet({ search: "typeClass", data: JSON.stringify(data), page: 1 })
+    );
   };
 
   const onClickClearData = () => {
-    dispatch(stateFlag("clear"));
+    dispatch(stateFlag("filter-request"));
     setTimeout(() => {
       dispatch(filterClear());
       dispatch(getTypeClassAll());
@@ -49,6 +54,7 @@ function TypeClassFilter() {
         order: "",
       });
       dispatch(filterURL(""));
+      dispatch(stateFlag(""));
     }, 10);
   };
 
