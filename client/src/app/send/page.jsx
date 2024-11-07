@@ -9,8 +9,6 @@ import Page404 from "@/components/pageResult/Page404";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// LIBRARY
-
 //REDUX
 import {
   getContactAll,
@@ -19,8 +17,6 @@ import {
   assitanceClear,
 } from "@/redux/actions";
 import Notification from "@/components/modal/notification/Notification";
-
-// JAVASCRIP
 
 // STYLESHEET'
 
@@ -41,8 +37,10 @@ function page() {
   };
 
   useEffect(() => {
-    dispatch(getContactAll());
-    dispatch(assitanceClear());
+    if (!selectFilter.length) {
+      dispatch(getContactAll());
+      dispatch(assitanceClear());
+    }
     return () => {
       dispatch(removeData());
       dispatch(sentClear());
