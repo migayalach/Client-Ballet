@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "antd";
+// COMPONET'S
 import SelectComponet from "../../select/SelectComponet";
-import { useSelector, useDispatch } from "react-redux";
 import Text from "@/components/text/Text";
-import {
-  filter,
-  filterClear,
-  stateFlag,
-  filterURL,
-  getHoursAll,
-} from "@/redux/actions";
-import Check from "@/components/checkBox/Check";
 import State from "@/components/state/State";
+
+// HOOK'S
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+// LIBRARY
+import { Form, Button } from "antd";
+
+// REDUX
+import {
+  filterClear,
+  filterSet,
+  getHoursAll,
+  filterURL,
+  stateFlag,
+} from "@/redux/actions";
+
+// STYLESHEET
 
 function HoursFilter() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     order: "",
-    totalTime: false,
-    stateCheck: false,
-    stateHours: false,
+    state: false,
   });
 
   const [form] = Form.useForm();
@@ -33,37 +39,21 @@ function HoursFilter() {
     });
   };
 
-  const onChangeCheckBox = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
   const onChangeState = (boolean) => {
     setData({
       ...data,
-      stateHours: boolean,
+      state: boolean,
     });
   };
 
   const onFinish = () => {
-    let search = "search=hours&";
-    if (data.order.trim()) {
-      search += `order=${data.order}&`;
-    }
-    if (data.totalTime && !data.stateCheck) {
-      search += `totalTime=${data.totalTime}&`;
-    } else if (data.stateCheck && !data.totalTime) {
-      search += `stateHours=${data.stateHours}&`;
-    }
-    dispatch(filter(`${search}page=1`, "hours"));
-    dispatch(filterURL(`${search}page=`));
-    dispatch(stateFlag("filter"));
+    dispatch(
+      filterSet({ search: "hours", data: JSON.stringify(data), page: 1 })
+    );
   };
 
   const onClickClearData = () => {
-    dispatch(stateFlag("clear"));
+    dispatch(stateFlag("filter-request"));
     setTimeout(() => {
       dispatch(filterClear());
       dispatch(getHoursAll());
@@ -71,8 +61,10 @@ function HoursFilter() {
       form.resetFields();
       setData({
         order: "",
+        state: false,
       });
       dispatch(filterURL(""));
+      dispatch(stateFlag(""));
     }, 10);
   };
 
@@ -98,34 +90,15 @@ function HoursFilter() {
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="Duracion" name="checkDuration">
-          <Check
-            checkState={data.totalTime}
-            handleChange={onChangeCheckBox}
-            name="totalTime"
-            disabled={data.stateCheck ? true : false}
-          />
+        <Form.Item label="State" name="state">
+          <State state={data.state} handleChange={onChangeState} />
         </Form.Item>
-
-        <Form.Item label="Estado" name="checkState">
-          <Check
-            checkState={data.stateCheck}
-            handleChange={onChangeCheckBox}
-            name="stateCheck"
-            disabled={data.totalTime ? true : false}
-          />
-        </Form.Item>
-
-        {data.stateCheck && (
-          <Form.Item label="State" name="stateHours">
-            <State stateHours={data.stateHours} handleChange={onChangeState} />
-          </Form.Item>
-        )}
 
         <Button type="primary" htmlType="submit">
           <Text text="Buscar" />
         </Button>
       </Form>
+
       <Button type="primary" htmlType="submit" onClick={onClickClearData}>
         <Text text="Limpiar" />
       </Button>
