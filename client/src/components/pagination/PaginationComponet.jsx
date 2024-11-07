@@ -19,7 +19,6 @@ import {
   getPageAssistance,
   getPageContact,
   getPageEvent,
-  filterInfo,
   stateClear,
   getPageClassStudent,
   getPageParams,
@@ -91,14 +90,21 @@ function PaginationComponet({ pages, navegation, idClass }) {
       case "TYPE-CLASS":
         if (selectState === "edit-typeClass") {
           if (selectFilter.length > 0 && !selectTypeClass.length) {
-            dispatch(filter(`${selectFilterURL}${current}`));
+            dispatch(filterPrevNext(`${selectFilterURL}${current}`));
           } else {
             dispatch(getPageTypeClass(current));
           }
           dispatch(stateFlag(""));
         } else if (selectState === "delete-typeClass") {
-          if (selectFilterURL !== "") {
-            dispatch(filter(`${selectFilterURL}${current}`));
+          const hasFilterURL = selectFilterURL !== "";
+          const filterLength = selectFilter.length;
+
+          if (hasFilterURL) {
+            if (filterLength === 1) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current - 1}`));
+            } else if (filterLength > 1 && filterLength <= 20) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current}`));
+            }
           } else {
             const lengtTypeClass = selectTypeClass.length;
             if (lengtTypeClass - 1 > 0 && lengtTypeClass - 1 <= 20) {
@@ -131,20 +137,32 @@ function PaginationComponet({ pages, navegation, idClass }) {
           }
         } else if (selectState === "edit-hour") {
           if (selectFilter.length > 0 && !selectHours.length) {
-            dispatch(filter(`${selectFilterURL}${current}`));
+            dispatch(filterPrevNext(`${selectFilterURL}${current}`));
           } else {
             dispatch(getPageHours(current));
           }
           dispatch(stateFlag(""));
         } else if (selectState === "delete-hour") {
-          const lengtHours = selectHours.length;
-          if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
-            dispatch(getPageHours(current));
-            dispatch(stateFlag(""));
+          if (selectHours.length > 0 && !selectFilter.length) {
+            const lengtHours = selectHours.length;
+            if (lengtHours - 1 > 0 && lengtHours - 1 <= 20) {
+              dispatch(getPageHours(current));
+              dispatch(stateFlag(""));
+            } else {
+              dispatch(getPageHours(selectInfo.pages));
+              dispatch(stateFlag(""));
+              setCurrent(current - 1);
+            }
           } else {
-            dispatch(getPageHours(selectInfo.pages));
-            dispatch(stateFlag(""));
-            setCurrent(current - 1);
+            const lengtFilter = selectFilter.length;
+            if (lengtFilter - 1 > 0 && lengtFilter - 1 <= 20) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current}`));
+              dispatch(stateFlag(""));
+            } else {
+              dispatch(filterPrevNext(`${selectFilterURL}${current - 1}`));
+              dispatch(stateFlag(""));
+              setCurrent(current - 1);
+            }
           }
         }
         break;
@@ -218,11 +236,21 @@ function PaginationComponet({ pages, navegation, idClass }) {
 
       case "CONTACT":
         if (selectState === "edit") {
-          // if (selectFilter.length > 0 && !selectTypeClass.length) {
-          // dispatch(filter(`${selectFilterURL}${current}`));
-          // } else {
-          dispatch(getPageContact(current));
-          // }
+          if (!selectFilter.length && selectContact.length > 0) {
+            dispatch(getPageContact(current));
+          } else if (selectFilter.length > 0 && !selectContact.length) {
+            if (selectFilter.length === 1) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current - 1}`));
+            } else if (selectFilter.length > 1 && selectFilter.length <= 20) {
+              if (selectInfo?.next !== null) {
+                let URL = selectInfo.next.length;
+                URL = selectInfo.next.substring(0, URL - 1);
+                dispatch(filterPrevNext(`${URL}${current}`));
+              } else {
+                dispatch(filterPrevNext(`${selectFilterURL}${current}`));
+              }
+            }
+          }
           dispatch(stateFlag(""));
         }
         break;
@@ -290,7 +318,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
       }
       // TODO NAVEGACION CON FILTROS
       if (selectFilterURL.length > 0) {
-        dispatch(filter(`${selectFilterURL}${page}`));
+        dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
     } else if (navegation === "HOURS") {
@@ -299,7 +327,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         setCurrent(page);
       }
       if (selectFilterURL.length > 0) {
-        dispatch(filter(`${selectFilterURL}${page}`));
+        dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
     } else if (navegation === "CLASS") {
@@ -330,9 +358,9 @@ function PaginationComponet({ pages, navegation, idClass }) {
       }
       // TODO NAVEGACION CON FILTROS
       if (selectFilter.length > 0) {
-        console.log(selectInfo);
-
-        dispatch(filterInfo(`${selectFilterURL}${page}`));
+        let URL = selectInfo.next.length;
+        URL = selectInfo.next.substring(0, URL - 1);
+        dispatch(filterPrevNext(`${URL}${page}`));
         setCurrent(page);
       }
     } else if (navegation === "EVENTS") {
@@ -367,7 +395,11 @@ function PaginationComponet({ pages, navegation, idClass }) {
   }, [selectAux, selectState]);
 
   useEffect(() => {
-    if (selectState === "clear" || selectState === "filter") {
+    if (
+      selectState === "clear" ||
+      selectState === "filter" ||
+      selectState === "filter-request"
+    ) {
       setCurrent(1);
       dispatch(stateFlag(""));
     }
