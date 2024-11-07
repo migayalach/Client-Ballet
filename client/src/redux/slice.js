@@ -196,10 +196,14 @@ export const Slice = createSlice({
       state.filter = action.payload.results;
       state.info = action.payload.info;
       state.list = [];
+      state.contact = [];
+      state.typeClass = [];
+      state.hours = [];
     },
 
     getUpdateFilter: (state, action) => {
       state.filter = action.payload.results;
+      state.info = action.payload.info;
     },
 
     // getFilterAll: (state, action) => {
@@ -214,18 +218,18 @@ export const Slice = createSlice({
     //   state[action.payload] = [];
     // },
 
-    // clearFilter: (state, action) => {
-    //   state.filter = [];
-    //   state.state = "";
-    // },
+    clearFilter: (state, action) => {
+      state.filter = [];
+      state.state = "";
+    },
 
-    // flagState: (state, action) => {
-    //   state.state = action.payload;
-    // },
+    flagState: (state, action) => {
+      state.state = action.payload;
+    },
 
-    // clearState: (state, action) => {
-    //   state.state = "";
-    // },
+    clearState: (state, action) => {
+      state.state = "";
+    },
 
     //!LOGIN
     loginUser: (state, action) => {
@@ -467,6 +471,6 @@ export const {
   getIdParam,
   updateParams,
   clearQualification,
-  getUpdateFilter
+  getUpdateFilter,
 } = Slice.actions;
 export default Slice.reducer;

@@ -46,41 +46,41 @@ function Filters() {
   };
 
   const onFinish = () => {
-    let search = "search=user&";
-    if (data.order.trim()) {
-      search += `order=${data.order}&`;
-    }
-    if (data.nameOrLastName.trim()) {
-      search += `nameOrLastName=${data.nameOrLastName}&`;
-    }
-    if (data.idLevel > 0) {
-      search += `idLevel=${data.idLevel}&`;
-    }
-    if (data.idExtension > 0) {
-      search += `idExtension=${data.idExtension}&`;
-    }
-    search += `stateUser=${data.stateUser}&`;
-    dispatch(filter(`${search}page=1`, "user"));
-    dispatch(filterURL(`${search}page=`));
-    dispatch(stateFlag("filter"));
+    // let search = "search=user&";
+    // if (data.order.trim()) {
+    //   search += `order=${data.order}&`;
+    // }
+    // if (data.nameOrLastName.trim()) {
+    //   search += `nameOrLastName=${data.nameOrLastName}&`;
+    // }
+    // if (data.idLevel > 0) {
+    //   search += `idLevel=${data.idLevel}&`;
+    // }
+    // if (data.idExtension > 0) {
+    //   search += `idExtension=${data.idExtension}&`;
+    // }
+    // search += `stateUser=${data.stateUser}&`;
+    // dispatch(filter(`${search}page=1`, "user"));
+    // dispatch(filterURL(`${search}page=`));
+    // dispatch(stateFlag("filter"));
   };
 
   const onClickClearData = () => {
-    dispatch(stateFlag("clear"));
-    setTimeout(() => {
-      dispatch(filterClear());
-      dispatch(getUserAll());
-      //TODO  Resetea los campos del formulario - ANTDESING
-      form.resetFields();
-      setData({
-        order: "",
-        nameOrLastName: "",
-        idLevel: 0,
-        idExtension: 0,
-        stateUser: false,
-      });
-      dispatch(filterURL(""));
-    }, 10);
+    // dispatch(stateFlag("clear"));
+    // setTimeout(() => {
+    //   dispatch(filterClear());
+    //   dispatch(getUserAll());
+    //   //TODO  Resetea los campos del formulario - ANTDESING
+    //   form.resetFields();
+    //   setData({
+    //     order: "",
+    //     nameOrLastName: "",
+    //     idLevel: 0,
+    //     idExtension: 0,
+    //     stateUser: false,
+    //   });
+    //   dispatch(filterURL(""));
+    // }, 10);
   };
 
   useEffect(() => {
@@ -119,13 +119,6 @@ function Filters() {
             list={selectLevel}
             handleChange={handleChange}
             flag="Level"
-          />
-        </Form.Item>
-        <Form.Item label="Carnet" name="extension">
-          <SelectComponet
-            list={selectExtension}
-            handleChange={handleChange}
-            flag="Extension"
           />
         </Form.Item>
         <Form.Item label="Estado" name="state">

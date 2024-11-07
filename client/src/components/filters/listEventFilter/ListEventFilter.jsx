@@ -4,14 +4,19 @@ import Text from "@/components/text/Text";
 import DateComponent from "@/components/date/DateComponent";
 
 // HOOK'S
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // LIBRARY
 import { Form, Button } from "antd";
 
 // REDUX
-import { filterSet } from "@/redux/actions";
+import {
+  filterSet,
+  stateFlag,
+  filterClear,
+  getListEventsAll,
+} from "@/redux/actions";
 
 // STYLESHEET
 import "./list-event-filter.css";
@@ -55,10 +60,18 @@ function ListEventFilter() {
   };
 
   const onClickClearData = () => {
-    
+    dispatch(stateFlag("clear"));
+    setTimeout(() => {
+      dispatch(filterClear());
+      dispatch(getListEventsAll());
+      form.resetFields();
+      setData({
+        dateStart: "",
+        dateEnd: "",
+        order: "",
+      });
+    }, 10);
   };
-
-  console.log(data);
 
   return (
     <div className="container-filter">

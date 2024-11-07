@@ -1,60 +1,84 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "antd";
-import { useDispatch } from "react-redux";
+// COMPONET'S
+import SelectComponet from "@/components/select/SelectComponet";
 import Text from "@/components/text/Text";
-import { DatePicker } from "antd";
-import dayjs from "dayjs";
 import State from "@/components/state/State";
-import { filterClear, stateFlag, filterURL, filterInfo, getContactAll } from "@/redux/actions";
-import { castingURL } from "@/redux/castingURL";
+
+// HOOK'S
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+// LIBRARY
+import { Form, Button } from "antd";
+import { DatePicker } from "antd";
+
+// REDUX
+import {
+  filterClear,
+  filterSet,
+  getContactAll,
+  filterURL,
+} from "@/redux/actions";
+
+// STYLESHEET
 
 function SendFilter() {
   const dispatch = useDispatch();
   const [data, setData] = useState({
-    from: "",
-    to: "",
-    stateContact: false,
+    dateStart: "",
+    dateEnd: "",
+    state: false,
+    order: "",
   });
 
   const [form] = Form.useForm();
 
+  const handleChange = (event) => {
+    const key = event.key ? event.title : event.target.name;
+    const value = event.key ? event.key : event.target.value;
+    setData({
+      ...data,
+      [key]: value,
+    });
+  };
+
   const handleFromDate = (date, dateString) => {
     setData({
       ...data,
-      from: dateString,
+      dateStart: dateString,
     });
   };
 
   const handToDate = (date, dateString) => {
     setData({
       ...data,
-      to: dateString,
+      dateEnd: dateString,
     });
   };
 
   const onChangeState = (boolean) => {
     setData({
       ...data,
-      stateContact: boolean,
+      state: boolean,
     });
   };
 
   const onFinish = () => {
-    const queryRes = castingURL(data);
-    dispatch(filterInfo("send", queryRes));
+    dispatch(
+      filterSet({ search: "contact", data: JSON.stringify(data), page: 1 })
+    );
   };
 
   const onClickClearData = () => {
-    dispatch(stateFlag("clear"));
     setTimeout(() => {
       dispatch(filterClear());
       dispatch(getContactAll());
       //TODO  Resetea los campos del formulario - ANTDESING
       form.resetFields();
       setData({
-        from: "",
-        to: "",
-        stateContact: false,
+        dateStart: "",
+        dateEnd: "",
+        state: false,
+        order: "",
       });
       dispatch(filterURL(""));
     }, 10);
@@ -78,13 +102,16 @@ function SendFilter() {
         }}
         onFinish={onFinish}
       >
-        <Form.Item label="Desde" name="from">
+        <Form.Item label="Desde" name="dateStart">
           <DatePicker placeholder={"2010-09-03"} onChange={handleFromDate} />
         </Form.Item>
-        <Form.Item label="Hasta" name="to">
+        <Form.Item label="Hasta" name="dateEnd">
           <DatePicker placeholder={"2010-09-03"} onChange={handToDate} />
         </Form.Item>
-        <Form.Item label="Estado" name="stateContact">
+        <Form.Item label="Orden" name="order">
+          <SelectComponet handleChange={handleChange} flag="Order" />
+        </Form.Item>
+        <Form.Item label="Estado" name="state">
           <State handleChange={onChangeState} />
         </Form.Item>
         <Button type="primary" htmlType="submit">

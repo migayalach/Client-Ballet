@@ -121,7 +121,7 @@ const FormHours = ({ idData, option, handleState }) => {
         <TotalHours name="total" hours={data.totalTime} />
       </Form.Item>
 
-      {option === "edit" && (
+      {option === "editHour" && (
         <Form.Item
           label="Estado de clase"
           valuePropName="checked"
