@@ -510,6 +510,10 @@ export const filterSet = ({ search, data, page }) => {
           `${URL}/filter?search=${search}&data=${data}&page=${page}`
         )
       ).data;
+      dispatch(
+        URLFilter(`${URL}/filter?search=${search}&data=${data}&page=`)
+      );
+      dispatch(stateFlag("filter-request"))
       return dispatch(getFilter(response));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -518,14 +522,19 @@ export const filterSet = ({ search, data, page }) => {
 };
 
 export const filterPrevNext = (info) => {
-  console.log(info);
-  
   return async function (dispatch) {
     try {
       const response = (await axios.get(info)).data;
-      console.log(response);
-      
       return dispatch(getUpdateFilter(response));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterActions = (info) => {
+  return async function (dispatch) {
+    try {
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
