@@ -11,8 +11,6 @@ import ListEventFilter from "@/components/filters/listEventFilter/ListEventFilte
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// LIBRARY
-
 // REDUX
 import {
   getListEventsAll,
@@ -20,8 +18,6 @@ import {
   removeData,
   assitanceClear,
 } from "@/redux/actions";
-
-// JAVASCRIP
 
 // STYLESHEET
 import "./events.css";
@@ -53,15 +49,6 @@ function Events() {
       dispatch(listClear());
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (
-  //     selectFilter.length
-  //     // && !selectList.length
-  //   ) {
-  //     console.log("filtross");
-  //   }
-  // }, [selectFilter]);
 
   useEffect(() => {
     if (selectState === "login") {
