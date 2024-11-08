@@ -36,8 +36,6 @@ function NavBar() {
 
   const route = pathname.slice(0, 6);
 
-  // console.log(pathname /user/);
-
   const items = [
     {
       label: <Link href="/">Home</Link>,
