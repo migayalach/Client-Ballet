@@ -236,7 +236,6 @@ function PaginationComponet({ pages, navegation, idClass }) {
               dispatch(stateFlag(""));
               setCurrent(current - 1);
             }
-
           } else {
             const lengthAssistance = selectAssistance.length;
             if (lengthAssistance - 1 > 0 && lengthAssistance - 1 <= 20) {
@@ -250,7 +249,6 @@ function PaginationComponet({ pages, navegation, idClass }) {
         } else if (selectState === "edit") {
           if (selectFilter.length > 0 && !selectAssistance.length) {
             dispatch(filterPrevNext(`${selectFilterURL}${current}`));
-
           } else {
             dispatch(getPageAssistance(idClass, current));
           }
@@ -308,6 +306,20 @@ function PaginationComponet({ pages, navegation, idClass }) {
             dispatch(getPageParams(idClass, selectInfo.pages));
             dispatch(stateFlag(""));
             setCurrent(current - 1);
+          }
+        } else if (selectState === "edit-param") {
+          if (selectParams.length > 0 && !selectFilter.length) {
+            dispatch(getPageParams(idClass, selectInfo.pages));
+          } else {
+            const lengtFilter = selectFilter.length;
+            if (lengtFilter > 0 && lengtFilter - 1 <= 20) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current}`));
+              dispatch(stateFlag(""));
+            } else {
+              dispatch(filterPrevNext(`${selectFilterURL}${current - 1}`));
+              dispatch(stateFlag(""));
+              setCurrent(current - 1);
+            }
           }
         }
         return;
@@ -409,6 +421,10 @@ function PaginationComponet({ pages, navegation, idClass }) {
       // TODO NAVEGACION NORMAL SIN FILTROS - PARAMS
       if (selectParams.length && !selectFilter.length) {
         dispatch(getPageParams(idClass, page));
+        setCurrent(page);
+      }
+      if (selectFilter.length > 0) {
+        dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
     }
