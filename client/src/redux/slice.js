@@ -202,6 +202,7 @@ export const Slice = createSlice({
       state.user = [];
       state.classes = [];
       state.assistance = [];
+      state.params = [];
     },
 
     getUpdateFilter: (state, action) => {
