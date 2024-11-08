@@ -7,6 +7,7 @@ import FloatOption from "@/components/floatOption/FloatOption";
 import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
 import Notification from "@/components/modal/notification/Notification";
+import QualificationFilter from "@/components/filters/qualificationFilter/QualificationFilter";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
@@ -115,8 +116,9 @@ function page() {
 
   return (
     <div>
+      <h2>Lista de Calificaciones</h2>
       <div>
-        <h4>FILTROS</h4>
+        <QualificationFilter />
       </div>
 
       <div>
