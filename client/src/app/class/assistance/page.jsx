@@ -5,6 +5,7 @@ import FloatOption from "@/components/floatOption/FloatOption";
 import Notification from "@/components/modal/notification/Notification";
 import Loading from "@/components/pageResult/Loading";
 import Page404 from "@/components/pageResult/Page404";
+import AssistanceFilter from "@/components/filters/assistanceFilter/AssistanceFilter";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -29,11 +30,12 @@ function Assistance() {
   const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
   const selectAssistanceList = useSelector(({ root }) => root?.assistance);
+  const selectFilter = useSelector((state) => state.root?.filter);
   const selectInfo = useSelector((state) => state.root?.info);
-  const classLocalStorage = localStorage.getItem("classId");
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const classLocalStorage = localStorage.getItem("classId");
 
   const handleDelete = (idClass, idAssistance) => {
     dispatch(deleteAssistanceDate(idClass, idAssistance));
@@ -77,15 +79,7 @@ function Assistance() {
         state: "success",
         message: "Asistencia creada con exito",
       });
-    }
-    // else if (selectState === "edit-class") {
-    //   setDataState({
-    //     action: "edit-class",
-    //     state: "success",
-    //     message: "Se actualizo la clase con exito",
-    //   });
-    // }
-    else if (selectState === "delete-assistance") {
+    } else if (selectState === "delete-assistance") {
       setDataState({
         action: "delete-assistance",
         state: "success",
@@ -110,11 +104,17 @@ function Assistance() {
 
   return (
     <div>
-      <div>FILTROS</div>
-      <h3>REGISTRO DE ASISTENCIAS</h3>
+      <h2>REGISTRO DE ASISTENCIAS</h2>
+
+      <div>
+        <AssistanceFilter idClass={classLocalStorage} />
+      </div>
+
       <div>
         <TableComponent
-          data={selectAssistanceList}
+          data={
+            selectAssistanceList.length ? selectAssistanceList : selectFilter
+          }
           render="LIST-ASSISTANCE-IDCLASS"
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
