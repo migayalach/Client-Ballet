@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 //REDUX
 import {
   getParamsAllIdUser,
-  filterAll,
   assitanceClear,
   dataDownload,
 } from "@/redux/actions";
@@ -33,6 +32,7 @@ function page() {
   const selectFilter = useSelector((state) => state.root?.filter);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const classLocalStorage = localStorage.getItem("classId");
 
   const clearLocalState = () => {
     setDataState({});
@@ -118,12 +118,12 @@ function page() {
     <div>
       <h2>Lista de Calificaciones</h2>
       <div>
-        <QualificationFilter />
+        <QualificationFilter idClass={classLocalStorage} />
       </div>
 
       <div>
         <TableComponent
-          data={selectListParams}
+          data={selectListParams.length ? selectListParams : selectFilter}
           render="QUALIFICATION-ALL"
           access={accessLevel}
           download={downloadList}

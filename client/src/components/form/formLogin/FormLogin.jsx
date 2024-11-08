@@ -39,8 +39,6 @@ function FormLogin() {
     dispatch(userLogin(user));
   };
 
-  const handleGoogle = async () => {};
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -97,10 +95,6 @@ function FormLogin() {
       >
         <Button type="primary" htmlType="submit" className="button-login">
           Acceder
-        </Button>
-
-        <Button onClick={handleGoogle} className="button-login-google">
-          Google
         </Button>
       </Form.Item>
     </Form>
