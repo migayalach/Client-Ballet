@@ -3,8 +3,8 @@ import Text from "@/components/text/Text";
 import SelectComponet from "@/components/select/SelectComponet";
 
 // HOOK'S
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // LIBRARY
 import { Form, Button, DatePicker } from "antd";
