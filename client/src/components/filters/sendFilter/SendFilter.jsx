@@ -8,8 +8,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 // LIBRARY
-import { Form, Button } from "antd";
-import { DatePicker } from "antd";
+import { Form, Button, DatePicker } from "antd";
 
 // REDUX
 import {
