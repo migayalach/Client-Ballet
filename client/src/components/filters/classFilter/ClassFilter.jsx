@@ -17,8 +17,8 @@ import {
   getUserAll,
   getExtensionAll,
   getTypeClassAll,
+  filterSet,
   getClassAll,
-  filter,
   filterClear,
   stateFlag,
   filterURL,
@@ -26,14 +26,12 @@ import {
 
 function UserFilter() {
   const dispatch = useDispatch();
-  const selectExtension = useSelector(({ root }) => root?.extension);
   const selectAccess = useSelector(({ root }) => root?.access);
 
   const [form] = Form.useForm();
   const [data, setData] = useState({
     order: "",
     idUser: 0,
-    idExtension: 0,
     idTypeClass: 0,
     stateClass: false,
   });
@@ -69,45 +67,30 @@ function UserFilter() {
   };
 
   const onFinish = () => {
-    let search = "search=class&";
-    if (data.order.trim()) {
-      search += `order=${data.order}&`;
-    }
-    if (data.idUser > 0) {
-      search += `idUser=${data.idUser}&`;
-    }
-    if (data.idExtension > 0) {
-      search += `idExtension=${data.idExtension}&`;
-    }
-    if (data.idTypeClass > 0) {
-      search += `idTypeClass=${data.idTypeClass}&`;
-    }
-    search += `stateClass=${data.stateClass}&`;
-    dispatch(filter(`${search}page=1`, "classes"));
-    dispatch(filterURL(`${search}page=`));
-    dispatch(stateFlag("filter"));
+    dispatch(
+      filterSet({ search: "class", data: JSON.stringify(data), page: 1 })
+    );
   };
 
   const onClickClearData = () => {
-    dispatch(stateFlag("clear"));
+    dispatch(stateFlag("filter-request"));
     setNameData({
       typeClass: "",
       user: "",
     });
     setTimeout(() => {
       dispatch(filterClear());
-      dispatch(getClassAll(selectAccess?.dataUser?.idUser));
+      dispatch(getClassAll(selectAccess?.idUser));
       //TODO  Resetea los campos del formulario - ANTDESING
       form.resetFields();
       setData({
         order: "",
-        // nameOrLastName: "",
         idTypeClass: 0,
         idLevel: 0,
-        idExtension: 0,
         stateClass: false,
       });
       dispatch(filterURL(""));
+      dispatch(stateFlag(""));
     }, 10);
   };
 
@@ -147,14 +130,6 @@ function UserFilter() {
               data={nameData.user}
             />
           </div>
-        </Form.Item>
-
-        <Form.Item label="Extension" name="extension">
-          <SelectComponet
-            list={selectExtension}
-            handleChange={handleChange}
-            flag="Extension"
-          />
         </Form.Item>
 
         <Form.Item label="Tipo de clase" name="typeClass">

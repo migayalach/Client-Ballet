@@ -199,6 +199,9 @@ export const Slice = createSlice({
       state.contact = [];
       state.typeClass = [];
       state.hours = [];
+      state.user = [];
+      state.classes = [];
+      state.assistance = [];
     },
 
     getUpdateFilter: (state, action) => {
@@ -206,17 +209,17 @@ export const Slice = createSlice({
       state.info = action.payload.info;
     },
 
-    // getFilterAll: (state, action) => {
-    //   state.filterAll = action.payload;
-    // },
+    getFilterAll: (state, action) => {
+      state.filterAll = action.payload;
+    },
 
-    // setFilterAll: (state, action) => {
-    //   state.filterAll = [];
-    // },
+    setFilterAll: (state, action) => {
+      state.filterAll = [];
+    },
 
-    // setFilterState: (state, action) => {
-    //   state[action.payload] = [];
-    // },
+    setFilterState: (state, action) => {
+      state[action.payload] = [];
+    },
 
     clearFilter: (state, action) => {
       state.filter = [];

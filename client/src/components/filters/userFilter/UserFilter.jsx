@@ -1,29 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button } from "antd";
+// COMPONET'S
 import SelectComponet from "@/components/select/SelectComponet";
 import State from "@/components/state/State";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  getLevelAll,
-  getExtensionAll,
-  filter,
-  filterClear,
-  getUserAll,
-  stateFlag,
-  filterURL,
-} from "@/redux/actions";
 import Text from "@/components/text/Text";
 
-function Filters() { 
+// HOOK'S
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// LIBRARY
+import { Form, Button } from "antd";
+
+// REDUX
+import {
+  filterClear,
+  filterSet,
+  getLevelAll,
+  getExtensionAll,
+  getUserAll,
+  filterURL,
+  stateFlag,
+} from "@/redux/actions";
+
+// STYLESHEET
+
+function Filters() {
   const dispatch = useDispatch();
   const selectLevel = useSelector(({ root }) => root?.level);
-  const selectExtension = useSelector(({ root }) => root?.extension);
 
   const [data, setData] = useState({
     order: "",
     nameOrLastName: "",
     idLevel: 0,
-    idExtension: 0,
     stateUser: false,
   });
 
@@ -46,41 +53,27 @@ function Filters() {
   };
 
   const onFinish = () => {
-    // let search = "search=user&";
-    // if (data.order.trim()) {
-    //   search += `order=${data.order}&`;
-    // }
-    // if (data.nameOrLastName.trim()) {
-    //   search += `nameOrLastName=${data.nameOrLastName}&`;
-    // }
-    // if (data.idLevel > 0) {
-    //   search += `idLevel=${data.idLevel}&`;
-    // }
-    // if (data.idExtension > 0) {
-    //   search += `idExtension=${data.idExtension}&`;
-    // }
-    // search += `stateUser=${data.stateUser}&`;
-    // dispatch(filter(`${search}page=1`, "user"));
-    // dispatch(filterURL(`${search}page=`));
-    // dispatch(stateFlag("filter"));
+    dispatch(
+      filterSet({ search: "user", data: JSON.stringify(data), page: 1 })
+    );
   };
 
   const onClickClearData = () => {
-    // dispatch(stateFlag("clear"));
-    // setTimeout(() => {
-    //   dispatch(filterClear());
-    //   dispatch(getUserAll());
-    //   //TODO  Resetea los campos del formulario - ANTDESING
-    //   form.resetFields();
-    //   setData({
-    //     order: "",
-    //     nameOrLastName: "",
-    //     idLevel: 0,
-    //     idExtension: 0,
-    //     stateUser: false,
-    //   });
-    //   dispatch(filterURL(""));
-    // }, 10);
+    dispatch(stateFlag("filter-request"));
+    setTimeout(() => {
+      dispatch(filterClear());
+      dispatch(getUserAll());
+      //TODO  Resetea los campos del formulario - ANTDESING
+      form.resetFields();
+      setData({
+        order: "",
+        nameOrLastName: "",
+        idLevel: 0,
+        stateUser: false,
+      });
+      dispatch(filterURL(""));
+      dispatch(stateFlag(""));
+    }, 10);
   };
 
   useEffect(() => {

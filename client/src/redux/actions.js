@@ -468,7 +468,7 @@ export const filterAllDataIds = (idClass, search) => {
         await axios.get(
           `${URL}/allData?dataRequest=${search}&idClass=${idClass}`
         )
-      ).data;
+      ).data;      
       return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
