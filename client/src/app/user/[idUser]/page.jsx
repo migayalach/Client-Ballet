@@ -3,17 +3,17 @@
 import Page404 from "@/components/pageResult/Page404";
 import FloatOption from "@/components/floatOption/FloatOption";
 import Notification from "@/components/modal/notification/Notification";
+import UserInfoFilter from "@/components/filters/userInfoFilter/UserInfoFilter";
+import PaginationComponet from "@/components/pagination/PaginationComponet";
+import TableComponent from "@/components/tableComponent/TableComponent";
+import NoResults from "@/components/pageResult/NoResults";
 
 // HOOK'S
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// LIBRARY
-
 //REDUX
-import { stateClear, getByIdUser } from "@/redux/actions";
-
-// JAVASCRIP
+import { stateClear, getByIdUser, removeData, filterClear } from "@/redux/actions";
 
 // STYLESHEET'
 import "./info-staff.css";
@@ -28,6 +28,8 @@ function InfoUser({ params }) {
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectInfo = useSelector((state) => state.root?.info);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   if (Object.keys(selectAccess).length === 0) {
     return (
@@ -73,14 +75,45 @@ function InfoUser({ params }) {
     setData({ ...selectDataUser });
   }, [selectDataUser]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(removeData());
+      dispatch(filterClear())
+    };
+  }, []);
+
   return (
     <div className="conteiner-data">
       <div>
-        <h1>{data?.nameUser}</h1>
-        filtros para dos casos: estudiante = Si es estudiante muestra las clases
-        que pasa docente = Si es docente filtra y muestra sus cursos impartidos
-        con opcines a imprimir
+        <UserInfoFilter idUser={params.idUser} />
       </div>
+
+      <div>
+        {selectAction === "" && !selectFilter.length && (
+          <NoResults message="Realice una busqueda para ver resultados!" />
+        )}
+
+        {selectAction === "qualification" && (
+          <TableComponent
+            data={selectFilter}
+            render="INFO-USER-QUALIFICATION"
+          />
+        )}
+
+        {selectAction === "assistance" && (
+          <TableComponent data={selectFilter} render="INFO-USER-ASSISTANCE" />
+        )}
+      </div>
+
+      <div>
+        {selectInfo && (
+          <PaginationComponet
+            pages={selectInfo.pages}
+            navegation="INFO-USER-DATA"
+          />
+        )}
+      </div>
+
       <div>
         <FloatOption
           idUser={params.idUser}
