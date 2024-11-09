@@ -48,7 +48,6 @@ function PaginationComponet({ pages, navegation, idClass }) {
   const selectListEvent = useSelector(({ root }) => root?.list);
   const selectStudent = useSelector(({ root }) => root?.student);
   const selectParams = useSelector(({ root }) => root?.params);
-  // const selectListParams = useSelector(({ root }) => root.qualification);
 
   const optionEffect = (option) => {
     switch (option) {
@@ -423,6 +422,11 @@ function PaginationComponet({ pages, navegation, idClass }) {
         dispatch(getPageParams(idClass, page));
         setCurrent(page);
       }
+      if (selectFilter.length > 0) {
+        dispatch(filterPrevNext(`${selectFilterURL}${page}`));
+        setCurrent(page);
+      }
+    } else if (navegation === "INFO-USER-DATA") {     
       if (selectFilter.length > 0) {
         dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
