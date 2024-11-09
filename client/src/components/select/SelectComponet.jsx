@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
 
-const optionList = (list, flag) => { 
+const optionList = (list, flag) => {
   switch (flag) {
     case "Level":
       return list.map(({ idLevel, nameLevel }) => ({
@@ -46,6 +46,13 @@ const optionList = (list, flag) => {
         { value: "DESC", label: "DESC", title: "order" },
       ];
 
+    case "option":
+      return [
+        { value: " ", label: " ", title: "option" },
+        { value: "qualification", label: "Calificaciones", title: "option" },
+        { value: "assistance", label: "Assistencias", title: "option" },
+      ];
+
     case "Type":
       return [
         { value: " ", label: " ", title: "nameOrLastName" },
@@ -58,7 +65,7 @@ const optionList = (list, flag) => {
   }
 };
 
-function SelectComponet({ list, handleChange, flag, value }) {       
+function SelectComponet({ list, handleChange, flag, value }) {
   return !value ? (
     <Select
       labelInValue
