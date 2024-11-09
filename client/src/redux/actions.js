@@ -76,6 +76,8 @@ import {
   updateParams,
   clearQualification,
   getUpdateFilter,
+  setAction,
+  clearAction,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -468,7 +470,20 @@ export const filterAllDataIds = (idClass, search) => {
         await axios.get(
           `${URL}/allData?dataRequest=${search}&idClass=${idClass}`
         )
-      ).data;      
+      ).data;
+      return dispatch(getFilterAll(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const filterAllCourseIdUser = (idUser, search) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(`${URL}/allData?dataRequest=${search}&idUser=${idUser}`)
+      ).data;
       return dispatch(getFilterAll(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -510,10 +525,8 @@ export const filterSet = ({ search, data, page }) => {
           `${URL}/filter?search=${search}&data=${data}&page=${page}`
         )
       ).data;
-      dispatch(
-        URLFilter(`${URL}/filter?search=${search}&data=${data}&page=`)
-      );
-      dispatch(stateFlag("filter-request"))
+      dispatch(URLFilter(`${URL}/filter?search=${search}&data=${data}&page=`));
+      dispatch(stateFlag("filter-request"));
       return dispatch(getFilter(response));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
@@ -1085,6 +1098,26 @@ export const qualificationClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearQualification());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const actionSet = (info) => {
+  return async function (dispatch) {
+    try {
+      return dispatch(setAction(info));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const actionClear = () => {
+  return async function (dispatch) {
+    try {
+      return dispatch(clearAction());
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
