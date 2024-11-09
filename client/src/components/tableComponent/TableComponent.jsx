@@ -671,7 +671,7 @@ function TableComponent({
         key: index,
         numberItem: index + 1,
         idContact,
-        dateContact: dateContact.substring(0, 10),
+        dateContact: dateContact?.substring(0, 10),
         emailContact,
         nameContact,
         phoneContact,
@@ -766,6 +766,140 @@ function TableComponent({
         department,
         photoUser,
         stateUser,
+      })
+    );
+  };
+
+  const listIdStudentsClass = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    {
+      title: "Nombre clase",
+      dataIndex: "nameClass",
+      key: "nameClass",
+    },
+    { title: "Inicio", dataIndex: "startTime", key: "startTime" },
+    { title: "Fin", dataIndex: "endTime", key: "endTime" },
+    { title: "Paralelo", dataIndex: "parallel", key: "parallel" },
+    {
+      title: "Estado",
+      dataIndex: "stateClass",
+      key: "stateClass",
+      render: (stateClass) => {
+        let color = stateClass ? "green" : "volcano";
+        let text = stateClass ? "Habilidato" : "Deshabilitado";
+        return <Tag color={color}>{text}</Tag>;
+      },
+    },
+    {
+      title: "Seleccionar",
+      key: "action",
+      render: ({ idClass, nameClass }) => (
+        <a onClick={() => select(idClass, nameClass, "IDSTUDEN-ALL-CLASS")}>
+          Elejir
+        </a>
+      ),
+    },
+  ];
+
+  const listIdStudentsClassMap = (data) => {
+    return data.map(
+      (
+        { idClass, nameClass, startTime, endTime, parallel, stateClass },
+        index
+      ) => ({
+        key: index,
+        numberItem: index + 1,
+        idClass,
+        nameClass,
+        startTime,
+        endTime,
+        parallel,
+        stateClass,
+      })
+    );
+  };
+
+  const listQualificationUser = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    {
+      title: "Nombre clase",
+      dataIndex: "nameClass",
+      key: "nameClass",
+    },
+    {
+      title: "Paralelo",
+      dataIndex: "parallel",
+      key: "parallel",
+    },
+    {
+      title: "Nombre Examen",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Fecha",
+      dataIndex: "dateTest",
+      key: "dateTest",
+    },
+    {
+      title: "Nota",
+      dataIndex: "note",
+      key: "note",
+    },
+  ];
+
+  const listQualificationUserMap = (data) => {
+    return data.map(
+      ({ nameClass, parallel, title, dateTest, note }, index) => ({
+        key: index,
+        numberItem: index + 1,
+        nameClass,
+        parallel,
+        title,
+        dateTest: dateTest?.substring(0, 10),
+        note,
+      })
+    );
+  };
+
+  const listAssistanceUser = [
+    { title: "N°", dataIndex: "numberItem", key: "numberItem" },
+    {
+      title: "Nombre clase",
+      dataIndex: "nameClass",
+      key: "nameClass",
+    },
+    {
+      title: "Paralelo",
+      dataIndex: "parallel",
+      key: "parallel",
+    },
+    {
+      title: "Fecha",
+      dataIndex: "dateAssistance",
+      key: "dateAssistance",
+    },
+    {
+      title: "Asistencia",
+      dataIndex: "assistance",
+      key: "assistance",
+      render: (assistance) => {
+        let color = assistance ? "green" : "volcano";
+        let text = assistance ? "Asistio" : "No asistio";
+        return <Tag color={color}>{text}</Tag>;
+      },
+    },
+  ];
+
+  const listAssistanceUserMap = (data) => {
+    return data.map(
+      ({ nameClass, parallel, dateAssistance, assistance }, index) => ({
+        key: index,
+        numberItem: index + 1,
+        nameClass,
+        parallel,
+        dateAssistance: dateAssistance?.substring(0, 10),
+        assistance,
       })
     );
   };
@@ -867,6 +1001,27 @@ function TableComponent({
         <Table
           columns={listStudentsClass}
           dataSource={listStudentsClassMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "IDSTUDEN-ALL-CLASS" && (
+        <Table
+          columns={listIdStudentsClass}
+          dataSource={listIdStudentsClassMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "INFO-USER-QUALIFICATION" && (
+        <Table
+          columns={listQualificationUser}
+          dataSource={listQualificationUserMap(data)}
+          pagination={false}
+        />
+      )}
+      {render === "INFO-USER-ASSISTANCE" && (
+        <Table
+          columns={listAssistanceUser}
+          dataSource={listAssistanceUserMap(data)}
           pagination={false}
         />
       )}
