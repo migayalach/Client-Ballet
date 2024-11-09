@@ -388,6 +388,14 @@ export const Slice = createSlice({
       state.qualification = [];
     },
 
+    setAction: (state, action) => {
+      state.action = action.payload;
+    },
+
+    clearAction: (state, action) => {
+      state.action = "";
+    },
+
     //*PASSWORD
     passwordChange: (state, action) => {
       state.aux = action.payload;
@@ -476,5 +484,7 @@ export const {
   updateParams,
   clearQualification,
   getUpdateFilter,
+  setAction,
+  clearAction,
 } = Slice.actions;
 export default Slice.reducer;

@@ -1,7 +1,8 @@
 // COMPONET'S
-import SelectComponet from "@/components/select/SelectComponet";
 import State from "@/components/state/State";
 import Text from "@/components/text/Text";
+import InputComponent from "@/components/inputComponent/InputComponent";
+import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -13,12 +14,8 @@ import { Button, Form } from "antd";
 //REDUX
 import {
   getClassAll,
-  getUserAll,
   createClassStudent,
-  stateClear,
 } from "@/redux/actions";
-import InputComponent from "@/components/inputComponent/InputComponent";
-import ModalSelect from "@/components/modal/modalSelect/ModalSelect";
 
 // STYLESHEET'
 import "./form-class-student.css";

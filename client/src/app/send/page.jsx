@@ -15,6 +15,8 @@ import {
   sentClear,
   removeData,
   assitanceClear,
+  actionClear,
+  filterClear,
 } from "@/redux/actions";
 import Notification from "@/components/modal/notification/Notification";
 
@@ -30,6 +32,7 @@ function page() {
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   const clearLocalState = () => {
     setDataState({});
@@ -46,6 +49,14 @@ function page() {
       dispatch(sentClear());
     };
   }, []);
+
+  useEffect(() => {
+    if (selectAction === "qualification" || selectAction === "assistance") {
+      dispatch(actionClear());
+      dispatch(filterClear());
+      dispatch(getContactAll());
+    }
+  }, [selectAction]);
 
   useEffect(() => {
     if (selectState.length && !selectError) {

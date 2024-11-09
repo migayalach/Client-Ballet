@@ -183,7 +183,7 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             <State stateHours={data?.stateClass} handleChange={onChangeState} />
           </Form.Item>
         )}
-        {!Object.keys(errors).length && data.parallel.length !== "" ? (
+        {!Object.keys(errors).length && data?.parallel?.length !== "" ? (
           <Button type="primary" htmlType="submit">
             <Text text="Crear" />
           </Button>
