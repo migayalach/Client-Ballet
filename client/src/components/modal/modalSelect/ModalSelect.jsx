@@ -7,6 +7,7 @@ import {
   clearFilterAll,
   filterAllData,
   filterAllDataIds,
+  filterAllCourseIdUser,
 } from "@/redux/actions";
 import "./modal-select.css";
 
@@ -58,6 +59,10 @@ function ModalSelect({ render, handleSelect, idUser, idClass }) {
         dispatch(filterAllDataIds(idClass, "students"));
         setFlagRender("STUDENT-ALL");
       }
+      if (render === "IDSTUDEN-ALL-CLASS") {
+        dispatch(filterAllCourseIdUser(idUser, "course"));
+        setFlagRender("IDSTUDEN-ALL-CLASS");
+      }
     }
   }, [isModalOpen]);
 
@@ -67,11 +72,11 @@ function ModalSelect({ render, handleSelect, idUser, idClass }) {
         ...
       </Button>
       <Modal
-        title="Basic Modal"
+        title="Informacion"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        width={620}
+        width={675}
       >
         <ListData flagRender={flagRender} modal={x} />
       </Modal>
