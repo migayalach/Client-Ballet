@@ -16,7 +16,12 @@ import { useSelector, useDispatch } from "react-redux";
 // LIBRARY
 
 //REDUX
-import { getHoursAll, hoursClear, assitanceClear } from "@/redux/actions";
+import {
+  getHoursAll,
+  hoursClear,
+  assitanceClear,
+  actionClear,
+} from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -32,6 +37,7 @@ function Hours() {
   const selectAccess = useSelector((state) => state.root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   const clearLocalState = () => {
     setDataState({});
@@ -47,6 +53,13 @@ function Hours() {
       dispatch(hoursClear());
     };
   }, []);
+
+  useEffect(() => {
+    if (selectAction === "qualification" || selectAction === "assistance") {
+      dispatch(actionClear());
+      dispatch(getHoursAll());
+    }
+  }, [selectAction]);
 
   useEffect(() => {
     if (selectState === "create-hour") {
