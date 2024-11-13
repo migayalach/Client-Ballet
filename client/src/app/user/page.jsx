@@ -21,6 +21,7 @@ import {
   infoClear,
   removeData,
   assitanceClear,
+  actionClear
 } from "@/redux/actions";
 import Cards from "@/components/cards/Cards";
 
@@ -39,6 +40,7 @@ function User() {
   const selectState = useSelector(({ root }) => root?.state);
   const selectAux = useSelector(({ root }) => root.aux);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   const clearLocalState = () => {
     setDataState({});
@@ -56,6 +58,13 @@ function User() {
       dispatch(removeData());
     };
   }, []);
+
+  useEffect(() => {
+    if (selectAction === "qualification" || selectAction === "assistance") {
+      dispatch(actionClear());
+      dispatch(getUserAll());
+    }
+  }, [selectAction]);
 
   useEffect(() => {
     if (selectAux && selectState === "create-user") {

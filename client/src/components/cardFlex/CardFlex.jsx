@@ -50,7 +50,7 @@ const CardFlex = ({ list, access }) => {
               >
                 <Typography.Title level={1}>{title}</Typography.Title>
                 <Typography.Text>
-                  {dateNews.toString().slice(0, 10)}
+                  {dateNews?.toString().slice(0, 10)}
                 </Typography.Text>
                 <Typography.Text>{hourEvent}</Typography.Text>
 

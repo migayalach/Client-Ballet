@@ -20,6 +20,7 @@ import {
   typeClassClear,
   removeAux,
   assitanceClear,
+  actionClear,
 } from "@/redux/actions";
 
 // JAVASCRIP
@@ -36,14 +37,22 @@ function TypeClass() {
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   const clearLocalState = () => {
     setDataState({});
     setFlagAlert(false);
     dispatch(removeAux());
   };
+  
+  useEffect(() => {    
+    if (selectAction === "qualification" || selectAction === "assistance") {
+      dispatch(actionClear());
+      dispatch(getTypeClassAll());
+    }
+  }, [selectAction]);
 
-  useEffect(() => {
+  useEffect(() => {    
     dispatch(assitanceClear());
     if (!selectFilter.length) {
       dispatch(getTypeClassAll());
@@ -52,6 +61,7 @@ function TypeClass() {
       dispatch(typeClassClear());
     };
   }, []);
+
 
   useEffect(() => {
     if (selectState === "create-typeClass") {
@@ -84,6 +94,8 @@ function TypeClass() {
     }
     setFlagAlert(true);
   }, [selectState, selectError]);
+
+
 
   if (Object.keys(selectAccess).length === 0) {
     return (
