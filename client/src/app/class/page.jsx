@@ -24,6 +24,7 @@ import {
   typeClassClear,
   userClear,
   dataDownload,
+  actionClear,
 } from "@/redux/actions";
 import ClassFilter from "@/components/filters/classFilter/ClassFilter";
 
@@ -40,6 +41,7 @@ function page() {
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
+  const selectAction = useSelector(({ root }) => root?.action);
 
   const saveIdClass = (idClass) => {
     localStorage.setItem("numberClass", JSON.stringify(idClass));
@@ -76,6 +78,13 @@ function page() {
       dispatch(userClear());
     };
   }, []);
+
+  useEffect(() => {
+    if (selectAction === "qualification" || selectAction === "assistance") {
+      dispatch(actionClear());
+      dispatch(getClassAll(selectAccess?.idUser));
+    }
+  }, [selectAction]);
 
   if (Object.keys(selectAccess).length === 0) {
     return (
