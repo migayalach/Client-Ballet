@@ -77,7 +77,7 @@ function NavBar() {
                 label: "Tipo de danzas",
                 children: [
                   {
-                    label: <Link href="typeClass">Tipo de clases</Link>,
+                    label: <Link href="/typeClass">Tipo de clases</Link>,
                     key: "typeClass",
                   },
                 ],
