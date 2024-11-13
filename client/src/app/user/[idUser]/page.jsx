@@ -13,7 +13,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
-import { stateClear, getByIdUser, removeData, filterClear } from "@/redux/actions";
+import {
+  stateClear,
+  getByIdUser,
+  removeData,
+  filterClear,
+} from "@/redux/actions";
 
 // STYLESHEET'
 import "./info-staff.css";
@@ -65,7 +70,9 @@ function InfoUser({ params }) {
   }, [selectState, selectDataUser]);
 
   useEffect(() => {
-    dispatch(getByIdUser(params.idUser));
+    if(params.idUser > 0 ){
+      dispatch(getByIdUser(params.idUser));
+    }
     return () => {
       dispatch(stateClear());
     };
@@ -78,7 +85,7 @@ function InfoUser({ params }) {
   useEffect(() => {
     return () => {
       dispatch(removeData());
-      dispatch(filterClear())
+      dispatch(filterClear());
     };
   }, []);
 
