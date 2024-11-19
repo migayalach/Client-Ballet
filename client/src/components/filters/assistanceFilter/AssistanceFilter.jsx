@@ -19,6 +19,7 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET
+import "./assistance-filter.css";
 
 function AssistanceFilter({ idClass }) {
   const dispatch = useDispatch();
@@ -78,22 +79,23 @@ function AssistanceFilter({ idClass }) {
   };
 
   return (
-    <div>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
-          span: 8,
+          span: 80,
         }}
         wrapperCol={{
           span: 16,
         }}
         style={{
-          maxWidth: 600,
+          maxWidth: 800,
         }}
         initialValues={{
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
         <Form.Item label="Desde" name="dateStart">
           <DatePicker placeholder={"2010-09-03"} onChange={handleFromDate} />
@@ -104,11 +106,16 @@ function AssistanceFilter({ idClass }) {
         <Form.Item label="Orden" name="order">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear"
+      >
         <Text text="Limpiar" />
       </Button>
     </div>

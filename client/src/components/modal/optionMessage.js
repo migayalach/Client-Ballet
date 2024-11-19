@@ -1,5 +1,4 @@
 export const optionMessageModal = (option) => {
-  // console.log(option);
   switch (option) {
     case "USER":
       return `Crear nuevo usuario`;
@@ -49,24 +48,26 @@ export const textInfoUser = (view) => {
             En nuestra aplicación, puedes buscar y filtrar usuarios utilizando
             varios criterios. Los filtros disponibles son:
           </p>
-          <p>
-            <strong>Orden:</strong> Puedes ordenar los resultados en orden
-            ascendente (asc) o descendente (desc).
-          </p>
-          <p>
-            <strong>Nombre o Apellido:</strong> Filtra los usuarios por su
-            nombre o apellido.
-          </p>
-          <p>
-            <strong>Niveles:</strong> Selecciona el nivel de los usuarios.
-          </p>
-          <p>
-            <strong>Carnet:</strong> Filtra usuarios por su número de carnet.
-          </p>
-          <p>
-            <strong>Estado:</strong> Filtra usuarios según su estado, ya sea
-            activo o desactivado.
-          </p>
+          <ul>
+            <li>
+              <strong>Orden:</strong> Puedes ordenar los resultados en orden
+              ascendente (asc) o descendente (desc).
+            </li>
+            <li>
+              <strong>Nombre o Apellido:</strong> Filtra los usuarios por su
+              nombre o apellido.
+            </li>
+            <li>
+              <strong>Niveles:</strong> Selecciona el nivel de los usuarios.
+            </li>
+            <li>
+              <strong>Carnet:</strong> Filtra usuarios por su número de carnet.
+            </li>
+            <li>
+              <strong>Estado:</strong> Filtra usuarios según su estado, ya sea
+              activo o desactivado.
+            </li>
+          </ul>
           <p>
             Es obligatorio seleccionar el <strong>orden</strong> (asc o desc) y
             el <strong>estado</strong> (activo o desactivado). Los otros filtros
@@ -91,18 +92,22 @@ export const textInfoUser = (view) => {
           <p>
             <strong>Datos Personales:</strong>
           </p>
-          <p>Nombre Completo</p>
-          <p>Apellido</p>
-          <p>Fecha de Nacimiento</p>
-          <p>Dirección de Correo Electrónico</p>
-          <p>Número de Teléfono</p>
+          <ul>
+            <li>Nombre Completo</li>
+            <li>Apellido</li>
+            <li>Fecha de Nacimiento</li>
+            <li>Dirección de Correo Electrónico</li>
+            <li>Número de Teléfono</li>
+          </ul>
           <p>
             <strong>Asignación de Nivel de Acceso:</strong>
           </p>
-          <p>Director</p>
-          <p>Secretaria</p>
-          <p>Docente</p>
-          <p>Estudiante</p>
+          <ul>
+            <li>Director</li>
+            <li>Secretaria</li>
+            <li>Docente</li>
+            <li>Estudiante</li>
+          </ul>
           <p>
             <strong>Foto de Perfil:</strong> Se debe cargar una foto de perfil.
           </p>
@@ -115,14 +120,16 @@ export const textInfoUser = (view) => {
           <p>
             Para eliminar un usuario en nuestra aplicación, sigue estos pasos:
           </p>
-          <p>
-            1. Selecciona el <strong>icono de la papelera</strong>{" "}
-            correspondiente al usuario que deseas eliminar.
-          </p>
-          <p>
-            2. Se abrirá una ventana de confirmación. Debes hacer clic en el
-            botón <strong>Eliminar</strong> para proceder.
-          </p>
+          <ol>
+            <li>
+              Selecciona el <strong>icono de la papelera</strong>{" "}
+              correspondiente al usuario que deseas eliminar.
+            </li>
+            <li>
+              Se abrirá una ventana de confirmación. Debes hacer clic en el
+              botón <strong>Eliminar</strong> para proceder.
+            </li>
+          </ol>
           <p>
             Ten en cuenta que el usuario solo será eliminado si no está asignado
             a ninguna clase u otra entidad dentro del sistema. Si el usuario
@@ -140,21 +147,23 @@ export const textInfoUser = (view) => {
             detallada sobre cada usuario, basado en su rol. A continuación, se
             detalla lo que se puede visualizar según el rol del usuario:
           </p>
-          <p>
-            <strong>Estudiantes:</strong> Puedes ver las clases en las que está
-            inscrito el estudiante.
-          </p>
-          <p>
-            <strong>Profesores:</strong> Puedes acceder a una lista de los
-            estudiantes que tiene asignados, sus horarios y las clases que
-            imparte.
-          </p>
-          <p>
-            <strong>Secretarias y Directores:</strong> Tienen la capacidad de
-            ver tanto el registro académico de los estudiantes como la
-            información de los profesores, incluyendo las clases, horarios y
-            lista de estudiantes asignados.
-          </p>
+          <ul>
+            <li>
+              <strong>Estudiantes:</strong> Puedes ver las clases en las que
+              está inscrito el estudiante.
+            </li>
+            <li>
+              <strong>Profesores:</strong> Puedes acceder a una lista de los
+              estudiantes que tiene asignados, sus horarios y las clases que
+              imparte.
+            </li>
+            <li>
+              <strong>Secretarias y Directores:</strong> Tienen la capacidad de
+              ver tanto el registro académico de los estudiantes como la
+              información de los profesores, incluyendo las clases, horarios y
+              lista de estudiantes asignados.
+            </li>
+          </ul>
           <p>
             Esta funcionalidad permite a cada rol obtener la información
             relevante para una gestión académica eficiente.
@@ -442,38 +451,40 @@ export const textInfoEvent = (view) => {
   switch (view) {
     case "search":
       return (
-        <div>
+        <>
           Puedes filtrar los eventos ordenados por fecha y por su estado,
           indicando si el evento ya ha pasado o si está por realizarse. Esto te
           permite visualizar de manera organizada los eventos próximos o los que
           ya ocurrieron.
-        </div>
+        </>
       );
     case "newOrUpdate":
       return (
-        <div>
+        <>
           Puedes crear un nuevo evento introduciendo todos los datos requeridos,
           como el nombre, fecha, hora y ubicación. Asimismo, para actualizar un
           evento existente, es necesario completar todos los campos con la
           información actualizada.
-        </div>
+        </>
       );
     case "delete":
       return (
-        <div>
+        <>
           Solo es posible eliminar un evento si este aún no ha pasado. Si el
           evento ya se llevó a cabo o se realiza el mismo día, no será posible
           eliminarlo para mantener el registro histórico.
-        </div>
+        </>
       );
     case "detail":
       return (
-        <div>
-          Al hacer clic en "Saber más", serás redirigido a una nueva ventana
-          donde podrás obtener información detallada sobre el evento, incluyendo
-          la ubicación, horario y descripción completa.
-        </div>
+          <>
+            Al hacer clic en "Saber más", serás redirigido a una nueva ventana
+            donde podrás obtener información detallada sobre el evento,
+            incluyendo la ubicación, horario y descripción completa.
+          </>
       );
+    default:
+      return null;
   }
 };
 
