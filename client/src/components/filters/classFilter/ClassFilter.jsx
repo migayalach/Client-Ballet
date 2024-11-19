@@ -24,6 +24,9 @@ import {
   filterURL,
 } from "@/redux/actions";
 
+// STYLESHEET
+import "./class-filter.css";
+
 function UserFilter() {
   const dispatch = useDispatch();
   const selectAccess = useSelector(({ root }) => root?.access);
@@ -101,43 +104,56 @@ function UserFilter() {
   }, []);
 
   return (
-    <>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
-          span: 8,
+          span: 90,
         }}
         wrapperCol={{
           span: 16,
         }}
         style={{
-          maxWidth: 600,
+          maxWidth: 1000,
         }}
         initialValues={{
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
         <Form.Item label="Ordernar" name="order">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="Profesor" name="teacher">
-          <div>
+        <Form.Item
+          label="Profesor"
+          name="teacher"
+          className="form-item-teacher"
+        >
+          <div className="containter-div">
+            <div className="container-input">
+              <InputComponent
+                placeholder="Selecciona un profesor"
+                data={nameData.user}
+              />
+            </div>
             <ModalSelect render="TEACHER-ALL" handleSelect={handleSelect} />
-            <InputComponent
-              placeholder="Selecciona un profesor"
-              data={nameData.user}
-            />
           </div>
         </Form.Item>
 
-        <Form.Item label="Tipo de clase" name="typeClass">
-          <div>
-            <InputComponent
-              placeholder="Selecciona un tipo de clase"
-              data={nameData.typeClass}
-            />
+        <Form.Item
+          label="Tipo de clase"
+          name="typeClass"
+          className="form-item-div"
+        >
+          <div className="containter-div">
+            <div className="container-input">
+              <InputComponent
+                placeholder="Selecciona un tipo de clase"
+                data={nameData.typeClass}
+              />
+            </div>
             <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
           </div>
         </Form.Item>
@@ -146,14 +162,19 @@ function UserFilter() {
           <State stateHours={data.stateClass} handleChange={onChangeState} />
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search-class">
           <Text text="Buscar" />
         </Button>
       </Form>
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear-class"
+      >
         <Text text="Limpiar" />
       </Button>
-    </>
+    </div>
   );
 }
 
