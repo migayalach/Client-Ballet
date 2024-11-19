@@ -22,9 +22,8 @@ import {
   actionClear,
 } from "@/redux/actions";
 
-// JAVASCRIP
-
 // STYLESHEET'
+import "./user-info-filter.css";
 
 function UserInfoFilter({ idUser }) {
   const [form] = Form.useForm();
@@ -87,37 +86,40 @@ function UserInfoFilter({ idUser }) {
   }, []);
 
   return (
-    <div>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
-          span: 8,
+          span: 80,
         }}
         wrapperCol={{
           span: 16,
         }}
         style={{
-          maxWidth: 600,
+          maxWidth: 500,
         }}
         initialValues={{
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
         <Form.Item label="Busqueda" name="search">
           <SelectComponet handleChange={handleChange} flag="option" />
         </Form.Item>
 
-        <Form.Item label="Cursos" name="course">
-          <div>
+        <Form.Item label="Cursos" name="course" className="form-item-course">
+          <div className="container-couser">
+            <div className="container-input">
+              <InputComponent
+                placeholder="Selecciona una clase"
+                data={data.nameClass}
+              />
+            </div>
             <ModalSelect
               render="IDSTUDEN-ALL-CLASS"
               handleSelect={handleSelect}
               idUser={idUser}
-            />
-            <InputComponent
-              placeholder="Selecciona una clase"
-              data={data.nameClass}
             />
           </div>
         </Form.Item>
@@ -126,11 +128,16 @@ function UserInfoFilter({ idUser }) {
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear"
+      >
         <Text text="Limpiar" />
       </Button>
     </div>
