@@ -20,6 +20,7 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET
+import "./hours-filter.css";
 
 function HoursFilter() {
   const dispatch = useDispatch();
@@ -69,11 +70,11 @@ function HoursFilter() {
   };
 
   return (
-    <>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
-          span: 8,
+          span: 80,
         }}
         wrapperCol={{
           span: 16,
@@ -85,24 +86,30 @@ function HoursFilter() {
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
         <Form.Item label="Ordernar" name="order">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="State" name="state">
+        <Form.Item label="State" name="state" className="state">
           <State state={data.state} handleChange={onChangeState} />
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
 
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear"
+      >
         <Text text="Limpiar" />
       </Button>
-    </>
+    </div>
   );
 }
 
