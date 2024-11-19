@@ -390,19 +390,19 @@ function TableComponent({
     { title: "Fecha", dataIndex: "dateTest", key: "dateTest" },
     { title: "Titulo", dataIndex: "title", key: "title" },
     { title: "Promedio", dataIndex: "noteFinish", key: "noteFinish" },
-    // ...(access === "Profesor"
-    // ? [
-    {
-      title: "Calificar",
-      key: "action",
-      render: (data) => (
-        <Link href={`/class/qualification/${data.idParams}`}>
-          <ContainerOutlined />
-        </Link>
-      ),
-    },
-    // ]
-    // : []),
+    ...(access === "Profesor"
+      ? [
+          {
+            title: "Calificar",
+            key: "action",
+            render: (data) => (
+              <Link href={`/class/qualification/${data.idParams}`}>
+                <ContainerOutlined />
+              </Link>
+            ),
+          },
+        ]
+      : []),
     {
       title: "Imprimir",
       key: "download",
@@ -412,28 +412,32 @@ function TableComponent({
         </a>
       ),
     },
-    // ...(access === "Profesor"
-    //   ? [
-    {
-      title: "Editar",
-      key: "action",
-      render: (data) => (
-        <ButtonEdit
-          idData={data.idParams}
-          text="Editar"
-          render="QUALIFICATION"
-        />
-      ),
-    },
-    {
-      title: "Eliminar",
-      key: "action",
-      render: (data) => (
-        <ButtonDelete idData={data.idParams} text="Editar" render="PARAMS" />
-      ),
-    },
-    // ]
-    // : []),
+    ...(access === "Profesor"
+      ? [
+          {
+            title: "Editar",
+            key: "action",
+            render: (data) => (
+              <ButtonEdit
+                idData={data.idParams}
+                text="Editar"
+                render="QUALIFICATION"
+              />
+            ),
+          },
+          {
+            title: "Eliminar",
+            key: "action",
+            render: (data) => (
+              <ButtonDelete
+                idData={data.idParams}
+                text="Editar"
+                render="PARAMS"
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   const qualificationParamasAllMap = (data) => {
@@ -592,15 +596,21 @@ function TableComponent({
   const assistanceList = [
     { title: "N°", dataIndex: "numberItem", key: "numberItem" },
     { title: "Fecha", dataIndex: "dateAssistance", key: "dateAssistance" },
-    {
-      title: "Registrar",
-      key: "register",
-      render: ({ idAssistance }) => (
-        <Link href={`/class/assistance/${idAssistance}`}>
-          <ReconciliationOutlined />
-        </Link>
-      ),
-    },
+    ...(access === "Profesor" ||
+    access === "Director" ||
+    access === "Secretaria"
+      ? [
+          {
+            title: "Registrar",
+            key: "register",
+            render: ({ idAssistance }) => (
+              <Link href={`/class/assistance/${idAssistance}`}>
+                <ReconciliationOutlined />
+              </Link>
+            ),
+          },
+        ]
+      : []),
     {
       title: "Descargar",
       key: "download",
@@ -610,15 +620,21 @@ function TableComponent({
         </a>
       ),
     },
-    {
-      title: "Eliminar",
-      key: "delete",
-      render: ({ idClass, idAssistance }) => (
-        <a onClick={() => handleDelete(idClass, idAssistance)}>
-          <DeleteOutlined />
-        </a>
-      ),
-    },
+    ...(access === "Profesor" ||
+    access === "Director" ||
+    access === "Secretaria"
+      ? [
+          {
+            title: "Eliminar",
+            key: "delete",
+            render: ({ idClass, idAssistance }) => (
+              <a onClick={() => handleDelete(idClass, idAssistance)}>
+                <DeleteOutlined />
+              </a>
+            ),
+          },
+        ]
+      : []),
   ];
 
   const assistanceListMap = (data) => {
