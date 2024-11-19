@@ -22,6 +22,7 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET
+import "./user-filter.css";
 
 function Filters() {
   const dispatch = useDispatch();
@@ -82,49 +83,55 @@ function Filters() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
-          span: 8,
+          span: 80,
         }}
         wrapperCol={{
           span: 16,
         }}
         style={{
-          maxWidth: 600,
+          maxWidth: 1000,
         }}
         initialValues={{
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
-        <Form.Item label="Ordernar" name="order">
+        <Form.Item label="Ordernar" name="order" className="form-item">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="Por" name="nameOrLastName">
+        <Form.Item label="Por" name="nameOrLastName" className="form-item">
           <SelectComponet handleChange={handleChange} flag="Type" />
         </Form.Item>
 
-        <Form.Item label="Niveles" name="level">
+        <Form.Item label="Niveles" name="level" className="form-item">
           <SelectComponet
             list={selectLevel}
             handleChange={handleChange}
             flag="Level"
           />
         </Form.Item>
-        <Form.Item label="Estado" name="state">
+        <Form.Item label="Estado" name="state" className="form-item">
           <State stateHours={data.stateUser} handleChange={onChangeState} />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear"
+      >
         <Text text="Limpiar" />
       </Button>
-    </>
+    </div>
   );
 }
 
