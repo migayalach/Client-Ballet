@@ -19,6 +19,7 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET
+import "./type-class-filter.css";
 
 function TypeClassFilter() {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function TypeClassFilter() {
   };
 
   return (
-    <>
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
@@ -75,18 +76,24 @@ function TypeClassFilter() {
           remember: true,
         }}
         onFinish={onFinish}
+        className="form-container"
       >
         <Form.Item label="Ordernar" name="order">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
-      <Button type="primary" htmlType="submit" onClick={onClickClearData}>
+      <Button
+        type="primary"
+        htmlType="submit"
+        onClick={onClickClearData}
+        className="button-clear"
+      >
         <Text text="Limpiar" />
       </Button>
-    </>
+    </div>
   );
 }
 
