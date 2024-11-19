@@ -112,13 +112,9 @@ function Hours() {
 
   return (
     <div>
-      {(selectAccess?.level === "Director" ||
-        selectAccess?.level === "Secretaria" ||
-        selectAccess?.level === "Profesor") && (
-        <div>
-          <HoursFilter />
-        </div>
-      )}
+      <div>
+        <HoursFilter />
+      </div>
 
       <div>
         <h3>Lista de horarios</h3>
