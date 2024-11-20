@@ -7,6 +7,7 @@ import Loading from "@/components/pageResult/Loading";
 import TableComponent from "@/components/tableComponent/TableComponent";
 import PaginationComponet from "@/components/pagination/PaginationComponet";
 import Notification from "@/components/modal/notification/Notification";
+import ListStudentClass from "@/components/filters/listStudentClass/ListStudentClass";
 
 // HOOK'S
 import React, { useState, useEffect } from "react";
@@ -94,7 +95,9 @@ function ClassParams({ params }) {
     <div>
       <h3>Lista de estudiantes</h3>
 
-      <div>FILTROS</div>
+      <div>
+        <ListStudentClass idClass={params.idClass} />
+      </div>
 
       <div>
         <TableComponent
