@@ -721,15 +721,21 @@ function TableComponent({
       key: "department",
     },
     {
+      title: "Promedio",
+      dataIndex: "note",
+      key: "note",
+    },
+    {
       title: "Estado",
-      dataIndex: "stateUser",
-      key: "stateUser",
-      render: (stateUser) => {
-        let color = stateUser ? "green" : "volcano";
-        let text = stateUser ? "Habilidato" : "Deshabilitado";
+      dataIndex: "stateStudent",
+      key: "stateStudent",
+      render: (stateStudent) => {
+        let color = stateStudent ? "green" : "volcano";
+        let text = stateStudent ? "Habilidato" : "Deshabilitado";
         return <Tag color={color}>{text}</Tag>;
       },
     },
+
     ...(access === "Director" || access === "Secretaria"
       ? [
           {
@@ -759,29 +765,25 @@ function TableComponent({
       (
         {
           idUser,
-          idClass,
           nameUser,
           lastNameUser,
           carnetUser,
           department,
           photoUser,
-          stateUser,
+          stateStudent,
+          note,
         },
         index
       ) => ({
         key: index,
         numberItem: index + 1,
-        idClass,
         idUser,
-        idUser,
-        idClass,
-        idUser,
-        idClass,
         student: `${nameUser} ${lastNameUser}`,
         carnetUser,
         department,
         photoUser,
-        stateUser,
+        stateStudent,
+        note,
       })
     );
   };
