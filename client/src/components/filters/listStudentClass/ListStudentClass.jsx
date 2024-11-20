@@ -20,6 +20,7 @@ import {
 } from "@/redux/actions";
 
 // STYLESHEET
+import "./list-studen-class-filter.css";
 
 export default function ListStudentClass({ idClass }) {
   const dispatch = useDispatch();
@@ -70,9 +71,7 @@ export default function ListStudentClass({ idClass }) {
   };
 
   return (
-    <div
-    // className="container-filter"
-    >
+    <div className="container-filter">
       <Form
         form={form}
         labelCol={{
@@ -88,21 +87,17 @@ export default function ListStudentClass({ idClass }) {
           remember: true,
         }}
         onFinish={onFinish}
-        // className="form-container"
+        className="form-container"
       >
         <Form.Item label="Ordernar" name="order">
           <SelectComponet handleChange={handleChange} flag="Order" />
         </Form.Item>
 
-        <Form.Item label="Estado" name="state">
+        <Form.Item label="Estado" name="state" className="state-form">
           <State stateHours={data.state} handleChange={onChangeState} />
         </Form.Item>
 
-        <Button
-          type="primary"
-          htmlType="submit"
-          // className="button-search-class"
-        >
+        <Button type="primary" htmlType="submit" className="button-search">
           <Text text="Buscar" />
         </Button>
       </Form>
@@ -110,7 +105,7 @@ export default function ListStudentClass({ idClass }) {
         type="primary"
         htmlType="submit"
         onClick={onClickClearData}
-        // className="button-clear-class"
+        className="button-clear"
       >
         <Text text="Limpiar" />
       </Button>
