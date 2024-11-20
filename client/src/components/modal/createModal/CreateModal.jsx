@@ -59,7 +59,6 @@ function CreateModal({
         </div>
 
         <div>
-          {/* (access === "Secretaria" || access === "Director") && */}
           {render === "USER" && (
             <FormUser
               option={event === "edit" ? "edit" : "create"}
