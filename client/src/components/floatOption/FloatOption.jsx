@@ -5,8 +5,6 @@ import { QuestionCircleOutlined, FileAddOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
 function FloatOption({ render, idClass, nameLevel, idUser, access, event }) {
-  // console.log(render, idClass, nameLevel, idUser, access);
-
   const [flagAdd, setFlagAdd] = useState(false);
   const [flagInfo, setFlagInfo] = useState(false);
 
@@ -20,25 +18,11 @@ function FloatOption({ render, idClass, nameLevel, idUser, access, event }) {
 
   return (
     <div className="conteiner">
-      {/* <div>
-        {render === "LIST-ASSISTANCE-IDCLASS" && (
-          <FloatButton
-            icon={<FileAddOutlined />}
-            tooltip={<div>Nuevo</div>}
-            type="primary"
-            style={{
-              right: 80,
-              bottom: 20,
-            }}
-            onClick={() => handleAdd()}
-          />
-        )}
-      </div> */}
-
       <div>
-        {/* {render !== "QUALIFICATION" &&
-          (access === "Director" || access === "Secretaria") && <p></p>} */}
-        {(access === "Director" || access === "Secretaria") && (
+        {((access === "Director" && render !== "QUALIFICATION") ||
+          (access === "Secretaria" && render !== "QUALIFICATION") ||
+          (access === "Profesor" && render === "LIST-ASSISTANCE-IDCLASS") ||
+          (access === "Profesor" && render === "QUALIFICATION")) && (
           <>
             <FloatButton
               icon={<FileAddOutlined />}
@@ -53,37 +37,6 @@ function FloatOption({ render, idClass, nameLevel, idUser, access, event }) {
           </>
         )}
       </div>
-
-      {/* <div>
-        {(access === "Secretatia" || access === "Director") &&
-          render === "CLASS-STUDENT" && (
-            <FloatButton
-              icon={<FileAddOutlined />}
-              tooltip={<div>Nuevo</div>}
-              type="primary"
-              style={{
-                right: 80,
-                bottom: 20,
-              }}
-              onClick={() => handleAdd()}
-            />
-          )}
-      </div> */}
-
-      {/* <div>
-        {access === "Profesor" && render === "QUALIFICATION" && (
-          <FloatButton
-            icon={<FileAddOutlined />}
-            tooltip={<div>Nuevo</div>}
-            type="primary"
-            style={{
-              right: 80,
-              bottom: 20,
-            }}
-            onClick={() => handleAdd()}
-          />
-        )}
-      </div> */}
 
       {/* TODO: MODAL INFORMACION */}
       {
