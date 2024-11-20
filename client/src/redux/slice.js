@@ -203,6 +203,7 @@ export const Slice = createSlice({
       state.classes = [];
       state.assistance = [];
       state.params = [];
+      state.student = [];
     },
 
     getUpdateFilter: (state, action) => {
