@@ -43,12 +43,8 @@ function ClassParams({ params }) {
     );
   }
 
-  const handleDelete = (idClass, idUser) => {
-    alert(`${idClass}, ${idUser}`);
-  };
-
-  const handleUpdate = (idClass, idUser) => {
-    alert(`${idClass}, ${idUser}`);
+  const handleUpdate = (idUser) => {
+    alert(`${params.idClass}, ${idUser}`);
   };
 
   useEffect(() => {
@@ -104,7 +100,6 @@ function ClassParams({ params }) {
           data={selectClassStudent.length ? selectClassStudent : selectFilter}
           render="LIST-STUDENT-CLASS"
           access={selectAccess?.level}
-          handleDelete={handleDelete}
           handleUpdate={handleUpdate}
         />
       </div>
