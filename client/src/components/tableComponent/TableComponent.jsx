@@ -741,18 +741,9 @@ function TableComponent({
           {
             title: "Hab / Des",
             key: "update",
-            render: ({ idClass, idUser }) => (
-              <a onClick={() => handleUpdate(idClass, idUser)}>
+            render: ({ idUser }) => (
+              <a onClick={() => handleUpdate(idUser)}>
                 <EditOutlined />
-              </a>
-            ),
-          },
-          {
-            title: "Eliminar",
-            key: "delete",
-            render: ({ idClass, idUser }) => (
-              <a onClick={() => handleDelete(idClass, idUser)}>
-                <DeleteOutlined />
               </a>
             ),
           },
