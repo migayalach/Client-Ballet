@@ -19,12 +19,7 @@ import {
 } from "@ant-design/icons";
 
 // REDUX
-import {
-  infoClear,
-  getLevelAll,
-  getExtensionAll,
-  assitanceClear,
-} from "@/redux/actions";
+import { infoClear, assitanceClear, getListEventsAll } from "@/redux/actions";
 
 // JAVASCRIP
 
@@ -35,11 +30,13 @@ export default function Home() {
   const dispatch = useDispatch();
   const [dataState, setDataState] = useState({});
   const [flagAlert, setFlagAlert] = useState(false);
+  const [listData, setListData] = useState([]);
   const selectInfo = useSelector(({ root }) => root.info);
   const selectState = useSelector(({ root }) => root?.state);
   const selectError = useSelector(({ root }) => root?.error);
   const selectAccess = useSelector(({ root }) => root?.access);
   const selectSuccess = useSelector(({ root }) => root?.success);
+  const selectList = useSelector(({ root }) => root?.list);
 
   const clearLocalState = () => {
     setDataState({});
@@ -82,6 +79,17 @@ export default function Home() {
     dispatch(assitanceClear());
   }, [selectInfo]);
 
+  useEffect(() => {
+    dispatch(getListEventsAll());
+  }, []);
+
+  useEffect(() => {
+    if (selectList.length > 0) {
+      const newData = selectList.slice(0, 6);
+      setListData(newData);
+    }
+  }, [selectList]);
+
   return (
     <div className="container-app">
       <div className="slider">
@@ -120,7 +128,7 @@ export default function Home() {
         <Video />
       </div>
       <div className="list-events">
-        <ListEvents />
+        <ListEvents list={listData} />
       </div>
       <div className="call-data">
         <CallData />
