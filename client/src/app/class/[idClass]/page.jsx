@@ -14,7 +14,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
-import { getIdAllClassStudent, studentClear } from "@/redux/actions";
+import {
+  getIdAllClassStudent,
+  studentClear,
+  getStudentIdUser,
+} from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -44,7 +48,7 @@ function ClassParams({ params }) {
   }
 
   const handleUpdate = (idUser) => {
-    alert(`${params.idClass}, ${idUser}`);
+    dispatch(getStudentIdUser(params.idClass, idUser));
   };
 
   useEffect(() => {
