@@ -323,6 +323,27 @@ function PaginationComponet({ pages, navegation, idClass }) {
         }
         return;
 
+      case "CLASS-STUDENT":
+        if (selectState === "edit-listClassUser") {
+          if (!selectFilter.length && selectStudent.length > 0) {
+            dispatch(getPageClassStudent(idClass, current));
+          } else if (selectFilter.length > 0 && !selectStudent.length) {
+            if (selectFilter.length === 1) {
+              dispatch(filterPrevNext(`${selectFilterURL}${current - 1}`));
+            } else if (selectFilter.length > 1 && selectFilter.length <= 20) {
+              if (selectInfo?.next !== null) {
+                let URL = selectInfo.next.length;
+                URL = selectInfo.next.substring(0, URL - 1);
+                dispatch(filterPrevNext(`${URL}${current}`));
+              } else {
+                dispatch(filterPrevNext(`${selectFilterURL}${current}`));
+              }
+            }
+          }
+          dispatch(stateFlag(""));
+        }
+        return;
+
       default:
         break;
     }
@@ -416,6 +437,10 @@ function PaginationComponet({ pages, navegation, idClass }) {
         dispatch(getPageClassStudent(idClass, page));
         setCurrent(page);
       }
+      if (selectFilterURL.length > 0) {
+        dispatch(filterPrevNext(`${selectFilterURL}${page}`));
+        setCurrent(page);
+      }
     } else if (navegation === "QUALIFICATION-ALL") {
       // TODO NAVEGACION NORMAL SIN FILTROS - PARAMS
       if (selectParams.length && !selectFilter.length) {
@@ -426,7 +451,7 @@ function PaginationComponet({ pages, navegation, idClass }) {
         dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
       }
-    } else if (navegation === "INFO-USER-DATA") {     
+    } else if (navegation === "INFO-USER-DATA") {
       if (selectFilter.length > 0) {
         dispatch(filterPrevNext(`${selectFilterURL}${page}`));
         setCurrent(page);
