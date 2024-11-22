@@ -78,6 +78,7 @@ import {
   getUpdateFilter,
   setAction,
   clearAction,
+  getIdUserStudent,
 } from "./slice";
 const URL = "http://localhost:3001/academy";
 
@@ -1118,6 +1119,19 @@ export const actionClear = () => {
   return async function (dispatch) {
     try {
       return dispatch(clearAction());
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const getStudentIdUser = (idClass, idUser) => {
+  return async function (dispatch) {
+    try {
+      const data = (
+        await axios.get(`${URL}/classStudent/${idClass}/${idUser}`)
+      ).data;
+      return dispatch(getIdUserStudent(data));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
