@@ -66,7 +66,6 @@ function page() {
   };
 
   useEffect(() => {
-    // localStorage.removeItem("numberClass");
     if (!selectFilter.length) {
       dispatch(getClassAll(selectAccess?.idUser));
       dispatch(levelClear());
