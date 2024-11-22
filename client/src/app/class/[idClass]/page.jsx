@@ -14,11 +14,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //REDUX
-import {
-  getIdAllClassStudent,
-  studentClear,
-  getStudentIdUser,
-} from "@/redux/actions";
+import { getIdAllClassStudent, studentClear } from "@/redux/actions";
 
 // STYLESHEET'
 
@@ -47,14 +43,12 @@ function ClassParams({ params }) {
     );
   }
 
-  const handleUpdate = (idUser) => {
-    dispatch(getStudentIdUser(params.idClass, idUser));
-  };
-
   useEffect(() => {
+    localStorage.setItem("classListStudent", params?.idClass);
     dispatch(getIdAllClassStudent(params?.idClass));
     return () => {
       dispatch(studentClear());
+      localStorage.removeItem("classListStudent");
     };
   }, []);
 
@@ -104,7 +98,6 @@ function ClassParams({ params }) {
           data={selectClassStudent.length ? selectClassStudent : selectFilter}
           render="LIST-STUDENT-CLASS"
           access={selectAccess?.level}
-          handleUpdate={handleUpdate}
         />
       </div>
 
