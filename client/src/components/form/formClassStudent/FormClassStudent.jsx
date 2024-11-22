@@ -9,12 +9,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // LIBRARY
-import { Button, Form } from "antd";
+import { Button, Form, Input } from "antd";
 
 //REDUX
 import {
   getClassAll,
   createClassStudent,
+  getStudentIdUser,
+  updateStudentClassId,
 } from "@/redux/actions";
 
 // STYLESHEET'
@@ -22,8 +24,9 @@ import "./form-class-student.css";
 
 // JAVASCRIP
 
-function FormClassStudent({ handleState, idClass }) {
+function FormClassStudent({ handleState, idClass, option, idUser }) {
   const dispatch = useDispatch();
+  const selectStudent = useSelector(({ root }) => root?.data);
   const [data, setData] = useState({
     idClass: +idClass,
     nameStudent: "",
@@ -43,18 +46,45 @@ function FormClassStudent({ handleState, idClass }) {
   };
 
   const onFinish = () => {
-    dispatch(createClassStudent(data));
-    setData({
-      idClass: 0,
-      idUser: 0,
-      stateStudent: true,
-      nameStudent: "",
-    });
-    handleState();
+    if (option === "editStudentClass") {
+      dispatch(updateStudentClassId(data));
+    } else {
+      dispatch(createClassStudent(data));
+      setData({
+        idClass: 0,
+        idUser: 0,
+        stateStudent: true,
+        nameStudent: "",
+      });
+      if (option !== "editStudentClass") {
+        handleState();
+      }
+    }
   };
 
   useEffect(() => {
-    dispatch(getClassAll(idClass));
+    if (option === "editStudentClass") {
+      const idClassLS = localStorage.getItem("classListStudent");
+      dispatch(getStudentIdUser(idClassLS, idUser));
+    }
+  }, [option]);
+
+  useEffect(() => {
+    if (selectStudent) {
+      const idClassLS = localStorage.getItem("classListStudent");
+      setData({
+        idUser: idUser,
+        idClass: +idClassLS,
+        nameStudent: `${selectStudent?.nameUser} ${selectStudent?.lastNameUser}`,
+        stateStudent: selectStudent?.stateStudent,
+      });
+    }
+  }, [selectStudent]);
+
+  useEffect(() => {
+    if (option !== "editStudentClass") {
+      dispatch(getClassAll(idClass));
+    }
   }, []);
 
   return (
@@ -71,19 +101,31 @@ function FormClassStudent({ handleState, idClass }) {
       }}
       onFinish={onFinish}
     >
-      <Form.Item label="Selecciona un Alumno">
-        <div className="form-class-student">
-          <ModalSelect
-            render="STUDEN-ALL"
-            handleSelect={handleSelect}
-            idClass={idClass}
+      {option === "create" && (
+        <Form.Item label="Selecciona un Alumno">
+          <div className="form-class-student">
+            <ModalSelect
+              render="STUDEN-ALL"
+              handleSelect={handleSelect}
+              idClass={idClass}
+            />
+            <InputComponent
+              placeholder="Selecciona un usuario"
+              data={data.nameStudent}
+            />
+          </div>
+        </Form.Item>
+      )}
+
+      {option === "editStudentClass" && (
+        <Form.Item label="Nombre del Alumn@">
+          <Input
+            value={data.nameStudent}
+            disabled={true}
+            style={{ color: "black", fontWeight: "bold", opacity: 0.5 }}
           />
-          <InputComponent
-            placeholder="Selecciona un usuario"
-            data={data.nameStudent}
-          />
-        </div>
-      </Form.Item>
+        </Form.Item>
+      )}
 
       <Form.Item label="Estado del alumno">
         <State stateHours={data.stateStudent} handleChange={onChangeState} />
