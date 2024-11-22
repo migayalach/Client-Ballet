@@ -140,7 +140,6 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
               data={nameData.user}
             />
             <ModalSelect render="TEACHER-ALL" handleSelect={handleSelect} />
-          {/* {errors.user && <p className="messageError">{errors.user}</p>} */}
           </div>
         </Form.Item>
 
@@ -152,9 +151,6 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             />
             <ModalSelect render="TYPE-CLASS-ALL" handleSelect={handleSelect} />
           </div>
-          {/* {errors.typeClass && (
-            <p className="messageError">{errors.typeClass}</p>
-          )} */}
         </Form.Item>
 
         <Form.Item label="Horario">
@@ -165,7 +161,6 @@ function FormClass({ idData, option, handleState, idUserCreate }) {
             />
             <ModalSelect render="HOURS-ALL" handleSelect={handleSelect} />
           </div>
-          {/* {errors.hours && <p className="messageError">{errors.hours}</p>} */}
         </Form.Item>
 
         <Form.Item label="Paralelo">

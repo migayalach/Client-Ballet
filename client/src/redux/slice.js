@@ -18,19 +18,15 @@ export const Slice = createSlice({
     info: null,
     data: null,
     access: {},
-
     state: "",
     action: "",
     message: "",
-
     aux: {},
     filter: [],
     filterAll: [],
     URL: "",
-
     error: null,
     success: {},
-
     list: [],
     contact: [],
   },
@@ -172,7 +168,6 @@ export const Slice = createSlice({
     getListQualification: (state, action) => {
       state.qualification = action.payload.results;
       state.aux = action.payload.params;
-      // state.info = action.payload.info;
     },
 
     //*PARAMS
@@ -401,6 +396,10 @@ export const Slice = createSlice({
     passwordChange: (state, action) => {
       state.aux = action.payload;
     },
+
+    getIdUserStudent: (state, action) => {
+      state.data = action.payload;
+    },
   },
 });
 
@@ -487,5 +486,6 @@ export const {
   getUpdateFilter,
   setAction,
   clearAction,
+  getIdUserStudent,
 } = Slice.actions;
 export default Slice.reducer;

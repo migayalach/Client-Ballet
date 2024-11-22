@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Flex } from "antd";
 import EditModal from "@/components/modal/editModal/EditModal";
 import { EditOutlined } from "@ant-design/icons";
-import { stateFlag } from "@/redux/actions";
-import { useDispatch } from "react-redux";
 
 function ButtonEdit({ idData, text, render }) {
   const [flag, setFlag] = useState(false);
