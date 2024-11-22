@@ -1141,8 +1141,7 @@ export const updateStudentClassId = (infoData) => {
   return async function (dispatch) {
     try {
       await axios.put(`${URL}/classStudent`, infoData);
-      // return dispatch(flagState("edit-listClassUser"));
-      return;
+      return dispatch(flagState("edit-listClassUser"));
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }

@@ -59,21 +59,13 @@ function ClassParams({ params }) {
         state: "success",
         message: "Alumno inscrito con exito a la clase.",
       });
-    }
-    // else if (selectState === "edit-class") {
-    //   setDataState({
-    //     action: "edit-class",
-    //     state: "success",
-    //     message: "Se actualizo la clase con exito",
-    //   });
-    // } else if (selectState === "delete-class") {
-    //   setDataState({
-    //     action: "delete-class",
-    //     state: "success",
-    //     message: "Clase eliminada con exito",
-    //   });
-    // }
-    else if (
+    } else if (selectState === "edit-listClassUser") {
+      setDataState({
+        action: "edit-class",
+        state: "success",
+        message: "Se actualizo el estado del alumno",
+      });
+    } else if (
       selectError?.error === "Este alumno ya esta registrado en esta clase"
     ) {
       setDataState({

@@ -2,10 +2,11 @@ import React from "react";
 import ListContainer from "./listContainer/ListContainer";
 import "./list-events.css";
 
-function ListEvents() {
+function ListEvents({ list }) {
+  
   return (
     <div className="list-container">
-      <ListContainer />
+      <ListContainer list={list} />
     </div>
   );
 }
