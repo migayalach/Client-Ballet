@@ -19,13 +19,12 @@ import {
   getByIdUser,
 } from "@/redux/actions";
 import FormQualification from "@/components/form/formQualification/FormQualification";
+import FormClassStudent from "@/components/form/formClassStudent/FormClassStudent";
 
 // COMPONENT
 function EditModal({ idData, dataUser, text, render }) {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const selectState = useSelector(({ root }) => root?.state);
-  const selectFilter = useSelector(({ root }) => root?.filter);
   const selectDataUser = useSelector(({ root }) => root?.access);
 
   const showModal = () => {
@@ -66,6 +65,8 @@ function EditModal({ idData, dataUser, text, render }) {
       showModal();
     } else if (render === "QUALIFICATION") {
       showModal();
+    } else if (render === "LIST-STUDENT-CLASS") {
+      showModal();
     }
   }, [render]);
 
@@ -90,6 +91,13 @@ function EditModal({ idData, dataUser, text, render }) {
         {render === "PASSWORD" && <FormPassword handleOk={handleOk} />}
         {render === "QUALIFICATION" && (
           <FormQualification idClass={idData} option="editParam" />
+        )}
+        {render === "LIST-STUDENT-CLASS" && (
+          <FormClassStudent
+            handleState={handleOk}
+            idUser={idData}
+            option="editStudentClass"
+          />
         )}
       </Modal>
     </>

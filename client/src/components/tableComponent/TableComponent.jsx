@@ -742,9 +742,11 @@ function TableComponent({
             title: "Hab / Des",
             key: "update",
             render: ({ idUser }) => (
-              <a onClick={() => handleUpdate(idUser)}>
-                <EditOutlined />
-              </a>
+              <ButtonEdit
+                idData={idUser}
+                render="LIST-STUDENT-CLASS"
+                text="Editar"
+              />
             ),
           },
         ]

@@ -1128,10 +1128,21 @@ export const actionClear = () => {
 export const getStudentIdUser = (idClass, idUser) => {
   return async function (dispatch) {
     try {
-      const data = (
-        await axios.get(`${URL}/classStudent/${idClass}/${idUser}`)
-      ).data;
+      const data = (await axios.get(`${URL}/classStudent/${idClass}/${idUser}`))
+        .data;
       return dispatch(getIdUserStudent(data));
+    } catch (error) {
+      return dispatch(errorResponse(error.response.data));
+    }
+  };
+};
+
+export const updateStudentClassId = (infoData) => {
+  return async function (dispatch) {
+    try {
+      await axios.put(`${URL}/classStudent`, infoData);
+      // return dispatch(flagState("edit-listClassUser"));
+      return;
     } catch (error) {
       return dispatch(errorResponse(error.response.data));
     }
