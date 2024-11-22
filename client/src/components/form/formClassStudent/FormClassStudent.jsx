@@ -56,10 +56,8 @@ function FormClassStudent({ handleState, idClass, option, idUser }) {
         stateStudent: true,
         nameStudent: "",
       });
-      if (option !== "editStudentClass") {
-        handleState();
-      }
     }
+    handleState();
   };
 
   useEffect(() => {
